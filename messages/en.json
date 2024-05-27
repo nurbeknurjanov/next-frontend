@@ -1,0 +1,42 @@
+{
+  "HomePage": {
+    "title": "Welcome",
+    "description": "This is welcome page"
+  },
+  "AboutPage": {
+    "title": "About us",
+    "description": "This is a custom next app"
+  },
+  "ContactPage": {
+    "title": "Contact",
+    "description": "This is contact phone {phone}"
+  },
+  "NotFoundPage": {
+    "title": "Not found"
+  },
+  "ErrorPage": {
+    "title": "Error"
+  },
+  "LoginPage": {
+    "title": "Login",
+    "fields": {
+      "email": "Email",
+      "password": "Password"
+    },
+    "submit": "Submit"
+  },
+  "Validation": {
+    "required": "{label} is not allowed to be empty",
+    "email": "{label} must be a valid email",
+    "custom": "{label} is invalid"
+  },
+  "ProductsPage": {
+    "title": "Products"
+  },
+  "ProductPage": {
+    "title": "Product",
+    "create": "Create product",
+    "update": "Update product",
+    "delete": "Delete product"
+  }
+}

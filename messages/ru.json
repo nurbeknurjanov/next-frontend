@@ -1,0 +1,42 @@
+{
+  "HomePage": {
+    "title": "Добро пожаловать",
+    "description": "Это главная страница"
+  },
+  "AboutPage": {
+    "title": "О нас",
+    "description": "Это кастомное Некст приложение"
+  },
+  "ContactPage": {
+    "title": "Контакты",
+    "description": "Это контактный телефон {phone}"
+  },
+  "NotFoundPage": {
+    "title": "Не найдено"
+  },
+  "ErrorPage": {
+    "title": "Ошибка"
+  },
+  "LoginPage": {
+    "title": "Вход",
+    "fields": {
+      "email": "Почта",
+      "password": "Пароль"
+    },
+    "submit": "Отправить"
+  },
+  "Validation": {
+    "required": "{label} не может быть пустым",
+    "email": "{label} должна быть верной почтой",
+    "custom": "Поле {label} введено не верно"
+  },
+  "ProductsPage": {
+    "title": "Продукты"
+  },
+  "ProductPage": {
+    "title": "Продукт",
+    "create": "Создать продукт",
+    "update": "Править продукт",
+    "delete": "Удалить продукт"
+  }
+}
