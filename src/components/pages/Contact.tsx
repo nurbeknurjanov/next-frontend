@@ -2,7 +2,7 @@
 import React, { FC } from 'react';
 import { useTranslations } from 'next-intl';
 import { useSetPageData } from 'shared/hooks';
-import { withCleanHooks } from '../../shared/hocs';
+import { withCleanHooks } from 'shared/hocs';
 
 let Contact: FC = () => {
   const t = useTranslations('ContactPage');
@@ -15,7 +15,7 @@ let Contact: FC = () => {
       label: t('title'),
       href: '/contact',
     },
-    'Contact',
+    t('title'),
   ]);
 
   return <>{t('description', { phone: '996558011477' })}</>;

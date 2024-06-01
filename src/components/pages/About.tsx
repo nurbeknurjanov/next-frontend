@@ -2,16 +2,17 @@
 import React, { FC } from 'react';
 import { useAppSelector } from 'store/hooks';
 import { common } from 'store';
-import { serverStore } from 'store/store';
+//import { serverStore } from 'store/store';
 import { useTranslations } from 'next-intl';
 import { withCleanHooks } from 'shared/hocs';
 import { useSetPageData } from 'shared/hooks';
 
 let About: FC = () => {
   const t = useTranslations('AboutPage');
-  const title = useAppSelector(common.title.selector.title);
+  const title = useAppSelector(common.title.selector.title)!;
+  //serverStore.getState().common.title.title
 
-  useSetPageData(t('title'), [
+  useSetPageData(title, [
     {
       label: 'Home',
       href: '/',
@@ -20,18 +21,10 @@ let About: FC = () => {
       label: 'About us',
       href: '/about',
     },
-    'About us',
+    title,
   ]);
 
-  return (
-    <>
-      server title: {serverStore.getState().common.title.title}
-      <br />
-      client title: {title}
-      <br />
-      client text: {t('description')}
-    </>
-  );
+  return <>{t('description')}</>;
 };
 
 About = withCleanHooks(About);

@@ -1,4 +1,7 @@
 {
+  "Common": {
+    "home": "Home"
+  },
   "HomePage": {
     "title": "Welcome",
     "description": "This is welcome page"
@@ -31,11 +34,11 @@
     "custom": "{label} is invalid"
   },
   "ProductsPage": {
-    "title": "Products"
+    "title": "Products",
+    "create": "Create product"
   },
   "ProductPage": {
     "title": "Product",
-    "create": "Create product",
     "update": "Update product",
     "delete": "Delete product"
   }

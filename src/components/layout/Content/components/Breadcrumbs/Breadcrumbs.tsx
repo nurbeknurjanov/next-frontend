@@ -1,13 +1,15 @@
 'use client';
-import * as React from 'react';
+import React from 'react';
 import { default as MuiBreadcrumbs } from '@mui/material/Breadcrumbs';
 import { useTheme } from '@mui/material/styles';
 import { useAppSelector } from 'store/hooks';
 import { common } from 'store';
 import { Link } from 'shared/ui';
+import { useTranslations } from 'next-intl';
 
 export function Breadcrumbs() {
   const _theme = useTheme();
+  const t = useTranslations('Common');
   const breadcrumbsState = useAppSelector(common.breadcrumbs.selector.state);
   const { items } = breadcrumbsState;
 
@@ -18,7 +20,7 @@ export function Breadcrumbs() {
   return (
     <MuiBreadcrumbs>
       <Link underline="hover" color="inherit" href={'/'}>
-        Home
+        {t('home')}
       </Link>
       {items.map((el, index) => {
         if (typeof el === 'string') {

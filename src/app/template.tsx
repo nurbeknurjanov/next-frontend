@@ -4,7 +4,7 @@ import { StoreProvider } from 'shared/wrappers';
 import { serverStore } from 'store/store';
 import { Content, Footer, Header, Sidebar } from 'components';
 import { cookies } from 'next/headers';
-import { common } from 'store';
+//import { common } from 'store';
 //import { JWT } from '../backend/helpers';
 
 export default async function Template({ children }: PropsWithChildren) {
@@ -21,7 +21,6 @@ export default async function Template({ children }: PropsWithChildren) {
       })
     );*/
   }
-
 
   if (serverStore.getState().common.hydrated.serverWait) {
     await new Promise(resolve => {

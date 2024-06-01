@@ -1,7 +1,7 @@
 'use client';
 import * as React from 'react';
-import { useAppDispatch, useAppSelector } from '../../../store/hooks';
-import { common } from '../../../store';
+import { useAppDispatch, useAppSelector } from 'store/hooks';
+import { common } from 'store';
 import Snackbar from '@mui/material/Snackbar';
 import { Alert } from '@mui/material';
 import { Check as CheckIcon } from '@mui/icons-material';

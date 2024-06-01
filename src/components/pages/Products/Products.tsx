@@ -95,9 +95,8 @@ let Products: FC = () => {
 
   return (
     <>
-      <div className={styles.gamesContent}>
+      <div className={styles.productsContent}>
         <ProductsFilter filter={filter} setFilter={setFilter} />
-        <br />
         {!data?.list?.length ? (
           <Alert severity={'warning'} variant="outlined">
             No products

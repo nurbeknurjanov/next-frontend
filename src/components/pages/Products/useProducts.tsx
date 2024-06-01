@@ -11,13 +11,14 @@ import { useHydrateState, useSetPageData } from 'shared/hooks';
 import { GridSortModel } from '@mui/x-data-grid';
 import { IProductFilter } from 'api/productsApi';
 import { useTableStates } from './useTableStates';
+import { ModalType } from './components/ProductModal';
 
 export function useProducts() {
   const dispatch = useAppDispatch();
   const t = useTranslations('ProductsPage');
 
-  const [showModal, setShowModal] = useState<{type: 'create'} | {type: 'update' | 'delete', id: string} | null>();
-  const closeShowModal = useCallback(()=>setShowModal(null), []);
+  const [showModal, setShowModal] = useState<ModalType | null>();
+  const closeShowModal = useCallback(() => setShowModal(null), []);
 
   useSetPageData(
     t('title'),
@@ -26,15 +27,14 @@ export function useProducts() {
       <Button
         variant={'contained'}
         size={'small'}
-        onClick={() => setShowModal({type: 'create'})}
+        onClick={() => setShowModal({ type: 'create' })}
       >
-        Create
+        {t('create')}
       </Button>
     </>
   );
 
   const { data } = useAppSelector(products.getProducts.selector.state);
-
 
   const isServerStoreActual = useRef<boolean>();
   isServerStoreActual.current = useHydrateState();
@@ -54,11 +54,14 @@ export function useProducts() {
     previousRefreshListKey,
   } = useTableStates<IProductFilter>();
 
-  const getProducts = useCallback((
-    pagination: IPaginationRequest,
-    sorting: GridSortModel,
-    filter: IProductFilter
-  ) => dispatch(getProductsThunk(pagination, sorting, filter)), [dispatch]);
+  const getProducts = useCallback(
+    (
+      pagination: IPaginationRequest,
+      sorting: GridSortModel,
+      filter: IProductFilter
+    ) => dispatch(getProductsThunk(pagination, sorting, filter)),
+    [dispatch]
+  );
 
   useEffect(() => {
     if (isServerStoreActual.current) return;
@@ -72,7 +75,17 @@ export function useProducts() {
       return;
 
     getProducts(pagination, sorting, filter);
-  }, [pagination, sorting, filter, getProducts, refreshListKey, previousPagination, previousSorting, previousFilter, previousRefreshListKey]);
+  }, [
+    pagination,
+    sorting,
+    filter,
+    getProducts,
+    refreshListKey,
+    previousPagination,
+    previousSorting,
+    previousFilter,
+    previousRefreshListKey,
+  ]);
 
   useEffect(() => {
     previousPagination.current = pagination;
@@ -106,6 +119,6 @@ export function useProducts() {
     refreshList,
     showModal,
     setShowModal,
-    closeShowModal
+    closeShowModal,
   };
 }

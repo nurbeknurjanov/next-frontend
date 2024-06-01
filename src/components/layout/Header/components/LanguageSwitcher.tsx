@@ -29,13 +29,13 @@ export const LanguageSwitcher = () => {
   return (
     <>
       {locales
-        .filter((el) => el !== locale)
-        .map((el) => {
+        .filter(el => el !== locale)
+        .map(el => {
           const label = localesMap[el];
           return (
             <MuiLink
               key={el}
-              color='inherit'
+              color="inherit"
               onClick={() => {
                 router.replace({ pathname, query }, { locale: el });
                 router.refresh();
