@@ -1,6 +1,6 @@
 export * from './About';
 export * from './Contact';
-export * from './Login';
+export * from './Login/Login';
 export * from './Home';
 export * from './Product';
 export * from './Manual';

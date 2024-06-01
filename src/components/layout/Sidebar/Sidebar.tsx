@@ -8,7 +8,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/Inbox';
 import { ActiveLink } from 'shared/ui';
-import styles from 'css/siderbar.module.scss';
+import styles from './siderbar.module.scss';
 import { to } from 'shared/utils';
 import { useAppSelector } from 'store/hooks';
 import { common } from 'store';

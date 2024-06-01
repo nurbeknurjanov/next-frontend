@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from 'css/page.module.scss';
+import styles from '../../../../components/layout/Content/components/Page/page.module.scss';
 import { User } from 'components/pages';
 import { serverStore } from 'store/store';
 import { common, users } from 'store';

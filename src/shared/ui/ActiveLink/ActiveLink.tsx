@@ -1,10 +1,10 @@
 import React, { FC, forwardRef } from 'react';
 import { LinkProps as NextLinkProps } from 'next/link';
 //import { usePathname } from "next/navigation";
-import { usePathname } from '../../../navigation';
+import { usePathname } from 'navigation';
 import { LinkProps as MuiLinkProps } from '@mui/material';
 import cn from 'classnames';
-import styles from 'css/link.module.scss';
+import styles from './activeLink.module.scss';
 import { Link } from 'shared/ui';
 
 export type Props = Omit<MuiLinkProps, 'href'> & NextLinkProps;

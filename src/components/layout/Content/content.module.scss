@@ -7,19 +7,19 @@
     display: flex;
     flex-direction: column;
 }
-.buttons {
+.top {
     display: flex;
     justify-content: space-between;
     align-items: center;
     & > * {
         margin-bottom: 16px;
     }
-}
-.buttons {
+
     button {
         margin-left: 16px;
     }
 }
-.page {
+
+.bottom {
     flex-grow: 1;
 }

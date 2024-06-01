@@ -1,4 +1,4 @@
-import styles from 'css/page.module.scss';
+import styles from '../../../components/layout/Content/components/Page/page.module.scss';
 import * as React from 'react';
 import { Login } from 'components/pages';
 import { serverStore } from 'store/store';

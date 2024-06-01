@@ -8,14 +8,14 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import { TextField } from '@mui/material';
 import { Button } from 'shared/ui';
-import styles from 'css/components/pages/login.module.scss';
+import styles from './login.module.scss';
 import { joiResolver } from '@hookform/resolvers/joi';
 import Joi from 'joi';
 import { useForm } from 'react-hook-form';
 import { useTranslations } from 'next-intl';
 import { useI18nJoi } from 'shared/utils';
 import { withCleanHooks } from 'shared/hocs';
-import { useNotify, useSetPageData } from 'shared/hooks';
+import { useSetPageData } from 'shared/hooks';
 import { useCookies } from 'react-cookie';
 import { useRouter } from 'next/navigation';
 
@@ -23,7 +23,6 @@ let Login: FC = () => {
   const t = useTranslations('LoginPage');
   //const tf = useTranslations('LoginPage.fields');
   const dispatch = useAppDispatch();
-  const notify = useNotify();
   const router = useRouter();
   const [_cookies, setCookie] = useCookies(['accessToken']);
 
@@ -84,7 +83,7 @@ let Login: FC = () => {
       const { error, data } = loginState;
 
       if (error) {
-        return notify(error.data, 'error');
+        //return notify(error.data, 'error');
       }
       setCookie('accessToken', data, { path: '/' });
       router.push('/');

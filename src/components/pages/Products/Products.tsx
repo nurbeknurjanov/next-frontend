@@ -1,7 +1,7 @@
 'use client';
 import React, { FC } from 'react';
 import dayjs from 'dayjs';
-import styles from 'css/components/pages/products.module.scss';
+import styles from './products.module.scss';
 import { DataGrid, GridColDef, GridActionsCellItem } from '@mui/x-data-grid';
 import { useProducts } from './useProducts';
 import { Link } from 'shared/ui';

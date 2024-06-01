@@ -31,6 +31,13 @@ export function useProducts() {
       >
         {t('create')}
       </Button>
+      <Button
+        variant={'contained'}
+        size={'small'}
+        onClick={() => setShowModal({ type: 'create' })}
+      >
+        {t('create')}
+      </Button>
     </>
   );
 

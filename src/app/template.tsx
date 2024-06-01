@@ -4,6 +4,7 @@ import { StoreProvider } from 'shared/wrappers';
 import { serverStore } from 'store/store';
 import { Content, Footer, Header, Sidebar } from 'components';
 import { cookies } from 'next/headers';
+import styles from 'css/common.module.scss';
 //import { common } from 'store';
 //import { JWT } from '../backend/helpers';
 
@@ -35,7 +36,7 @@ export default async function Template({ children }: PropsWithChildren) {
   return (
     <StoreProvider initialState={serverStore.getState()}>
       <Header />
-      <main>
+      <main className={styles.main}>
         <Sidebar />
         <Content>{children}</Content>
       </main>

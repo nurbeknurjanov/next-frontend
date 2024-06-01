@@ -1,6 +1,6 @@
 'use client';
 import React, { FC } from 'react';
-import styles from 'css/components/pages/products.module.scss';
+import styles from './product.module.scss';
 import { useProduct } from './useProduct';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import dayjs from 'dayjs';
