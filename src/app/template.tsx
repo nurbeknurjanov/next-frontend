@@ -23,10 +23,10 @@ export default async function Template({ children }: PropsWithChildren) {
     );*/
   }
 
-  if (serverStore.getState().common.hydrated.serverWait) {
+  if (serverStore.getState().common.hydrate.serverWait) {
     await new Promise(resolve => {
       setInterval(() => {
-        if (serverStore.getState().common.hydrated.serverWait === false) {
+        if (serverStore.getState().common.hydrate.serverWait === false) {
           resolve(true);
         }
       }, 0);

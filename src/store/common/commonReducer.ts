@@ -2,17 +2,17 @@ import { combineReducers } from '@reduxjs/toolkit';
 import {
   breadcrumbs,
   title,
-  pageTopContentButtons,
+  buttonsContent,
   login,
-  hydrated,
+  hydrate,
   notify,
 } from './slices';
 
 export const commonReducer = combineReducers({
   title: title.reducer,
   breadcrumbs: breadcrumbs.reducer,
-  buttons: pageTopContentButtons.reducer,
+  buttonsContent: buttonsContent.reducer,
   login: login.reducer,
-  hydrated: hydrated.reducer,
+  hydrate: hydrate.reducer,
   notify: notify.reducer,
 });

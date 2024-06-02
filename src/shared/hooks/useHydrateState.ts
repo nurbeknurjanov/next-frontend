@@ -1,20 +1,18 @@
 import { common } from 'store';
 import { useAppSelector } from 'store/hooks';
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 import { useAppDispatch } from 'store/hooks';
 
-export const useHydrateState = (): boolean => {
+export const useHydrateStateOnce = (): boolean => {
   const dispatch = useAppDispatch();
 
   const isServerStoreActual = useAppSelector(
-    common.hydrated.selector.isServerStoreActual
+    common.hydrate.selector.isServerStoreActual
   );
-  const isServerStoreActualRef = useRef(isServerStoreActual);
 
   useEffect(() => {
-    dispatch(common.hydrated.actions.setIsServerStoreActual(false));
-    isServerStoreActualRef.current = false;
+    dispatch(common.hydrate.actions.setIsServerStoreActual(false));
   }, [dispatch]);
 
-  return isServerStoreActualRef.current;
+  return isServerStoreActual;
 };

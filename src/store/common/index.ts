@@ -1,17 +1,17 @@
 import {
   breadcrumbs,
   title,
-  pageTopContentButtons,
+  buttonsContent,
   login,
-  hydrated,
+  hydrate,
   notify,
 } from './slices';
 
 export const common = {
   title,
   breadcrumbs,
-  pageTopContentButtons,
+  buttonsContent,
   login,
-  hydrated,
+  hydrate,
   notify,
 };

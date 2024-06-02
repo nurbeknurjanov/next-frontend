@@ -8,7 +8,7 @@ export type ButtonsContentType = ReactNode;
 const initialState: ButtonsContentType = null as ButtonsContentType;
 
 const { actions, reducer } = createSlice({
-  name: 'pageTopContentButtons',
+  name: 'buttonsContent',
   initialState,
   reducers: {
     reset: _state => {
@@ -21,10 +21,10 @@ const { actions, reducer } = createSlice({
 });
 
 const selector = {
-  state: (state: RootStateType) => state.common.buttons,
+  state: (state: RootStateType) => state.common.buttonsContent,
 };
 
-export const pageTopContentButtons = {
+export const buttonsContent = {
   actions,
   reducer,
   selector,

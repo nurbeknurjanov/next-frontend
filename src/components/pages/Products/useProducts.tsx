@@ -7,12 +7,13 @@ import { useTranslations } from 'next-intl';
 import { IPaginationRequest } from 'api/baseApi';
 import { isEqual } from 'lodash';
 import { Button } from 'shared/ui';
-import { useHydrateState, useSetPageData } from 'shared/hooks';
+import { useHydrateStateOnce, useSetPageData } from 'shared/hooks';
 import { GridSortModel } from '@mui/x-data-grid';
 import { IProductFilter } from 'api/productsApi';
 import { useTableStates } from './useTableStates';
 import { ModalType } from './components/ProductModal';
 
+const env = process.env.NODE_ENV;
 export function useProducts() {
   const dispatch = useAppDispatch();
   const t = useTranslations('ProductsPage');
@@ -43,8 +44,7 @@ export function useProducts() {
 
   const { data } = useAppSelector(products.getProducts.selector.state);
 
-  const isServerStoreActual = useRef<boolean>();
-  isServerStoreActual.current = useHydrateState();
+  const isServerStoreActual = useRef(useHydrateStateOnce());
 
   const {
     pagination,

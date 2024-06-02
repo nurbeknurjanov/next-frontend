@@ -33,7 +33,7 @@ export const useSetPageData = (
 
   useEffect(() => {
     if (buttons) {
-      dispatch(common.pageTopContentButtons.actions.set(buttons));
+      dispatch(common.buttonsContent.actions.set(buttons));
     }
   }, [dispatch, buttons]);
 };

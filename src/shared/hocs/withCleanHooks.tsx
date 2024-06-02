@@ -12,9 +12,9 @@ export const withCleanHooks = <T extends object>(
       () => () => {
         dispatch(common.breadcrumbs.actions.reset());
         dispatch(common.title.actions.reset());
-        dispatch(common.pageTopContentButtons.actions.reset());
+        dispatch(common.buttonsContent.actions.reset());
 
-        dispatch(common.hydrated.actions.setIsServerStoreActual(false));
+        dispatch(common.hydrate.actions.setIsServerStoreActual(false));
       },
       [dispatch]
     );

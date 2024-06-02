@@ -14,9 +14,9 @@ interface ProductsPageProps extends Omit<PageProps, 'searchParams'> {
 export default async function ProductsPage({
   searchParams,
 }: ProductsPageProps) {
-  serverStore.dispatch(common.hydrated.actions.setServerWait(true));
+  serverStore.dispatch(common.hydrate.actions.setServerWait(true));
 
-  serverStore.dispatch(common.hydrated.actions.setIsServerStoreActual(true));
+  serverStore.dispatch(common.hydrate.actions.setIsServerStoreActual(true));
 
   const t = await getTranslations('ProductsPage');
   serverStore.dispatch(common.title.actions.set({ title: t('title') }));
@@ -33,7 +33,7 @@ export default async function ProductsPage({
       {}
     )
   );
-  serverStore.dispatch(common.hydrated.actions.setServerWait(false));
+  serverStore.dispatch(common.hydrate.actions.setServerWait(false));
 
   return (
     <div className={styles.page}>

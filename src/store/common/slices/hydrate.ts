@@ -2,38 +2,38 @@ import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import type { RootStateType } from 'store/store';
 
-type HydratedStateType = {
+type HydrateStateType = {
   dbConnected: boolean;
   serverWait: boolean;
   isServerStoreActual: boolean;
 };
-const initialState: HydratedStateType = {
+const initialState: HydrateStateType = {
   dbConnected: false,
   serverWait: false,
   isServerStoreActual: false,
 };
 
 const { actions, reducer } = createSlice({
-  name: 'hydrated',
+  name: 'hydrate',
   initialState,
   reducers: {
     setServerWait: (
       state,
-      action: PayloadAction<HydratedStateType['serverWait']>
+      action: PayloadAction<HydrateStateType['serverWait']>
     ) => {
       state.serverWait = action.payload;
       return state;
     },
     setIsServerStoreActual: (
       state,
-      action: PayloadAction<HydratedStateType['isServerStoreActual']>
+      action: PayloadAction<HydrateStateType['isServerStoreActual']>
     ) => {
       state.isServerStoreActual = action.payload;
       return state;
     },
     setDbConnected: (
       state,
-      action: PayloadAction<HydratedStateType['dbConnected']>
+      action: PayloadAction<HydrateStateType['dbConnected']>
     ) => {
       state.dbConnected = action.payload;
       return state;
@@ -42,12 +42,12 @@ const { actions, reducer } = createSlice({
 });
 
 const selector = {
-  state: (state: RootStateType) => state.common.hydrated,
+  state: (state: RootStateType) => state.common.hydrate,
   isServerStoreActual: (state: RootStateType) =>
-    state.common.hydrated.isServerStoreActual,
+    state.common.hydrate.isServerStoreActual,
 };
 
-export const hydrated = {
+export const hydrate = {
   actions,
   reducer,
   selector,
