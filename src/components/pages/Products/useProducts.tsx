@@ -13,7 +13,7 @@ import { IProductFilter } from 'api/productsApi';
 import { useTableStates } from './useTableStates';
 import { ModalType } from './components/ProductModal';
 
-const env = process.env.NODE_ENV;
+//const env = process.env.NODE_ENV;
 export function useProducts() {
   const dispatch = useAppDispatch();
   const t = useTranslations('ProductsPage');
@@ -24,27 +24,18 @@ export function useProducts() {
   useSetPageData(
     t('title'),
     [t('title')],
-    <>
-      <Button
-        variant={'contained'}
-        size={'small'}
-        onClick={() => setShowModal({ type: 'create' })}
-      >
-        {t('create')}
-      </Button>
-      <Button
-        variant={'contained'}
-        size={'small'}
-        onClick={() => setShowModal({ type: 'create' })}
-      >
-        {t('create')}
-      </Button>
-    </>
+    <Button
+      variant={'contained'}
+      size={'small'}
+      onClick={() => setShowModal({ type: 'create' })}
+    >
+      {t('create')}
+    </Button>
   );
 
   const { data } = useAppSelector(products.getProducts.selector.state);
 
-  const isServerStoreActual = useRef(useHydrateStateOnce());
+  const isServerStoreActual = useHydrateStateOnce();
 
   const {
     pagination,
@@ -71,7 +62,7 @@ export function useProducts() {
   );
 
   useEffect(() => {
-    if (isServerStoreActual.current) return;
+    if (isServerStoreActual) return;
 
     if (
       isEqual(previousPagination.current, pagination) &&
@@ -92,6 +83,7 @@ export function useProducts() {
     previousSorting,
     previousFilter,
     previousRefreshListKey,
+    isServerStoreActual,
   ]);
 
   useEffect(() => {
@@ -109,11 +101,11 @@ export function useProducts() {
 
   useEffect(
     () => () => {
-      if (isServerStoreActual.current) return;
+      if (isServerStoreActual) return;
 
       dispatch(products.getProducts.action.reset());
     },
-    [dispatch]
+    [dispatch, isServerStoreActual]
   );
 
   return {
