@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useState, useRef, useCallback } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
 import { products } from 'store';
 import { getProductsThunk } from 'store/products/thunks';
@@ -7,7 +7,7 @@ import { useTranslations } from 'next-intl';
 import { IPaginationRequest } from 'api/baseApi';
 import { isEqual } from 'lodash';
 import { Button } from 'shared/ui';
-import { useHydrateStateOnce, useSetPageData } from 'shared/hooks';
+import { useHydrateState, useSetPageData } from 'shared/hooks';
 import { GridSortModel } from '@mui/x-data-grid';
 import { IProductFilter } from 'api/productsApi';
 import { useTableStates } from './useTableStates';
@@ -35,7 +35,7 @@ export function useProducts() {
 
   const { data } = useAppSelector(products.getProducts.selector.state);
 
-  const isServerStoreActual = useHydrateStateOnce();
+  const isServerStoreActual = useHydrateState();
 
   const {
     pagination,
@@ -50,7 +50,7 @@ export function useProducts() {
     refreshListKey,
     refreshList,
     previousRefreshListKey,
-  } = useTableStates<IProductFilter>();
+  } = useTableStates<IProductFilter>(['name', 'description']);
 
   const getProducts = useCallback(
     (

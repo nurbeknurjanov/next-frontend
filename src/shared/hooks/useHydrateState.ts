@@ -3,7 +3,7 @@ import { useAppSelector } from 'store/hooks';
 import { useEffect } from 'react';
 import { useAppDispatch } from 'store/hooks';
 
-export const useHydrateStateOnce = (): boolean => {
+export const useHydrateState = (): boolean => {
   const dispatch = useAppDispatch();
 
   const isServerStoreActual = useAppSelector(
