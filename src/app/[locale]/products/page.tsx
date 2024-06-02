@@ -1,4 +1,3 @@
-import styles from '../../../components/layout/Content/components/Page/page.module.scss';
 import React from 'react';
 import { Products } from 'components/pages';
 import { serverStore } from 'store/store';
@@ -7,6 +6,7 @@ import type { PageProps } from 'app/types';
 import { getTranslations } from 'next-intl/server';
 import { IPaginationRequest } from 'api/baseApi';
 import { getProductsThunk } from 'store/products/thunks';
+import { setIsServerStoreActual, setServerWait } from 'store/common/thunks';
 
 interface ProductsPageProps extends Omit<PageProps, 'searchParams'> {
   searchParams: IPaginationRequest;
@@ -14,9 +14,9 @@ interface ProductsPageProps extends Omit<PageProps, 'searchParams'> {
 export default async function ProductsPage({
   searchParams,
 }: ProductsPageProps) {
-  serverStore.dispatch(common.hydrate.actions.setServerWait(true));
+  serverStore.dispatch(setServerWait(true));
 
-  serverStore.dispatch(common.hydrate.actions.setIsServerStoreActual(true));
+  serverStore.dispatch(setIsServerStoreActual(true));
 
   const t = await getTranslations('ProductsPage');
   serverStore.dispatch(common.title.actions.set({ title: t('title') }));
@@ -33,11 +33,7 @@ export default async function ProductsPage({
       {}
     )
   );
-  serverStore.dispatch(common.hydrate.actions.setServerWait(false));
+  serverStore.dispatch(setServerWait(false));
 
-  return (
-    <div className={styles.page}>
-      <Products />
-    </div>
-  );
+  return <Products />;
 }
