@@ -1,10 +1,10 @@
-import { IPaginationRequest, ISorting } from './table';
+import { IPaginationRequest, ISort } from './table';
 
 export interface RequestParams<
-  FilterFields extends object,
-  SortFields extends string,
+  F extends Record<string, any>,
+  S extends ISort<string>,
 > {
-  sort?: ISorting<SortFields>;
-  filter?: FilterFields;
   pagination: IPaginationRequest;
+  filter?: F;
+  sort?: S;
 }

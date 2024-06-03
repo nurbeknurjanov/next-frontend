@@ -1,10 +1,12 @@
 import { IPagination } from './table';
 import { AxiosResponse } from 'axios';
 
-export type ResponseData<T> = T;
-export type ResponseDataArray<T> = ResponseData<T[]>;
+export type ResponseData<T extends Record<string, any>> = T;
+export type ResponseDataArray<T extends Record<string, any>> = ResponseData<
+  T[]
+>;
 
-export interface ResponseDataListPagination<T> {
+export interface ResponseDataListPagination<T extends Record<string, any>> {
   list: ResponseDataArray<T>;
   pagination: IPagination;
 }

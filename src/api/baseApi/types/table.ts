@@ -1,6 +1,6 @@
-export interface ISorting<F extends string> {
+export interface ISort<Fields extends string> {
   sortDirection?: 'asc' | 'desc';
-  sortField?: F;
+  sortField?: Fields;
 }
 
 export interface IPagination {

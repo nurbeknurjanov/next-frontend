@@ -1,4 +1,8 @@
-import { ResponseApiError, ResponseDataListPagination } from 'api/baseApi';
+import {
+  ResponseApiError,
+  ResponseDataListPagination,
+  ISort,
+} from 'api/baseApi';
 import { AxiosRequestConfig } from 'axios';
 
 export interface IProduct {
@@ -10,7 +14,9 @@ export interface IProductPost extends Omit<IProduct, '_id'> {}
 export interface IProductFilter extends Partial<Omit<IProduct, '_id'>> {
   id?: string;
 }
-export type IProductSort = keyof Omit<IProduct, '_id'>;
+export type IProductSortFields = keyof Omit<IProduct, '_id'>;
+export interface IProductSort extends ISort<IProductSortFields> {}
+
 export type IProductsList = ResponseDataListPagination<IProduct>;
 
 export type IProductApiConfig = AxiosRequestConfig;

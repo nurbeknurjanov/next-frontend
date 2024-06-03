@@ -1,6 +1,10 @@
-import { IPaginationRequest, ISorting } from 'api/baseApi';
+import { IPaginationRequest } from 'api/baseApi';
 import { GridSortModel } from '@mui/x-data-grid';
-import { IProductFilter, IProductSort } from 'api/productsApi';
+import {
+  IProductFilter,
+  IProductSort,
+  IProductSortFields,
+} from 'api/productsApi';
 import { AppThunk } from 'store/store';
 import { products } from 'store';
 import { notify } from 'store/common/thunks';
@@ -12,9 +16,9 @@ export const getProductsThunk =
     sorting: GridSortModel
   ): AppThunk =>
   async (dispatch, getState) => {
-    const sort: ISorting<IProductSort> = {};
+    const sort: IProductSort = {};
     if (sorting[0]) {
-      sort.sortField = sorting[0].field as IProductSort;
+      sort.sortField = sorting[0].field as IProductSortFields;
       sort.sortDirection = sorting[0].sort as 'asc' | 'desc';
     }
 
