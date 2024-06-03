@@ -8,8 +8,8 @@ import { notify } from 'store/common/thunks';
 export const getProductsThunk =
   (
     pagination: IPaginationRequest,
-    sorting: GridSortModel,
-    filter: IProductFilter
+    filter: IProductFilter,
+    sorting: GridSortModel
   ): AppThunk =>
   async (dispatch, getState) => {
     const sort: ISorting<IProductSort> = {};

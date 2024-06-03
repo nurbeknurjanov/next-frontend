@@ -97,6 +97,7 @@ let Products: FC = () => {
     <>
       <div className={styles.productsContent}>
         <ProductsFilter filter={filter} setFilter={setFilter} />
+
         {!data?.list?.length ? (
           <Alert severity={'warning'} variant="outlined">
             No products

@@ -55,9 +55,9 @@ export function useProducts() {
   const getProducts = useCallback(
     (
       pagination: IPaginationRequest,
-      sorting: GridSortModel,
-      filter: IProductFilter
-    ) => dispatch(getProductsThunk(pagination, sorting, filter)),
+      filter: IProductFilter,
+      sorting: GridSortModel
+    ) => dispatch(getProductsThunk(pagination, filter, sorting)),
     [dispatch]
   );
 
@@ -66,13 +66,13 @@ export function useProducts() {
 
     if (
       isEqual(previousPagination.current, pagination) &&
-      isEqual(previousSorting.current, sorting) &&
       isEqual(previousFilter.current, filter) &&
+      isEqual(previousSorting.current, sorting) &&
       isEqual(previousRefreshListKey.current, refreshListKey)
     )
       return;
 
-    getProducts(pagination, sorting, filter);
+    getProducts(pagination, filter, sorting);
   }, [
     pagination,
     sorting,
@@ -90,11 +90,11 @@ export function useProducts() {
     previousPagination.current = pagination;
   }, [pagination, previousPagination]);
   useEffect(() => {
-    previousSorting.current = sorting;
-  }, [sorting, previousSorting]);
-  useEffect(() => {
     previousFilter.current = filter;
   }, [filter, previousFilter]);
+  useEffect(() => {
+    previousSorting.current = sorting;
+  }, [sorting, previousSorting]);
   useEffect(() => {
     previousRefreshListKey.current = refreshListKey;
   }, [refreshListKey, previousRefreshListKey]);
