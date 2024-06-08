@@ -9,8 +9,8 @@ import { usePrepareForm } from './usePrepareForm';
 import { notify } from 'store/common/thunks';
 import {
   getProductThunk,
-  createProductThunk as createProductThunkAction,
-  updateProductThunk as updateProductThunkAction,
+  createProductThunk,
+  updateProductThunk,
 } from 'store/products/thunks';
 import { getAggStates } from 'store/common/types';
 
@@ -30,44 +30,38 @@ export function useProductModal({ onClose, refreshList, ...props }: IProps) {
     model: model!,
   });
 
+  const createProduct = async (formData: IProductPost) => {
+    const { data } = await dispatch(createProductThunk(formData));
+
+    if (data) {
+      dispatch(notify('Successfully created new product', 'success'));
+      refreshList();
+      onClose();
+    }
+  };
+  const updateProduct = async (id: string, formData: IProductPost) => {
+    const { data } = await dispatch(updateProductThunk(id, formData));
+
+    if (data) {
+      dispatch(notify('Successfully updated the product', 'success'));
+      refreshList();
+      onClose();
+    }
+  };
+
+  const submitForm = (formData: IProductPost) => {
+    if (type === 'create') {
+      createProduct(formData);
+    }
+    if (type === 'update') {
+      updateProduct(id!, formData);
+    }
+  };
+
   const getProduct = useCallback(
     (id: string) => dispatch(getProductThunk(id)),
     [dispatch]
   );
-  const updateProductThunk =
-    (id: string, formData: IProductPost): AppThunk =>
-    async (dispatch, getState) => {
-      await dispatch(updateProductThunkAction(id, formData));
-      const { data } = products.updateProduct.selector.state(getState());
-
-      if (data) {
-        dispatch(notify('Successfully updated the product', 'success'));
-        refreshList();
-        onClose();
-      }
-    };
-
-  const createProductThunk =
-    (formData: IProductPost): AppThunk =>
-    async (dispatch, getState) => {
-      await dispatch(createProductThunkAction(formData));
-      const { data } = products.createProduct.selector.state(getState());
-
-      if (data) {
-        dispatch(notify('Successfully created new product', 'success'));
-        refreshList();
-        onClose();
-      }
-    };
-
-  const submitForm = (formData: IProductPost) => {
-    if (type === 'create') {
-      dispatch(createProductThunk(formData));
-    }
-    if (type === 'update') {
-      dispatch(updateProductThunk(id!, formData));
-    }
-  };
 
   useEffect(() => {
     if (id) {

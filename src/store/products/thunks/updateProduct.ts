@@ -1,10 +1,13 @@
 import { AppThunk } from 'store/store';
 import { products } from 'store';
 import { notify } from 'store/common/thunks';
-import { IProductPost } from 'api/productsApi';
+import { IProductPost, IProduct } from 'api/productsApi';
 
 export const updateProductThunk =
-  (id: string, body: IProductPost): AppThunk =>
+  (
+    id: string,
+    body: IProductPost
+  ): AppThunk<Promise<{ data: IProduct | null }>> =>
   async (dispatch, getState) => {
     await dispatch(
       products.updateProduct.thunk.request({
@@ -13,8 +16,10 @@ export const updateProductThunk =
       })
     );
 
-    const { error } = products.updateProduct.selector.state(getState());
+    const { error, data } = products.updateProduct.selector.state(getState());
     if (error) {
       dispatch(notify(error.data, 'error'));
     }
+
+    return { data, error };
   };

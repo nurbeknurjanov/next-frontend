@@ -35,7 +35,7 @@ export default function middleware(req: NextRequest) {
     pathname.includes('/files')
   ) {
     if (!accessTokenCookie?.value) {
-      return NextResponse.redirect(new URL('/login', req.url));
+      //return NextResponse.redirect(new URL('/login', req.url));
       /*return new Response('Not authorized', {
         status: 401,
       });*/
