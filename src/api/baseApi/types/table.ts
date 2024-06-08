@@ -13,4 +13,7 @@ export interface IPagination {
 export interface IPaginationRequest
   extends Omit<IPagination, 'total' | 'pageCount'> {}
 
-export type Nullable<T> = T | null;
+//export type Nullable<T> = T | null;
+export type Nullable<T extends Record<string, any>> = {
+  [key in string]: T[key] | null;
+};

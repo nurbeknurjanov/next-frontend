@@ -1,6 +1,8 @@
 {
   "Common": {
-    "home": "Home"
+    "home": "Home",
+    "search": "Search",
+    "reset": "Reset"
   },
   "HomePage": {
     "title": "Welcome",
@@ -41,5 +43,9 @@
     "title": "Product",
     "update": "Update product",
     "delete": "Delete product"
+  },
+  "Product": {
+    "name": "Name",
+    "description": "Description"
   }
 }
