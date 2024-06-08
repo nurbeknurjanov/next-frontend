@@ -1,9 +1,10 @@
 import { AppThunk } from 'store/store';
 import { products } from 'store';
 import { notify } from 'store/common/thunks';
+import { IProductApiError } from 'api/productsApi';
 
 export const deleteProductThunk =
-  (id: string): AppThunk =>
+  (id: string): AppThunk<Promise<{ error: IProductApiError | null }>> =>
   async (dispatch, getState) => {
     await dispatch(
       products.deleteProduct.thunk.request({
@@ -15,4 +16,8 @@ export const deleteProductThunk =
     if (error) {
       dispatch(notify(error.data, 'error'));
     }
+
+    return {
+      error,
+    };
   };
