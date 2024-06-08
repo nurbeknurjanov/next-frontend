@@ -3,10 +3,17 @@
     "home": "Home",
     "search": "Search",
     "reset": "Reset",
+    "create": "Создать",
+    "update": "Обновить",
+    "delete": "Delete",
     "save": "Save",
     "close": "Close",
     "createdDate": "Created date",
-    "updatedDate": "Updated date"
+    "updatedDate": "Updated date",
+    "successCreated": "Successfully created",
+    "successUpdated": "Successfully updated",
+    "successDeleted": "Successfully deleted",
+    "deleteAlert": "Are you sure to delete ?"
   },
   "HomePage": {
     "title": "Welcome",

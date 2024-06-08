@@ -3,10 +3,17 @@
     "home": "Главная",
     "search": "Поиск",
     "reset": "Сброс",
+    "create": "Создать",
+    "update": "Обновить",
+    "delete": "Удалить",
     "save": "Сохранить",
     "close": "Закрыть",
     "createdDate": "Дата создания",
-    "updatedDate": "Дата обновления"
+    "updatedDate": "Дата обновления",
+    "successCreated": "Успешно создано",
+    "successUpdated": "Успешно обновлено",
+    "successDeleted": "Успешно удалено",
+    "deleteAlert": "Вы уверены удалить ?"
   },
   "HomePage": {
     "title": "Добро пожаловать",

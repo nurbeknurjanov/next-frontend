@@ -67,14 +67,14 @@ let Products: FC = () => {
           key={params.row._id}
           icon={<EditIcon color={'primary'} />}
           onClick={() => setShowModal({ type: 'update', id: params.row._id })}
-          label="Update"
+          label={tc('update')}
           showInMenu
         />,
         <GridActionsCellItem
           key={params.row._id}
           icon={<DeleteIcon color={'error'} />}
           onClick={() => setShowModal({ type: 'delete', id: params.row._id })}
-          label="Delete"
+          label={tc('delete')}
           showInMenu
         />,
       ],

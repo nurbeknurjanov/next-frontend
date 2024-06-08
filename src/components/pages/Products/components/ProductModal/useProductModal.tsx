@@ -36,7 +36,7 @@ export function useProductModal({ onClose, refreshList, ...props }: IProps) {
     const { data } = await dispatch(createProductThunk(formData));
 
     if (data) {
-      dispatch(notify('Successfully created new product', 'success'));
+      dispatch(notify(tc('successCreated'), 'success'));
       refreshList();
       onClose();
     }
@@ -45,7 +45,7 @@ export function useProductModal({ onClose, refreshList, ...props }: IProps) {
     const { data } = await dispatch(updateProductThunk(id, formData));
 
     if (data) {
-      dispatch(notify('Successfully updated the product', 'success'));
+      dispatch(notify(tc('successUpdated'), 'success'));
       refreshList();
       onClose();
     }

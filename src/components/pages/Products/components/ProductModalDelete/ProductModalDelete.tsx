@@ -17,19 +17,19 @@ export const ProductModalDelete: React.FC<IProps> = ({
   onClose,
   refreshList,
 }) => {
-  const { t, deleteProduct } = useProductModalDelete({
+  const { t, tc, deleteProduct } = useProductModalDelete({
     onClose,
     refreshList,
   });
 
   return (
     <Dialog open onClose={onClose}>
-      <DialogTitle>{t('title')}</DialogTitle>
+      <DialogTitle>{t('delete')}</DialogTitle>
       <DialogContent>
-        <DialogContentText>Are you sure to delete product ?</DialogContentText>
+        <DialogContentText>{tc('deleteAlert')}</DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button onClick={onClose}>Close</Button>
+        <Button onClick={onClose}>{tc('close')}</Button>
         <Button
           variant={'contained'}
           onClick={() => {
@@ -38,7 +38,7 @@ export const ProductModalDelete: React.FC<IProps> = ({
           }}
           autoFocus
         >
-          Delete product
+          {tc('delete')}
         </Button>
       </DialogActions>
     </Dialog>

@@ -10,6 +10,7 @@ export function useProductModalDelete({
   onClose,
 }: Omit<IProps, 'id'>) {
   const t = useTranslations('ProductPage');
+  const tc = useTranslations('Common');
   const dispatch = useAppDispatch();
 
   const deleteProduct = useCallback(
@@ -17,7 +18,7 @@ export function useProductModalDelete({
       const { error } = await dispatch(deleteProductThunk(id));
 
       if (!error) {
-        dispatch(notify('Successfully deleted the product', 'success'));
+        dispatch(notify(tc('successDeleted'), 'success'));
         refreshList();
         onClose();
       }
@@ -27,6 +28,7 @@ export function useProductModalDelete({
 
   return {
     t,
+    tc,
     deleteProduct,
   };
 }

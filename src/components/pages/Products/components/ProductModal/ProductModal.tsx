@@ -89,7 +89,7 @@ export const ProductModal: React.FC<IProps> = ({
           disabled={!isDirty && !isValid}
           autoFocus
         >
-          {tc('save')}
+          {type === 'create' ? tc('create') : tc('update')}
         </Button>
       </DialogActions>
     </Dialog>
