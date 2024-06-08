@@ -1,10 +1,13 @@
 import { useForm } from 'react-hook-form';
 import { IProps } from './ProductsFilters';
 import { IProductFilters } from 'api/productsApi';
+import { useAppSelector } from 'store/hooks';
+import { products } from 'store';
 export function useProductsFilters({ filters, setFilters }: IProps) {
+  const getProductsState = useAppSelector(products.getProducts.selector.state);
+
   const defaultValues = { ...{ name: null, description: null }, ...filters };
   const {
-    watch,
     register,
     handleSubmit,
     reset,
@@ -25,6 +28,6 @@ export function useProductsFilters({ filters, setFilters }: IProps) {
     reset,
     isDirty,
     isValid,
-    watch,
+    getProductsState,
   };
 }

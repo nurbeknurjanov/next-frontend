@@ -13,7 +13,8 @@
     "successCreated": "Successfully created",
     "successUpdated": "Successfully updated",
     "successDeleted": "Successfully deleted",
-    "deleteAlert": "Are you sure to delete ?"
+    "deleteAlert": "Are you sure to delete ?",
+    "noData": "No data"
   },
   "HomePage": {
     "title": "Welcome",

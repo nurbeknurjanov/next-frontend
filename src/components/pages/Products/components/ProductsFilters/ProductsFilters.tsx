@@ -15,8 +15,15 @@ export const ProductsFilters = ({ filters, setFilters }: IProps) => {
   const tc = useTranslations('Common');
   const tp = useTranslations('Product');
 
-  const { submitForm, register, handleSubmit, reset, isDirty, isValid } =
-    useProductsFilters({ filters, setFilters });
+  const {
+    submitForm,
+    register,
+    handleSubmit,
+    reset,
+    isDirty,
+    isValid,
+    getProductsState,
+  } = useProductsFilters({ filters, setFilters });
 
   return (
     <Card>
@@ -39,15 +46,11 @@ export const ProductsFilters = ({ filters, setFilters }: IProps) => {
             type={'submit'}
             variant={'contained'}
             disabled={!isDirty || !isValid}
+            loading={getProductsState.isFetching}
           >
             {tc('search')}
           </Button>
-          <Button
-            type={'reset'}
-            variant={'outlined'}
-            disabled={!isDirty}
-            sx={{ ml: 1 }}
-          >
+          <Button type={'reset'} variant={'outlined'} sx={{ ml: 1 }}>
             {tc('reset')}
           </Button>
         </form>

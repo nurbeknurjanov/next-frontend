@@ -106,7 +106,7 @@ let Products: FC = () => {
 
         {!data?.list?.length ? (
           <Alert severity={'warning'} variant="outlined">
-            No products
+            {tc('noData')}
           </Alert>
         ) : (
           <DataGrid
