@@ -2,7 +2,7 @@ import { AxiosRequestConfig } from 'axios';
 import { RequestParams, AxiosResponseData, BaseApiService } from '../baseApi';
 import {
   IProductSort,
-  IProductFilter,
+  IProductFilters,
   IProductsList,
   IProductApiConfig,
   IProduct,
@@ -15,17 +15,17 @@ export class ProductsApiService extends BaseApiService {
   }
 
   public getProducts(
-    query: RequestParams<IProductFilter, IProductSort>,
+    query: RequestParams<IProductFilters, IProductSort>,
     config?: IProductApiConfig
   ): Promise<AxiosResponseData<IProductsList>> {
-    const { filter, sort, pagination } = query;
+    const { filters, sort, pagination } = query;
     return this.request<IProductsList>({
       method: 'get',
       url: '/products',
       params: {
         ...pagination,
+        ...(filters ? filters : {}),
         ...(sort ? sort : {}),
-        ...(filter ? filter : {}),
       },
       ...config,
       headers: {

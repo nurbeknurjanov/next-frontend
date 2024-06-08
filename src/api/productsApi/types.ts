@@ -13,7 +13,7 @@ export interface IProduct {
 }
 type IProductWithout_id = Omit<IProduct, '_id'>;
 export interface IProductPost extends IProductWithout_id {}
-export interface IProductFilter extends Nullable<Partial<IProductWithout_id>> {
+export interface IProductFilters extends Nullable<Partial<IProductWithout_id>> {
   id?: string | null;
 }
 export type IProductSortFields = keyof IProductWithout_id;

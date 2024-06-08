@@ -4,7 +4,7 @@ import { RequestParams } from 'api/baseApi';
 import {
   IProductApiConfig,
   IProductsList,
-  IProductFilter,
+  IProductFilters,
   IProductSort,
   IProductApiError,
 } from 'api/productsApi';
@@ -37,7 +37,7 @@ const initialState: GetProductsStateType = {
 
 const SLICE_NAME = '@products/getProducts';
 
-let previousQuery: RequestParams<IProductFilter, IProductSort>;
+let previousQuery: RequestParams<IProductFilters, IProductSort>;
 const requestThunk = createAsyncThunk(
   `${SLICE_NAME}/request`,
   (
@@ -45,7 +45,7 @@ const requestThunk = createAsyncThunk(
       query,
       config,
     }: {
-      query: RequestParams<IProductFilter, IProductSort>;
+      query: RequestParams<IProductFilters, IProductSort>;
       config?: IProductApiConfig;
     },
     { rejectWithValue, signal }

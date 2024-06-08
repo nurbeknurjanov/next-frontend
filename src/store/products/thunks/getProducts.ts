@@ -1,7 +1,7 @@
 import { IPaginationRequest } from 'api/baseApi';
 import { GridSortModel } from '@mui/x-data-grid';
 import {
-  IProductFilter,
+  IProductFilters,
   IProductSort,
   IProductSortFields,
 } from 'api/productsApi';
@@ -12,7 +12,7 @@ import { notify } from 'store/common/thunks';
 export const getProductsThunk =
   (
     pagination: IPaginationRequest,
-    filter: IProductFilter,
+    filters: IProductFilters,
     sorting: GridSortModel
   ): AppThunk =>
   async (dispatch, getState) => {
@@ -26,7 +26,7 @@ export const getProductsThunk =
       products.getProducts.thunk.request({
         query: {
           pagination,
-          filter,
+          filters,
           sort,
         },
       })

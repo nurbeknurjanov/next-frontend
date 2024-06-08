@@ -7,11 +7,11 @@ import { getTranslations } from 'next-intl/server';
 import { IPaginationRequest } from 'api/baseApi';
 import { getProductsThunk } from 'store/products/thunks';
 import { setIsServerStoreActual, setServerWait } from 'store/common/thunks';
-import { IProductFilter, IProductSort } from 'api/productsApi';
+import { IProductFilters, IProductSort } from 'api/productsApi';
 import { GridSortModel } from '@mui/x-data-grid';
 
 interface ProductsPageProps extends Omit<PageProps, 'searchParams'> {
-  searchParams: IPaginationRequest & IProductFilter & IProductSort;
+  searchParams: IPaginationRequest & IProductFilters & IProductSort;
 }
 export default async function ProductsPage({
   searchParams,
@@ -28,11 +28,11 @@ export default async function ProductsPage({
     pageSize: searchParams.pageSize ?? 12,
   };
 
-  const filter = {} as IProductFilter;
+  const filters: IProductFilters = {};
   ['name', 'description'].forEach(fieldName => {
-    const value = searchParams[fieldName as keyof IProductFilter];
+    const value = searchParams[fieldName as keyof IProductFilters];
     if (value) {
-      filter[fieldName as keyof IProductFilter] = value as any;
+      filters[fieldName as keyof IProductFilters] = value as any;
     }
   });
 
@@ -46,7 +46,7 @@ export default async function ProductsPage({
     ];
   }
 
-  await serverStore.dispatch(getProductsThunk(pagination, filter, sorting));
+  await serverStore.dispatch(getProductsThunk(pagination, filters, sorting));
   serverStore.dispatch(setServerWait(false));
 
   return <Products />;

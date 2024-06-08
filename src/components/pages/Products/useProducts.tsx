@@ -9,7 +9,7 @@ import { isEqual } from 'lodash';
 import { Button } from 'shared/ui';
 import { useHydrateState, useSetPageData } from 'shared/hooks';
 import { GridSortModel } from '@mui/x-data-grid';
-import { IProductFilter } from 'api/productsApi';
+import { IProductFilters } from 'api/productsApi';
 import { useTableStates } from './useTableStates';
 import { ModalType } from './components/ProductModal';
 
@@ -45,20 +45,20 @@ export function useProducts() {
     sorting,
     setSorting,
     previousSorting,
-    filter,
-    setFilter,
-    previousFilter,
+    filters,
+    setFilters,
+    previousFilters,
     refreshListKey,
     refreshList,
     previousRefreshListKey,
-  } = useTableStates<IProductFilter>(['name', 'description']);
+  } = useTableStates<IProductFilters>(['name', 'description']);
 
   const getProducts = useCallback(
     (
       pagination: IPaginationRequest,
-      filter: IProductFilter,
+      filters: IProductFilters,
       sorting: GridSortModel
-    ) => dispatch(getProductsThunk(pagination, filter, sorting)),
+    ) => dispatch(getProductsThunk(pagination, filters, sorting)),
     [dispatch]
   );
 
@@ -67,22 +67,22 @@ export function useProducts() {
 
     if (
       isEqual(previousPagination.current, pagination) &&
-      isEqual(previousFilter.current, filter) &&
+      isEqual(previousFilters.current, filters) &&
       isEqual(previousSorting.current, sorting) &&
       isEqual(previousRefreshListKey.current, refreshListKey)
     )
       return;
 
-    getProducts(pagination, filter, sorting);
+    getProducts(pagination, filters, sorting);
   }, [
     pagination,
     sorting,
-    filter,
+    filters,
     getProducts,
     refreshListKey,
     previousPagination,
     previousSorting,
-    previousFilter,
+    previousFilters,
     previousRefreshListKey,
     isServerStoreActual,
   ]);
@@ -91,8 +91,8 @@ export function useProducts() {
     previousPagination.current = pagination;
   }, [pagination, previousPagination]);
   useEffect(() => {
-    previousFilter.current = filter;
-  }, [filter, previousFilter]);
+    previousFilters.current = filters;
+  }, [filters, previousFilters]);
   useEffect(() => {
     previousSorting.current = sorting;
   }, [sorting, previousSorting]);
@@ -115,8 +115,8 @@ export function useProducts() {
     setPagination,
     sorting,
     setSorting,
-    filter,
-    setFilter,
+    filters,
+    setFilters,
     refreshList,
     showModal,
     setShowModal,

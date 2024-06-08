@@ -5,6 +5,6 @@ export interface RequestParams<
   S extends ISort<string>,
 > {
   pagination: IPaginationRequest;
-  filter?: F;
+  filters?: F;
   sort?: S;
 }

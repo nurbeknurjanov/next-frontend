@@ -1,22 +1,22 @@
-import { useProductsFilter } from './useProductsFilter';
+import { useProductsFilters } from './useProductsFilters';
 import { TextField } from '@mui/material';
 import { Button } from 'shared/ui';
 import * as React from 'react';
-import { IProductFilter } from 'api/productsApi';
+import { IProductFilters } from 'api/productsApi';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import { useTranslations } from 'next-intl';
 
 export interface IProps {
-  filter: IProductFilter;
-  setFilter: (_filter: IProductFilter) => void;
+  filters: IProductFilters;
+  setFilters: (_filters: IProductFilters) => void;
 }
-export const ProductsFilter = ({ filter, setFilter }: IProps) => {
+export const ProductsFilters = ({ filters, setFilters }: IProps) => {
   const tc = useTranslations('Common');
   const tp = useTranslations('Product');
 
   const { submitForm, register, handleSubmit, reset, isDirty, isValid } =
-    useProductsFilter({ filter, setFilter });
+    useProductsFilters({ filters, setFilters });
 
   return (
     <Card>

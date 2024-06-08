@@ -1,9 +1,9 @@
 import { AxiosRequestConfig } from 'axios';
 import { RequestParams, AxiosResponseData, BaseApiService } from '../baseApi';
 import {
-  FileSort,
-  FileFilter,
-  FilesList,
+  IFileSort,
+  IFileFilters,
+  IFilesList,
   FileApiConfig,
   IFile,
   IFilePost,
@@ -16,17 +16,17 @@ export class FileApiService extends BaseApiService {
   }
 
   public getFiles(
-    query: RequestParams<FileFilter, FileSort>,
+    query: RequestParams<IFileFilters, IFileSort>,
     config?: FileApiConfig
-  ): Promise<AxiosResponseData<FilesList>> {
-    const { filter, sort, pagination } = query;
-    return this.request<FilesList>({
+  ): Promise<AxiosResponseData<IFilesList>> {
+    const { filters, sort, pagination } = query;
+    return this.request<IFilesList>({
       method: 'get',
       url: '/files',
       params: {
         ...pagination,
         ...(sort ? sort : {}),
-        ...(filter ? filter : {}),
+        ...(filters ? filters : {}),
       },
       ...config,
       headers: {

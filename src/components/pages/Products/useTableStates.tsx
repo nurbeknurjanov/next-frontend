@@ -1,32 +1,13 @@
 'use client';
-import {
-  useState,
-  useRef,
-  useCallback,
-  MutableRefObject,
-  useMemo,
-} from 'react';
+import { useState, useRef, useCallback, useMemo } from 'react';
 import { IPaginationRequest } from 'api/baseApi';
 import { GridSortModel } from '@mui/x-data-grid';
 import { useSearchParams } from 'next/navigation';
 import { usePathname, useRouter } from 'navigation';
 
-export function useTableStates<TableFilter extends Record<string, any>>(
-  fieldNames: (keyof TableFilter)[]
-): {
-  pagination: IPaginationRequest;
-  setPagination: (_pagination: IPaginationRequest) => void;
-  previousPagination: MutableRefObject<IPaginationRequest | null>;
-  sorting: GridSortModel;
-  setSorting: (_sorting: GridSortModel) => void;
-  previousSorting: MutableRefObject<GridSortModel | null>;
-  filter: TableFilter;
-  setFilter: (_filter: TableFilter) => void;
-  previousFilter: MutableRefObject<TableFilter | null>;
-  refreshListKey: number;
-  refreshList: () => void;
-  previousRefreshListKey: MutableRefObject<number | null>;
-} {
+export function useTableStates<TableFilters extends Record<string, any>>(
+  fieldNames: (keyof TableFilters)[]
+) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -66,7 +47,7 @@ export function useTableStates<TableFilter extends Record<string, any>>(
 
     return [
       {
-        field: query.sortField as keyof TableFilter,
+        field: query.sortField as keyof TableFilters,
         sort: query.sortDirection ?? 'asc',
       },
     ] as GridSortModel;
@@ -74,7 +55,7 @@ export function useTableStates<TableFilter extends Record<string, any>>(
   const setSorting = useCallback(
     (sorting: GridSortModel) => {
       if (sorting[0] && sorting[0].field) {
-        query.sortField = sorting[0].field as keyof TableFilter as string;
+        query.sortField = sorting[0].field as keyof TableFilters as string;
       } else {
         delete query.sortField;
       }
@@ -91,8 +72,8 @@ export function useTableStates<TableFilter extends Record<string, any>>(
   );
   const previousSorting = useRef<GridSortModel | null>(null);
 
-  const filter = useMemo<TableFilter>(() => {
-    const values = {} as TableFilter;
+  const filters = useMemo<TableFilters>(() => {
+    const values = {} as TableFilters;
     fieldNames.forEach(fieldName => {
       const value = query[fieldName as string];
       if (value) {
@@ -101,10 +82,10 @@ export function useTableStates<TableFilter extends Record<string, any>>(
     });
     return values;
   }, [fieldNames, query]);
-  const setFilter = useCallback(
-    (filter: TableFilter) => {
+  const setFilters = useCallback(
+    (filters: TableFilters) => {
       fieldNames.forEach(fieldName => {
-        const value = filter[fieldName];
+        const value = filters[fieldName];
         if (value) {
           query[fieldName as string] = value;
         } else {
@@ -116,7 +97,7 @@ export function useTableStates<TableFilter extends Record<string, any>>(
     },
     [fieldNames, query, router, pathname]
   );
-  const previousFilter = useRef<TableFilter | null>(null);
+  const previousFilters = useRef<TableFilters | null>(null);
 
   const [refreshListKey, setRefreshListKey] = useState<number>(Math.random());
   const previousRefreshListKey = useRef<number | null>(null);
@@ -129,9 +110,9 @@ export function useTableStates<TableFilter extends Record<string, any>>(
     sorting,
     setSorting,
     previousSorting,
-    filter,
-    setFilter,
-    previousFilter,
+    filters,
+    setFilters,
+    previousFilters,
     refreshListKey,
     refreshList,
     previousRefreshListKey,

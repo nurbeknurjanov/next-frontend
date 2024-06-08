@@ -7,7 +7,11 @@ import { useProducts } from './useProducts';
 import { Link } from 'shared/ui';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-import { ProductModal, ProductModalDelete, ProductsFilter } from './components';
+import {
+  ProductModal,
+  ProductModalDelete,
+  ProductsFilters,
+} from './components';
 import { withCleanHooks } from 'shared/hocs';
 import { DATE_FORMAT } from 'shared/utils';
 import { IProduct } from 'api/productsApi';
@@ -20,8 +24,8 @@ let Products: FC = () => {
     setPagination,
     sorting,
     setSorting,
-    filter,
-    setFilter,
+    filters,
+    setFilters,
     refreshList,
     showModal,
     setShowModal,
@@ -97,7 +101,7 @@ let Products: FC = () => {
   return (
     <>
       <div className={styles.productsContent}>
-        <ProductsFilter filter={filter} setFilter={setFilter} />
+        <ProductsFilters filters={filters} setFilters={setFilters} />
 
         {!data?.list?.length ? (
           <Alert severity={'warning'} variant="outlined">
