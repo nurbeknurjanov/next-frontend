@@ -16,6 +16,7 @@ import { ModalType } from './components/ProductModal';
 //const env = process.env.NODE_ENV;
 export function useProducts() {
   const dispatch = useAppDispatch();
+  const tp = useTranslations('Product');
   const t = useTranslations('ProductsPage');
 
   const [showModal, setShowModal] = useState<ModalType | null>();
@@ -109,6 +110,7 @@ export function useProducts() {
   );
 
   return {
+    tp,
     data,
     setPagination,
     sorting,

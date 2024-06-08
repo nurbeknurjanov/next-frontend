@@ -15,6 +15,7 @@ import { Alert } from '@mui/material';
 
 let Products: FC = () => {
   const {
+    tp,
     data,
     setPagination,
     sorting,
@@ -30,7 +31,7 @@ let Products: FC = () => {
   const columns: GridColDef<IProduct>[] = [
     {
       field: 'name',
-      headerName: 'Name',
+      headerName: tp('name'),
       renderCell: params => (
         <Link href={'/products/' + params.row._id}>{params.row.name}</Link>
       ),
@@ -38,7 +39,7 @@ let Products: FC = () => {
     },
     {
       field: 'description',
-      headerName: 'Description',
+      headerName: tp('description'),
       flex: 1,
     },
     {
