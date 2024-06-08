@@ -2,7 +2,11 @@
   "Common": {
     "home": "Главная",
     "search": "Поиск",
-    "reset": "Сброс"
+    "reset": "Сброс",
+    "save": "Сохранить",
+    "close": "Закрыть",
+    "createdDate": "Дата создания",
+    "updatedDate": "Дата обновления"
   },
   "HomePage": {
     "title": "Добро пожаловать",

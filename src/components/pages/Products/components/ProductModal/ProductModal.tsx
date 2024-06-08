@@ -28,6 +28,8 @@ export const ProductModal: React.FC<IProps> = ({
   const formRef = useRef<HTMLFormElement>();
   //const formRef = useRef<HTMLFormElement>(null); //for direct assign
   const {
+    tm,
+    tc,
     aggStates,
     title,
     register,
@@ -63,14 +65,14 @@ export const ProductModal: React.FC<IProps> = ({
           }}
         >
           <TextField
-            label={'Product name'}
+            label={tm('name')}
             error={!!errors['name']}
             helperText={errors['name']?.message as string}
             {...register('name')}
           />
 
           <TextField
-            label={'Description'}
+            label={tm('description')}
             error={!!errors['description']}
             helperText={errors['description']?.message as string}
             {...register('description')}
@@ -78,7 +80,7 @@ export const ProductModal: React.FC<IProps> = ({
         </form>
       </DialogContent>
       <DialogActions>
-        <Button onClick={onClose}>Close</Button>
+        <Button onClick={onClose}>{tc('close')}</Button>
         <Button
           variant={'contained'}
           onClick={() => {
@@ -87,7 +89,7 @@ export const ProductModal: React.FC<IProps> = ({
           disabled={!isDirty && !isValid}
           autoFocus
         >
-          Submit
+          {tc('save')}
         </Button>
       </DialogActions>
     </Dialog>

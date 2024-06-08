@@ -1,7 +1,6 @@
 import { useAppDispatch, useAppSelector } from 'store/hooks';
 import { useCallback, useEffect } from 'react';
 import { products } from 'store';
-import { AppThunk } from 'store/store';
 import { useTranslations } from 'next-intl';
 import { IProductPost } from 'api/productsApi';
 import { IProps } from './ProductModal';
@@ -18,8 +17,11 @@ export function useProductModal({ onClose, refreshList, ...props }: IProps) {
   const type = props.type;
   const id = type === 'update' ? props.id : null;
 
+  const tc = useTranslations('Common');
   const t = useTranslations('ProductPage');
-  const title = type === 'create' ? t('create') : t('update');
+  const tm = useTranslations('Product');
+  const ts = useTranslations('ProductsPage');
+  const title = type === 'create' ? ts('create') : t('update');
 
   const dispatch = useAppDispatch();
   const productState = useAppSelector(products.getProduct.selector.state);
@@ -74,6 +76,8 @@ export function useProductModal({ onClose, refreshList, ...props }: IProps) {
   }, [id, getProduct, dispatch]);
 
   return {
+    tm,
+    tc,
     title,
     aggStates,
     register,

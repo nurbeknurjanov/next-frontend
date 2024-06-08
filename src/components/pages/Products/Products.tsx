@@ -19,6 +19,7 @@ import { Alert } from '@mui/material';
 
 let Products: FC = () => {
   const {
+    tc,
     tp,
     data,
     setPagination,
@@ -48,13 +49,13 @@ let Products: FC = () => {
     },
     {
       field: 'createdAt',
-      headerName: 'Created date',
+      headerName: tc('createdDate'),
       flex: 1,
       valueGetter: params => dayjs(params.value).format(DATE_FORMAT),
     },
     {
       field: 'updatedAt',
-      headerName: 'Updated date',
+      headerName: tc('updatedDate'),
       flex: 1,
       valueGetter: params => dayjs(params.value).format(DATE_FORMAT),
     },

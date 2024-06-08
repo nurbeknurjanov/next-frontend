@@ -2,7 +2,11 @@
   "Common": {
     "home": "Home",
     "search": "Search",
-    "reset": "Reset"
+    "reset": "Reset",
+    "save": "Save",
+    "close": "Close",
+    "createdDate": "Created date",
+    "updatedDate": "Updated date"
   },
   "HomePage": {
     "title": "Welcome",
