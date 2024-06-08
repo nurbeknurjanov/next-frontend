@@ -1,3 +1,3 @@
-export * from './TranslationsProvider';
-export * from './StoreProvider';
-export * from './ThemeRegistry';
+export { TranslationsProvider } from './TranslationsProvider';
+export { StoreProvider } from './StoreProvider';
+export { ThemeRegistry } from './ThemeRegistry';

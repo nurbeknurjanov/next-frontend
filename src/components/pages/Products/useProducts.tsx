@@ -7,11 +7,10 @@ import { useTranslations } from 'next-intl';
 import { IPaginationRequest } from 'api/baseApi';
 import { isEqual } from 'lodash';
 import { Button } from 'shared/ui';
-import { useHydrateState, useSetPageData } from 'shared/hooks';
+import { useHydrateState, useSetPageData, useTableStates } from 'shared/hooks';
 import { GridSortModel } from '@mui/x-data-grid';
 import { IProductFilters } from 'api/productsApi';
-import { useTableStates } from './useTableStates';
-import { ModalType } from './components/ProductModal';
+import { ModalType } from './components';
 
 //const env = process.env.NODE_ENV;
 export function useProducts() {

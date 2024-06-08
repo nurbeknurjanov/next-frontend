@@ -1,1 +1,1 @@
-export * from './withCleanHooks';
+export { withCleanHooks } from './withCleanHooks';

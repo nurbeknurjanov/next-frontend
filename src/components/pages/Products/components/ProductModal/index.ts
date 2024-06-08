@@ -1,1 +1,1 @@
-export { ProductModal } from './ProductModal';
+export { ProductModal, type ModalType } from './ProductModal';

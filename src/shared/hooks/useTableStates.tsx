@@ -1,9 +1,9 @@
 'use client';
 import { useState, useRef, useCallback, useMemo } from 'react';
-import { IPaginationRequest } from 'api/baseApi';
+import { IPaginationRequest } from '../../api/baseApi';
 import { GridSortModel } from '@mui/x-data-grid';
 import { useSearchParams } from 'next/navigation';
-import { usePathname, useRouter } from 'navigation';
+import { usePathname, useRouter } from '../../navigation';
 
 export function useTableStates<TableFilters extends Record<string, any>>(
   fieldNames: (keyof TableFilters)[]
