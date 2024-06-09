@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useProductModal } from './useProductModal';
+import { useProductModalUpdate } from './useProductModalUpdate';
 import { TextField } from '@mui/material';
 import { Button } from 'shared/ui';
 import Dialog from '@mui/material/Dialog';
@@ -10,55 +10,43 @@ import DialogTitle from '@mui/material/DialogTitle';
 import { useRef } from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
 
-export type ModalType =
-  | { type: 'create' }
-  | { type: 'update' | 'delete'; id: string };
-
-export type IProps = ModalType & {
+export type IProps = {
+  id: string;
   onClose: () => void;
   refreshList: () => void;
 };
 
-export const ProductModal: React.FC<IProps> = ({
+export const ProductModalUpdate: React.FC<IProps> = ({
   onClose,
   refreshList,
-  ...props
+  id,
 }) => {
-  const type = props.type;
-  const id = type === 'update' ? props.id : null;
+  //const id = type === 'update' ? props.id : null;
   const formRef = useRef<HTMLFormElement>();
   //const formRef = useRef<HTMLFormElement>(null); //for direct assign
   const {
     tm,
     tc,
+    tp,
     aggStates,
     getProductState,
-    title,
     register,
     errors,
     isValid,
     isDirty,
     handleSubmit,
     submitForm,
-  } = useProductModal({
+  } = useProductModalUpdate({
     id: id!,
-    type,
     onClose,
     refreshList,
   });
 
   return (
     <Dialog open onClose={onClose}>
-      <DialogTitle>{title}</DialogTitle>
+      <DialogTitle>{tp('update')}</DialogTitle>
       <DialogContent>
-        {/*<DialogContentText>
-          Let Google help apps determine location. This means sending anonymous
-          location data to Google, even when no apps are running.
-        </DialogContentText>*/}
-
-        {/*<input ref={el => (this.inputElement = el)} />*/}
-
-        {type === 'update' && getProductState.isFetching ? (
+        {getProductState.isFetching ? (
           <CircularProgress sx={{ mx: 'auto', mb: 2, display: 'block' }} />
         ) : (
           <form
@@ -97,7 +85,7 @@ export const ProductModal: React.FC<IProps> = ({
           loading={aggStates.isFetching}
           sx={{ minWidth: 120 }}
         >
-          {type === 'create' ? tc('create') : tc('update')}
+          {tc('update')}
         </Button>
       </DialogActions>
     </Dialog>

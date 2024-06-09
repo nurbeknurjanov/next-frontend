@@ -10,27 +10,30 @@ import { Button } from 'shared/ui';
 import { useHydrateState, useSetPageData, useTableStates } from 'shared/hooks';
 import { GridSortModel } from '@mui/x-data-grid';
 import { IProductFilters } from 'api/productsApi';
-import { ModalType } from './components';
+
+type ModalType =
+  | { type: 'create' }
+  | { type: 'update' | 'delete' | 'view'; id: string };
 
 //const env = process.env.NODE_ENV;
 export function useProducts() {
   const dispatch = useAppDispatch();
   const tc = useTranslations('Common');
-  const tp = useTranslations('Product');
-  const t = useTranslations('ProductsPage');
+  const tm = useTranslations('Product');
+  const tps = useTranslations('ProductsPage');
 
   const [showModal, setShowModal] = useState<ModalType | null>();
   const closeShowModal = useCallback(() => setShowModal(null), []);
 
   useSetPageData(
-    t('title'),
-    [t('title')],
+    tps('title'),
+    [tps('title')],
     <Button
       variant={'contained'}
       size={'small'}
       onClick={() => setShowModal({ type: 'create' })}
     >
-      {t('create')}
+      {tps('create')}
     </Button>
   );
 
@@ -111,7 +114,8 @@ export function useProducts() {
 
   return {
     tc,
-    tp,
+    tm,
+    tps,
     getProductsState,
     setPagination,
     sorting,

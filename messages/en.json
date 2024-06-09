@@ -54,7 +54,8 @@
   "ProductPage": {
     "title": "Product",
     "update": "Update product",
-    "delete": "Delete product"
+    "delete": "Delete product",
+    "view": "View product"
   },
   "Product": {
     "name": "Name",

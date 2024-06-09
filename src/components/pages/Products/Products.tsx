@@ -8,7 +8,9 @@ import { Link } from 'shared/ui';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import {
-  ProductModal,
+  ProductModalCreate,
+  ProductModalUpdate,
+  ProductModalView,
   ProductModalDelete,
   ProductsFilters,
 } from './components';
@@ -20,7 +22,8 @@ import { Alert } from '@mui/material';
 let Products: FC = () => {
   const {
     tc,
-    tp,
+    tm,
+    tps,
     getProductsState,
     setPagination,
     sorting,
@@ -38,7 +41,7 @@ let Products: FC = () => {
   const columns: GridColDef<IProduct>[] = [
     {
       field: 'name',
-      headerName: tp('name'),
+      headerName: tm('name'),
       renderCell: params => (
         <Link href={'/products/' + params.row._id}>{params.row.name}</Link>
       ),
@@ -46,7 +49,7 @@ let Products: FC = () => {
     },
     {
       field: 'description',
-      headerName: tp('description'),
+      headerName: tm('description'),
       flex: 1,
     },
     {
@@ -65,6 +68,13 @@ let Products: FC = () => {
       field: 'actions',
       type: 'actions',
       getActions: params => [
+        <GridActionsCellItem
+          key={params.row._id}
+          icon={<DeleteIcon color={'secondary'} />}
+          onClick={() => setShowModal({ type: 'view', id: params.row._id })}
+          label={tc('view')}
+          showInMenu
+        />,
         <GridActionsCellItem
           key={params.row._id}
           icon={<EditIcon color={'primary'} />}
@@ -134,16 +144,14 @@ let Products: FC = () => {
       </div>
 
       {showModal?.type === 'create' && (
-        <ProductModal
-          type="create"
+        <ProductModalCreate
           onClose={closeShowModal}
           refreshList={refreshList}
         />
       )}
 
       {showModal?.type === 'update' && (
-        <ProductModal
-          type="update"
+        <ProductModalUpdate
           id={showModal.id}
           onClose={closeShowModal}
           refreshList={refreshList}
@@ -156,6 +164,10 @@ let Products: FC = () => {
           onClose={closeShowModal}
           refreshList={refreshList}
         />
+      )}
+
+      {showModal?.type === 'view' && (
+        <ProductModalView id={showModal.id} onClose={closeShowModal} />
       )}
     </>
   );

@@ -7,7 +7,7 @@ import { pick } from 'lodash';
 import { useEffect, useMemo } from 'react';
 
 interface IProps {
-  model: IProduct;
+  model?: IProduct;
 }
 export function usePrepareForm({ model }: IProps) {
   const i18nJoi = useI18nJoi();
@@ -16,9 +16,9 @@ export function usePrepareForm({ model }: IProps) {
     description: Joi.string(),
   });
 
-  const initialValues = useMemo(() => {
+  const initialValues = useMemo<IProductPost>(() => {
     if (!model) {
-      return {} as IProductPost;
+      return { name: '', description: '' };
     }
 
     return pick(model, ['name', 'description']);
