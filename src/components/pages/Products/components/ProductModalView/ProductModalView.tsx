@@ -8,18 +8,70 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import CircularProgress from '@mui/material/CircularProgress';
 import { useTranslations } from 'next-intl';
+import { DataGrid, GridColDef } from '@mui/x-data-grid';
+import dayjs from 'dayjs';
+import { DATE_FORMAT } from '../../../../../shared/utils';
 
 export type IProps = {
   id: string;
   onClose: () => void;
 };
 
+const columns: GridColDef[] = [
+  {
+    field: 'label',
+    headerName: 'Label',
+    renderCell: params => params.value,
+    flex: 1,
+  },
+  {
+    field: 'value',
+    headerName: 'Value',
+    width: 1200,
+    renderCell: params => {
+      if (['background', 'icon_2', 'icon_3'].includes(params.row.label)) {
+        return (
+          <img src={params.value} width={300} style={{ margin: '20px 0' }} />
+        );
+      }
+
+      if (['createdAt', 'updatedAt'].includes(params.row.label)) {
+        return dayjs(params.value).format(DATE_FORMAT);
+      }
+
+      return params.value;
+    },
+    flex: 1,
+  },
+];
+
 export const ProductModalView: FC<IProps> = ({ onClose, id }) => {
   const tc = useTranslations('Common');
   const tp = useTranslations('ProductPage');
+  const tm = useTranslations('Product');
   const { model, getProductState } = useProductModalView({
     id,
   });
+
+  const data: { label: string; value: string | React.ReactNode }[] = [];
+  if (model) {
+    const entries = Object.entries(model);
+    entries
+      .filter(([key]) => key !== '__v')
+      .forEach(([key, value]) => {
+        if (typeof value === 'object') {
+          data.push({
+            label: tm(key),
+            value: JSON.stringify(value),
+          });
+        } else {
+          data.push({
+            label: tm(key),
+            value: value,
+          });
+        }
+      });
+  }
 
   return (
     <Dialog open onClose={onClose}>
@@ -35,7 +87,12 @@ export const ProductModalView: FC<IProps> = ({ onClose, id }) => {
         {getProductState.isFetching ? (
           <CircularProgress sx={{ mx: 'auto', mb: 2, display: 'block' }} />
         ) : (
-          <div>{JSON.stringify(model)}</div>
+          <DataGrid
+            hideFooter
+            rows={data}
+            columns={columns}
+            getRowId={el => el.label}
+          />
         )}
       </DialogContent>
       <DialogActions>

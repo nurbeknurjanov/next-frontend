@@ -70,14 +70,14 @@ let Products: FC = () => {
       getActions: params => [
         <GridActionsCellItem
           key={params.row._id}
-          icon={<DeleteIcon color={'secondary'} />}
+          icon={<DeleteIcon color={'primary'} />}
           onClick={() => setShowModal({ type: 'view', id: params.row._id })}
           label={tc('view')}
           showInMenu
         />,
         <GridActionsCellItem
           key={params.row._id}
-          icon={<EditIcon color={'primary'} />}
+          icon={<EditIcon color={'warning'} />}
           onClick={() => setShowModal({ type: 'update', id: params.row._id })}
           label={tc('update')}
           showInMenu
