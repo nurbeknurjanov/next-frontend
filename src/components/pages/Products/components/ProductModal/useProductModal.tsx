@@ -25,7 +25,13 @@ export function useProductModal({ onClose, refreshList, ...props }: IProps) {
 
   const dispatch = useAppDispatch();
   const productState = useAppSelector(products.getProduct.selector.state);
-  const aggStates = getAggStates(productState);
+  const createProductState = useAppSelector(
+    products.createProduct.selector.state
+  );
+  const updateProductState = useAppSelector(
+    products.updateProduct.selector.state
+  );
+  const aggStates = getAggStates(createProductState, updateProductState);
   const model = productState.data;
 
   const { register, errors, isValid, isDirty, handleSubmit } = usePrepareForm({

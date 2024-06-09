@@ -88,6 +88,8 @@ export const ProductModal: React.FC<IProps> = ({
           }}
           disabled={!isDirty || !isValid}
           autoFocus
+          loading={aggStates.isFetching}
+          sx={{ minWidth: 120 }}
         >
           {type === 'create' ? tc('create') : tc('update')}
         </Button>

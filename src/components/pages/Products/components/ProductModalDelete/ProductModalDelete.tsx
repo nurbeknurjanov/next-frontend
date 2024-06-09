@@ -17,7 +17,7 @@ export const ProductModalDelete: React.FC<IProps> = ({
   onClose,
   refreshList,
 }) => {
-  const { t, tc, deleteProduct } = useProductModalDelete({
+  const { t, tc, deleteProduct, deleteProductState } = useProductModalDelete({
     onClose,
     refreshList,
   });
@@ -34,9 +34,10 @@ export const ProductModalDelete: React.FC<IProps> = ({
           variant={'contained'}
           onClick={() => {
             deleteProduct(id);
-            onClose();
           }}
           autoFocus
+          loading={deleteProductState.isFetching}
+          sx={{ minWidth: 110 }}
         >
           {tc('delete')}
         </Button>
