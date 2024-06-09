@@ -21,7 +21,7 @@ let Products: FC = () => {
   const {
     tc,
     tp,
-    data,
+    getProductsState,
     setPagination,
     sorting,
     setSorting,
@@ -32,6 +32,8 @@ let Products: FC = () => {
     setShowModal,
     closeShowModal,
   } = useProducts();
+
+  const { data, isFetching } = getProductsState;
 
   const columns: GridColDef<IProduct>[] = [
     {
@@ -113,13 +115,10 @@ let Products: FC = () => {
             rows={data.list}
             getRowId={el => el._id}
             columns={columns}
-            initialState={{
-              pagination: {
-                paginationModel: {
-                  page: data.pagination.pageNumber ?? 0,
-                  pageSize: data.pagination.pageSize ?? 12,
-                },
-              },
+            loading={isFetching}
+            paginationModel={{
+              page: data.pagination.pageNumber ?? 0,
+              pageSize: data.pagination.pageSize ?? 12,
             }}
             onPaginationModelChange={({ page, pageSize }) =>
               setPagination({ pageNumber: page, pageSize })

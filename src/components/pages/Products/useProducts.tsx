@@ -34,7 +34,7 @@ export function useProducts() {
     </Button>
   );
 
-  const { data } = useAppSelector(products.getProducts.selector.state);
+  const getProductsState = useAppSelector(products.getProducts.selector.state);
 
   const isHydratedToClient = useHydrateState();
 
@@ -112,7 +112,7 @@ export function useProducts() {
   return {
     tc,
     tp,
-    data,
+    getProductsState,
     setPagination,
     sorting,
     setSorting,

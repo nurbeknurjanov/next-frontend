@@ -93,6 +93,10 @@ export function useTableStates<TableFilters extends Record<string, any>>(
         }
       });
 
+      delete query.pageNumber;
+      delete query.pageSize;
+      delete query.sortField;
+      delete query.sortDirection;
       router.push({ pathname, query }, { scroll: false });
     },
     [fieldNames, query, router, pathname]
