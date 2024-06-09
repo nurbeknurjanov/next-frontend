@@ -36,7 +36,7 @@ export function useProducts() {
 
   const { data } = useAppSelector(products.getProducts.selector.state);
 
-  const isServerStoreActual = useHydrateState();
+  const isHydratedToClient = useHydrateState();
 
   const {
     pagination,
@@ -63,7 +63,7 @@ export function useProducts() {
   );
 
   useEffect(() => {
-    if (isServerStoreActual) return;
+    if (!isHydratedToClient) return;
 
     if (
       isEqual(previousPagination.current, pagination) &&
@@ -84,7 +84,7 @@ export function useProducts() {
     previousSorting,
     previousFilters,
     previousRefreshListKey,
-    isServerStoreActual,
+    isHydratedToClient,
   ]);
 
   useEffect(() => {
@@ -102,11 +102,11 @@ export function useProducts() {
 
   useEffect(
     () => () => {
-      if (isServerStoreActual) return;
+      if (!isHydratedToClient) return;
 
       dispatch(products.getProducts.action.reset());
     },
-    [dispatch, isServerStoreActual]
+    [dispatch, isHydratedToClient]
   );
 
   return {

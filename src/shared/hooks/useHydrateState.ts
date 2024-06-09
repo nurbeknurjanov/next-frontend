@@ -1,18 +1,18 @@
 import { common } from 'store';
-import { useAppSelector } from 'store/hooks';
+import { useAppSelector, useAppDispatch } from 'store/hooks';
 import { useEffect } from 'react';
-import { useAppDispatch } from 'store/hooks';
+import { hydratedToClient } from 'store/common/thunks';
 
 export const useHydrateState = (): boolean => {
   const dispatch = useAppDispatch();
 
-  const isServerStoreActual = useAppSelector(
-    common.hydrate.selector.isServerStoreActual
+  const isHydratedToClient = useAppSelector(
+    common.hydrate.selector.isHydratedToClient
   );
 
   useEffect(() => {
-    dispatch(common.hydrate.actions.setIsServerStoreActual(false));
+    dispatch(hydratedToClient());
   }, [dispatch]);
 
-  return isServerStoreActual;
+  return isHydratedToClient;
 };

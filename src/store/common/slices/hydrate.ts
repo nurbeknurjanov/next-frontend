@@ -5,12 +5,12 @@ import type { RootStateType } from 'store/store';
 type HydrateStateType = {
   dbConnected: boolean;
   serverWait: boolean;
-  isServerStoreActual: boolean;
+  isHydratedToClient: boolean;
 };
 const initialState: HydrateStateType = {
   dbConnected: false,
   serverWait: false,
-  isServerStoreActual: false,
+  isHydratedToClient: false,
 };
 
 const { actions, reducer } = createSlice({
@@ -24,11 +24,8 @@ const { actions, reducer } = createSlice({
       state.serverWait = action.payload;
       return state;
     },
-    setIsServerStoreActual: (
-      state,
-      action: PayloadAction<HydrateStateType['isServerStoreActual']>
-    ) => {
-      state.isServerStoreActual = action.payload;
+    hydratedToClient: state => {
+      state.isHydratedToClient = true;
       return state;
     },
     setDbConnected: (
@@ -43,8 +40,8 @@ const { actions, reducer } = createSlice({
 
 const selector = {
   state: (state: RootStateType) => state.common.hydrate,
-  isServerStoreActual: (state: RootStateType) =>
-    state.common.hydrate.isServerStoreActual,
+  isHydratedToClient: (state: RootStateType) =>
+    state.common.hydrate.isHydratedToClient,
 };
 
 export const hydrate = {

@@ -31,7 +31,9 @@ export class ProductsApiService extends BaseApiService {
       headers: {
         ...config?.headers,
       },
-    });
+    }).then(
+      res => new Promise(resolve => setTimeout(() => resolve(res), 5000))
+    );
   }
 
   public getProduct(
@@ -45,9 +47,7 @@ export class ProductsApiService extends BaseApiService {
       headers: {
         ...config?.headers,
       },
-    }) /*.then(
-      res => new Promise(resolve => setTimeout(() => resolve(res), 5000))
-    )*/;
+    });
   }
 
   public createProduct(
