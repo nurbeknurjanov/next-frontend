@@ -1,34 +1,35 @@
 import React from 'react';
-import styles from '../../../../components/layout/Content/components/Page/page.module.scss';
 import { Product } from 'components/pages';
-/*import { serverStore } from 'store/store';
-import { common, subtypes } from 'store';*/
+import { serverStore } from 'store/store';
 import type { PageProps } from 'app/types';
+import { headers } from 'next/headers';
+import { setServerWait, setTitle } from 'store/common/thunks';
+import { getTranslations } from 'next-intl/server';
+import { getProductThunk } from 'store/products/thunks';
+import { notFound } from 'next/navigation';
 
 export interface ProductPageProps extends PageProps {
   params: PageProps['params'] & { id: string };
 }
 
-export default async function ProductPage({
-  params,
-  //searchParams,
-}: ProductPageProps) {
+export default async function ProductPage({ params }: ProductPageProps) {
   const { id } = params;
-  /*serverStore.dispatch(common.hydrated.actions.setIsServerStoreActual(true));
-  serverStore.dispatch(common.hydrated.actions.setServerWait(true));
+  const headersList = headers();
 
-  await serverStore.dispatch(subtypes.getSubtype.thunk.request({ id }));
-  const data = serverStore.getState().subtypes.getSubtype.data;
-  serverStore.dispatch(common.title.actions.set({ title: data!.name }));
+  if (headersList.get('Referer') === null) {
+    serverStore.dispatch(setServerWait(true));
 
-  serverStore.dispatch(common.hydrated.actions.setServerWait(false));*/
-  if (Number(id) > 10) {
-    //return notFound();
+    const t = await getTranslations('ProductPage');
+
+    const { data } = await serverStore.dispatch(getProductThunk(id));
+    if (!data) {
+      return notFound();
+    }
+
+    serverStore.dispatch(setTitle(data!.name, t('title')));
+
+    serverStore.dispatch(setServerWait(false));
   }
 
-  return (
-    <div className={styles.page}>
-      <Product />
-    </div>
-  );
+  return <Product />;
 }

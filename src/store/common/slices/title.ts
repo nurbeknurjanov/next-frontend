@@ -3,7 +3,7 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 import type { RootStateType } from 'store/store';
 
 type Nullable<T> = { [K in keyof T]: T[K] | null };
-type TitleType = {
+export type TitleType = {
   title: string;
   description?: string;
 };
