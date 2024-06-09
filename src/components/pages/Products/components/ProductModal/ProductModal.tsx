@@ -8,6 +8,7 @@ import DialogContent from '@mui/material/DialogContent';
 //import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { useRef } from 'react';
+import CircularProgress from '@mui/material/CircularProgress';
 
 export type ModalType =
   | { type: 'create' }
@@ -31,6 +32,7 @@ export const ProductModal: React.FC<IProps> = ({
     tm,
     tc,
     aggStates,
+    getProductState,
     title,
     register,
     errors,
@@ -56,28 +58,32 @@ export const ProductModal: React.FC<IProps> = ({
 
         {/*<input ref={el => (this.inputElement = el)} />*/}
 
-        <form
-          ref={el => (formRef.current = el!)}
-          /*ref={formRef}*/
-          onSubmit={e => {
-            e.preventDefault();
-            handleSubmit(submitForm)(e);
-          }}
-        >
-          <TextField
-            label={tm('name')}
-            error={!!errors['name']}
-            helperText={errors['name']?.message as string}
-            {...register('name')}
-          />
+        {type === 'update' && getProductState.isFetching ? (
+          <CircularProgress sx={{ mx: 'auto', mb: 2, display: 'block' }} />
+        ) : (
+          <form
+            ref={el => (formRef.current = el!)}
+            /*ref={formRef}*/
+            onSubmit={e => {
+              e.preventDefault();
+              handleSubmit(submitForm)(e);
+            }}
+          >
+            <TextField
+              label={tm('name')}
+              error={!!errors['name']}
+              helperText={errors['name']?.message as string}
+              {...register('name')}
+            />
 
-          <TextField
-            label={tm('description')}
-            error={!!errors['description']}
-            helperText={errors['description']?.message as string}
-            {...register('description')}
-          />
-        </form>
+            <TextField
+              label={tm('description')}
+              error={!!errors['description']}
+              helperText={errors['description']?.message as string}
+              {...register('description')}
+            />
+          </form>
+        )}
       </DialogContent>
       <DialogActions>
         <Button onClick={onClose}>{tc('close')}</Button>

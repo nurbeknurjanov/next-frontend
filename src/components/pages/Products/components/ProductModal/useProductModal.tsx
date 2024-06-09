@@ -24,7 +24,9 @@ export function useProductModal({ onClose, refreshList, ...props }: IProps) {
   const title = type === 'create' ? ts('create') : t('update');
 
   const dispatch = useAppDispatch();
-  const productState = useAppSelector(products.getProduct.selector.state);
+  const getProductState = useAppSelector(products.getProduct.selector.state);
+  const model = getProductState.data;
+
   const createProductState = useAppSelector(
     products.createProduct.selector.state
   );
@@ -32,7 +34,6 @@ export function useProductModal({ onClose, refreshList, ...props }: IProps) {
     products.updateProduct.selector.state
   );
   const aggStates = getAggStates(createProductState, updateProductState);
-  const model = productState.data;
 
   const { register, errors, isValid, isDirty, handleSubmit } = usePrepareForm({
     model: model!,
@@ -86,6 +87,7 @@ export function useProductModal({ onClose, refreshList, ...props }: IProps) {
     tc,
     title,
     aggStates,
+    getProductState,
     register,
     errors,
     isValid,
