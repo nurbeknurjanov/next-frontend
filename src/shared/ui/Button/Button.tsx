@@ -1,6 +1,8 @@
 import React, { FC } from 'react';
 import { default as MuiButton } from '@mui/material/Button';
 import { ButtonProps as MuiButtonProps } from '@mui/material';
+import CircularProgress from '@mui/material/CircularProgress';
+import { useTheme } from '@mui/material/styles';
 
 declare module '@mui/material/Button' {
   //eslint-disable-next-line
@@ -19,9 +21,10 @@ interface ButtonProps extends MuiButtonProps {
 }
 
 export const Button: FC<ButtonProps> = ({ loading, children, ...props }) => {
+  const _theme = useTheme();
   let content = children;
   if (loading) {
-    content = 'Loading';
+    content = <CircularProgress color={'inherit'} size={'1.5rem'} />;
   }
   return <MuiButton {...props}>{content}</MuiButton>;
 };

@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import Button from '@mui/material/Button';
+import { Button } from '../Button';
 import NextLink from 'next/link';
 import { ButtonProps, LinkProps } from '@mui/material';
 

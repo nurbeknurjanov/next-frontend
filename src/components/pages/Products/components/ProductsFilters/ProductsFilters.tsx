@@ -47,6 +47,7 @@ export const ProductsFilters = ({ filters, setFilters }: IProps) => {
             variant={'contained'}
             disabled={!isDirty || !isValid}
             loading={getProductsState.isFetching}
+            sx={{ minWidth: 100 }}
           >
             {tc('search')}
           </Button>
