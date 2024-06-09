@@ -3,7 +3,10 @@ import { IProps } from './ProductsFilters';
 import { IProductFilters } from 'api/productsApi';
 import { useAppSelector } from 'store/hooks';
 import { products } from 'store';
+import { useEffect, useRef } from 'react';
+
 export function useProductsFilters({ filters, setFilters }: IProps) {
+  const previousFilters = useRef<IProductFilters | null>(null);
   const getProductsState = useAppSelector(products.getProducts.selector.state);
 
   const defaultValues = { ...{ name: null, description: null }, ...filters };
@@ -21,6 +24,12 @@ export function useProductsFilters({ filters, setFilters }: IProps) {
     setFilters(formData);
   };
 
+  useEffect(() => {
+    if (getProductsState.isFetching) {
+      previousFilters.current = filters;
+    }
+  }, [filters, getProductsState.isFetching]);
+
   return {
     submitForm,
     register,
@@ -29,5 +38,6 @@ export function useProductsFilters({ filters, setFilters }: IProps) {
     isDirty,
     isValid,
     getProductsState,
+    previousFilters,
   };
 }

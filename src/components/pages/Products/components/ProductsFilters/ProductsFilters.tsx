@@ -6,6 +6,7 @@ import { IProductFilters } from 'api/productsApi';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import { useTranslations } from 'next-intl';
+import { isEqual } from 'lodash';
 
 export interface IProps {
   filters: IProductFilters;
@@ -23,6 +24,7 @@ export const ProductsFilters = ({ filters, setFilters }: IProps) => {
     isDirty,
     isValid,
     getProductsState,
+    previousFilters,
   } = useProductsFilters({ filters, setFilters });
 
   return (
@@ -46,7 +48,10 @@ export const ProductsFilters = ({ filters, setFilters }: IProps) => {
             type={'submit'}
             variant={'contained'}
             disabled={!isDirty || !isValid}
-            loading={getProductsState.isFetching}
+            loading={
+              getProductsState.isFetching &&
+              !isEqual(filters, previousFilters.current)
+            }
             sx={{ minWidth: 100 }}
           >
             {tc('search')}
