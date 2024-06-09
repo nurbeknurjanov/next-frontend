@@ -1,1 +1,2 @@
-export * from './Product';
+export { Product } from './Product';
+export { useProductModel } from './useProductModel';

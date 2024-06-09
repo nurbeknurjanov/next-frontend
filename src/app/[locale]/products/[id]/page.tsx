@@ -21,12 +21,12 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
     const t = await getTranslations('ProductPage');
 
-    const { data } = await serverStore.dispatch(getProductThunk(id));
-    if (!data) {
+    const { data: model } = await serverStore.dispatch(getProductThunk(id));
+    if (!model) {
       return notFound();
     }
 
-    serverStore.dispatch(setTitle(data!.name, t('title')));
+    serverStore.dispatch(setTitle(model!.name, t('title')));
 
     serverStore.dispatch(setServerWait(false));
   }

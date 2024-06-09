@@ -37,7 +37,7 @@ const columns: GridColDef[] = [
 ];
 
 let Product: FC = () => {
-  const { model, aggStates } = useProduct();
+  const { model, getProductState } = useProduct();
 
   const data: { label: string; value: string | React.ReactNode }[] = [];
   if (model) {
@@ -59,7 +59,7 @@ let Product: FC = () => {
       });
   }
 
-  if (aggStates.isFetching) {
+  if (getProductState.isFetching) {
     return <Loading />;
   }
 

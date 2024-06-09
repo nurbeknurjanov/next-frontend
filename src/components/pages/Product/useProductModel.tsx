@@ -1,9 +1,10 @@
+'use client';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
 import { useCallback, useEffect } from 'react';
 import { products } from 'store';
 import { getProductThunk } from 'store/products/thunks';
 
-export function useProductModalView({ id }: { id: string }) {
+export function useProductModel({ id }: { id: string }) {
   const dispatch = useAppDispatch();
   const getProductState = useAppSelector(products.getProduct.selector.state);
   const model = getProductState.data;

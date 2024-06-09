@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { useProductModalView } from '../useProductModalView';
+import { useProductModel } from 'components/pages/Product';
 import { Button } from 'shared/ui';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -49,7 +49,7 @@ export const ProductModalView: FC<IProps> = ({ onClose, id }) => {
   const tc = useTranslations('Common');
   const tp = useTranslations('ProductPage');
   const tm = useTranslations('Product');
-  const { model, getProductState } = useProductModalView({
+  const { model, getProductState } = useProductModel({
     id,
   });
 

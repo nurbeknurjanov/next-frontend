@@ -4,7 +4,7 @@ import { useTranslations } from 'next-intl';
 import { IProductPost } from 'api/productsApi';
 import { IProps } from './ProductModalUpdate';
 import { usePrepareForm } from '../usePrepareForm';
-import { useProductModalView } from '../useProductModalView';
+import { useProductModel } from 'components/pages/Product';
 import { notify } from 'store/common/thunks';
 import { updateProductThunk } from 'store/products/thunks';
 import { getAggStates } from 'store/common/types';
@@ -15,7 +15,7 @@ export function useProductModalUpdate({ onClose, refreshList, id }: IProps) {
   const tp = useTranslations('ProductPage');
   const tm = useTranslations('Product');
 
-  const { model, getProductState } = useProductModalView({ id });
+  const { model, getProductState } = useProductModel({ id });
 
   const updateProductState = useAppSelector(
     products.updateProduct.selector.state
