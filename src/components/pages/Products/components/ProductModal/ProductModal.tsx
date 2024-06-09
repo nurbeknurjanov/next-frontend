@@ -86,7 +86,7 @@ export const ProductModal: React.FC<IProps> = ({
           onClick={() => {
             formRef.current?.requestSubmit();
           }}
-          disabled={!isDirty && !isValid}
+          disabled={!isDirty || !isValid}
           autoFocus
         >
           {type === 'create' ? tc('create') : tc('update')}
