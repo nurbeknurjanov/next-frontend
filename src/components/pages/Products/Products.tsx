@@ -23,7 +23,6 @@ let Products: FC = () => {
   const {
     tc,
     tm,
-    tps,
     getProductsState,
     setPagination,
     sorting,
