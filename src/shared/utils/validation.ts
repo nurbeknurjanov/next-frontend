@@ -9,9 +9,14 @@ export const useI18nJoi = () => {
         });*/
     return schema.options({
       messages: {
-        /*'string.empty': t('required', { label: '{{#label}}' }),
+        'string.empty': t('required', { label: '{{#label}}' }),
+        'string.base': t('required', { label: '{{#label}}' }),
         'string.email': t('email', { label: '{{#label}}' }),
-        'any.custom': t('custom', { label: '{{#label}}' }),*/
+        'number.base': t('number', { label: '{{#label}}' }),
+        'any.only': t('choose', { label: '{{#label}}' }),
+
+        'any.custom': t('custom', { label: '{{#label}}' }),
+
         'custom.image_type': 'Upload only png, jpg, gif format image files',
         'custom.size': 'Size of file too large',
       },

@@ -148,7 +148,6 @@ export const UserModalCreate: React.FC<IProps> = ({ onClose, refreshList }) => {
           onClick={() => {
             formRef.current?.requestSubmit();
           }}
-          disabled={!isDirty || !isValid}
           autoFocus
           loading={createUserState.isFetching}
           sx={{ minWidth: 120 }}

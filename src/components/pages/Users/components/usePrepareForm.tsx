@@ -62,6 +62,7 @@ export function usePrepareForm({ model }: IProps) {
     reset(initialValues);
   }, [reset, initialValues]);
 
+  console.log('errrp', errors);
   return {
     register,
     errors,

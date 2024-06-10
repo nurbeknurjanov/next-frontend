@@ -46,6 +46,8 @@
   "Validation": {
     "required": "{label} is not allowed to be empty",
     "email": "{label} must be a valid email",
+    "number": "{label} must be a number",
+    "choose": "At {label} one of options must be selected",
     "custom": "{label} is invalid"
   },
   "ProductsPage": {

@@ -46,6 +46,8 @@
   "Validation": {
     "required": "{label} не может быть пустым",
     "email": "{label} должна быть верной почтой",
+    "number": "Поле {label} должен быть числом",
+    "choose": "В поле {label} должна быть выбрана одна из опций",
     "custom": "Поле {label} введено не верно"
   },
   "ProductsPage": {
