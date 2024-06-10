@@ -57,6 +57,11 @@ let Users: FC = () => {
       flex: 1,
     },
     {
+      field: 'status',
+      headerName: tm('status'),
+      flex: 1,
+    },
+    {
       field: 'createdAt',
       headerName: tc('createdDate'),
       flex: 1,
@@ -74,13 +79,6 @@ let Users: FC = () => {
       getActions: params => [
         <GridActionsCellItem
           key={params.row._id}
-          icon={<DeleteIcon color={'primary'} />}
-          onClick={() => setShowModal({ type: 'view', id: params.row._id })}
-          label={tc('view')}
-          showInMenu
-        />,
-        <GridActionsCellItem
-          key={params.row._id}
           icon={<EditIcon color={'warning'} />}
           onClick={() => setShowModal({ type: 'update', id: params.row._id })}
           label={tc('update')}
@@ -91,6 +89,13 @@ let Users: FC = () => {
           icon={<DeleteIcon color={'error'} />}
           onClick={() => setShowModal({ type: 'delete', id: params.row._id })}
           label={tc('delete')}
+          showInMenu
+        />,
+        <GridActionsCellItem
+          key={params.row._id}
+          icon={<DeleteIcon color={'primary'} />}
+          onClick={() => setShowModal({ type: 'view', id: params.row._id })}
+          label={tc('view')}
           showInMenu
         />,
       ],

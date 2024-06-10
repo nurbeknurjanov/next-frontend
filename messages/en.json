@@ -82,6 +82,10 @@
     "sexOptions": {
       "male": "Man",
       "female": "Woman"
+    },
+    "statusOptions": {
+      "enabled": "Enabled",
+      "disabled": "Disabled"
     }
   }
 }

@@ -13,11 +13,13 @@ import {
   Radio,
   FormHelperText,
 } from '@mui/material';
+
+import { InputLabel, Select, MenuItem } from '@mui/material';
 //import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { useRef } from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
-import { SEX_ENUM } from 'api/usersApi';
+import { SEX_ENUM, STATUS_ENUM } from 'api/usersApi';
 
 export type IProps = {
   id: string;
@@ -128,12 +130,25 @@ export const UserModalUpdate: React.FC<IProps> = ({
               )}
             </FormControl>
 
-            <TextField
-              label={tm('status')}
-              error={!!errors['status']}
-              helperText={errors['status']?.message as string}
-              {...register('status')}
-            />
+            <FormControl size="small" sx={{ mb: 2 }}>
+              <InputLabel id="demo-simple-select-label">
+                {tm('status')}
+              </InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                label={tm('status')}
+                value={watch('status')}
+                {...register('status')}
+              >
+                <MenuItem value={STATUS_ENUM.ENABLED}>
+                  {tm('statusOptions.enabled')}
+                </MenuItem>
+                <MenuItem value={STATUS_ENUM.DISABLED}>
+                  {tm('statusOptions.disabled')}
+                </MenuItem>
+              </Select>
+            </FormControl>
           </form>
         )}
       </DialogContent>

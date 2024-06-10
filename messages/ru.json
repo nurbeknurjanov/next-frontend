@@ -82,6 +82,10 @@
     "sexOptions": {
       "male": "Мужчина",
       "female": "Женщина"
+    },
+    "statusOptions": {
+      "enabled": "Активный",
+      "disabled": "Отключен"
     }
   }
 }
