@@ -53,6 +53,12 @@ export const UserModalUpdate: React.FC<IProps> = ({
     refreshList,
   });
 
+  const {
+    onChange: _onChange,
+    onBlur: _onBlur,
+    ...sexRegisterOptions
+  } = register('sex');
+
   return (
     <Dialog open onClose={onClose}>
       <DialogTitle>{tp('update')}</DialogTitle>
@@ -97,6 +103,31 @@ export const UserModalUpdate: React.FC<IProps> = ({
               {...register('age')}
             />
 
+            <FormControl sx={{ mb: 2 }} error={!!errors['sex']}>
+              <FormLabel>{tm('sex')}</FormLabel>
+              <RadioGroup
+                value={watch('sex')}
+                {...sexRegisterOptions}
+                onChange={(e, value) => {
+                  setValue('sex', Number(value));
+                }}
+              >
+                <FormControlLabel
+                  value={SEX_ENUM.MALE}
+                  control={<Radio />}
+                  label={'Male'}
+                />
+                <FormControlLabel
+                  value={SEX_ENUM.FEMALE}
+                  control={<Radio />}
+                  label={'Female'}
+                />
+              </RadioGroup>
+              {!!errors['sex'] && (
+                <FormHelperText>{errors['sex'].message}</FormHelperText>
+              )}
+            </FormControl>
+
             <TextField
               label={tm('status')}
               error={!!errors['status']}
@@ -105,8 +136,6 @@ export const UserModalUpdate: React.FC<IProps> = ({
             />
           </form>
         )}
-
-        <button onClick={() => setValue('sex', Number(1))}>click</button>
       </DialogContent>
       <DialogActions>
         <Button onClick={onClose}>{tc('close')}</Button>
