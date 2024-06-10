@@ -153,6 +153,7 @@ export const UserModalCreate: React.FC<IProps> = ({ onClose, refreshList }) => {
           }}
           autoFocus
           loading={createUserState.isFetching}
+          disabled={!isDirty || !isValid}
           sx={{ minWidth: 120 }}
         >
           {tc('create')}
