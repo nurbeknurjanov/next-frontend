@@ -1,6 +1,17 @@
 import * as React from 'react';
 import { useUserModalCreate } from './useUserModalCreate';
-import { TextField } from '@mui/material';
+import {
+  FormControl,
+  FormControlLabel,
+  FormHelperText,
+  FormLabel,
+  InputLabel,
+  MenuItem,
+  Radio,
+  RadioGroup,
+  Select,
+  TextField,
+} from '@mui/material';
 import { Button } from 'shared/ui';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -9,6 +20,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import { useRef } from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
+import { SEX_ENUM, STATUS_ENUM } from 'api/usersApi';
 
 export type IProps = {
   onClose: () => void;
@@ -29,10 +41,18 @@ export const UserModalCreate: React.FC<IProps> = ({ onClose, refreshList }) => {
     isDirty,
     handleSubmit,
     submitForm,
+    watch,
+    setValue,
   } = useUserModalCreate({
     onClose,
     refreshList,
   });
+
+  const {
+    onChange: _onChange,
+    onBlur: _onBlur,
+    ...sexRegisterOptions
+  } = register('sex');
 
   return (
     <Dialog open onClose={onClose}>
@@ -72,24 +92,52 @@ export const UserModalCreate: React.FC<IProps> = ({ onClose, refreshList }) => {
 
             <TextField
               label={tm('age')}
+              type="number"
               error={!!errors['age']}
               helperText={errors['age']?.message as string}
               {...register('age')}
             />
 
-            <TextField
-              label={tm('sex')}
-              error={!!errors['sex']}
-              helperText={errors['sex']?.message as string}
-              {...register('sex')}
-            />
+            <FormControl sx={{ mb: 2 }} error={!!errors['sex']}>
+              <FormLabel>{tm('sex')}</FormLabel>
+              <RadioGroup
+                value={watch('sex')}
+                {...sexRegisterOptions}
+                onChange={(e, value) => {
+                  setValue('sex', Number(value));
+                }}
+              >
+                <FormControlLabel
+                  value={SEX_ENUM.MALE}
+                  control={<Radio />}
+                  label={tm('sexOptions.male')}
+                />
+                <FormControlLabel
+                  value={SEX_ENUM.FEMALE}
+                  control={<Radio />}
+                  label={tm('sexOptions.female')}
+                />
+              </RadioGroup>
+              {!!errors['sex'] && (
+                <FormHelperText>{errors['sex'].message}</FormHelperText>
+              )}
+            </FormControl>
 
-            <TextField
-              label={tm('status')}
-              error={!!errors['status']}
-              helperText={errors['status']?.message as string}
-              {...register('status')}
-            />
+            <FormControl size="small" sx={{ mb: 2 }}>
+              <InputLabel>{tm('status')}</InputLabel>
+              <Select
+                label={tm('status')}
+                {...register('status')}
+                value={watch('status') ?? ''}
+              >
+                <MenuItem value={STATUS_ENUM.ENABLED}>
+                  {tm('statusOptions.enabled')}
+                </MenuItem>
+                <MenuItem value={STATUS_ENUM.DISABLED}>
+                  {tm('statusOptions.disabled')}
+                </MenuItem>
+              </Select>
+            </FormControl>
           </form>
         )}
       </DialogContent>
@@ -105,7 +153,7 @@ export const UserModalCreate: React.FC<IProps> = ({ onClose, refreshList }) => {
           loading={createUserState.isFetching}
           sx={{ minWidth: 120 }}
         >
-          {tc('update')}
+          {tc('create')}
         </Button>
       </DialogActions>
     </Dialog>

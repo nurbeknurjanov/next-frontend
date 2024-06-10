@@ -15,9 +15,8 @@ export function useUserModalCreate({ onClose, refreshList }: IProps) {
 
   const createUserState = useAppSelector(users.createUser.selector.state);
 
-  const { register, errors, isValid, isDirty, handleSubmit } = usePrepareForm(
-    {}
-  );
+  const { register, errors, isValid, isDirty, handleSubmit, watch, setValue } =
+    usePrepareForm({});
 
   const createUser = async (formData: IUserPost) => {
     const { data } = await dispatch(createUserThunk(formData));
@@ -42,5 +41,7 @@ export function useUserModalCreate({ onClose, refreshList }: IProps) {
     isDirty,
     handleSubmit,
     submitForm,
+    watch,
+    setValue,
   };
 }
