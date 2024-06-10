@@ -18,7 +18,7 @@ export function usePrepareForm({ model }: IProps) {
 
   const initialValues = useMemo<IProductPost>(() => {
     if (!model) {
-      return { name: '', description: '' };
+      return { name: null, description: null };
     }
 
     return pick(model, ['name', 'description']);

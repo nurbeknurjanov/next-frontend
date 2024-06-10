@@ -9,7 +9,7 @@ export const Title = () => {
   const { title } = useAppSelector(common.title.selector.state);
 
   useEffect(() => {
-    //document.title = pageTitle;
+    document.title = title!;
   }, [title]);
 
   if (!title) {

@@ -1,8 +1,8 @@
-import { useI18nJoi } from '../../../../shared/utils';
+import { useI18nJoi } from 'shared/utils';
 import Joi from 'joi';
 import { useForm } from 'react-hook-form';
 import { joiResolver } from '@hookform/resolvers/joi';
-import { IUserPost, IUser } from '../../../../api/usersApi';
+import { IUserPost, IUser, STATUS_ENUM, SEX_ENUM } from 'api/usersApi';
 import { pick } from 'lodash';
 import { useEffect, useMemo } from 'react';
 
@@ -16,16 +16,16 @@ export function usePrepareForm({ model }: IProps) {
     email: Joi.string(),
     password: Joi.string(),
     age: Joi.number(),
-    sex: Joi.string(),
-    status: Joi.string(),
+    sex: Joi.number().valid(SEX_ENUM.MALE, SEX_ENUM.FEMALE),
+    status: Joi.number().valid(STATUS_ENUM.ENABLED, STATUS_ENUM.DISABLED),
   });
 
   const initialValues = useMemo<IUserPost>(() => {
     if (!model) {
       return {
-        name: '',
-        email: '',
-        password: '',
+        name: null,
+        email: null,
+        password: null,
         age: null,
         sex: null,
         status: null,

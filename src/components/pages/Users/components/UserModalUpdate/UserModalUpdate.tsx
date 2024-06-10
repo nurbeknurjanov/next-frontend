@@ -80,6 +80,7 @@ export const UserModalUpdate: React.FC<IProps> = ({
 
             <TextField
               label={tm('age')}
+              type="number"
               error={!!errors['age']}
               helperText={errors['age']?.message as string}
               {...register('age')}

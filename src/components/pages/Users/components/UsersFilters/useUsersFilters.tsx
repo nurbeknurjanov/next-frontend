@@ -9,7 +9,7 @@ export function useUsersFilters({ filters, setFilters }: IProps) {
   const previousFilters = useRef<IUserFilters | null>(null);
   const getUsersState = useAppSelector(users.getUsers.selector.state);
 
-  const defaultValues = { ...{ name: null, email: null }, ...filters };
+  const defaultValues = { name: null, email: null, ...filters };
   const {
     register,
     handleSubmit,

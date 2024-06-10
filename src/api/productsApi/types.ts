@@ -10,9 +10,11 @@ export interface IProduct {
   _id: string;
   name: string;
   description: string;
+  createdAt: string;
+  updatedAt: string;
 }
-type IProductWithout_id = Omit<IProduct, '_id'>;
-export interface IProductPost extends IProductWithout_id {}
+type IProductWithout_id = Omit<IProduct, '_id' | 'createdAt' | 'updatedAt'>;
+export interface IProductPost extends Nullable<IProductWithout_id> {}
 export interface IProductFilters extends Nullable<Partial<IProductWithout_id>> {
   id?: string | null;
 }
