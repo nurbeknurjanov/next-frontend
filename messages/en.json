@@ -78,6 +78,10 @@
     "password": "Password",
     "status": "Status",
     "age": "Age",
-    "sex": "Sex"
+    "sex": "Sex",
+    "sexOptions": {
+      "male": "Man",
+      "female": "Woman"
+    }
   }
 }

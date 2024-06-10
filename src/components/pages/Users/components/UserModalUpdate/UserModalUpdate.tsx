@@ -115,12 +115,12 @@ export const UserModalUpdate: React.FC<IProps> = ({
                 <FormControlLabel
                   value={SEX_ENUM.MALE}
                   control={<Radio />}
-                  label={'Male'}
+                  label={tm('sexOptions.male')}
                 />
                 <FormControlLabel
                   value={SEX_ENUM.FEMALE}
                   control={<Radio />}
-                  label={'Female'}
+                  label={tm('sexOptions.female')}
                 />
               </RadioGroup>
               {!!errors['sex'] && (
