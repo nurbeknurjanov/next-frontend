@@ -1,4 +1,4 @@
-import React from 'react';
+import React /*, { ChangeEvent }*/ from 'react';
 import { useUserModalUpdate } from './useUserModalUpdate';
 import { TextField } from '@mui/material';
 import { Button } from 'shared/ui';
@@ -13,6 +13,8 @@ import {
   Radio,
   FormHelperText,
 } from '@mui/material';
+
+//import { Checkbox, FormGroup } from '@mui/material';
 
 import { InputLabel, Select, MenuItem } from '@mui/material';
 //import DialogContentText from '@mui/material/DialogContentText';
@@ -60,6 +62,14 @@ export const UserModalUpdate: React.FC<IProps> = ({
     onBlur: _onBlur,
     ...sexRegisterOptions
   } = register('sex');
+
+  /*const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    if (event.target.checked) {
+      setValue('sex', Number(event.target.value));
+    } else {
+      setValue('sex', null);
+    }
+  };*/
 
   return (
     <Dialog open onClose={onClose}>
@@ -130,6 +140,35 @@ export const UserModalUpdate: React.FC<IProps> = ({
               )}
             </FormControl>
 
+            {/*<FormControl sx={{ mb: 2 }} error={!!errors['sex']}>
+              <FormLabel>{tm('sex')}</FormLabel>
+              <FormGroup>
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={watch('sex') === SEX_ENUM.MALE}
+                      value={SEX_ENUM.MALE}
+                      onChange={handleChange}
+                    />
+                  }
+                  label={tm('sexOptions.male')}
+                />
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={watch('sex') === SEX_ENUM.FEMALE}
+                      value={SEX_ENUM.FEMALE}
+                      onChange={handleChange}
+                    />
+                  }
+                  label={tm('sexOptions.female')}
+                />
+                {!!errors['sex'] && (
+                  <FormHelperText>{errors['sex'].message}</FormHelperText>
+                )}
+              </FormGroup>
+            </FormControl>*/}
+
             <FormControl size="small" sx={{ mb: 2 }}>
               <InputLabel>{tm('status')}</InputLabel>
               <Select
@@ -155,7 +194,7 @@ export const UserModalUpdate: React.FC<IProps> = ({
           onClick={() => {
             formRef.current?.requestSubmit();
           }}
-          /*disabled={!isDirty || !isValid}*/
+          disabled={!isDirty || !isValid}
           autoFocus
           loading={aggStates.isFetching}
           sx={{ minWidth: 120 }}
