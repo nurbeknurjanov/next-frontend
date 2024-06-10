@@ -48,7 +48,6 @@ export function usePrepareForm({ model }: IProps) {
     defaultValues: initialValues!,
   });
 
-  console.log('errors', errors);
   useEffect(() => {
     reset(initialValues);
   }, [reset, initialValues]);

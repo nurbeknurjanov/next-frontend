@@ -131,15 +131,11 @@ export const UserModalUpdate: React.FC<IProps> = ({
             </FormControl>
 
             <FormControl size="small" sx={{ mb: 2 }}>
-              <InputLabel id="demo-simple-select-label">
-                {tm('status')}
-              </InputLabel>
+              <InputLabel>{tm('status')}</InputLabel>
               <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
                 label={tm('status')}
-                value={watch('status')}
                 {...register('status')}
+                value={watch('status') ?? ''}
               >
                 <MenuItem value={STATUS_ENUM.ENABLED}>
                   {tm('statusOptions.enabled')}
