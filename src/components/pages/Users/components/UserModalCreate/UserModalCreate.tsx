@@ -123,7 +123,7 @@ export const UserModalCreate: React.FC<IProps> = ({ onClose, refreshList }) => {
               )}
             </FormControl>
 
-            <FormControl size="small" sx={{ mb: 2 }}>
+            <FormControl size="small" sx={{ mb: 2 }} error={!!errors['status']}>
               <InputLabel>{tm('status')}</InputLabel>
               <Select
                 label={tm('status')}
@@ -137,6 +137,9 @@ export const UserModalCreate: React.FC<IProps> = ({ onClose, refreshList }) => {
                   {tm('statusOptions.disabled')}
                 </MenuItem>
               </Select>
+              {!!errors['status'] && (
+                <FormHelperText>{errors['status'].message}</FormHelperText>
+              )}
             </FormControl>
           </form>
         )}
