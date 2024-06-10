@@ -103,7 +103,7 @@ export const UserModalUpdate: React.FC<IProps> = ({
                 value={watch('sex')}
                 {...register('sex')}
                 onChange={(e, value) => {
-                  setValue('sex', value);
+                  setValue('sex', Number(value));
                 }}
               >
                 <FormControlLabel
