@@ -74,6 +74,10 @@
   },
   "User": {
     "name": "Name",
-    "email": "Email"
+    "email": "Email",
+    "password": "Password",
+    "status": "Status",
+    "age": "Age",
+    "sex": "Sex"
   }
 }

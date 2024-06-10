@@ -6,16 +6,25 @@ import {
 } from 'api/baseApi';
 import { AxiosRequestConfig } from 'axios';
 
-/*export enum TypeLogo {
-  Album = 'album',
-  Portrait = 'portrait',
-}*/
+export enum SEX_ENUM {
+  MALE = 1,
+  FEMALE = 0,
+}
+export enum STATUS_ENUM {
+  ENABLED = 1,
+  DISABLED = 0,
+}
 
 export type IUser = {
   _id: string;
   name: string;
   email: string;
   password: string;
+  age: number;
+  sex: SEX_ENUM;
+  status: STATUS_ENUM;
+  createdAt: string;
+  updatedAt: string;
 };
 
 type IUserWithout_id = Omit<IUser, '_id'>;

@@ -3,7 +3,6 @@ import { useAppDispatch, useAppSelector } from 'store/hooks';
 import { useCallback, useEffect } from 'react';
 import { users } from 'store';
 import { getUserThunk } from 'store/users/thunks';
-import { useHydrateState } from 'shared/hooks';
 
 export function useUserModel({ id }: { id: string }) {
   const dispatch = useAppDispatch();
