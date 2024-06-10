@@ -49,6 +49,8 @@ export default async function ProductsPage({
 
     await serverStore.dispatch(getProductsThunk(pagination, filters, sorting));
 
+    //console.log('data', serverStore.getState().products?.getProducts.data);
+
     serverStore.dispatch(setServerWait(false));
   }
 

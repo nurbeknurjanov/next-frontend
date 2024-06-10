@@ -23,6 +23,10 @@ export function Breadcrumbs() {
         {t('home')}
       </Link>
       {items.map((el, index) => {
+        if (!el) {
+          return null;
+        }
+
         if (typeof el === 'string') {
           return <span key={index}>{el}</span>;
         }
