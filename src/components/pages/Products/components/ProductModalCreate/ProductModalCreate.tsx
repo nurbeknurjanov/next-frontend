@@ -80,7 +80,7 @@ export const ProductModalCreate: React.FC<IProps> = ({
           loading={createProductState.isFetching}
           sx={{ minWidth: 120 }}
         >
-          {tc('update')}
+          {tc('create')}
         </Button>
       </DialogActions>
     </Dialog>
