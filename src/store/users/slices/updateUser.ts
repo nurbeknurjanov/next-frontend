@@ -1,7 +1,7 @@
 import { RootStateType } from 'store/store';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { UserApiConfig, IUser, UserApiError, IUserPost } from 'api/userApi';
-import { userApi } from 'api';
+import { IUserApiConfig, IUser, IUserApiError, IUserPost } from 'api/usersApi';
+import { usersApi } from 'api';
 
 import {
   MergeResponseState,
@@ -12,7 +12,7 @@ import {
 import axios from 'axios';
 
 export interface UpdateUserStateType
-  extends MergeResponseState<IUser, UserApiError> {}
+  extends MergeResponseState<IUser, IUserApiError> {}
 
 const selector = {
   state: (state: RootStateType) => state.users.updateUser,
@@ -39,7 +39,7 @@ const requestThunk = createAsyncThunk(
     }: {
       id: string;
       body: IUserPost;
-      config?: UserApiConfig;
+      config?: IUserApiConfig;
     },
     { rejectWithValue, signal }
   ) => {
@@ -48,7 +48,7 @@ const requestThunk = createAsyncThunk(
     if (config) {
       config.cancelToken = source.token;
     }
-    return userApi.updateUser(id, body, config).catch(rejectWithValue);
+    return usersApi.updateUser(id, body, config).catch(rejectWithValue);
   },
   {
     condition: (payload, { getState }) => {
@@ -80,7 +80,7 @@ const { actions, reducer } = createSlice({
     });
     builder.addCase(requestThunk.rejected, (state, action) => {
       Object.assign(state, initialState);
-      state.error = action.payload as UserApiError;
+      state.error = action.payload as IUserApiError;
     });
   },
 });

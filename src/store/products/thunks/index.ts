@@ -1,5 +1,5 @@
-export * from './getProducts';
-export * from './getProduct';
-export * from './createProduct';
-export * from './updateProduct';
-export * from './deleteProduct';
+export { getProductsThunk } from './getProducts';
+export { getProductThunk } from './getProduct';
+export { createProductThunk } from './createProduct';
+export { updateProductThunk } from './updateProduct';
+export { deleteProductThunk } from './deleteProduct';

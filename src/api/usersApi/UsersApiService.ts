@@ -1,31 +1,31 @@
 import { AxiosRequestConfig } from 'axios';
 import { RequestParams, AxiosResponseData, BaseApiService } from '../baseApi';
 import {
-  UserSort,
-  UserFilter,
-  UsersList,
-  UserApiConfig,
+  IUserSort,
+  IUserFilters,
+  IUsersList,
+  IUserApiConfig,
   IUser,
   IUserPost,
 } from './types';
 
-export class UserApiService extends BaseApiService {
+export class UsersApiService extends BaseApiService {
   constructor(config: AxiosRequestConfig = {}) {
     super(config);
   }
 
   public getUsers(
-    query: RequestParams<UserFilter, UserSort>,
-    config?: UserApiConfig
-  ): Promise<AxiosResponseData<UsersList>> {
-    const { filter, sort, pagination } = query;
-    return this.request<UsersList>({
+    query: RequestParams<IUserFilters, IUserSort>,
+    config?: IUserApiConfig
+  ): Promise<AxiosResponseData<IUsersList>> {
+    const { filters, sort, pagination } = query;
+    return this.request<IUsersList>({
       method: 'get',
       url: '/users',
       params: {
         ...pagination,
         ...(sort ? sort : {}),
-        ...(filter ? filter : {}),
+        ...(filters ? filters : {}),
       },
       ...config,
       headers: {
@@ -36,7 +36,7 @@ export class UserApiService extends BaseApiService {
 
   public getUser(
     id: string,
-    config?: UserApiConfig
+    config?: IUserApiConfig
   ): Promise<AxiosResponseData<IUser>> {
     return this.request<IUser>({
       method: 'get',
@@ -52,7 +52,7 @@ export class UserApiService extends BaseApiService {
 
   public createUser(
     body: IUserPost,
-    config?: UserApiConfig
+    config?: IUserApiConfig
   ): Promise<AxiosResponseData<IUser>> {
     return this.request<IUser>({
       method: 'post',
@@ -68,7 +68,7 @@ export class UserApiService extends BaseApiService {
   public updateUser(
     id: string,
     body: IUserPost,
-    config?: UserApiConfig
+    config?: IUserApiConfig
   ): Promise<AxiosResponseData<IUser>> {
     return this.request<IUser>({
       method: 'put',
@@ -83,7 +83,7 @@ export class UserApiService extends BaseApiService {
 
   public deleteUser(
     id: string,
-    config?: UserApiConfig
+    config?: IUserApiConfig
   ): Promise<AxiosResponseData<IUser>> {
     return this.request<IUser>({
       method: 'delete',

@@ -2,13 +2,13 @@ import { RootStateType } from 'store/store';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { RequestParams } from 'api/baseApi';
 import {
-  UserApiConfig,
-  UsersList,
-  UserFilter,
-  UserSort,
-  UserApiError,
-} from 'api/userApi';
-import { userApi } from 'api';
+  IUserApiConfig,
+  IUsersList,
+  IUserFilters,
+  IUserSort,
+  IUserApiError,
+} from 'api/usersApi';
+import { usersApi } from 'api';
 
 import {
   MergeResponseState,
@@ -20,7 +20,7 @@ import axios from 'axios';
 import { isEqual } from 'lodash';
 
 export interface GetUsersStateType
-  extends MergeResponseState<UsersList, UserApiError> {}
+  extends MergeResponseState<IUsersList, IUserApiError> {}
 
 const selector = {
   state: (state: RootStateType) => state.users.getUsers,
@@ -37,7 +37,7 @@ const initialState: GetUsersStateType = {
 
 const SLICE_NAME = '@users/getUsers';
 
-let previousQuery: RequestParams<UserFilter, UserSort>;
+let previousQuery: RequestParams<IUserFilters, IUserSort>;
 const requestThunk = createAsyncThunk(
   `${SLICE_NAME}/request`,
   (
@@ -45,8 +45,8 @@ const requestThunk = createAsyncThunk(
       query,
       config,
     }: {
-      query: RequestParams<UserFilter, UserSort>;
-      config?: UserApiConfig;
+      query: RequestParams<IUserFilters, IUserSort>;
+      config?: IUserApiConfig;
     },
     { rejectWithValue, signal }
   ) => {
@@ -55,7 +55,7 @@ const requestThunk = createAsyncThunk(
     if (config) {
       config.cancelToken = source.token;
     }
-    return userApi.getUsers(query, config).catch(rejectWithValue);
+    return usersApi.getUsers(query, config).catch(rejectWithValue);
   },
   {
     condition: (payload, { getState }) => {
@@ -93,7 +93,7 @@ const { actions, reducer } = createSlice({
     });
     builder.addCase(requestThunk.rejected, (state, action) => {
       Object.assign(state, initialState);
-      state.error = action.payload as UserApiError;
+      state.error = action.payload as IUserApiError;
     });
   },
 });
