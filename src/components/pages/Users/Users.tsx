@@ -1,39 +1,46 @@
 'use client';
 import React, { FC } from 'react';
 import dayjs from 'dayjs';
-import styles from '../Products/products.module.scss';
+import styles from './users.module.scss';
 import { DataGrid, GridColDef, GridActionsCellItem } from '@mui/x-data-grid';
 import { useUsers } from './useUsers';
 import { Link } from 'shared/ui';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-import { UserModal, UserModalDelete, UsersFilter } from './components';
+import {
+  UserModalCreate,
+  UserModalUpdate,
+  UserModalView,
+  UserModalDelete,
+  UsersFilters,
+} from './components';
 import { withCleanHooks } from 'shared/hocs';
 import { DATE_FORMAT } from 'shared/utils';
-import { IUser } from 'api/userApi';
+import { IUser } from 'api/usersApi';
 import { Alert } from '@mui/material';
 
 let Users: FC = () => {
   const {
-    data,
+    tc,
+    tm,
+    getUsersState,
     setPagination,
     sorting,
     setSorting,
-    filter,
-    setFilter,
-    refreshUsersList,
-    selectedIdToUpdate,
-    setSelectedIdToUpdate,
-    selectedIdToDelete,
-    setSelectedIdToDelete,
-    showCreateModal,
-    setShowCreateModal,
+    filters,
+    setFilters,
+    refreshList,
+    showModal,
+    setShowModal,
+    closeShowModal,
   } = useUsers();
+
+  const { data, isFetching } = getUsersState;
 
   const columns: GridColDef<IUser>[] = [
     {
       field: 'name',
-      headerName: 'Name',
+      headerName: tm('name'),
       renderCell: params => (
         <Link href={'/users/' + params.row._id}>{params.row.name}</Link>
       ),
@@ -41,18 +48,18 @@ let Users: FC = () => {
     },
     {
       field: 'email',
-      headerName: 'Email',
+      headerName: tm('email'),
       flex: 1,
     },
     {
       field: 'createdAt',
-      headerName: 'Created date',
+      headerName: tc('createdDate'),
       flex: 1,
       valueGetter: params => dayjs(params.value).format(DATE_FORMAT),
     },
     {
       field: 'updatedAt',
-      headerName: 'Updated date',
+      headerName: tc('updatedDate'),
       flex: 1,
       valueGetter: params => dayjs(params.value).format(DATE_FORMAT),
     },
@@ -62,16 +69,23 @@ let Users: FC = () => {
       getActions: params => [
         <GridActionsCellItem
           key={params.row._id}
-          icon={<EditIcon color={'primary'} />}
-          onClick={() => setSelectedIdToUpdate(params.row._id)}
-          label="Update"
+          icon={<DeleteIcon color={'primary'} />}
+          onClick={() => setShowModal({ type: 'view', id: params.row._id })}
+          label={tc('view')}
+          showInMenu
+        />,
+        <GridActionsCellItem
+          key={params.row._id}
+          icon={<EditIcon color={'warning'} />}
+          onClick={() => setShowModal({ type: 'update', id: params.row._id })}
+          label={tc('update')}
           showInMenu
         />,
         <GridActionsCellItem
           key={params.row._id}
           icon={<DeleteIcon color={'error'} />}
-          onClick={() => setSelectedIdToDelete(params.row._id)}
-          label="Delete"
+          onClick={() => setShowModal({ type: 'delete', id: params.row._id })}
+          label={tc('delete')}
           showInMenu
         />,
       ],
@@ -98,28 +112,25 @@ let Users: FC = () => {
 
   return (
     <>
-      <div className={styles.gamesContent}>
-        <UsersFilter filter={filter} setFilter={setFilter} />
-        <br />
+      <div className={styles.usersContent}>
+        <UsersFilters filters={filters} setFilters={setFilters} />
+
         {!data?.list?.length ? (
           <Alert severity={'warning'} variant="outlined">
-            No users
+            {tc('noData')}
           </Alert>
         ) : (
           <DataGrid
             rows={data.list}
             getRowId={el => el._id}
             columns={columns}
-            initialState={{
-              pagination: {
-                paginationModel: {
-                  page: data.pagination.pageNumber ?? 0,
-                  pageSize: data.pagination.pageSize ?? 12,
-                },
-              },
+            loading={isFetching}
+            paginationModel={{
+              page: data.pagination.pageNumber ?? 0,
+              pageSize: data.pagination.pageSize ?? 12,
             }}
             onPaginationModelChange={({ page, pageSize }) =>
-              setPagination({ pageNumber: page, pageSize: pageSize })
+              setPagination({ pageNumber: page, pageSize })
             }
             pageSizeOptions={[12, 24, 48]}
             paginationMode={'server'}
@@ -131,29 +142,28 @@ let Users: FC = () => {
         )}
       </div>
 
-      {showCreateModal && (
-        <UserModal
-          type="create"
-          onClose={() => setShowCreateModal(false)}
-          refreshUsersList={refreshUsersList}
+      {showModal?.type === 'create' && (
+        <UserModalCreate onClose={closeShowModal} refreshList={refreshList} />
+      )}
+
+      {showModal?.type === 'update' && (
+        <UserModalUpdate
+          id={showModal.id}
+          onClose={closeShowModal}
+          refreshList={refreshList}
         />
       )}
 
-      {selectedIdToUpdate && (
-        <UserModal
-          type="update"
-          id={selectedIdToUpdate}
-          onClose={() => setSelectedIdToUpdate(null)}
-          refreshUsersList={refreshUsersList}
-        />
-      )}
-
-      {selectedIdToDelete && (
+      {showModal?.type === 'delete' && (
         <UserModalDelete
-          id={selectedIdToDelete}
-          onClose={() => setSelectedIdToDelete(null)}
-          refreshUsersList={refreshUsersList}
+          id={showModal.id}
+          onClose={closeShowModal}
+          refreshList={refreshList}
         />
+      )}
+
+      {showModal?.type === 'view' && (
+        <UserModalView id={showModal.id} onClose={closeShowModal} />
       )}
     </>
   );

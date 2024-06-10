@@ -1,27 +1,19 @@
-import { useAppSelector } from 'store/hooks';
-import { useRef } from 'react';
-import { users } from 'store';
-import { useSetPageData, useHydrateState } from 'shared/hooks';
-import { getAggStates } from 'store/common/types';
-import { useGetUser } from './useGetUser';
+'use client';
+import { useTranslations } from 'next-intl';
+import { useSetPageData } from 'shared/hooks';
 import { useParams } from 'next/navigation';
 import { UserPageProps } from 'app/[locale]/users/[id]/page';
+import { useUserModel } from './useUserModel';
 
 export function useUser() {
-  const isServerStoreActual = useRef<boolean>();
-  isServerStoreActual.current = useHydrateState();
+  const ts = useTranslations('UsersPage');
   const { id } = useParams<UserPageProps['params']>();
-  const { model } = useGetUser({ id });
-
-  //const gamesState = useAppSelector(games.getGames.selector.state);
-  const userState = useAppSelector(users.getUser.selector.state);
-  const aggStates = getAggStates(userState);
-
-  const title = model?.name || '';
+  const { model, getUserState } = useUserModel({ id });
+  const title = model?.name!;
 
   useSetPageData(title, [
     {
-      label: 'Users',
+      label: ts('title'),
       href: '/users',
     },
     title,
@@ -29,6 +21,6 @@ export function useUser() {
 
   return {
     model,
-    aggStates,
+    getUserState,
   };
 }

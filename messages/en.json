@@ -61,5 +61,19 @@
   "Product": {
     "name": "Name",
     "description": "Description"
+  },
+  "UsersPage": {
+    "title": "Users",
+    "create": "Create user"
+  },
+  "UserPage": {
+    "title": "User",
+    "update": "Update user",
+    "delete": "Delete user",
+    "view": "View user"
+  },
+  "User": {
+    "name": "Name",
+    "email": "Email"
   }
 }

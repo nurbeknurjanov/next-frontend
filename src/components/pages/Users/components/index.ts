@@ -1,3 +1,5 @@
-export { UserModal } from './UserModal';
+export { UserModalCreate } from './UserModalCreate';
+export { UserModalUpdate } from './UserModalUpdate';
 export { UserModalDelete } from './UserModalDelete';
-export { UsersFilter } from './UsersFilter';
+export { UserModalView } from './UserModalView';
+export { UsersFilters } from './UsersFilters';

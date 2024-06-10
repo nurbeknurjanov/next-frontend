@@ -1,5 +1,6 @@
 'use client';
 import React, { FC } from 'react';
+import styles from './user.module.scss';
 import { useUser } from './useUser';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import dayjs from 'dayjs';
@@ -17,7 +18,14 @@ const columns: GridColDef[] = [
   {
     field: 'value',
     headerName: 'Value',
+    width: 1200,
     renderCell: params => {
+      if (['background', 'icon_2', 'icon_3'].includes(params.row.label)) {
+        return (
+          <img src={params.value} width={300} style={{ margin: '20px 0' }} />
+        );
+      }
+
       if (['createdAt', 'updatedAt'].includes(params.row.label)) {
         return dayjs(params.value).format(DATE_FORMAT);
       }
@@ -29,7 +37,7 @@ const columns: GridColDef[] = [
 ];
 
 let User: FC = () => {
-  const { model, aggStates } = useUser();
+  const { model, getUserState } = useUser();
 
   const data: { label: string; value: string | React.ReactNode }[] = [];
   if (model) {
@@ -51,17 +59,19 @@ let User: FC = () => {
       });
   }
 
-  if (aggStates.isFetching) {
+  if (getUserState.isFetching) {
     return <Loading />;
   }
 
   return (
-    <DataGrid
-      hideFooter
-      rows={data}
-      columns={columns}
-      getRowId={el => el.label}
-    />
+    <div className={styles.userContent}>
+      <DataGrid
+        hideFooter
+        rows={data}
+        columns={columns}
+        getRowId={el => el.label}
+      />
+    </div>
   );
 };
 

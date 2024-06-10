@@ -1,32 +1,37 @@
-import { useAppDispatch } from 'store/hooks';
-import { users } from 'store';
-import { AppThunk } from 'store/store';
-import { useNotify } from 'shared/hooks';
+import { useAppDispatch, useAppSelector } from 'store/hooks';
+import { useTranslations } from 'next-intl';
 import { IProps } from './UserModalDelete';
+import { deleteUserThunk } from 'store/users/thunks';
+import { notify } from 'store/common/thunks';
+import { useCallback } from 'react';
+import { users } from 'store';
 
-export function useUserModalDelete({ id, refreshUsersList, onClose }: IProps) {
+export function useUserModalDelete({
+  refreshList,
+  onClose,
+}: Omit<IProps, 'id'>) {
+  const t = useTranslations('UserPage');
+  const tc = useTranslations('Common');
   const dispatch = useAppDispatch();
-  const notify = useNotify();
+  const deleteUserState = useAppSelector(users.deleteUser.selector.state);
 
-  const deleteUserThunk = (): AppThunk => async (dispatch, getState) => {
-    await dispatch(
-      users.deleteUser.thunk.request({
-        id,
-      })
-    );
-    const { error } = users.deleteUser.selector.state(getState());
+  const deleteUser = useCallback(
+    async (id: string) => {
+      const { error } = await dispatch(deleteUserThunk(id));
 
-    if (error) {
-      return notify(error.data, 'error');
-    }
-
-    notify('Successfully deleted user', 'success');
-    refreshUsersList();
-    onClose(false);
-  };
-  const deleteUser = () => dispatch(deleteUserThunk());
+      if (!error) {
+        onClose();
+        dispatch(notify(tc('successDeleted'), 'success'));
+        refreshList();
+      }
+    },
+    [onClose, refreshList, dispatch, tc]
+  );
 
   return {
+    t,
+    tc,
     deleteUser,
+    deleteUserState,
   };
 }

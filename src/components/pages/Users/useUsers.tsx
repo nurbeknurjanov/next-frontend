@@ -1,144 +1,123 @@
 'use client';
-import React, { useEffect, useState, useRef, useCallback } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
 import { users } from 'store';
-import { AppThunk } from 'store/store';
-import { IPaginationRequest, ISorting } from 'api/baseApi';
+import { getUsersThunk } from 'store/users/thunks';
+import { useTranslations } from 'next-intl';
+import { IPaginationRequest } from 'api/baseApi';
 import { isEqual } from 'lodash';
 import { Button } from 'shared/ui';
-import { useHydrateState, useNotify, useSetPageData } from 'shared/hooks';
+import { useSetPageData, useTableStates } from 'shared/hooks';
 import { GridSortModel } from '@mui/x-data-grid';
-import { UserFilter, UserSort } from 'api/userApi';
+import { IUserFilters } from 'api/usersApi';
 
+type ModalType =
+  | { type: 'create' }
+  | { type: 'update' | 'delete' | 'view'; id: string };
+
+//const env = process.env.NODE_ENV;
 export function useUsers() {
-  const isServerStoreActual = useRef<boolean>();
-  isServerStoreActual.current = useHydrateState();
+  const dispatch = useAppDispatch();
+  const tc = useTranslations('Common');
+  const tm = useTranslations('User');
+  const tps = useTranslations('UsersPage');
+
+  const [showModal, setShowModal] = useState<ModalType | null>();
+  const closeShowModal = useCallback(() => setShowModal(null), []);
 
   useSetPageData(
-    'Users',
-    ['Users'],
-    <>
-      <Button
-        variant={'contained'}
-        size={'small'}
-        onClick={() => setShowCreateModal(true)}
-      >
-        Create
-      </Button>
-    </>
+    tps('title'),
+    [tps('title')],
+    <Button
+      variant={'contained'}
+      size={'small'}
+      onClick={() => setShowModal({ type: 'create' })}
+    >
+      {tps('create')}
+    </Button>
   );
 
-  const dispatch = useAppDispatch();
-  const notify = useNotify();
-  const [sorting, setSorting] = useState<GridSortModel>([]);
-  const previousSorting = useRef<GridSortModel>();
-  const [pagination, setPagination] = useState<IPaginationRequest>({
-    pageSize: 12,
-    pageNumber: 0,
-  });
-  const previousPagination = useRef<IPaginationRequest>();
-  const [filter, setFilter] = useState<UserFilter>({});
-  const previousFilter = useRef<UserFilter>();
-  const [refreshUsersListKey, setRefreshUsersListKey] = useState<number>(
-    Math.random()
-  );
-  const refreshUsersList = () => setRefreshUsersListKey(Math.random());
-  const previousRefreshUsersListKey = useRef<number>(refreshUsersListKey);
+  const getUsersState = useAppSelector(users.getUsers.selector.state);
 
-  const { data } = useAppSelector(users.getUsers.selector.state);
-
-  const [showCreateModal, setShowCreateModal] = useState<boolean>(false);
-  const [selectedIdToUpdate, setSelectedIdToUpdate] = useState<string | null>();
-  const [selectedIdToDelete, setSelectedIdToDelete] = useState<string | null>();
-
-  const getUsersThunk = useCallback(
-    (
-      pagination: IPaginationRequest,
-      sorting: GridSortModel,
-      filter: UserFilter
-    ): AppThunk =>
-      async (dispatch, getState) => {
-        const sort: ISorting<UserSort> = {};
-        if (sorting[0]) {
-          sort.sortField = sorting[0].field as UserSort;
-          sort.sortDirection = sorting[0].sort as 'asc' | 'desc';
-        }
-
-        await dispatch(
-          users.getUsers.thunk.request({
-            query: {
-              pagination,
-              filter,
-              sort,
-            },
-          })
-        );
-        const { error } = users.getUsers.selector.state(getState());
-        if (error) {
-          notify(error.data, 'error');
-        }
-      },
-    [notify]
-  );
+  const {
+    pagination,
+    setPagination,
+    previousPagination,
+    sorting,
+    setSorting,
+    previousSorting,
+    filters,
+    setFilters,
+    previousFilters,
+    refreshListKey,
+    refreshList,
+    previousRefreshListKey,
+  } = useTableStates<IUserFilters>(['name', 'email']);
 
   const getUsers = useCallback(
     (
       pagination: IPaginationRequest,
-      sorting: GridSortModel,
-      filter: UserFilter
-    ) => dispatch(getUsersThunk(pagination, sorting, filter)),
-    [dispatch, getUsersThunk]
+      filters: IUserFilters,
+      sorting: GridSortModel
+    ) => dispatch(getUsersThunk(pagination, filters, sorting)),
+    [dispatch]
   );
 
   useEffect(() => {
-    if (isServerStoreActual.current) return;
-
     if (
       isEqual(previousPagination.current, pagination) &&
+      isEqual(previousFilters.current, filters) &&
       isEqual(previousSorting.current, sorting) &&
-      isEqual(previousFilter.current, filter) &&
-      isEqual(previousRefreshUsersListKey.current, refreshUsersListKey)
+      isEqual(previousRefreshListKey.current, refreshListKey)
     )
       return;
 
-    getUsers(pagination, sorting, filter);
-  }, [pagination, sorting, filter, getUsers, refreshUsersListKey]);
+    getUsers(pagination, filters, sorting);
+  }, [
+    pagination,
+    sorting,
+    filters,
+    getUsers,
+    refreshListKey,
+    previousPagination,
+    previousSorting,
+    previousFilters,
+    previousRefreshListKey,
+  ]);
 
   useEffect(() => {
     previousPagination.current = pagination;
-  }, [pagination]);
+  }, [pagination, previousPagination]);
+  useEffect(() => {
+    previousFilters.current = filters;
+  }, [filters, previousFilters]);
   useEffect(() => {
     previousSorting.current = sorting;
-  }, [sorting]);
+  }, [sorting, previousSorting]);
   useEffect(() => {
-    previousFilter.current = filter;
-  }, [filter]);
-  useEffect(() => {
-    previousRefreshUsersListKey.current = refreshUsersListKey;
-  }, [refreshUsersListKey]);
+    previousRefreshListKey.current = refreshListKey;
+  }, [refreshListKey, previousRefreshListKey]);
 
   useEffect(
     () => () => {
-      if (isServerStoreActual.current) return;
-
       dispatch(users.getUsers.action.reset());
     },
     [dispatch]
   );
 
   return {
-    data,
+    tc,
+    tm,
+    tps,
+    getUsersState,
     setPagination,
     sorting,
     setSorting,
-    filter,
-    setFilter,
-    refreshUsersList,
-    selectedIdToUpdate,
-    setSelectedIdToUpdate,
-    selectedIdToDelete,
-    setSelectedIdToDelete,
-    showCreateModal,
-    setShowCreateModal,
+    filters,
+    setFilters,
+    refreshList,
+    showModal,
+    setShowModal,
+    closeShowModal,
   };
 }
