@@ -20,9 +20,10 @@ export function useUserModalUpdate({ onClose, refreshList, id }: IProps) {
   const updateUserState = useAppSelector(users.updateUser.selector.state);
   const aggStates = getAggStates(updateUserState);
 
-  const { register, errors, isValid, isDirty, handleSubmit } = usePrepareForm({
-    model: model!,
-  });
+  const { register, errors, isValid, isDirty, handleSubmit, watch, setValue } =
+    usePrepareForm({
+      model: model!,
+    });
 
   const updateUser = async (id: string, formData: IUserPost) => {
     const { data } = await dispatch(updateUserThunk(id, formData));
@@ -50,5 +51,7 @@ export function useUserModalUpdate({ onClose, refreshList, id }: IProps) {
     isDirty,
     handleSubmit,
     submitForm,
+    watch,
+    setValue,
   };
 }

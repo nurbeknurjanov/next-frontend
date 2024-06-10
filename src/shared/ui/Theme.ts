@@ -232,6 +232,13 @@ const Theme = createTheme({
         },
       },
     },
+    MuiRadio: {
+      styleOverrides: {
+        root: {
+          padding: '2px 7px 2px 9px',
+        },
+      },
+    },
     MuiFormControl: {
       styleOverrides: {
         root: {

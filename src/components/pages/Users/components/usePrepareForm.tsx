@@ -40,12 +40,15 @@ export function usePrepareForm({ model }: IProps) {
     handleSubmit,
     formState: { errors, isValid, isDirty },
     reset,
+    watch,
+    setValue,
   } = useForm<IUserPost>({
     mode: 'onTouched',
     resolver: joiResolver(schema),
     defaultValues: initialValues!,
   });
 
+  console.log('errors', errors);
   useEffect(() => {
     reset(initialValues);
   }, [reset, initialValues]);
@@ -56,5 +59,7 @@ export function usePrepareForm({ model }: IProps) {
     isValid,
     isDirty,
     handleSubmit,
+    watch,
+    setValue,
   };
 }

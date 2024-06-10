@@ -1,14 +1,23 @@
-import * as React from 'react';
+import React from 'react';
 import { useUserModalUpdate } from './useUserModalUpdate';
 import { TextField } from '@mui/material';
 import { Button } from 'shared/ui';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
+import {
+  FormControl,
+  FormLabel,
+  RadioGroup,
+  FormControlLabel,
+  Radio,
+  FormHelperText,
+} from '@mui/material';
 //import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { useRef } from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
+import { SEX_ENUM } from 'api/usersApi';
 
 export type IProps = {
   id: string;
@@ -36,6 +45,8 @@ export const UserModalUpdate: React.FC<IProps> = ({
     isDirty,
     handleSubmit,
     submitForm,
+    watch,
+    setValue,
   } = useUserModalUpdate({
     id: id!,
     onClose,
@@ -86,12 +97,30 @@ export const UserModalUpdate: React.FC<IProps> = ({
               {...register('age')}
             />
 
-            <TextField
-              label={tm('sex')}
-              error={!!errors['sex']}
-              helperText={errors['sex']?.message as string}
-              {...register('sex')}
-            />
+            <FormControl sx={{ mb: 2 }} error={!!errors['sex']}>
+              <FormLabel>{tm('sex')}</FormLabel>
+              <RadioGroup
+                value={watch('sex')}
+                {...register('sex')}
+                onChange={(e, value) => {
+                  setValue('sex', value);
+                }}
+              >
+                <FormControlLabel
+                  value={SEX_ENUM.MALE}
+                  control={<Radio />}
+                  label={'Male'}
+                />
+                <FormControlLabel
+                  value={SEX_ENUM.FEMALE}
+                  control={<Radio />}
+                  label={'Female'}
+                />
+              </RadioGroup>
+              {!!errors['sex'] && (
+                <FormHelperText>{errors['sex'].message}</FormHelperText>
+              )}
+            </FormControl>
 
             <TextField
               label={tm('status')}
@@ -109,7 +138,7 @@ export const UserModalUpdate: React.FC<IProps> = ({
           onClick={() => {
             formRef.current?.requestSubmit();
           }}
-          disabled={!isDirty || !isValid}
+          /*disabled={!isDirty || !isValid}*/
           autoFocus
           loading={aggStates.isFetching}
           sx={{ minWidth: 120 }}
