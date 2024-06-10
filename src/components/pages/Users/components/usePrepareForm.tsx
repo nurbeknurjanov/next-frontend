@@ -16,8 +16,7 @@ export function usePrepareForm({ model }: IProps) {
     email: Joi.string(),
     password: Joi.string(),
     age: Joi.number(),
-    sex: Joi.number().allow(SEX_ENUM.FEMALE),
-    //.valid(SEX_ENUM.MALE, SEX_ENUM.FEMALE),
+    sex: Joi.number().valid(SEX_ENUM.MALE, SEX_ENUM.FEMALE),
     status: Joi.number().valid(STATUS_ENUM.ENABLED, STATUS_ENUM.DISABLED),
   });
 

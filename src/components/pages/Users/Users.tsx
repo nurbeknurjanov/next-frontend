@@ -52,6 +52,11 @@ let Users: FC = () => {
       flex: 1,
     },
     {
+      field: 'sex',
+      headerName: tm('sex'),
+      flex: 1,
+    },
+    {
       field: 'createdAt',
       headerName: tc('createdDate'),
       flex: 1,
