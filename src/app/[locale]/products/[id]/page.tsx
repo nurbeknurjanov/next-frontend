@@ -23,6 +23,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
     const { data: model } = await serverStore.dispatch(getProductThunk(id));
     if (!model) {
+      serverStore.dispatch(setServerWait(false));
       return notFound();
     }
 

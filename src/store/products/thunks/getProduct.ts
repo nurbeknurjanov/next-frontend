@@ -17,5 +17,5 @@ export const getProductThunk =
       dispatch(notify(error.data, 'error'));
     }
 
-    return { data };
+    return { data, error };
   };

@@ -13,7 +13,9 @@ export function useProductModel({ id }: { id: string }) {
   const isHydratedToClient = useHydrateState();
 
   const getProduct = useCallback(
-    (id: string) => dispatch(getProductThunk(id)),
+    async (id: string) => {
+      await dispatch(getProductThunk(id));
+    },
     [dispatch]
   );
 
