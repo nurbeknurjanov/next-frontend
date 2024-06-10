@@ -98,7 +98,7 @@ export const UserModalCreate: React.FC<IProps> = ({ onClose, refreshList }) => {
               {...register('age')}
             />
 
-            <FormControl sx={{ mb: 2 }} error={!!errors['sex']}>
+            <FormControl sx={{ mb: 3 }} error={!!errors['sex']}>
               <FormLabel>{tm('sex')}</FormLabel>
               <RadioGroup
                 value={watch('sex')}
