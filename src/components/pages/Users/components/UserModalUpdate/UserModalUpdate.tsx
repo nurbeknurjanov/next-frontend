@@ -70,6 +70,34 @@ export const UserModalUpdate: React.FC<IProps> = ({
               helperText={errors['email']?.message as string}
               {...register('email')}
             />
+
+            <TextField
+              label={tm('password')}
+              error={!!errors['password']}
+              helperText={errors['password']?.message as string}
+              {...register('password')}
+            />
+
+            <TextField
+              label={tm('age')}
+              error={!!errors['age']}
+              helperText={errors['age']?.message as string}
+              {...register('age')}
+            />
+
+            <TextField
+              label={tm('sex')}
+              error={!!errors['sex']}
+              helperText={errors['sex']?.message as string}
+              {...register('sex')}
+            />
+
+            <TextField
+              label={tm('status')}
+              error={!!errors['status']}
+              helperText={errors['status']?.message as string}
+              {...register('status')}
+            />
           </form>
         )}
       </DialogContent>

@@ -24,7 +24,7 @@ export const ProductModalCreate: React.FC<IProps> = ({
   const {
     tm,
     tc,
-    tp,
+    tps,
     createProductState,
     register,
     errors,
@@ -39,7 +39,7 @@ export const ProductModalCreate: React.FC<IProps> = ({
 
   return (
     <Dialog open onClose={onClose}>
-      <DialogTitle>{tp('create')}</DialogTitle>
+      <DialogTitle>{tps('create')}</DialogTitle>
       <DialogContent>
         {createProductState.isFetching ? (
           <CircularProgress sx={{ mx: 'auto', mb: 2, display: 'block' }} />

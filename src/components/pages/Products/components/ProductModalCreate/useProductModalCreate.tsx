@@ -10,7 +10,7 @@ import { createProductThunk } from 'store/products/thunks';
 export function useProductModalCreate({ onClose, refreshList }: IProps) {
   const dispatch = useAppDispatch();
   const tc = useTranslations('Common');
-  const tp = useTranslations('ProductPage');
+  const tps = useTranslations('ProductsPage');
   const tm = useTranslations('Product');
 
   const createProductState = useAppSelector(
@@ -36,7 +36,7 @@ export function useProductModalCreate({ onClose, refreshList }: IProps) {
   return {
     tm,
     tc,
-    tp,
+    tps,
     createProductState,
     register,
     errors,

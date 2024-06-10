@@ -27,8 +27,8 @@ export type IUser = {
   updatedAt: string;
 };
 
-type IUserWithout_id = Omit<IUser, '_id'>;
-export interface IUserPost extends IUserWithout_id {}
+type IUserWithout_id = Omit<IUser, '_id' | 'createdAt' | 'updatedAt'>;
+export interface IUserPost extends Nullable<IUserWithout_id> {}
 export interface IUserFilters extends Nullable<Partial<IUserWithout_id>> {
   id?: string | null;
 }

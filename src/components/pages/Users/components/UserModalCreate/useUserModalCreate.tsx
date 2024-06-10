@@ -10,7 +10,7 @@ import { createUserThunk } from 'store/users/thunks';
 export function useUserModalCreate({ onClose, refreshList }: IProps) {
   const dispatch = useAppDispatch();
   const tc = useTranslations('Common');
-  const tp = useTranslations('UserPage');
+  const tps = useTranslations('UsersPage');
   const tm = useTranslations('User');
 
   const createUserState = useAppSelector(users.createUser.selector.state);
@@ -34,7 +34,7 @@ export function useUserModalCreate({ onClose, refreshList }: IProps) {
   return {
     tm,
     tc,
-    tp,
+    tps,
     createUserState,
     register,
     errors,

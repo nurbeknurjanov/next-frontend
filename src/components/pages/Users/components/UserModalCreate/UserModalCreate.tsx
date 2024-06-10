@@ -21,7 +21,7 @@ export const UserModalCreate: React.FC<IProps> = ({ onClose, refreshList }) => {
   const {
     tm,
     tc,
-    tp,
+    tps,
     createUserState,
     register,
     errors,
@@ -36,7 +36,7 @@ export const UserModalCreate: React.FC<IProps> = ({ onClose, refreshList }) => {
 
   return (
     <Dialog open onClose={onClose}>
-      <DialogTitle>{tp('create')}</DialogTitle>
+      <DialogTitle>{tps('create')}</DialogTitle>
       <DialogContent>
         {createUserState.isFetching ? (
           <CircularProgress sx={{ mx: 'auto', mb: 2, display: 'block' }} />
@@ -68,6 +68,27 @@ export const UserModalCreate: React.FC<IProps> = ({ onClose, refreshList }) => {
               error={!!errors['password']}
               helperText={errors['password']?.message as string}
               {...register('password')}
+            />
+
+            <TextField
+              label={tm('age')}
+              error={!!errors['age']}
+              helperText={errors['age']?.message as string}
+              {...register('age')}
+            />
+
+            <TextField
+              label={tm('sex')}
+              error={!!errors['sex']}
+              helperText={errors['sex']?.message as string}
+              {...register('sex')}
+            />
+
+            <TextField
+              label={tm('status')}
+              error={!!errors['status']}
+              helperText={errors['status']?.message as string}
+              {...register('status')}
             />
           </form>
         )}
