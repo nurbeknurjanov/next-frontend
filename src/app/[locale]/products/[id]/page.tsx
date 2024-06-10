@@ -26,7 +26,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
       return notFound();
     }
 
-    serverStore.dispatch(setTitle(model!.name, t('title')));
+    serverStore.dispatch(setTitle(`${t('title')} - ${model!.name}`));
 
     serverStore.dispatch(setServerWait(false));
   }

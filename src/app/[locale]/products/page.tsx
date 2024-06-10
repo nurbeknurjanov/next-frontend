@@ -41,6 +41,7 @@ export default async function ProductsPage({
     ];
   }
 
+  //console.log("headersList.get('Referer')", headersList.get('Referer'));
   if (headersList.get('Referer') === null) {
     serverStore.dispatch(setServerWait(true));
 
