@@ -62,6 +62,9 @@ export function useProductUpdate() {
 
     if (data) {
       dispatch(notify(tc('successUpdated'), 'success'));
+      if (document.referrer) {
+        return router.back();
+      }
       router.push(`/products/${id}`);
     }
   };
@@ -72,8 +75,8 @@ export function useProductUpdate() {
 
   return {
     tc,
-    ts,
     tm,
+    router,
     model,
     updateProductState,
     getProductState,

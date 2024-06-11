@@ -13,6 +13,8 @@ let ProductUpdate: FC = () => {
   const {
     tc,
     tm,
+    router,
+    model,
     updateProductState,
     getProductState,
     register,
@@ -57,6 +59,18 @@ let ProductUpdate: FC = () => {
               {...register('description')}
             />
 
+            <Button
+              variant={'outlined'}
+              sx={{ mr: 1 }}
+              onClick={() => {
+                if (document.referrer) {
+                  return router.back();
+                }
+                router.push(`/products/${model?._id}`);
+              }}
+            >
+              {tc('back')}
+            </Button>
             <Button
               variant={'contained'}
               onClick={() => {
