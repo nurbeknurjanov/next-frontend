@@ -1,1 +1,1 @@
-export * from './FileModalDelete';
+export { FileModalDelete } from './FileModalDelete';

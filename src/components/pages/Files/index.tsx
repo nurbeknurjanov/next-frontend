@@ -1,1 +1,1 @@
-export * from './Files';
+export { Files } from './Files';

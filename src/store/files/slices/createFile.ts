@@ -1,7 +1,7 @@
 import { RootStateType } from 'store/store';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { FileApiConfig, IFile, FileApiError, IFilePost } from 'api/fileApi';
-import { fileApi } from 'api';
+import { IFileApiConfig, IFile, IFileApiError, IFilePost } from 'api/filesApi';
+import { filesApi } from 'api';
 
 import {
   MergeResponseState,
@@ -12,7 +12,7 @@ import {
 import axios from 'axios';
 
 export interface CreateFileStateType
-  extends MergeResponseState<IFile, FileApiError> {}
+  extends MergeResponseState<IFile, IFileApiError> {}
 
 const selector = {
   state: (state: RootStateType) => state.files.createFile,
@@ -37,7 +37,7 @@ const requestThunk = createAsyncThunk(
       config,
     }: {
       body: IFilePost;
-      config?: FileApiConfig;
+      config?: IFileApiConfig;
     },
     { rejectWithValue, signal }
   ) => {
@@ -46,7 +46,7 @@ const requestThunk = createAsyncThunk(
     if (config) {
       config.cancelToken = source.token;
     }
-    return fileApi.createFile(body, config).catch(rejectWithValue);
+    return filesApi.createFile(body, config).catch(rejectWithValue);
   },
   {
     condition: (payload, { getState }) => {
@@ -78,7 +78,7 @@ const { actions, reducer } = createSlice({
     });
     builder.addCase(requestThunk.rejected, (state, action) => {
       Object.assign(state, initialState);
-      state.error = action.payload as FileApiError;
+      state.error = action.payload as IFileApiError;
     });
   },
 });

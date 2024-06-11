@@ -1,32 +1,37 @@
-import { useAppDispatch } from 'store/hooks';
-import { files } from 'store';
-import { AppThunk } from 'store/store';
-import { useNotify } from 'shared/hooks';
+import { useAppDispatch, useAppSelector } from 'store/hooks';
+import { useTranslations } from 'next-intl';
 import { IProps } from './FileModalDelete';
+import { deleteFileThunk } from 'store/files/thunks';
+import { notify } from 'store/common/thunks';
+import { useCallback } from 'react';
+import { files } from 'store';
 
-export function useFileModalDelete({ id, refreshFilesList, onClose }: IProps) {
+export function useFileModalDelete({
+  refreshList,
+  onClose,
+}: Omit<IProps, 'id'>) {
+  const t = useTranslations('FilePage');
+  const tc = useTranslations('Common');
   const dispatch = useAppDispatch();
-  const notify = useNotify();
+  const deleteFileState = useAppSelector(files.deleteFile.selector.state);
 
-  const deleteFileThunk = (): AppThunk => async (dispatch, getState) => {
-    await dispatch(
-      files.deleteFile.thunk.request({
-        id,
-      })
-    );
-    const { error } = files.deleteFile.selector.state(getState());
+  const deleteFile = useCallback(
+    async (id: string) => {
+      const { error } = await dispatch(deleteFileThunk(id));
 
-    if (error) {
-      return notify(error.data, 'error');
-    }
-
-    notify('Successfully deleted file', 'success');
-    refreshFilesList();
-    onClose(false);
-  };
-  const deleteFile = () => dispatch(deleteFileThunk());
+      if (!error) {
+        onClose();
+        dispatch(notify(tc('successDeleted'), 'success'));
+        refreshList();
+      }
+    },
+    [onClose, refreshList, dispatch, tc]
+  );
 
   return {
+    t,
+    tc,
     deleteFile,
+    deleteFileState,
   };
 }

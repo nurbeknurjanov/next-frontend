@@ -9,37 +9,37 @@ import DialogTitle from '@mui/material/DialogTitle';
 
 export interface IProps {
   id: string;
-  onClose: (_isOpen: boolean) => void; //todo
-  refreshFilesList: () => void;
+  onClose: () => void;
+  refreshList: () => void;
 }
 export const FileModalDelete: React.FC<IProps> = ({
   id,
   onClose,
-  refreshFilesList,
+  refreshList,
 }) => {
-  const { deleteFile } = useFileModalDelete({
-    id,
+  const { t, tc, deleteFile, deleteFileState } = useFileModalDelete({
     onClose,
-    refreshFilesList,
+    refreshList,
   });
 
   return (
-    <Dialog open onClose={() => onClose(false)}>
-      <DialogTitle>Delete file</DialogTitle>
+    <Dialog open onClose={onClose}>
+      <DialogTitle>{t('delete')}</DialogTitle>
       <DialogContent>
-        <DialogContentText>Are you sure to delete file ?</DialogContentText>
+        <DialogContentText>{tc('deleteAlert')}</DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button onClick={() => onClose(false)}>Close</Button>
+        <Button onClick={onClose}>{tc('close')}</Button>
         <Button
           variant={'contained'}
           onClick={() => {
-            deleteFile();
-            onClose(false);
+            deleteFile(id);
           }}
           autoFocus
+          loading={deleteFileState.isFetching}
+          sx={{ minWidth: 110 }}
         >
-          Delete file
+          {tc('delete')}
         </Button>
       </DialogActions>
     </Dialog>

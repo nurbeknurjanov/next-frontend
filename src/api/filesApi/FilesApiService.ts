@@ -4,20 +4,20 @@ import {
   IFileSort,
   IFileFilters,
   IFilesList,
-  FileApiConfig,
+  IFileApiConfig,
   IFile,
   IFilePost,
 } from './types';
 import { omit } from 'lodash';
 
-export class FileApiService extends BaseApiService {
+export class FilesApiService extends BaseApiService {
   constructor(config: AxiosRequestConfig = {}) {
     super(config);
   }
 
   public getFiles(
     query: RequestParams<IFileFilters, IFileSort>,
-    config?: FileApiConfig
+    config?: IFileApiConfig
   ): Promise<AxiosResponseData<IFilesList>> {
     const { filters, sort, pagination } = query;
     return this.request<IFilesList>({
@@ -37,7 +37,7 @@ export class FileApiService extends BaseApiService {
 
   public getFile(
     id: string,
-    config?: FileApiConfig
+    config?: IFileApiConfig
   ): Promise<AxiosResponseData<IFile>> {
     return this.request<IFile>({
       method: 'get',
@@ -51,7 +51,7 @@ export class FileApiService extends BaseApiService {
 
   public createFile(
     body: IFilePost,
-    config?: FileApiConfig
+    config?: IFileApiConfig
   ): Promise<AxiosResponseData<IFile>> {
     const formData = new FormData();
     for (let key in omit(body, 'fileField')) {
@@ -77,7 +77,7 @@ export class FileApiService extends BaseApiService {
 
   public deleteFile(
     id: string,
-    config?: FileApiConfig
+    config?: IFileApiConfig
   ): Promise<AxiosResponseData<IFile>> {
     return this.request<IFile>({
       method: 'delete',

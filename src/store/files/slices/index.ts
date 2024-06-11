@@ -1,4 +1,4 @@
-export * from './getFile';
-export * from './deleteFile';
-export * from './getFiles';
-export * from './createFile';
+export { getFileObject } from './getFile';
+export { deleteFileObject } from './deleteFile';
+export { getFilesObject } from './getFiles';
+export { createFileObject } from './createFile';

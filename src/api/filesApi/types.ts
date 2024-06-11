@@ -7,17 +7,15 @@ import {
 import { AxiosRequestConfig } from 'axios';
 
 export interface IFile {
-  _id?: string;
-  model: 'Game' | '0';
+  _id: string;
+  model: 'Product';
   modelId: string;
   data: {
-    type: 'thumbnail' | 'image';
+    type: 'image';
   };
   ext: string;
   originalFileName: string;
   url: string;
-  assetId: number;
-  deleted: boolean;
   createdAt: string;
   updatedAt: string;
 }
@@ -37,5 +35,5 @@ export interface IFileSort extends ISort<IFileSortFields> {}
 
 export type IFilesList = ResponseDataListPagination<IFile>;
 
-export type FileApiConfig = AxiosRequestConfig;
-export interface FileApiError extends ResponseApiError<string> {}
+export type IFileApiConfig = AxiosRequestConfig;
+export interface IFileApiError extends ResponseApiError<string> {}

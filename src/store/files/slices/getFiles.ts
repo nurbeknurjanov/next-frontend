@@ -2,13 +2,13 @@ import { RootStateType } from 'store/store';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { RequestParams } from 'api/baseApi';
 import {
-  FileApiConfig,
-  FilesList,
-  FileFilter,
-  FileSort,
-  FileApiError,
-} from 'api/fileApi';
-import { fileApi } from 'api';
+  IFileApiConfig,
+  IFilesList,
+  IFileFilters,
+  IFileSort,
+  IFileApiError,
+} from 'api/filesApi';
+import { filesApi } from 'api';
 
 import {
   MergeResponseState,
@@ -20,7 +20,7 @@ import axios from 'axios';
 import { isEqual } from 'lodash';
 
 export interface GetFilesStateType
-  extends MergeResponseState<FilesList, FileApiError> {}
+  extends MergeResponseState<IFilesList, IFileApiError> {}
 
 const selector = {
   state: (state: RootStateType) => state.files.getFiles,
@@ -37,7 +37,7 @@ const initialState: GetFilesStateType = {
 
 const SLICE_NAME = '@files/getFiles';
 
-let previousQuery: RequestParams<FileFilter, FileSort>;
+let previousQuery: RequestParams<IFileFilters, IFileSort>;
 const requestThunk = createAsyncThunk(
   `${SLICE_NAME}/request`,
   (
@@ -45,8 +45,8 @@ const requestThunk = createAsyncThunk(
       query,
       config,
     }: {
-      query: RequestParams<FileFilter, FileSort>;
-      config?: FileApiConfig;
+      query: RequestParams<IFileFilters, IFileSort>;
+      config?: IFileApiConfig;
     },
     { rejectWithValue, signal }
   ) => {
@@ -55,7 +55,7 @@ const requestThunk = createAsyncThunk(
     if (config) {
       config.cancelToken = source.token;
     }
-    return fileApi.getFiles(query, config).catch(rejectWithValue);
+    return filesApi.getFiles(query, config).catch(rejectWithValue);
   },
   {
     condition: (payload, { getState }) => {
@@ -93,7 +93,7 @@ const { actions, reducer } = createSlice({
     });
     builder.addCase(requestThunk.rejected, (state, action) => {
       Object.assign(state, initialState);
-      state.error = action.payload as FileApiError;
+      state.error = action.payload as IFileApiError;
     });
   },
 });
