@@ -4,8 +4,7 @@ import { useSetPageData } from 'shared/hooks';
 import { useParams, useRouter } from 'next/navigation';
 import { ProductPageProps } from 'app/[locale]/products/[id]/page';
 import { useProductModel } from '../Product';
-import { Button } from 'shared/ui';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { usePrepareForm } from '../Products';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
 import { products } from 'store';
@@ -30,28 +29,17 @@ export function useProductUpdate() {
   const { id } = useParams<ProductPageProps['params']>();
   const { model, getProductState } = useProductModel({ id });
 
-  useSetPageData(
+  useSetPageData(title, [
+    {
+      label: ts('title'),
+      href: '/products',
+    },
+    {
+      label: model!?.name,
+      href: `/products/${id}`,
+    },
     title,
-    [
-      {
-        label: ts('title'),
-        href: '/products',
-      },
-      {
-        label: model!?.name,
-        href: `/products/${id}`,
-      },
-      title,
-    ],
-    <Button
-      variant={'contained'}
-      size={'small'}
-      color={'error'}
-      onClick={() => setShowModal({ type: 'delete', id })}
-    >
-      {tp('delete')}
-    </Button>
-  );
+  ]);
 
   const { register, errors, isValid, isDirty, handleSubmit } = usePrepareForm({
     model: model!,
