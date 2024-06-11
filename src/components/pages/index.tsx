@@ -4,7 +4,7 @@ export { Login } from './Login/Login';
 export { Home } from './Home';
 export { Product, useProductModel, ProductModalDelete } from './Product';
 export { Manual } from './Manual';
-export { Products } from './Products';
+export { Products, usePrepareForm } from './Products';
 export { ProductUpdate } from './ProductUpdate';
 export { Files } from './Files';
 export { User } from './User';
