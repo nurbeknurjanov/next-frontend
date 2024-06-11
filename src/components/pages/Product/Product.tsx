@@ -7,6 +7,7 @@ import dayjs from 'dayjs';
 import { DATE_FORMAT } from 'shared/utils';
 import { withCleanHooks } from 'shared/hocs';
 import Loading from 'app/[locale]/loading';
+import { ProductModalDelete } from '../Products/components';
 
 const columns: GridColDef[] = [
   {
@@ -37,7 +38,7 @@ const columns: GridColDef[] = [
 ];
 
 let Product: FC = () => {
-  const { model, getProductState } = useProduct();
+  const { model, getProductState, showModal, setShowModal } = useProduct();
 
   const data: { label: string; value: string | React.ReactNode }[] = [];
   if (model) {
@@ -71,6 +72,13 @@ let Product: FC = () => {
         columns={columns}
         getRowId={el => el.label}
       />
+
+      {showModal?.type === 'delete' && (
+        <ProductModalDelete
+          id={showModal.id}
+          onClose={() => setShowModal(null)}
+        />
+      )}
     </div>
   );
 };

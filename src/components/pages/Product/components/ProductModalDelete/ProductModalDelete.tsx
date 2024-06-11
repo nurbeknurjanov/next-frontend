@@ -10,10 +10,16 @@ import DialogTitle from '@mui/material/DialogTitle';
 export interface IProps {
   id: string;
   onClose: () => void;
+  refreshList: () => void;
 }
-export const ProductModalDelete: React.FC<IProps> = ({ id, onClose }) => {
+export const ProductModalDelete: React.FC<IProps> = ({
+  id,
+  onClose,
+  refreshList,
+}) => {
   const { t, tc, deleteProduct, deleteProductState } = useProductModalDelete({
     onClose,
+    refreshList,
   });
 
   return (

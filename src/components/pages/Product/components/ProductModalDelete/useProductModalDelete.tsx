@@ -6,7 +6,10 @@ import { notify } from 'store/common/thunks';
 import { useCallback } from 'react';
 import { products } from 'store';
 
-export function useProductModalDelete({ onClose }: Omit<IProps, 'id'>) {
+export function useProductModalDelete({
+  refreshList,
+  onClose,
+}: Omit<IProps, 'id'>) {
   const t = useTranslations('ProductPage');
   const tc = useTranslations('Common');
   const dispatch = useAppDispatch();
@@ -21,10 +24,10 @@ export function useProductModalDelete({ onClose }: Omit<IProps, 'id'>) {
       if (!error) {
         onClose();
         dispatch(notify(tc('successDeleted'), 'success'));
-        //router
+        refreshList();
       }
     },
-    [onClose, dispatch, tc]
+    [onClose, refreshList, dispatch, tc]
   );
 
   return {
