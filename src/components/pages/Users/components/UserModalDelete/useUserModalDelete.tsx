@@ -10,7 +10,7 @@ export function useUserModalDelete({
   refreshList,
   onClose,
 }: Omit<IProps, 'id'>) {
-  const t = useTranslations('UserPage');
+  const tp = useTranslations('UserPage');
   const tc = useTranslations('Common');
   const dispatch = useAppDispatch();
   const deleteUserState = useAppSelector(users.deleteUser.selector.state);
@@ -29,7 +29,7 @@ export function useUserModalDelete({
   );
 
   return {
-    t,
+    tp,
     tc,
     deleteUser,
     deleteUserState,

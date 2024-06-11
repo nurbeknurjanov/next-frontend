@@ -17,14 +17,14 @@ export const UserModalDelete: React.FC<IProps> = ({
   onClose,
   refreshList,
 }) => {
-  const { t, tc, deleteUser, deleteUserState } = useUserModalDelete({
+  const { tp, tc, deleteUser, deleteUserState } = useUserModalDelete({
     onClose,
     refreshList,
   });
 
   return (
     <Dialog open onClose={onClose}>
-      <DialogTitle>{t('delete')}</DialogTitle>
+      <DialogTitle>{tp('delete')}</DialogTitle>
       <DialogContent>
         <DialogContentText>{tc('deleteAlert')}</DialogContentText>
       </DialogContent>

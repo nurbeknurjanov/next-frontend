@@ -7,7 +7,7 @@ import dayjs from 'dayjs';
 import { DATE_FORMAT } from 'shared/utils';
 import { withCleanHooks } from 'shared/hocs';
 import Loading from 'app/[locale]/loading';
-import { ProductModalDelete } from '../Products/components';
+import { ProductModalDelete } from './components';
 
 const columns: GridColDef[] = [
   {

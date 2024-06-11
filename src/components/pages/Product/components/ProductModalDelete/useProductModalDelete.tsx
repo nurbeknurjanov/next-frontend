@@ -5,14 +5,13 @@ import { deleteProductThunk } from 'store/products/thunks';
 import { notify } from 'store/common/thunks';
 import { useCallback } from 'react';
 import { products } from 'store';
+import { useRouter } from 'next/navigation';
 
-export function useProductModalDelete({
-  refreshList,
-  onClose,
-}: Omit<IProps, 'id'>) {
-  const t = useTranslations('ProductPage');
+export function useProductModalDelete({ onClose }: Omit<IProps, 'id'>) {
+  const tp = useTranslations('ProductPage');
   const tc = useTranslations('Common');
   const dispatch = useAppDispatch();
+  const router = useRouter();
   const deleteProductState = useAppSelector(
     products.deleteProduct.selector.state
   );
@@ -24,14 +23,14 @@ export function useProductModalDelete({
       if (!error) {
         onClose();
         dispatch(notify(tc('successDeleted'), 'success'));
-        refreshList();
+        router.push('/products');
       }
     },
-    [onClose, refreshList, dispatch, tc]
+    [onClose, dispatch, tc, router]
   );
 
   return {
-    t,
+    tp,
     tc,
     deleteProduct,
     deleteProductState,
