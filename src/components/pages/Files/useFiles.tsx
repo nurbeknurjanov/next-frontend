@@ -7,7 +7,7 @@ import { useTranslations } from 'next-intl';
 import { IPaginationRequest } from 'api/baseApi';
 import { isEqual } from 'lodash';
 import { Button } from 'shared/ui';
-import { useHydrateState, useSetPageData, useTableStates } from 'shared/hooks';
+import { useSetPageData, useTableStates } from 'shared/hooks';
 import { GridSortModel } from '@mui/x-data-grid';
 import { IFileFilters } from 'api/filesApi';
 
@@ -37,8 +37,6 @@ export function useFiles() {
 
   const getFilesState = useAppSelector(files.getFiles.selector.state);
 
-  const isHydratedToClient = useHydrateState();
-
   const {
     pagination,
     setPagination,
@@ -64,8 +62,6 @@ export function useFiles() {
   );
 
   useEffect(() => {
-    if (!isHydratedToClient) return;
-
     if (
       isEqual(previousPagination.current, pagination) &&
       isEqual(previousFilters.current, filters) &&
@@ -85,7 +81,6 @@ export function useFiles() {
     previousSorting,
     previousFilters,
     previousRefreshListKey,
-    isHydratedToClient,
   ]);
 
   useEffect(() => {
@@ -103,11 +98,9 @@ export function useFiles() {
 
   useEffect(
     () => () => {
-      if (!isHydratedToClient) return;
-
       dispatch(files.getFiles.action.reset());
     },
-    [dispatch, isHydratedToClient]
+    [dispatch]
   );
 
   return {
