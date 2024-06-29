@@ -11,7 +11,7 @@ export const useHydrateState = (): boolean => {
   );
 
   useEffect(() => {
-    dispatch(hydratedToClient());
+    dispatch(hydratedToClient(true));
   }, [dispatch]);
 
   return isHydratedToClient;

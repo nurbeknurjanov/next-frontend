@@ -5,7 +5,7 @@ import type { PageProps } from 'app/types';
 import { getTranslations } from 'next-intl/server';
 import { IPaginationRequest } from 'api/baseApi';
 import { getProductsThunk } from 'store/products/thunks';
-import { setServerWait, setTitle } from 'store/common/thunks';
+import { hydratedToClient, setServerWait, setTitle } from 'store/common/thunks';
 import { IProductFilters, IProductSort } from 'api/productsApi';
 import { GridSortModel } from '@mui/x-data-grid';
 import { headers } from 'next/headers';
@@ -52,6 +52,11 @@ export default async function ProductsPage({
 
     //console.log('data', serverStore.getState().products?.getProducts.data);
 
+    serverStore.dispatch(setServerWait(false));
+  } else {
+    serverStore.dispatch(setServerWait(true));
+    console.log('Why is this calling', headersList.get('Referer'));
+    serverStore.dispatch(hydratedToClient(true));
     serverStore.dispatch(setServerWait(false));
   }
 
