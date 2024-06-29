@@ -29,6 +29,16 @@ const RootLayout: FC<PropsWithChildren> = ({ children }) => {
   );
 };
 
+/*
+Layout works only time only on server
+It doesn't react to ajax request
+It reacts only to full request
+The links in next are not native links
+There are next ajaxed links
+Thats why layout works only one time
+And of course layout works only on server side, and never in client
+Here happens hydration, the rendered html of layout, pasted to client
+*/
 const WrapperLayout: FC<PropsWithChildren> = async ({ children }) => {
   return (
     <TranslationsProvider>

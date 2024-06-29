@@ -8,6 +8,13 @@ import styles from 'css/common.module.scss';
 //import { common } from 'store';
 //import { JWT } from '../backend/helpers';
 
+/*
+Template works only on server side like a layout,
+ But it works for every ajax request
+ It mutate the server state
+ But it never works on client side
+ So it doesn't fluent to client state
+*/
 export default async function Template({ children }: PropsWithChildren) {
   const cookieStore = cookies();
   const accessTokenCookie = cookieStore.get('accessToken');
