@@ -7,7 +7,7 @@ import { useTranslations } from 'next-intl';
 import { IPaginationRequest } from 'api/baseApi';
 import { isEqual } from 'lodash';
 import { Button } from 'shared/ui';
-import { useHydrateState, useSetPageData, useTableStates } from 'shared/hooks';
+import { useSetPageData, useTableStates } from 'shared/hooks';
 import { GridSortModel } from '@mui/x-data-grid';
 import { IProductFilters } from 'api/productsApi';
 
@@ -39,8 +39,6 @@ export function useProducts() {
 
   const getProductsState = useAppSelector(products.getProducts.selector.state);
 
-  const isHydratedToClient = useHydrateState();
-
   const {
     pagination,
     setPagination,
@@ -66,7 +64,7 @@ export function useProducts() {
   );
 
   useEffect(() => {
-    if (!isHydratedToClient) return;
+    if (!document.referrer) return;
 
     if (
       isEqual(previousPagination.current, pagination) &&
@@ -87,7 +85,6 @@ export function useProducts() {
     previousSorting,
     previousFilters,
     previousRefreshListKey,
-    isHydratedToClient,
   ]);
 
   useEffect(() => {
@@ -105,11 +102,11 @@ export function useProducts() {
 
   useEffect(
     () => () => {
-      if (!isHydratedToClient) return;
+      if (!document.referrer) return;
 
       dispatch(products.getProducts.action.reset());
     },
-    [dispatch, isHydratedToClient]
+    [dispatch]
   );
 
   return {
