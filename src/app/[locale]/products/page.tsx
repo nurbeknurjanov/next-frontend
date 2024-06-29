@@ -41,8 +41,8 @@ export default async function ProductsPage({
     ];
   }
 
-  //console.log("headersList.get('Referer')", headersList.get('Referer'));
-  if (headersList.get('Referer') === null) {
+  console.log("headersList.get('Referer')", headersList.get('Referer'));
+  if (!headersList.get('Referer')) {
     serverStore.dispatch(setServerWait(true));
 
     const t = await getTranslations('ProductsPage');

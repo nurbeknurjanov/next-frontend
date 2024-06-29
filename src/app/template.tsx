@@ -3,8 +3,9 @@ import React, { PropsWithChildren } from 'react';
 import { StoreProvider } from 'shared/wrappers';
 import { serverStore } from 'store/store';
 import { Content, Footer, Header, Sidebar } from 'components';
-import { cookies } from 'next/headers';
+import { cookies, headers } from 'next/headers';
 import styles from 'css/common.module.scss';
+import { hydratedToClient } from 'store/common/thunks';
 //import { common } from 'store';
 //import { JWT } from '../backend/helpers';
 
@@ -16,6 +17,7 @@ Template works only on server side like a layout,
  So it doesn't fluent to client state
 */
 export default async function Template({ children }: PropsWithChildren) {
+  const headersList = headers();
   const cookieStore = cookies();
   const accessTokenCookie = cookieStore.get('accessToken');
   if (accessTokenCookie?.value) {
@@ -38,6 +40,10 @@ export default async function Template({ children }: PropsWithChildren) {
         }
       }, 0);
     });
+  }
+
+  if (headersList.get('Referer')) {
+    serverStore.dispatch(hydratedToClient(true));
   }
 
   return (

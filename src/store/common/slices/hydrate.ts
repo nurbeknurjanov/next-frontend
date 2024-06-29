@@ -10,7 +10,7 @@ type HydrateStateType = {
 const initialState: HydrateStateType = {
   dbConnected: false,
   serverWait: false,
-  isHydratedToClient: !!document.referrer,
+  isHydratedToClient: false,
 };
 
 const { actions, reducer } = createSlice({
@@ -24,8 +24,8 @@ const { actions, reducer } = createSlice({
       state.serverWait = action.payload;
       return state;
     },
-    hydratedToClient: state => {
-      state.isHydratedToClient = true;
+    hydratedToClient: (state, action: PayloadAction<boolean>) => {
+      state.isHydratedToClient = action.payload;
       return state;
     },
     setDbConnected: (

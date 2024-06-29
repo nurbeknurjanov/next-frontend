@@ -15,7 +15,7 @@ export const withCleanHooks = <T extends object>(
         dispatch(common.title.actions.reset());
         dispatch(common.buttonsContent.actions.reset());
 
-        dispatch(hydratedToClient());
+        dispatch(hydratedToClient(true));
       },
       [dispatch]
     );
