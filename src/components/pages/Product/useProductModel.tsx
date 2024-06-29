@@ -3,8 +3,10 @@ import { useAppDispatch, useAppSelector } from 'store/hooks';
 import { useCallback, useEffect } from 'react';
 import { products } from 'store';
 import { getProductThunk } from 'store/products/thunks';
+import { useHydrateState } from 'shared/hooks';
 
 export function useProductModel({ id }: { id: string }) {
+  const isHydratedToClient = useHydrateState();
   const dispatch = useAppDispatch();
   const getProductState = useAppSelector(products.getProduct.selector.state);
   const model = getProductState.data;
@@ -17,20 +19,20 @@ export function useProductModel({ id }: { id: string }) {
   );
 
   useEffect(() => {
-    if (!document.referrer) return;
+    if (!isHydratedToClient) return;
 
     if (id) {
       getProduct(id);
     }
-  }, [id, getProduct, dispatch]);
+  }, [id, getProduct, dispatch, isHydratedToClient]);
 
   useEffect(() => {
     return () => {
-      if (!document.referrer) return;
+      if (!isHydratedToClient) return;
 
       dispatch(products.getProduct.action.reset());
     };
-  }, [dispatch]);
+  }, [dispatch, isHydratedToClient]);
 
   return {
     model,
