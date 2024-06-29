@@ -1,5 +1,6 @@
 import React, { FC, ComponentType, useEffect } from 'react';
 import { common } from 'store';
+import { hydratedToClient } from 'store/common/thunks';
 import { useAppDispatch } from 'store/hooks';
 
 export const withCleanHooks = <T extends object>(
@@ -13,6 +14,8 @@ export const withCleanHooks = <T extends object>(
         dispatch(common.breadcrumbs.actions.reset());
         dispatch(common.title.actions.reset());
         dispatch(common.buttonsContent.actions.reset());
+
+        dispatch(hydratedToClient());
       },
       [dispatch]
     );
