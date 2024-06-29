@@ -64,6 +64,7 @@ export function useProducts() {
   );
 
   useEffect(() => {
+    //console.log('document.referrer', document.referrer);
     if (!document.referrer) return;
 
     if (
