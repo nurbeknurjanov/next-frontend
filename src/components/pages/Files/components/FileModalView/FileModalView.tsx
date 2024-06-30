@@ -10,7 +10,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { useTranslations } from 'next-intl';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import dayjs from 'dayjs';
-import { DATE_FORMAT } from '../../../../../shared/utils';
+import { DATE_FORMAT } from 'shared/utils';
 
 export type IProps = {
   id: string;

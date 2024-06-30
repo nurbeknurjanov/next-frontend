@@ -12,12 +12,12 @@ import CircularProgress from '@mui/material/CircularProgress';
 
 export type IProps = {
   onClose: () => void;
-  refreshList: () => void;
+  afterCreate: () => void;
 };
 
 export const ProductModalCreate: React.FC<IProps> = ({
   onClose,
-  refreshList,
+  afterCreate,
 }) => {
   const formRef = useRef<HTMLFormElement>();
   //const formRef = useRef<HTMLFormElement>(null); //for direct assign
@@ -34,7 +34,7 @@ export const ProductModalCreate: React.FC<IProps> = ({
     submitForm,
   } = useProductModalCreate({
     onClose,
-    refreshList,
+    afterCreate,
   });
 
   return (

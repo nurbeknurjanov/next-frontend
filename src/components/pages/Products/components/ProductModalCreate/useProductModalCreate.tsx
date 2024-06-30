@@ -7,7 +7,7 @@ import { usePrepareForm } from '../usePrepareForm';
 import { notify } from 'store/common/thunks';
 import { createProductThunk } from 'store/products/thunks';
 
-export function useProductModalCreate({ onClose, refreshList }: IProps) {
+export function useProductModalCreate({ onClose, afterCreate }: IProps) {
   const dispatch = useAppDispatch();
   const tc = useTranslations('Common');
   const tps = useTranslations('ProductsPage');
@@ -26,7 +26,7 @@ export function useProductModalCreate({ onClose, refreshList }: IProps) {
 
     if (data) {
       dispatch(notify(tc('successCreated'), 'success'));
-      refreshList();
+      afterCreate();
       onClose();
     }
   };

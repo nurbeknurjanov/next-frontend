@@ -9,7 +9,7 @@ import { notify } from 'store/common/thunks';
 import { updateProductThunk } from 'store/products/thunks';
 import { getAggStates } from 'store/common/types';
 
-export function useProductModalUpdate({ onClose, refreshList, id }: IProps) {
+export function useProductModalUpdate({ onClose, afterUpdate, id }: IProps) {
   const dispatch = useAppDispatch();
   const tc = useTranslations('Common');
   const tp = useTranslations('ProductPage');
@@ -31,7 +31,7 @@ export function useProductModalUpdate({ onClose, refreshList, id }: IProps) {
 
     if (data) {
       dispatch(notify(tc('successUpdated'), 'success'));
-      refreshList();
+      afterUpdate();
       onClose();
     }
   };

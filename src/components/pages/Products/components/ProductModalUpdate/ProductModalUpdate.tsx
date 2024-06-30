@@ -13,12 +13,12 @@ import CircularProgress from '@mui/material/CircularProgress';
 export type IProps = {
   id: string;
   onClose: () => void;
-  refreshList: () => void;
+  afterUpdate: () => void;
 };
 
 export const ProductModalUpdate: React.FC<IProps> = ({
   onClose,
-  refreshList,
+  afterUpdate,
   id,
 }) => {
   //const id = type === 'update' ? props.id : null;
@@ -39,7 +39,7 @@ export const ProductModalUpdate: React.FC<IProps> = ({
   } = useProductModalUpdate({
     id: id!,
     onClose,
-    refreshList,
+    afterUpdate,
   });
 
   return (

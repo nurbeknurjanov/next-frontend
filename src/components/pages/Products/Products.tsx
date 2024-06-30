@@ -18,7 +18,7 @@ import { withCleanHooks } from 'shared/hocs';
 import { DATE_FORMAT } from 'shared/utils';
 import { IProduct } from 'api/productsApi';
 import { Alert } from '@mui/material';
-import { useSetPageData } from '../../../shared/hooks';
+import { useSetPageData } from 'shared/hooks';
 import { useTranslations } from 'next-intl';
 
 let Products: FC = () => {
@@ -162,7 +162,7 @@ let Products: FC = () => {
       {showModal?.type === 'create' && (
         <ProductModalCreate
           onClose={closeShowModal}
-          refreshList={refreshList}
+          afterCreate={refreshList}
         />
       )}
 
@@ -170,7 +170,7 @@ let Products: FC = () => {
         <ProductModalUpdate
           id={showModal.id}
           onClose={closeShowModal}
-          refreshList={refreshList}
+          afterUpdate={refreshList}
         />
       )}
 

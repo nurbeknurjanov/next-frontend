@@ -13,7 +13,7 @@ import { useSetPageData } from 'shared/hooks';
 import { Button, ButtonLink } from 'shared/ui';
 import { useParams } from 'next/navigation';
 import { ProductPageProps } from 'app/[locale]/products/[id]/page';
-import { notify } from '../../../store/common/thunks';
+import { notify } from 'store/common/thunks';
 
 const columns: GridColDef[] = [
   {
