@@ -4,7 +4,7 @@ import dayjs from 'dayjs';
 import styles from './users.module.scss';
 import { DataGrid, GridColDef, GridActionsCellItem } from '@mui/x-data-grid';
 import { useUsers } from './useUsers';
-import { Link } from 'shared/ui';
+import { Button, Link } from 'shared/ui';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import {
@@ -18,11 +18,13 @@ import { withCleanHooks } from 'shared/hocs';
 import { DATE_FORMAT } from 'shared/utils';
 import { IUser } from 'api/usersApi';
 import { Alert } from '@mui/material';
+import { useSetPageData } from '../../../shared/hooks';
 
 let Users: FC = () => {
   const {
     tCommon,
     tUser,
+    tUsersPage,
     getUsersState,
     setPagination,
     sorting,
@@ -34,6 +36,18 @@ let Users: FC = () => {
     setShowModal,
     closeShowModal,
   } = useUsers();
+
+  useSetPageData(
+    tUsersPage('title'),
+    [tUsersPage('title')],
+    <Button
+      variant={'contained'}
+      size={'small'}
+      onClick={() => setShowModal({ type: 'create' })}
+    >
+      {tUsersPage('create')}
+    </Button>
+  );
 
   const { data, isFetching } = getUsersState;
 
@@ -131,6 +145,7 @@ let Users: FC = () => {
           </Alert>
         ) : (
           <DataGrid
+            disableColumnFilter
             rows={data.list}
             getRowId={el => el._id}
             columns={columns}

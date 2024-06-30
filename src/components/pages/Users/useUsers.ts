@@ -1,13 +1,12 @@
 'use client';
-import React, { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
 import { users } from 'store';
 import { getUsersThunk } from 'store/users/thunks';
 import { useTranslations } from 'next-intl';
 import { IPaginationRequest } from 'api/baseApi';
 import { isEqual } from 'lodash';
-import { Button } from 'shared/ui';
-import { useSetPageData, useTableStates } from 'shared/hooks';
+import { useTableStates } from 'shared/hooks';
 import { GridSortModel } from '@mui/x-data-grid';
 import { IUserFilters } from 'api/usersApi';
 
@@ -24,18 +23,6 @@ export function useUsers() {
 
   const [showModal, setShowModal] = useState<ModalType | null>();
   const closeShowModal = useCallback(() => setShowModal(null), []);
-
-  useSetPageData(
-    tUsersPage('title'),
-    [tUsersPage('title')],
-    <Button
-      variant={'contained'}
-      size={'small'}
-      onClick={() => setShowModal({ type: 'create' })}
-    >
-      {tUsersPage('create')}
-    </Button>
-  );
 
   const getUsersState = useAppSelector(users.getUsers.selector.state);
 
@@ -108,6 +95,7 @@ export function useUsers() {
   return {
     tCommon,
     tUser,
+    tUsersPage,
     getUsersState,
     setPagination,
     sorting,
