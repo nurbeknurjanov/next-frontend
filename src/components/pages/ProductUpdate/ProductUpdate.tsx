@@ -7,7 +7,6 @@ import { ProductModalDelete } from '../Products';
 import CircularProgress from '@mui/material/CircularProgress';
 import { TextField } from '@mui/material';
 import { Button } from 'shared/ui';
-import { notify } from 'store/common/thunks';
 
 let ProductUpdate: FC = () => {
   const formRef = useRef<HTMLFormElement>();
@@ -26,7 +25,6 @@ let ProductUpdate: FC = () => {
     submitForm,
     showModal,
     setShowModal,
-    dispatch,
   } = useProductUpdate();
 
   if (getProductState.isFetching) {
@@ -92,11 +90,7 @@ let ProductUpdate: FC = () => {
         <ProductModalDelete
           id={showModal.id}
           onClose={() => setShowModal(null)}
-          afterDelete={() => {
-            setShowModal(null);
-            dispatch(notify(tc('successDeleted'), 'success'));
-            router.push('/products');
-          }}
+          afterDelete={() => router.push('/products')}
         />
       )}
     </>

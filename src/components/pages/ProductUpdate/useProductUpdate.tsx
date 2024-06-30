@@ -76,6 +76,5 @@ export function useProductUpdate() {
     submitForm,
     showModal,
     setShowModal,
-    dispatch,
   };
 }
