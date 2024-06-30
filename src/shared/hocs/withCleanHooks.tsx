@@ -17,7 +17,7 @@ export const withCleanHooks = <T extends object>(
 
         setTimeout(() => {
           dispatch(hydratedToClient(true));
-        }, 0);
+        }, 1000);
       },
       [dispatch]
     );
