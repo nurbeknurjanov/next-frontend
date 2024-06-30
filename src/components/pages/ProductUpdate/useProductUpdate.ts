@@ -17,10 +17,8 @@ export function useProductUpdate() {
   const dispatch = useAppDispatch();
   const router = useRouter();
   const tc = useTranslations('Common');
-  const ts = useTranslations('ProductsPage');
-  const tp = useTranslations('ProductPage');
   const tm = useTranslations('Product');
-  const title = tp('update');
+
   const [showModal, setShowModal] = useState<ModalType | null>();
   const updateProductState = useAppSelector(
     products.updateProduct.selector.state
@@ -28,18 +26,6 @@ export function useProductUpdate() {
 
   const { id } = useParams<ProductPageProps['params']>();
   const { model, getProductState } = useProductModel({ id });
-
-  useSetPageData(title, [
-    {
-      label: ts('title'),
-      href: '/products',
-    },
-    {
-      label: model!?.name,
-      href: `/products/${id}`,
-    },
-    title,
-  ]);
 
   const { register, errors, isValid, isDirty, handleSubmit } = usePrepareForm({
     model: model!,

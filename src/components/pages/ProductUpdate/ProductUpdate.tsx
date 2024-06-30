@@ -7,6 +7,8 @@ import { ProductModalDelete } from '../Products';
 import CircularProgress from '@mui/material/CircularProgress';
 import { TextField } from '@mui/material';
 import { Button } from 'shared/ui';
+import { useSetPageData } from '../../../shared/hooks';
+import { useTranslations } from 'next-intl';
 
 let ProductUpdate: FC = () => {
   const formRef = useRef<HTMLFormElement>();
@@ -26,6 +28,22 @@ let ProductUpdate: FC = () => {
     showModal,
     setShowModal,
   } = useProductUpdate();
+
+  const ts = useTranslations('ProductsPage');
+  const tp = useTranslations('ProductPage');
+  const title = tp('update');
+
+  useSetPageData(title, [
+    {
+      label: ts('title'),
+      href: '/products',
+    },
+    {
+      label: model!?.name,
+      href: `/products/${id}`,
+    },
+    title,
+  ]);
 
   if (getProductState.isFetching) {
     return <Loading />;
