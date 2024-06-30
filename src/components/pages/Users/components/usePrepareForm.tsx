@@ -12,7 +12,7 @@ interface IProps {
   model?: IUser;
 }
 export function usePrepareForm({ model }: IProps) {
-  const tm = useTranslations('User');
+  const tUser = useTranslations('User');
   const i18nJoi = useI18nJoi();
   const schema = i18nJoi.object({
     name: Joi.string().label(tUser('name')),
