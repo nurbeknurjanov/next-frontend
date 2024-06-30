@@ -41,7 +41,7 @@ export default async function ProductsPage({
     ];
   }
 
-  console.log("headersList.get('Referer')", headersList.get('Referer'));
+  //console.log("headersList.get('Referer')", headersList.get('Referer'));
   if (!headersList.get('Referer')) {
     serverStore.dispatch(setServerWait(true));
 

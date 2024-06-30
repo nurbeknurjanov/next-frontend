@@ -7,7 +7,11 @@ import { useTranslations } from 'next-intl';
 import { IPaginationRequest } from 'api/baseApi';
 import { isEqual } from 'lodash';
 import { Button } from 'shared/ui';
-import { useSetPageData, useTableStates, useHydrateState } from 'shared/hooks';
+import {
+  useSetPageData,
+  useTableStates,
+  useHydratedClient,
+} from 'shared/hooks';
 import { GridSortModel } from '@mui/x-data-grid';
 import { IProductFilters } from 'api/productsApi';
 
@@ -17,7 +21,8 @@ type ModalType =
 
 //const env = process.env.NODE_ENV;
 export function useProducts() {
-  const isHydratedToClient = useHydrateState();
+  const isHydratedToClientRef = useHydratedClient();
+
   const dispatch = useAppDispatch();
   const tc = useTranslations('Common');
   const tm = useTranslations('Product');
@@ -66,7 +71,7 @@ export function useProducts() {
 
   useEffect(() => {
     //console.log('document.referrer', document.referrer);
-    if (!isHydratedToClient) return;
+    if (!isHydratedToClientRef.current) return;
 
     if (
       isEqual(previousPagination.current, pagination) &&
@@ -87,7 +92,7 @@ export function useProducts() {
     previousSorting,
     previousFilters,
     previousRefreshListKey,
-    isHydratedToClient,
+    isHydratedToClientRef,
   ]);
 
   useEffect(() => {
@@ -105,11 +110,11 @@ export function useProducts() {
 
   useEffect(
     () => () => {
-      if (!isHydratedToClient) return;
+      if (!isHydratedToClientRef.current) return;
 
       dispatch(products.getProducts.action.reset());
     },
-    [dispatch, isHydratedToClient]
+    [dispatch, isHydratedToClientRef]
   );
 
   return {
