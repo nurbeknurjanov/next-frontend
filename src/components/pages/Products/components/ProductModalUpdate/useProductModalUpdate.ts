@@ -11,9 +11,9 @@ import { getAggStates } from 'store/common/types';
 
 export function useProductModalUpdate({ onClose, afterUpdate, id }: IProps) {
   const dispatch = useAppDispatch();
-  const tc = useTranslations('Common');
-  const tp = useTranslations('ProductPage');
-  const tm = useTranslations('Product');
+  const tCommon = useTranslations('Common');
+  const tProductPage = useTranslations('ProductPage');
+  const tProduct = useTranslations('Product');
 
   const { model, getProductState } = useProductModel({ id });
 
@@ -31,7 +31,7 @@ export function useProductModalUpdate({ onClose, afterUpdate, id }: IProps) {
 
     if (data) {
       onClose();
-      dispatch(notify(tc('successUpdated'), 'success'));
+      dispatch(notify(tCommon('successUpdated'), 'success'));
       afterUpdate();
     }
   };
@@ -41,9 +41,9 @@ export function useProductModalUpdate({ onClose, afterUpdate, id }: IProps) {
   };
 
   return {
-    tm,
-    tc,
-    tp,
+    tCommon,
+    tProductPage,
+    tProduct,
     aggStates,
     getProductState,
     register,

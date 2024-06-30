@@ -10,8 +10,8 @@ export function useProductModalDelete({
   afterDelete,
   onClose,
 }: Omit<IProps, 'id'>) {
-  const tp = useTranslations('ProductPage');
-  const tc = useTranslations('Common');
+  const tCommon = useTranslations('Common');
+  const tProductPage = useTranslations('ProductPage');
   const dispatch = useAppDispatch();
   const deleteProductState = useAppSelector(
     products.deleteProduct.selector.state
@@ -23,16 +23,16 @@ export function useProductModalDelete({
 
       if (!error) {
         onClose();
-        dispatch(notify(tc('successDeleted'), 'success'));
+        dispatch(notify(tCommon('successDeleted'), 'success'));
         afterDelete();
       }
     },
-    [onClose, afterDelete, dispatch, tc]
+    [onClose, afterDelete, dispatch, tCommon]
   );
 
   return {
-    tp,
-    tc,
+    tCommon,
+    tProductPage,
     deleteProduct,
     deleteProductState,
   };

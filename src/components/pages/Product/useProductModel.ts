@@ -4,8 +4,13 @@ import { useCallback, useEffect } from 'react';
 import { products } from 'store';
 import { getProductThunk } from 'store/products/thunks';
 import { useHydratedClient } from 'shared/hooks';
+import { useTranslations } from 'next-intl';
 
 export function useProductModel({ id }: { id: string }) {
+  const tCommon = useTranslations('Common');
+  const tProductPage = useTranslations('ProductPage');
+  const tProduct = useTranslations('Product');
+
   const isHydratedToClientRef = useHydratedClient();
 
   const dispatch = useAppDispatch();
@@ -37,6 +42,9 @@ export function useProductModel({ id }: { id: string }) {
   );
 
   return {
+    tCommon,
+    tProduct,
+    tProductPage,
     model,
     getProductState,
   };

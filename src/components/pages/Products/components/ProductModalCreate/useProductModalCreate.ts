@@ -9,9 +9,9 @@ import { createProductThunk } from 'store/products/thunks';
 
 export function useProductModalCreate({ onClose, afterCreate }: IProps) {
   const dispatch = useAppDispatch();
-  const tc = useTranslations('Common');
-  const tps = useTranslations('ProductsPage');
-  const tm = useTranslations('Product');
+  const tCommon = useTranslations('Common');
+  const tProductsPage = useTranslations('ProductsPage');
+  const tProduct = useTranslations('Product');
 
   const createProductState = useAppSelector(
     products.createProduct.selector.state
@@ -26,7 +26,7 @@ export function useProductModalCreate({ onClose, afterCreate }: IProps) {
 
     if (data) {
       onClose();
-      dispatch(notify(tc('successCreated'), 'success'));
+      dispatch(notify(tCommon('successCreated'), 'success'));
       afterCreate();
     }
   };
@@ -34,9 +34,9 @@ export function useProductModalCreate({ onClose, afterCreate }: IProps) {
   const submitForm = createProduct;
 
   return {
-    tm,
-    tc,
-    tps,
+    tCommon,
+    tProductsPage,
+    tProduct,
     createProductState,
     register,
     errors,

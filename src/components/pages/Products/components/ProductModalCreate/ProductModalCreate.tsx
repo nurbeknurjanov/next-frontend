@@ -22,9 +22,9 @@ export const ProductModalCreate: React.FC<IProps> = ({
   const formRef = useRef<HTMLFormElement>();
   //const formRef = useRef<HTMLFormElement>(null); //for direct assign
   const {
-    tm,
-    tc,
-    tps,
+    tCommon,
+    tProductsPage,
+    tProduct,
     createProductState,
     register,
     errors,
@@ -39,7 +39,7 @@ export const ProductModalCreate: React.FC<IProps> = ({
 
   return (
     <Dialog open onClose={onClose}>
-      <DialogTitle>{tps('create')}</DialogTitle>
+      <DialogTitle>{tProductsPage('create')}</DialogTitle>
       <DialogContent>
         {createProductState.isFetching ? (
           <CircularProgress sx={{ mx: 'auto', mb: 2, display: 'block' }} />
@@ -53,14 +53,14 @@ export const ProductModalCreate: React.FC<IProps> = ({
             }}
           >
             <TextField
-              label={tm('name')}
+              label={tProduct('name')}
               error={!!errors['name']}
               helperText={errors['name']?.message as string}
               {...register('name')}
             />
 
             <TextField
-              label={tm('description')}
+              label={tProduct('description')}
               error={!!errors['description']}
               helperText={errors['description']?.message as string}
               {...register('description')}
@@ -69,7 +69,7 @@ export const ProductModalCreate: React.FC<IProps> = ({
         )}
       </DialogContent>
       <DialogActions>
-        <Button onClick={onClose}>{tc('close')}</Button>
+        <Button onClick={onClose}>{tCommon('close')}</Button>
         <Button
           variant={'contained'}
           onClick={() => {
@@ -80,7 +80,7 @@ export const ProductModalCreate: React.FC<IProps> = ({
           loading={createProductState.isFetching}
           sx={{ minWidth: 120 }}
         >
-          {tc('create')}
+          {tCommon('create')}
         </Button>
       </DialogActions>
     </Dialog>

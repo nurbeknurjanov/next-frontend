@@ -4,8 +4,12 @@ import { IProductFilters } from 'api/productsApi';
 import { useAppSelector } from 'store/hooks';
 import { products } from 'store';
 import { useEffect, useRef } from 'react';
+import { useTranslations } from 'next-intl';
 
 export function useProductsFilters({ filters, setFilters }: IProps) {
+  const tCommon = useTranslations('Common');
+  const tProduct = useTranslations('Product');
+
   const previousFilters = useRef<IProductFilters | null>(null);
   const getProductsState = useAppSelector(products.getProducts.selector.state);
 
@@ -31,6 +35,8 @@ export function useProductsFilters({ filters, setFilters }: IProps) {
   }, [filters, getProductsState.isFetching]);
 
   return {
+    tCommon,
+    tProduct,
     submitForm,
     register,
     handleSubmit,

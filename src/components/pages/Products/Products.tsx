@@ -23,8 +23,8 @@ import { useTranslations } from 'next-intl';
 
 let Products: FC = () => {
   const {
-    tc,
-    tm,
+    tCommon,
+    tProduct,
     getProductsState,
     setPagination,
     sorting,
@@ -54,7 +54,7 @@ let Products: FC = () => {
   const columns: GridColDef<IProduct>[] = [
     {
       field: 'name',
-      headerName: tm('name'),
+      headerName: tProduct('name'),
       renderCell: params => (
         <Link href={'/products/' + params.row._id}>{params.row.name}</Link>
       ),
@@ -62,18 +62,18 @@ let Products: FC = () => {
     },
     {
       field: 'description',
-      headerName: tm('description'),
+      headerName: tProduct('description'),
       flex: 1,
     },
     {
       field: 'createdAt',
-      headerName: tc('createdAt'),
+      headerName: tCommon('createdAt'),
       flex: 1,
       valueGetter: params => dayjs(params.value).format(DATE_FORMAT),
     },
     {
       field: 'updatedAt',
-      headerName: tc('updatedAt'),
+      headerName: tCommon('updatedAt'),
       flex: 1,
       valueGetter: params => dayjs(params.value).format(DATE_FORMAT),
     },
@@ -85,21 +85,21 @@ let Products: FC = () => {
           key={params.row._id}
           icon={<DeleteIcon color={'primary'} />}
           onClick={() => setShowModal({ type: 'view', id: params.row._id })}
-          label={tc('view')}
+          label={tCommon('view')}
           showInMenu
         />,
         <GridActionsCellItem
           key={params.row._id}
           icon={<EditIcon color={'warning'} />}
           onClick={() => setShowModal({ type: 'update', id: params.row._id })}
-          label={tc('update')}
+          label={tCommon('update')}
           showInMenu
         />,
         <GridActionsCellItem
           key={params.row._id}
           icon={<DeleteIcon color={'error'} />}
           onClick={() => setShowModal({ type: 'delete', id: params.row._id })}
-          label={tc('delete')}
+          label={tCommon('delete')}
           showInMenu
         />,
       ],
@@ -133,7 +133,7 @@ let Products: FC = () => {
 
         {!data?.list?.length ? (
           <Alert severity={'warning'} variant="outlined">
-            {tc('noData')}
+            {tCommon('noData')}
           </Alert>
         ) : (
           <DataGrid

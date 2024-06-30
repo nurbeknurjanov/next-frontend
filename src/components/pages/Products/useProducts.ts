@@ -19,8 +19,8 @@ export function useProducts() {
   const isHydratedToClientRef = useHydratedClient();
 
   const dispatch = useAppDispatch();
-  const tc = useTranslations('Common');
-  const tm = useTranslations('Product');
+  const tCommon = useTranslations('Common');
+  const tProduct = useTranslations('Product');
 
   const [showModal, setShowModal] = useState<ModalType | null>();
   const closeShowModal = useCallback(() => setShowModal(null), []);
@@ -100,8 +100,8 @@ export function useProducts() {
   );
 
   return {
-    tc,
-    tm,
+    tCommon,
+    tProduct,
     getProductsState,
     setPagination,
     sorting,

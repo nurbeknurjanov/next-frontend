@@ -17,19 +17,20 @@ export const ProductModalDelete: React.FC<IProps> = ({
   onClose,
   afterDelete,
 }) => {
-  const { tp, tc, deleteProduct, deleteProductState } = useProductModalDelete({
-    onClose,
-    afterDelete,
-  });
+  const { tCommon, tProductPage, deleteProduct, deleteProductState } =
+    useProductModalDelete({
+      onClose,
+      afterDelete,
+    });
 
   return (
     <Dialog open onClose={onClose}>
-      <DialogTitle>{tp('delete')}</DialogTitle>
+      <DialogTitle>{tProductPage('delete')}</DialogTitle>
       <DialogContent>
-        <DialogContentText>{tc('deleteAlert')}</DialogContentText>
+        <DialogContentText>{tCommon('deleteAlert')}</DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button onClick={onClose}>{tc('close')}</Button>
+        <Button onClick={onClose}>{tCommon('close')}</Button>
         <Button
           variant={'contained'}
           onClick={() => {
@@ -39,7 +40,7 @@ export const ProductModalDelete: React.FC<IProps> = ({
           loading={deleteProductState.isFetching}
           sx={{ minWidth: 110 }}
         >
-          {tc('delete')}
+          {tCommon('delete')}
         </Button>
       </DialogActions>
     </Dialog>

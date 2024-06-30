@@ -5,7 +5,6 @@ import * as React from 'react';
 import { IProductFilters } from 'api/productsApi';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import { useTranslations } from 'next-intl';
 import { isEqual } from 'lodash';
 
 export interface IProps {
@@ -13,10 +12,9 @@ export interface IProps {
   setFilters: (_filters: IProductFilters) => void;
 }
 export const ProductsFilters = ({ filters, setFilters }: IProps) => {
-  const tc = useTranslations('Common');
-  const tp = useTranslations('Product');
-
   const {
+    tCommon,
+    tProduct,
     submitForm,
     register,
     handleSubmit,
@@ -41,8 +39,11 @@ export const ProductsFilters = ({ filters, setFilters }: IProps) => {
             submitForm({ name: null, description: null });
           }}
         >
-          <TextField label={tp('name')} {...register('name')} />
-          <TextField label={tp('description')} {...register('description')} />
+          <TextField label={tProduct('name')} {...register('name')} />
+          <TextField
+            label={tProduct('description')}
+            {...register('description')}
+          />
 
           <Button
             type={'submit'}
@@ -54,10 +55,10 @@ export const ProductsFilters = ({ filters, setFilters }: IProps) => {
             }
             sx={{ minWidth: 100 }}
           >
-            {tc('search')}
+            {tCommon('search')}
           </Button>
           <Button type={'reset'} variant={'outlined'} sx={{ ml: 1 }}>
-            {tc('reset')}
+            {tCommon('reset')}
           </Button>
         </form>
       </CardContent>

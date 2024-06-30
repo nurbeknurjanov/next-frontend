@@ -12,11 +12,11 @@ interface IProps {
   model?: IProduct;
 }
 export function usePrepareForm({ model }: IProps) {
-  const tm = useTranslations('Product');
+  const tProduct = useTranslations('Product');
   const i18nJoi = useI18nJoi();
   const schema = i18nJoi.object({
-    name: Joi.string().label(tm('name')),
-    description: Joi.string().label(tm('description')),
+    name: Joi.string().label(tProduct('name')),
+    description: Joi.string().label(tProduct('description')),
   });
 
   const initialValues = useMemo<IProductPost>(() => {

@@ -30,26 +30,31 @@ const columns: GridColDef[] = [
 let Product: FC = () => {
   const { id } = useParams<ProductPageProps['params']>();
 
-  const tc = useTranslations('Common');
-  const tm = useTranslations('Product');
-  const ts = useTranslations('ProductsPage');
-  const tp = useTranslations('ProductPage');
-  const { model, getProductState, showModal, setShowModal, router } =
-    useProduct();
+  const {
+    tCommon,
+    tProduct,
+    tProductPage,
+    tProductsPage,
+    model,
+    getProductState,
+    showModal,
+    setShowModal,
+    router,
+  } = useProduct();
   const title = model?.name!;
 
   useSetPageData(
     title,
     [
       {
-        label: ts('title'),
+        label: tProductsPage('title'),
         href: '/products',
       },
       title,
     ],
     <>
       <ButtonLink href={`/products/${id}/update`} size={'small'}>
-        {tp('update')}
+        {tProductPage('update')}
       </ButtonLink>
       <Button
         variant={'contained'}
@@ -57,7 +62,7 @@ let Product: FC = () => {
         color={'error'}
         onClick={() => setShowModal({ type: 'delete', id })}
       >
-        {tp('delete')}
+        {tProductPage('delete')}
       </Button>
     </>
   );
@@ -65,23 +70,23 @@ let Product: FC = () => {
   const rows: { label: string; value: string | React.ReactNode }[] = [];
   if (model) {
     rows.push({
-      label: tc('id'),
+      label: tCommon('id'),
       value: model._id,
     });
     rows.push({
-      label: tm('name'),
+      label: tProduct('name'),
       value: model.name,
     });
     rows.push({
-      label: tm('description'),
+      label: tProduct('description'),
       value: model.description,
     });
     rows.push({
-      label: tc('createdAt'),
+      label: tCommon('createdAt'),
       value: dayjs(model.createdAt).format(DATE_FORMAT),
     });
     rows.push({
-      label: tc('updatedAt'),
+      label: tCommon('updatedAt'),
       value: dayjs(model.updatedAt).format(DATE_FORMAT),
     });
   }
