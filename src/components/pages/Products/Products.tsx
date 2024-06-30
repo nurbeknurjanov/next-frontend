@@ -4,7 +4,7 @@ import dayjs from 'dayjs';
 import styles from './products.module.scss';
 import { DataGrid, GridColDef, GridActionsCellItem } from '@mui/x-data-grid';
 import { useProducts } from './useProducts';
-import { Link } from 'shared/ui';
+import { Button, Link } from 'shared/ui';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import {
@@ -18,6 +18,8 @@ import { withCleanHooks } from 'shared/hocs';
 import { DATE_FORMAT } from 'shared/utils';
 import { IProduct } from 'api/productsApi';
 import { Alert } from '@mui/material';
+import { useSetPageData } from '../../../shared/hooks';
+import { useTranslations } from 'next-intl';
 
 let Products: FC = () => {
   const {
@@ -35,7 +37,19 @@ let Products: FC = () => {
     closeShowModal,
   } = useProducts();
 
-  const { data, isFetching } = getProductsState;
+  const tps = useTranslations('ProductsPage');
+
+  useSetPageData(
+    tps('title'),
+    [tps('title')],
+    <Button
+      variant={'contained'}
+      size={'small'}
+      onClick={() => setShowModal({ type: 'create' })}
+    >
+      {tps('create')}
+    </Button>
+  );
 
   const columns: GridColDef<IProduct>[] = [
     {
@@ -109,6 +123,8 @@ let Products: FC = () => {
       ),
     },*/
   ];
+
+  const { data, isFetching } = getProductsState;
 
   return (
     <>

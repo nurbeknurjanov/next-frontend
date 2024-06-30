@@ -1,17 +1,12 @@
 'use client';
-import React, { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
 import { products } from 'store';
 import { getProductsThunk } from 'store/products/thunks';
 import { useTranslations } from 'next-intl';
 import { IPaginationRequest } from 'api/baseApi';
 import { isEqual } from 'lodash';
-import { Button } from 'shared/ui';
-import {
-  useSetPageData,
-  useTableStates,
-  useHydratedClient,
-} from 'shared/hooks';
+import { useTableStates, useHydratedClient } from 'shared/hooks';
 import { GridSortModel } from '@mui/x-data-grid';
 import { IProductFilters } from 'api/productsApi';
 
@@ -26,22 +21,9 @@ export function useProducts() {
   const dispatch = useAppDispatch();
   const tc = useTranslations('Common');
   const tm = useTranslations('Product');
-  const tps = useTranslations('ProductsPage');
 
   const [showModal, setShowModal] = useState<ModalType | null>();
   const closeShowModal = useCallback(() => setShowModal(null), []);
-
-  useSetPageData(
-    tps('title'),
-    [tps('title')],
-    <Button
-      variant={'contained'}
-      size={'small'}
-      onClick={() => setShowModal({ type: 'create' })}
-    >
-      {tps('create')}
-    </Button>
-  );
 
   const getProductsState = useAppSelector(products.getProducts.selector.state);
 
@@ -120,7 +102,6 @@ export function useProducts() {
   return {
     tc,
     tm,
-    tps,
     getProductsState,
     setPagination,
     sorting,
