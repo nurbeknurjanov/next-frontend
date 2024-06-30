@@ -2,7 +2,7 @@ export { About } from './About';
 export { Contact } from './Contact';
 export { Login } from './Login/Login';
 export { Home } from './Home';
-export { Product, useProductModel, ProductModalDelete } from './Product';
+export { Product } from './Product';
 export { Manual } from './Manual';
 export { Products, usePrepareForm } from './Products';
 export { ProductUpdate } from './ProductUpdate';
