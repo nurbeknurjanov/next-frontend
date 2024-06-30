@@ -7,7 +7,7 @@ import dayjs from 'dayjs';
 import { DATE_FORMAT } from 'shared/utils';
 import { withCleanHooks } from 'shared/hocs';
 import Loading from 'app/[locale]/loading';
-import { useSetPageData } from '../../../shared/hooks';
+import { useSetPageData } from 'shared/hooks';
 
 const columns: GridColDef[] = [
   {

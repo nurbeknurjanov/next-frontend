@@ -18,7 +18,7 @@ import { withCleanHooks } from 'shared/hocs';
 import { DATE_FORMAT } from 'shared/utils';
 import { IUser } from 'api/usersApi';
 import { Alert } from '@mui/material';
-import { useSetPageData } from '../../../shared/hooks';
+import { useSetPageData } from 'shared/hooks';
 
 let Users: FC = () => {
   const {
