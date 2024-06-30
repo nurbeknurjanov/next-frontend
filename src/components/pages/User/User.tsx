@@ -7,6 +7,7 @@ import dayjs from 'dayjs';
 import { DATE_FORMAT } from 'shared/utils';
 import { withCleanHooks } from 'shared/hocs';
 import Loading from 'app/[locale]/loading';
+import { useSetPageData } from '../../../shared/hooks';
 
 const columns: GridColDef[] = [
   {
@@ -37,7 +38,16 @@ const columns: GridColDef[] = [
 ];
 
 let User: FC = () => {
-  const { model, getUserState } = useUser();
+  const { tUsersPage, model, getUserState } = useUser();
+  const title = model?.name!;
+
+  useSetPageData(title, [
+    {
+      label: tUsersPage('title'),
+      href: '/users',
+    },
+    title,
+  ]);
 
   const data: { label: string; value: string | React.ReactNode }[] = [];
   if (model) {

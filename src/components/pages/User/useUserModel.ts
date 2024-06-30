@@ -22,11 +22,12 @@ export function useUserModel({ id }: { id: string }) {
     }
   }, [id, getUser, dispatch]);
 
-  useEffect(() => {
-    return () => {
+  useEffect(
+    () => () => {
       dispatch(users.getUser.action.reset());
-    };
-  }, [dispatch]);
+    },
+    [dispatch]
+  );
 
   return {
     model,
