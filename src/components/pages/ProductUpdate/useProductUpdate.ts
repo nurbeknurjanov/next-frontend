@@ -37,10 +37,11 @@ export function useProductUpdate() {
 
     if (data) {
       dispatch(notify(tCommon('successUpdated'), 'success'));
+
       if (document.referrer) {
         return router.back();
       }
-      router.push(`/products/${model?._id}`);
+      router.push(`/products/${model!._id}`);
     }
   };
 
