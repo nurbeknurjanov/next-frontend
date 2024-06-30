@@ -13,8 +13,11 @@ import { useTranslations } from 'next-intl';
 let ProductUpdate: FC = () => {
   const formRef = useRef<HTMLFormElement>();
   const {
-    tc,
-    tm,
+    id,
+    tCommon,
+    tProduct,
+    tProductPage,
+    tProductsPage,
     router,
     model,
     updateProductState,
@@ -29,13 +32,10 @@ let ProductUpdate: FC = () => {
     setShowModal,
   } = useProductUpdate();
 
-  const ts = useTranslations('ProductsPage');
-  const tp = useTranslations('ProductPage');
-  const title = tp('update');
-
+  const title = tProductPage('update');
   useSetPageData(title, [
     {
-      label: ts('title'),
+      label: tProductsPage('update'),
       href: '/products',
     },
     {
@@ -64,14 +64,14 @@ let ProductUpdate: FC = () => {
             }}
           >
             <TextField
-              label={tm('name')}
+              label={tProduct('name')}
               error={!!errors['name']}
               helperText={errors['name']?.message as string}
               {...register('name')}
             />
 
             <TextField
-              label={tm('description')}
+              label={tProduct('description')}
               error={!!errors['description']}
               helperText={errors['description']?.message as string}
               {...register('description')}
@@ -87,7 +87,7 @@ let ProductUpdate: FC = () => {
                 router.push(`/products/${model?._id}`);
               }}
             >
-              {tc('back')}
+              {tCommon('back')}
             </Button>
             <Button
               variant={'contained'}
@@ -99,7 +99,7 @@ let ProductUpdate: FC = () => {
               loading={updateProductState.isFetching}
               sx={{ minWidth: 120 }}
             >
-              {tc('update')}
+              {tCommon('update')}
             </Button>
           </form>
         )}

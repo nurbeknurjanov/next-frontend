@@ -1,6 +1,5 @@
 'use client';
 import { useTranslations } from 'next-intl';
-import { useSetPageData } from 'shared/hooks';
 import { useParams, useRouter } from 'next/navigation';
 import { ProductPageProps } from 'app/[locale]/products/[id]/page';
 import { useProductModel } from '../Product';
@@ -16,8 +15,10 @@ type ModalType = { type: 'delete'; id: string };
 export function useProductUpdate() {
   const dispatch = useAppDispatch();
   const router = useRouter();
-  const tc = useTranslations('Common');
-  const tm = useTranslations('Product');
+  const tCommon = useTranslations('Common');
+  const tProduct = useTranslations('Product');
+  const tProductPage = useTranslations('ProductPage');
+  const tProductsPage = useTranslations('ProductsPage');
 
   const [showModal, setShowModal] = useState<ModalType | null>();
   const updateProductState = useAppSelector(
@@ -35,7 +36,7 @@ export function useProductUpdate() {
     const { data } = await dispatch(updateProductThunk(id, formData));
 
     if (data) {
-      dispatch(notify(tc('successUpdated'), 'success'));
+      dispatch(notify(tCommon('successUpdated'), 'success'));
       if (document.referrer) {
         return router.back();
       }
@@ -48,8 +49,11 @@ export function useProductUpdate() {
   };
 
   return {
-    tc,
-    tm,
+    id,
+    tCommon,
+    tProduct,
+    tProductPage,
+    tProductsPage,
     router,
     model,
     updateProductState,
