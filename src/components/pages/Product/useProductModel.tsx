@@ -27,13 +27,14 @@ export function useProductModel({ id }: { id: string }) {
     }
   }, [id, getProduct, dispatch, isHydratedToClientRef]);
 
-  useEffect(() => {
-    return () => {
+  useEffect(
+    () => () => {
       if (!isHydratedToClientRef.current) return;
 
       dispatch(products.getProduct.action.reset());
-    };
-  }, [dispatch, isHydratedToClientRef]);
+    },
+    [dispatch, isHydratedToClientRef]
+  );
 
   return {
     model,
