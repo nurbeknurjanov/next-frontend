@@ -18,13 +18,47 @@ export function usePrepareForm({ model }: IProps) {
     name: Joi.string().label(tProduct('name')),
     description: Joi.string().label(tProduct('description')),
   });
+  if (!model) {
+    schema.append({ image: Joi.optional() });
+  }
+
+  //validation for file field
+  schema.append({
+    imageFile: Joi.any().custom((value: FileList, helper) => {
+      if (!value?.[0]) {
+        return value;
+      }
+
+      if (
+        ![
+          'image/jpg',
+          'image/jpeg',
+          'image/png',
+          'image/gif',
+          'application/pdf',
+        ].includes(value?.[0]?.type?.toLowerCase())
+      ) {
+        return helper.error('custom.image_type');
+      }
+
+      if (value?.[0]?.size > 1048576 * 10) {
+        return helper.error('custom.size');
+      }
+
+      return value;
+    }),
+  });
 
   const initialValues = useMemo<IProductPost>(() => {
     if (!model) {
-      return { name: null, description: null };
+      return { name: null, description: null, imageFile: null };
     }
 
-    return pick(model, ['name', 'description']);
+    return {
+      ...pick(model, ['name', 'description']),
+      imageFile: null,
+      image: model.image ? model.image._id : null,
+    };
   }, [model]);
 
   const {
