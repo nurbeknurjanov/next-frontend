@@ -8,7 +8,6 @@ import { DATE_FORMAT } from 'shared/utils';
 import { withCleanHooks } from 'shared/hocs';
 import Loading from 'app/[locale]/loading';
 import { ProductModalDelete } from '../Products';
-import { useTranslations } from 'next-intl';
 import { useSetPageData } from 'shared/hooks';
 import { Button, ButtonLink } from 'shared/ui';
 import { useParams } from 'next/navigation';

@@ -13,32 +13,17 @@ const columns: GridColDef[] = [
   {
     field: 'label',
     headerName: 'Label',
-    renderCell: params => params.value,
     flex: 1,
   },
   {
     field: 'value',
     headerName: 'Value',
-    width: 1200,
-    renderCell: params => {
-      if (['background', 'icon_2', 'icon_3'].includes(params.row.label)) {
-        return (
-          <img src={params.value} width={300} style={{ margin: '20px 0' }} />
-        );
-      }
-
-      if (['createdAt', 'updatedAt'].includes(params.row.label)) {
-        return dayjs(params.value).format(DATE_FORMAT);
-      }
-
-      return params.value;
-    },
     flex: 1,
   },
 ];
 
 let User: FC = () => {
-  const { tUsersPage, model, getUserState } = useUser();
+  const { tCommon, tUser, tUsersPage, model, getUserState } = useUser();
   const title = model?.name!;
 
   useSetPageData(title, [
@@ -49,24 +34,40 @@ let User: FC = () => {
     title,
   ]);
 
-  const data: { label: string; value: string | React.ReactNode }[] = [];
+  const rows: { label: string; value: string | React.ReactNode }[] = [];
   if (model) {
-    const entries = Object.entries(model);
-    entries
-      .filter(([key]) => key !== '__v')
-      .forEach(([key, value]) => {
-        if (typeof value === 'object') {
-          data.push({
-            label: key,
-            value: JSON.stringify(value),
-          });
-        } else {
-          data.push({
-            label: key,
-            value: value,
-          });
-        }
-      });
+    rows.push({
+      label: tCommon('id'),
+      value: model._id,
+    });
+    rows.push({
+      label: tUser('name'),
+      value: model.name,
+    });
+    rows.push({
+      label: tUser('email'),
+      value: model.email,
+    });
+    rows.push({
+      label: tUser('sex'),
+      value: model.sex,
+    });
+    rows.push({
+      label: tUser('age'),
+      value: model.age,
+    });
+    rows.push({
+      label: tUser('status'),
+      value: model.status,
+    });
+    rows.push({
+      label: tCommon('createdAt'),
+      value: dayjs(model.createdAt).format(DATE_FORMAT),
+    });
+    rows.push({
+      label: tCommon('updatedAt'),
+      value: dayjs(model.updatedAt).format(DATE_FORMAT),
+    });
   }
 
   if (getUserState.isFetching) {
@@ -76,8 +77,9 @@ let User: FC = () => {
   return (
     <div className={styles.userContent}>
       <DataGrid
+        columnHeaderHeight={0}
         hideFooter
-        rows={data}
+        rows={rows}
         columns={columns}
         getRowId={el => el.label}
       />
