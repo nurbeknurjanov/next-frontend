@@ -9,9 +9,9 @@ import { createUserThunk } from 'store/users/thunks';
 
 export function useUserModalCreate({ onClose, refreshList }: IProps) {
   const dispatch = useAppDispatch();
-  const tc = useTranslations('Common');
-  const tps = useTranslations('UsersPage');
-  const tm = useTranslations('User');
+  const tCommon = useTranslations('Common');
+  const tUsersPage = useTranslations('UsersPage');
+  const tUser = useTranslations('User');
 
   const createUserState = useAppSelector(users.createUser.selector.state);
 
@@ -22,7 +22,7 @@ export function useUserModalCreate({ onClose, refreshList }: IProps) {
     const { data } = await dispatch(createUserThunk(formData));
 
     if (data) {
-      dispatch(notify(tc('successCreated'), 'success'));
+      dispatch(notify(tCommon('successCreated'), 'success'));
       refreshList();
       onClose();
     }
@@ -31,9 +31,9 @@ export function useUserModalCreate({ onClose, refreshList }: IProps) {
   const submitForm = createUser;
 
   return {
-    tm,
-    tc,
-    tps,
+    tCommon,
+    tUsersPage,
+    tUser,
     createUserState,
     register,
     errors,

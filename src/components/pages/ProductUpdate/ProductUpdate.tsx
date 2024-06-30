@@ -8,7 +8,6 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { TextField } from '@mui/material';
 import { Button } from 'shared/ui';
 import { useSetPageData } from '../../../shared/hooks';
-import { useTranslations } from 'next-intl';
 
 let ProductUpdate: FC = () => {
   const formRef = useRef<HTMLFormElement>();

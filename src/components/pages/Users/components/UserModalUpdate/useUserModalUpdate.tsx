@@ -11,9 +11,9 @@ import { getAggStates } from 'store/common/types';
 
 export function useUserModalUpdate({ onClose, refreshList, id }: IProps) {
   const dispatch = useAppDispatch();
-  const tc = useTranslations('Common');
-  const tp = useTranslations('UserPage');
-  const tm = useTranslations('User');
+  const tCommon = useTranslations('Common');
+  const tUserPage = useTranslations('UserPage');
+  const tUser = useTranslations('User');
 
   const { model, getUserState } = useUserModel({ id });
 
@@ -29,9 +29,9 @@ export function useUserModalUpdate({ onClose, refreshList, id }: IProps) {
     const { data } = await dispatch(updateUserThunk(id, formData));
 
     if (data) {
-      dispatch(notify(tc('successUpdated'), 'success'));
-      refreshList();
       onClose();
+      dispatch(notify(tCommon('successUpdated'), 'success'));
+      refreshList();
     }
   };
 
@@ -40,9 +40,9 @@ export function useUserModalUpdate({ onClose, refreshList, id }: IProps) {
   };
 
   return {
-    tm,
-    tc,
-    tp,
+    tCommon,
+    tUserPage,
+    tUser,
     aggStates,
     getUserState,
     register,

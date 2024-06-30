@@ -31,9 +31,9 @@ export const UserModalCreate: React.FC<IProps> = ({ onClose, refreshList }) => {
   const formRef = useRef<HTMLFormElement>();
   //const formRef = useRef<HTMLFormElement>(null); //for direct assign
   const {
-    tm,
-    tc,
-    tps,
+    tCommon,
+    tUsersPage,
+    tUser,
     createUserState,
     register,
     errors,
@@ -56,7 +56,7 @@ export const UserModalCreate: React.FC<IProps> = ({ onClose, refreshList }) => {
 
   return (
     <Dialog open onClose={onClose}>
-      <DialogTitle>{tps('create')}</DialogTitle>
+      <DialogTitle>{tUsersPage('create')}</DialogTitle>
       <DialogContent>
         {createUserState.isFetching ? (
           <CircularProgress sx={{ mx: 'auto', mb: 2, display: 'block' }} />
@@ -70,28 +70,28 @@ export const UserModalCreate: React.FC<IProps> = ({ onClose, refreshList }) => {
             }}
           >
             <TextField
-              label={tm('name')}
+              label={tUser('name')}
               error={!!errors['name']}
               helperText={errors['name']?.message as string}
               {...register('name')}
             />
 
             <TextField
-              label={tm('email')}
+              label={tUser('email')}
               error={!!errors['email']}
               helperText={errors['email']?.message as string}
               {...register('email')}
             />
 
             <TextField
-              label={tm('password')}
+              label={tUser('password')}
               error={!!errors['password']}
               helperText={errors['password']?.message as string}
               {...register('password')}
             />
 
             <TextField
-              label={tm('age')}
+              label={tUser('age')}
               type="number"
               error={!!errors['age']}
               helperText={errors['age']?.message as string}
@@ -99,7 +99,7 @@ export const UserModalCreate: React.FC<IProps> = ({ onClose, refreshList }) => {
             />
 
             <FormControl sx={{ mb: 3 }} error={!!errors['sex']}>
-              <FormLabel>{tm('sex')}</FormLabel>
+              <FormLabel>{tUser('sex')}</FormLabel>
               <RadioGroup
                 value={watch('sex')}
                 {...sexRegisterOptions}
@@ -110,12 +110,12 @@ export const UserModalCreate: React.FC<IProps> = ({ onClose, refreshList }) => {
                 <FormControlLabel
                   value={SEX_ENUM.MALE}
                   control={<Radio />}
-                  label={tm('sexOptions.male')}
+                  label={tUser('sexOptions.male')}
                 />
                 <FormControlLabel
                   value={SEX_ENUM.FEMALE}
                   control={<Radio />}
-                  label={tm('sexOptions.female')}
+                  label={tUser('sexOptions.female')}
                 />
               </RadioGroup>
               {!!errors['sex'] && (
@@ -124,17 +124,17 @@ export const UserModalCreate: React.FC<IProps> = ({ onClose, refreshList }) => {
             </FormControl>
 
             <FormControl size="small" sx={{ mb: 2 }} error={!!errors['status']}>
-              <InputLabel>{tm('status')}</InputLabel>
+              <InputLabel>{tUser('status')}</InputLabel>
               <Select
-                label={tm('status')}
+                label={tUser('status')}
                 {...register('status')}
                 value={watch('status') ?? ''}
               >
                 <MenuItem value={STATUS_ENUM.ENABLED}>
-                  {tm('statusOptions.enabled')}
+                  {tUser('statusOptions.enabled')}
                 </MenuItem>
                 <MenuItem value={STATUS_ENUM.DISABLED}>
-                  {tm('statusOptions.disabled')}
+                  {tUser('statusOptions.disabled')}
                 </MenuItem>
               </Select>
               {!!errors['status'] && (
@@ -145,7 +145,7 @@ export const UserModalCreate: React.FC<IProps> = ({ onClose, refreshList }) => {
         )}
       </DialogContent>
       <DialogActions>
-        <Button onClick={onClose}>{tc('close')}</Button>
+        <Button onClick={onClose}>{tCommon('close')}</Button>
         <Button
           variant={'contained'}
           onClick={() => {
@@ -156,7 +156,7 @@ export const UserModalCreate: React.FC<IProps> = ({ onClose, refreshList }) => {
           disabled={!isDirty || !isValid}
           sx={{ minWidth: 120 }}
         >
-          {tc('create')}
+          {tCommon('create')}
         </Button>
       </DialogActions>
     </Dialog>

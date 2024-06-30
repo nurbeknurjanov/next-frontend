@@ -10,8 +10,8 @@ export function useUserModalDelete({
   afterDelete,
   onClose,
 }: Omit<IProps, 'id'>) {
-  const tp = useTranslations('UserPage');
-  const tc = useTranslations('Common');
+  const tCommon = useTranslations('Common');
+  const tUserPage = useTranslations('UserPage');
   const dispatch = useAppDispatch();
   const deleteUserState = useAppSelector(users.deleteUser.selector.state);
 
@@ -21,16 +21,16 @@ export function useUserModalDelete({
 
       if (!error) {
         onClose();
-        dispatch(notify(tc('successDeleted'), 'success'));
+        dispatch(notify(tCommon('successDeleted'), 'success'));
         afterDelete();
       }
     },
-    [onClose, afterDelete, dispatch, tc]
+    [onClose, afterDelete, dispatch, tCommon]
   );
 
   return {
-    tp,
-    tc,
+    tCommon,
+    tUserPage,
     deleteUser,
     deleteUserState,
   };

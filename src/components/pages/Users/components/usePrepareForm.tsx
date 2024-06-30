@@ -15,18 +15,18 @@ export function usePrepareForm({ model }: IProps) {
   const tm = useTranslations('User');
   const i18nJoi = useI18nJoi();
   const schema = i18nJoi.object({
-    name: Joi.string().label(tm('name')),
+    name: Joi.string().label(tUser('name')),
     email: Joi.string()
-      .label(tm('email'))
+      .label(tUser('email'))
       .email({
         minDomainSegments: 2,
         tlds: { allow: tlds },
       }),
-    password: Joi.string().label(tm('password')),
-    age: Joi.number().label(tm('age')),
-    sex: Joi.number().label(tm('sex')).valid(SEX_ENUM.MALE, SEX_ENUM.FEMALE),
+    password: Joi.string().label(tUser('password')),
+    age: Joi.number().label(tUser('age')),
+    sex: Joi.number().label(tUser('sex')).valid(SEX_ENUM.MALE, SEX_ENUM.FEMALE),
     status: Joi.number()
-      .label(tm('status'))
+      .label(tUser('status'))
       .valid(STATUS_ENUM.ENABLED, STATUS_ENUM.DISABLED),
   });
 

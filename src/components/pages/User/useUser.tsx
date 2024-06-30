@@ -6,14 +6,14 @@ import { UserPageProps } from 'app/[locale]/users/[id]/page';
 import { useUserModel } from './useUserModel';
 
 export function useUser() {
-  const ts = useTranslations('UsersPage');
+  const tUsersPage = useTranslations('UsersPage');
   const { id } = useParams<UserPageProps['params']>();
   const { model, getUserState } = useUserModel({ id });
   const title = model?.name!;
 
   useSetPageData(title, [
     {
-      label: ts('title'),
+      label: tUsersPage('title'),
       href: '/users',
     },
     title,

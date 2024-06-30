@@ -13,8 +13,8 @@ export interface IProps {
   setFilters: (_filters: IUserFilters) => void;
 }
 export const UsersFilters = ({ filters, setFilters }: IProps) => {
-  const tc = useTranslations('Common');
-  const tp = useTranslations('User');
+  const tCommon = useTranslations('Common');
+  const tUser = useTranslations('User');
 
   const {
     submitForm,
@@ -41,8 +41,8 @@ export const UsersFilters = ({ filters, setFilters }: IProps) => {
             submitForm({ name: null, email: null });
           }}
         >
-          <TextField label={tp('name')} {...register('name')} />
-          <TextField label={tp('email')} {...register('email')} />
+          <TextField label={tUser('name')} {...register('name')} />
+          <TextField label={tUser('email')} {...register('email')} />
 
           <Button
             type={'submit'}
@@ -54,10 +54,10 @@ export const UsersFilters = ({ filters, setFilters }: IProps) => {
             }
             sx={{ minWidth: 100 }}
           >
-            {tc('search')}
+            {tCommon('search')}
           </Button>
           <Button type={'reset'} variant={'outlined'} sx={{ ml: 1 }}>
-            {tc('reset')}
+            {tCommon('reset')}
           </Button>
         </form>
       </CardContent>

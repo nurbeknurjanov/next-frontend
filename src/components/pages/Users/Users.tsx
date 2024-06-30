@@ -21,8 +21,8 @@ import { Alert } from '@mui/material';
 
 let Users: FC = () => {
   const {
-    tc,
-    tm,
+    tCommon,
+    tUser,
     getUsersState,
     setPagination,
     sorting,
@@ -40,7 +40,7 @@ let Users: FC = () => {
   const columns: GridColDef<IUser>[] = [
     {
       field: 'name',
-      headerName: tm('name'),
+      headerName: tUser('name'),
       renderCell: params => (
         <Link href={'/users/' + params.row._id}>{params.row.name}</Link>
       ),
@@ -48,28 +48,28 @@ let Users: FC = () => {
     },
     {
       field: 'email',
-      headerName: tm('email'),
+      headerName: tUser('email'),
       flex: 1,
     },
     {
       field: 'sex',
-      headerName: tm('sex'),
+      headerName: tUser('sex'),
       flex: 1,
     },
     {
       field: 'status',
-      headerName: tm('status'),
+      headerName: tUser('status'),
       flex: 1,
     },
     {
       field: 'createdAt',
-      headerName: tc('createdAt'),
+      headerName: tCommon('createdAt'),
       flex: 1,
       valueGetter: params => dayjs(params.value).format(DATE_FORMAT),
     },
     {
       field: 'updatedAt',
-      headerName: tc('updatedAt'),
+      headerName: tCommon('updatedAt'),
       flex: 1,
       valueGetter: params => dayjs(params.value).format(DATE_FORMAT),
     },
@@ -81,21 +81,21 @@ let Users: FC = () => {
           key={params.row._id}
           icon={<EditIcon color={'warning'} />}
           onClick={() => setShowModal({ type: 'update', id: params.row._id })}
-          label={tc('update')}
+          label={tCommon('update')}
           showInMenu
         />,
         <GridActionsCellItem
           key={params.row._id}
           icon={<DeleteIcon color={'error'} />}
           onClick={() => setShowModal({ type: 'delete', id: params.row._id })}
-          label={tc('delete')}
+          label={tCommon('delete')}
           showInMenu
         />,
         <GridActionsCellItem
           key={params.row._id}
           icon={<DeleteIcon color={'primary'} />}
           onClick={() => setShowModal({ type: 'view', id: params.row._id })}
-          label={tc('view')}
+          label={tCommon('view')}
           showInMenu
         />,
       ],
@@ -127,7 +127,7 @@ let Users: FC = () => {
 
         {!data?.list?.length ? (
           <Alert severity={'warning'} variant="outlined">
-            {tc('noData')}
+            {tCommon('noData')}
           </Alert>
         ) : (
           <DataGrid

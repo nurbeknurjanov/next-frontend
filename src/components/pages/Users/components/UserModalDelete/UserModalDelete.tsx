@@ -17,19 +17,20 @@ export const UserModalDelete: React.FC<IProps> = ({
   onClose,
   afterDelete,
 }) => {
-  const { tp, tc, deleteUser, deleteUserState } = useUserModalDelete({
-    onClose,
-    afterDelete,
-  });
+  const { tCommon, tUserPage, deleteUser, deleteUserState } =
+    useUserModalDelete({
+      onClose,
+      afterDelete,
+    });
 
   return (
     <Dialog open onClose={onClose}>
-      <DialogTitle>{tp('delete')}</DialogTitle>
+      <DialogTitle>{tUserPage('delete')}</DialogTitle>
       <DialogContent>
-        <DialogContentText>{tc('deleteAlert')}</DialogContentText>
+        <DialogContentText>{tCommon('deleteAlert')}</DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button onClick={onClose}>{tc('close')}</Button>
+        <Button onClick={onClose}>{tCommon('close')}</Button>
         <Button
           variant={'contained'}
           onClick={() => {
@@ -39,7 +40,7 @@ export const UserModalDelete: React.FC<IProps> = ({
           loading={deleteUserState.isFetching}
           sx={{ minWidth: 110 }}
         >
-          {tc('delete')}
+          {tCommon('delete')}
         </Button>
       </DialogActions>
     </Dialog>

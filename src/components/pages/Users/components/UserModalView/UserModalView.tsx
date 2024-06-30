@@ -46,9 +46,9 @@ const columns: GridColDef[] = [
 ];
 
 export const UserModalView: FC<IProps> = ({ onClose, id }) => {
-  const tc = useTranslations('Common');
-  const tp = useTranslations('UserPage');
-  const tm = useTranslations('User');
+  const tCommon = useTranslations('Common');
+  const tUserPage = useTranslations('UserPage');
+  const tUser = useTranslations('User');
   const { model, getUserState } = useUserModel({
     id,
   });
@@ -61,12 +61,12 @@ export const UserModalView: FC<IProps> = ({ onClose, id }) => {
       .forEach(([key, value]) => {
         if (typeof value === 'object') {
           data.push({
-            label: tm(key),
+            label: tUser(key),
             value: JSON.stringify(value),
           });
         } else {
           data.push({
-            label: tm(key),
+            label: tUser(key),
             value: value,
           });
         }
@@ -75,7 +75,7 @@ export const UserModalView: FC<IProps> = ({ onClose, id }) => {
 
   return (
     <Dialog open onClose={onClose}>
-      <DialogTitle>{tp('view')}</DialogTitle>
+      <DialogTitle>{tUserPage('view')}</DialogTitle>
       <DialogContent>
         {/*<DialogContentText>
           Let Google help apps determine location. This means sending anonymous
@@ -96,7 +96,7 @@ export const UserModalView: FC<IProps> = ({ onClose, id }) => {
         )}
       </DialogContent>
       <DialogActions>
-        <Button onClick={onClose}>{tc('close')}</Button>
+        <Button onClick={onClose}>{tCommon('close')}</Button>
       </DialogActions>
     </Dialog>
   );

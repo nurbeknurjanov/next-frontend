@@ -38,9 +38,9 @@ export const UserModalUpdate: React.FC<IProps> = ({
   const formRef = useRef<HTMLFormElement>();
   //const formRef = useRef<HTMLFormElement>(null); //for direct assign
   const {
-    tm,
-    tc,
-    tp,
+    tCommon,
+    tUserPage,
+    tUser,
     aggStates,
     getUserState,
     register,
@@ -73,7 +73,7 @@ export const UserModalUpdate: React.FC<IProps> = ({
 
   return (
     <Dialog open onClose={onClose}>
-      <DialogTitle>{tp('update')}</DialogTitle>
+      <DialogTitle>{tUserPage('update')}</DialogTitle>
       <DialogContent>
         {getUserState.isFetching ? (
           <CircularProgress sx={{ mx: 'auto', mb: 2, display: 'block' }} />
@@ -87,28 +87,28 @@ export const UserModalUpdate: React.FC<IProps> = ({
             }}
           >
             <TextField
-              label={tm('name')}
+              label={tUser('name')}
               error={!!errors['name']}
               helperText={errors['name']?.message as string}
               {...register('name')}
             />
 
             <TextField
-              label={tm('email')}
+              label={tUser('email')}
               error={!!errors['email']}
               helperText={errors['email']?.message as string}
               {...register('email')}
             />
 
             <TextField
-              label={tm('password')}
+              label={tUser('password')}
               error={!!errors['password']}
               helperText={errors['password']?.message as string}
               {...register('password')}
             />
 
             <TextField
-              label={tm('age')}
+              label={tUser('age')}
               type="number"
               error={!!errors['age']}
               helperText={errors['age']?.message as string}
@@ -116,7 +116,7 @@ export const UserModalUpdate: React.FC<IProps> = ({
             />
 
             <FormControl sx={{ mb: 3 }} error={!!errors['sex']}>
-              <FormLabel>{tm('sex')}</FormLabel>
+              <FormLabel>{tUser('sex')}</FormLabel>
               <RadioGroup
                 value={watch('sex')}
                 {...sexRegisterOptions}
@@ -127,12 +127,12 @@ export const UserModalUpdate: React.FC<IProps> = ({
                 <FormControlLabel
                   value={SEX_ENUM.MALE}
                   control={<Radio />}
-                  label={tm('sexOptions.male')}
+                  label={tUser('sexOptions.male')}
                 />
                 <FormControlLabel
                   value={SEX_ENUM.FEMALE}
                   control={<Radio />}
-                  label={tm('sexOptions.female')}
+                  label={tUser('sexOptions.female')}
                 />
               </RadioGroup>
               {!!errors['sex'] && (
@@ -141,7 +141,7 @@ export const UserModalUpdate: React.FC<IProps> = ({
             </FormControl>
 
             {/*<FormControl sx={{ mb: 2 }} error={!!errors['sex']}>
-              <FormLabel>{tm('sex')}</FormLabel>
+              <FormLabel>{tUser('sex')}</FormLabel>
               <FormGroup>
                 <FormControlLabel
                   control={
@@ -151,7 +151,7 @@ export const UserModalUpdate: React.FC<IProps> = ({
                       onChange={handleChange}
                     />
                   }
-                  label={tm('sexOptions.male')}
+                  label={tUser('sexOptions.male')}
                 />
                 <FormControlLabel
                   control={
@@ -161,7 +161,7 @@ export const UserModalUpdate: React.FC<IProps> = ({
                       onChange={handleChange}
                     />
                   }
-                  label={tm('sexOptions.female')}
+                  label={tUser('sexOptions.female')}
                 />
                 {!!errors['sex'] && (
                   <FormHelperText>{errors['sex'].message}</FormHelperText>
@@ -170,17 +170,17 @@ export const UserModalUpdate: React.FC<IProps> = ({
             </FormControl>*/}
 
             <FormControl size="small" sx={{ mb: 2 }}>
-              <InputLabel>{tm('status')}</InputLabel>
+              <InputLabel>{tUser('status')}</InputLabel>
               <Select
-                label={tm('status')}
+                label={tUser('status')}
                 {...register('status')}
                 value={watch('status') ?? ''}
               >
                 <MenuItem value={STATUS_ENUM.ENABLED}>
-                  {tm('statusOptions.enabled')}
+                  {tUser('statusOptions.enabled')}
                 </MenuItem>
                 <MenuItem value={STATUS_ENUM.DISABLED}>
-                  {tm('statusOptions.disabled')}
+                  {tUser('statusOptions.disabled')}
                 </MenuItem>
               </Select>
             </FormControl>
@@ -188,7 +188,7 @@ export const UserModalUpdate: React.FC<IProps> = ({
         )}
       </DialogContent>
       <DialogActions>
-        <Button onClick={onClose}>{tc('close')}</Button>
+        <Button onClick={onClose}>{tCommon('close')}</Button>
         <Button
           variant={'contained'}
           onClick={() => {
@@ -199,7 +199,7 @@ export const UserModalUpdate: React.FC<IProps> = ({
           loading={aggStates.isFetching}
           sx={{ minWidth: 120 }}
         >
-          {tc('update')}
+          {tCommon('update')}
         </Button>
       </DialogActions>
     </Dialog>

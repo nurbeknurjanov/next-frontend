@@ -18,22 +18,22 @@ type ModalType =
 //const env = process.env.NODE_ENV;
 export function useUsers() {
   const dispatch = useAppDispatch();
-  const tc = useTranslations('Common');
-  const tm = useTranslations('User');
-  const tps = useTranslations('UsersPage');
+  const tCommon = useTranslations('Common');
+  const tUser = useTranslations('User');
+  const tUsersPage = useTranslations('UsersPage');
 
   const [showModal, setShowModal] = useState<ModalType | null>();
   const closeShowModal = useCallback(() => setShowModal(null), []);
 
   useSetPageData(
-    tps('title'),
-    [tps('title')],
+    tUsersPage('title'),
+    [tUsersPage('title')],
     <Button
       variant={'contained'}
       size={'small'}
       onClick={() => setShowModal({ type: 'create' })}
     >
-      {tps('create')}
+      {tUsersPage('create')}
     </Button>
   );
 
@@ -106,9 +106,8 @@ export function useUsers() {
   );
 
   return {
-    tc,
-    tm,
-    tps,
+    tCommon,
+    tUser,
     getUsersState,
     setPagination,
     sorting,
