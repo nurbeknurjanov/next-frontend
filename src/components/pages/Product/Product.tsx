@@ -9,6 +9,10 @@ import { withCleanHooks } from 'shared/hocs';
 import Loading from 'app/[locale]/loading';
 import { ProductModalDelete } from './components';
 import { useTranslations } from 'next-intl';
+import { useSetPageData } from '../../../shared/hooks';
+import { Button, ButtonLink } from '../../../shared/ui';
+import { useParams } from 'next/navigation';
+import { ProductPageProps } from '../../../app/[locale]/products/[id]/page';
 
 const columns: GridColDef[] = [
   {
@@ -24,9 +28,38 @@ const columns: GridColDef[] = [
 ];
 
 let Product: FC = () => {
+  const { id } = useParams<ProductPageProps['params']>();
+
   const tc = useTranslations('Common');
   const tm = useTranslations('Product');
+  const ts = useTranslations('ProductsPage');
+  const tp = useTranslations('ProductPage');
   const { model, getProductState, showModal, setShowModal } = useProduct();
+  const title = model?.name!;
+
+  useSetPageData(
+    title,
+    [
+      {
+        label: ts('title'),
+        href: '/products',
+      },
+      title,
+    ],
+    <>
+      <ButtonLink href={`/products/${id}/update`} size={'small'}>
+        {tp('update')}
+      </ButtonLink>
+      <Button
+        variant={'contained'}
+        size={'small'}
+        color={'error'}
+        onClick={() => setShowModal({ type: 'delete', id })}
+      >
+        {tp('delete')}
+      </Button>
+    </>
+  );
 
   const rows: { label: string; value: string | React.ReactNode }[] = [];
   if (model) {
