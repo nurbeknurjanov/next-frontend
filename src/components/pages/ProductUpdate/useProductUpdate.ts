@@ -40,7 +40,7 @@ export function useProductUpdate() {
       if (document.referrer) {
         return router.back();
       }
-      router.push(`/products/${id}`);
+      router.push(`/products/${model?._id}`);
     }
   };
 
