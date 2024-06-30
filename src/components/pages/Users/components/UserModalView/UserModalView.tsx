@@ -53,24 +53,40 @@ export const UserModalView: FC<IProps> = ({ onClose, id }) => {
     id,
   });
 
-  const data: { label: string; value: string | React.ReactNode }[] = [];
+  const rows: { label: string; value: string | React.ReactNode }[] = [];
   if (model) {
-    const entries = Object.entries(model);
-    entries
-      .filter(([key]) => key !== '__v')
-      .forEach(([key, value]) => {
-        if (typeof value === 'object') {
-          data.push({
-            label: tUser(key),
-            value: JSON.stringify(value),
-          });
-        } else {
-          data.push({
-            label: tUser(key),
-            value: value,
-          });
-        }
-      });
+    rows.push({
+      label: tCommon('id'),
+      value: model._id,
+    });
+    rows.push({
+      label: tUser('name'),
+      value: model.name,
+    });
+    rows.push({
+      label: tUser('email'),
+      value: model.email,
+    });
+    rows.push({
+      label: tUser('sex'),
+      value: model.sex,
+    });
+    rows.push({
+      label: tUser('age'),
+      value: model.age,
+    });
+    rows.push({
+      label: tUser('status'),
+      value: model.status,
+    });
+    rows.push({
+      label: tCommon('createdAt'),
+      value: dayjs(model.createdAt).format(DATE_FORMAT),
+    });
+    rows.push({
+      label: tCommon('updatedAt'),
+      value: dayjs(model.updatedAt).format(DATE_FORMAT),
+    });
   }
 
   return (
@@ -88,8 +104,9 @@ export const UserModalView: FC<IProps> = ({ onClose, id }) => {
           <CircularProgress sx={{ mx: 'auto', mb: 2, display: 'block' }} />
         ) : (
           <DataGrid
+            columnHeaderHeight={0}
             hideFooter
-            rows={data}
+            rows={rows}
             columns={columns}
             getRowId={el => el.label}
           />

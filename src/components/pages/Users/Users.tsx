@@ -93,6 +93,13 @@ let Users: FC = () => {
       getActions: params => [
         <GridActionsCellItem
           key={params.row._id}
+          icon={<DeleteIcon color={'primary'} />}
+          onClick={() => setShowModal({ type: 'view', id: params.row._id })}
+          label={tCommon('view')}
+          showInMenu
+        />,
+        <GridActionsCellItem
+          key={params.row._id}
           icon={<EditIcon color={'warning'} />}
           onClick={() => setShowModal({ type: 'update', id: params.row._id })}
           label={tCommon('update')}
@@ -103,13 +110,6 @@ let Users: FC = () => {
           icon={<DeleteIcon color={'error'} />}
           onClick={() => setShowModal({ type: 'delete', id: params.row._id })}
           label={tCommon('delete')}
-          showInMenu
-        />,
-        <GridActionsCellItem
-          key={params.row._id}
-          icon={<DeleteIcon color={'primary'} />}
-          onClick={() => setShowModal({ type: 'view', id: params.row._id })}
-          label={tCommon('view')}
           showInMenu
         />,
       ],
