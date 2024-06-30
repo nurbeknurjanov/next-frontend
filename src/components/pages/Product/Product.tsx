@@ -59,11 +59,7 @@ let Product: FC = () => {
   return (
     <div className={styles.productContent}>
       <DataGrid
-        sx={{
-          '& .MuiDataGrid-columnHeaders': {
-            display: 'none',
-          },
-        }}
+        columnHeaderHeight={0}
         hideFooter
         rows={rows}
         columns={columns}

@@ -77,11 +77,18 @@ export const ProductModalView: FC<IProps> = ({ onClose, id }) => {
           <CircularProgress sx={{ mx: 'auto', mb: 2, display: 'block' }} />
         ) : (
           <DataGrid
+            columnHeaderHeight={0}
+            /*
             sx={{
               '& .MuiDataGrid-columnHeaders': {
                 display: 'none',
               },
             }}
+            slots={{
+              columnHeaders: forwardRef<HTMLDivElement>((props, ref) => (
+                <div ref={ref}>&nbsp;</div>
+              )),
+            }}*/
             disableColumnFilter
             hideFooter
             rows={rows}
