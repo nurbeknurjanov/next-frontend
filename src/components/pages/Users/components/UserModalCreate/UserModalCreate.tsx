@@ -24,10 +24,10 @@ import { SEX_ENUM, STATUS_ENUM } from 'api/usersApi';
 
 export type IProps = {
   onClose: () => void;
-  refreshList: () => void;
+  afterCreate: () => void;
 };
 
-export const UserModalCreate: React.FC<IProps> = ({ onClose, refreshList }) => {
+export const UserModalCreate: React.FC<IProps> = ({ onClose, afterCreate }) => {
   const formRef = useRef<HTMLFormElement>();
   //const formRef = useRef<HTMLFormElement>(null); //for direct assign
   const {
@@ -45,7 +45,7 @@ export const UserModalCreate: React.FC<IProps> = ({ onClose, refreshList }) => {
     setValue,
   } = useUserModalCreate({
     onClose,
-    refreshList,
+    afterCreate,
   });
 
   const {

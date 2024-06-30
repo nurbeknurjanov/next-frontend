@@ -9,7 +9,7 @@ import { notify } from 'store/common/thunks';
 import { updateUserThunk } from 'store/users/thunks';
 import { getAggStates } from 'store/common/types';
 
-export function useUserModalUpdate({ onClose, refreshList, id }: IProps) {
+export function useUserModalUpdate({ onClose, afterUpdate, id }: IProps) {
   const dispatch = useAppDispatch();
   const tCommon = useTranslations('Common');
   const tUserPage = useTranslations('UserPage');
@@ -31,7 +31,7 @@ export function useUserModalUpdate({ onClose, refreshList, id }: IProps) {
     if (data) {
       onClose();
       dispatch(notify(tCommon('successUpdated'), 'success'));
-      refreshList();
+      afterUpdate();
     }
   };
 

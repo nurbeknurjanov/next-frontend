@@ -153,14 +153,14 @@ let Users: FC = () => {
       </div>
 
       {showModal?.type === 'create' && (
-        <UserModalCreate onClose={closeShowModal} refreshList={refreshList} />
+        <UserModalCreate onClose={closeShowModal} afterCreate={refreshList} />
       )}
 
       {showModal?.type === 'update' && (
         <UserModalUpdate
           id={showModal.id}
           onClose={closeShowModal}
-          refreshList={refreshList}
+          afterUpdate={refreshList}
         />
       )}
 

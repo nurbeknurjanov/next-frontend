@@ -7,7 +7,7 @@ import { usePrepareForm } from '../usePrepareForm';
 import { notify } from 'store/common/thunks';
 import { createUserThunk } from 'store/users/thunks';
 
-export function useUserModalCreate({ onClose, refreshList }: IProps) {
+export function useUserModalCreate({ onClose, afterCreate }: IProps) {
   const dispatch = useAppDispatch();
   const tCommon = useTranslations('Common');
   const tUsersPage = useTranslations('UsersPage');
@@ -22,9 +22,9 @@ export function useUserModalCreate({ onClose, refreshList }: IProps) {
     const { data } = await dispatch(createUserThunk(formData));
 
     if (data) {
-      dispatch(notify(tCommon('successCreated'), 'success'));
-      refreshList();
       onClose();
+      dispatch(notify(tCommon('successCreated'), 'success'));
+      afterCreate();
     }
   };
 

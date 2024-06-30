@@ -26,12 +26,12 @@ import { SEX_ENUM, STATUS_ENUM } from 'api/usersApi';
 export type IProps = {
   id: string;
   onClose: () => void;
-  refreshList: () => void;
+  afterUpdate: () => void;
 };
 
 export const UserModalUpdate: React.FC<IProps> = ({
   onClose,
-  refreshList,
+  afterUpdate,
   id,
 }) => {
   //const id = type === 'update' ? props.id : null;
@@ -54,7 +54,7 @@ export const UserModalUpdate: React.FC<IProps> = ({
   } = useUserModalUpdate({
     id: id!,
     onClose,
-    refreshList,
+    afterUpdate,
   });
 
   const {
