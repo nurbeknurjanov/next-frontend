@@ -8,56 +8,48 @@ import { DATE_FORMAT } from 'shared/utils';
 import { withCleanHooks } from 'shared/hocs';
 import Loading from 'app/[locale]/loading';
 import { ProductModalDelete } from './components';
+import { useTranslations } from 'next-intl';
 
 const columns: GridColDef[] = [
   {
     field: 'label',
     headerName: 'Label',
-    renderCell: params => params.value,
     flex: 1,
   },
   {
     field: 'value',
     headerName: 'Value',
-    width: 1200,
-    renderCell: params => {
-      if (['background', 'icon_2', 'icon_3'].includes(params.row.label)) {
-        return (
-          <img src={params.value} width={300} style={{ margin: '20px 0' }} />
-        );
-      }
-
-      if (['createdAt', 'updatedAt'].includes(params.row.label)) {
-        return dayjs(params.value).format(DATE_FORMAT);
-      }
-
-      return params.value;
-    },
     flex: 1,
   },
 ];
 
 let Product: FC = () => {
+  const tc = useTranslations('Common');
+  const tm = useTranslations('Product');
   const { model, getProductState, showModal, setShowModal } = useProduct();
 
-  const data: { label: string; value: string | React.ReactNode }[] = [];
+  const rows: { label: string; value: string | React.ReactNode }[] = [];
   if (model) {
-    const entries = Object.entries(model);
-    entries
-      .filter(([key]) => key !== '__v')
-      .forEach(([key, value]) => {
-        if (typeof value === 'object') {
-          data.push({
-            label: key,
-            value: JSON.stringify(value),
-          });
-        } else {
-          data.push({
-            label: key,
-            value: value,
-          });
-        }
-      });
+    rows.push({
+      label: tc('id'),
+      value: model._id,
+    });
+    rows.push({
+      label: tm('name'),
+      value: model.name,
+    });
+    rows.push({
+      label: tm('description'),
+      value: model.description,
+    });
+    rows.push({
+      label: tc('createdAt'),
+      value: dayjs(model.createdAt).format(DATE_FORMAT),
+    });
+    rows.push({
+      label: tc('updatedAt'),
+      value: dayjs(model.updatedAt).format(DATE_FORMAT),
+    });
   }
 
   if (getProductState.isFetching) {
@@ -68,7 +60,7 @@ let Product: FC = () => {
     <div className={styles.productContent}>
       <DataGrid
         hideFooter
-        rows={data}
+        rows={rows}
         columns={columns}
         getRowId={el => el.label}
       />
