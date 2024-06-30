@@ -7,7 +7,7 @@ import { useCallback } from 'react';
 import { users } from 'store';
 
 export function useUserModalDelete({
-  refreshList,
+  afterDelete,
   onClose,
 }: Omit<IProps, 'id'>) {
   const tp = useTranslations('UserPage');
@@ -22,10 +22,10 @@ export function useUserModalDelete({
       if (!error) {
         onClose();
         dispatch(notify(tc('successDeleted'), 'success'));
-        refreshList();
+        afterDelete();
       }
     },
-    [onClose, refreshList, dispatch, tc]
+    [onClose, afterDelete, dispatch, tc]
   );
 
   return {

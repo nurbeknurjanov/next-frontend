@@ -13,7 +13,6 @@ import { useSetPageData } from 'shared/hooks';
 import { Button, ButtonLink } from 'shared/ui';
 import { useParams } from 'next/navigation';
 import { ProductPageProps } from 'app/[locale]/products/[id]/page';
-import { notify } from 'store/common/thunks';
 
 const columns: GridColDef[] = [
   {
@@ -35,7 +34,7 @@ let Product: FC = () => {
   const tm = useTranslations('Product');
   const ts = useTranslations('ProductsPage');
   const tp = useTranslations('ProductPage');
-  const { model, getProductState, showModal, setShowModal, dispatch, router } =
+  const { model, getProductState, showModal, setShowModal, router } =
     useProduct();
   const title = model?.name!;
 
@@ -105,11 +104,7 @@ let Product: FC = () => {
         <ProductModalDelete
           id={showModal.id}
           onClose={() => setShowModal(null)}
-          afterDelete={() => {
-            setShowModal(null);
-            dispatch(notify(tc('successDeleted'), 'success'));
-            router.push('/products');
-          }}
+          afterDelete={() => router.push('/products')}
         />
       )}
     </div>

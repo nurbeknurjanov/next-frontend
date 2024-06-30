@@ -168,7 +168,7 @@ let Users: FC = () => {
         <UserModalDelete
           id={showModal.id}
           onClose={closeShowModal}
-          refreshList={refreshList}
+          afterDelete={refreshList}
         />
       )}
 

@@ -3,11 +3,9 @@ import { useParams, useRouter } from 'next/navigation';
 import { ProductPageProps } from 'app/[locale]/products/[id]/page';
 import { useProductModel } from './useProductModel';
 import { useState } from 'react';
-import { useAppDispatch } from 'store/hooks';
 
 type ModalType = { type: 'delete'; id: string };
 export function useProduct() {
-  const dispatch = useAppDispatch();
   const router = useRouter();
   const [showModal, setShowModal] = useState<ModalType | null>();
 
@@ -19,7 +17,6 @@ export function useProduct() {
     getProductState,
     showModal,
     setShowModal,
-    dispatch,
     router,
   };
 }
