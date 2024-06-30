@@ -7,7 +7,7 @@ import { useCallback } from 'react';
 import { products } from 'store';
 
 export function useProductModalDelete({
-  refreshList,
+  afterDelete,
   onClose,
 }: Omit<IProps, 'id'>) {
   const tp = useTranslations('ProductPage');
@@ -24,10 +24,10 @@ export function useProductModalDelete({
       if (!error) {
         onClose();
         dispatch(notify(tc('successDeleted'), 'success'));
-        refreshList();
+        afterDelete();
       }
     },
-    [onClose, refreshList, dispatch, tc]
+    [onClose, afterDelete, dispatch, tc]
   );
 
   return {

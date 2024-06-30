@@ -7,12 +7,12 @@ import dayjs from 'dayjs';
 import { DATE_FORMAT } from 'shared/utils';
 import { withCleanHooks } from 'shared/hocs';
 import Loading from 'app/[locale]/loading';
-import { ProductModalDelete } from './components';
+import { ProductModalDelete } from '../Products';
 import { useTranslations } from 'next-intl';
-import { useSetPageData } from '../../../shared/hooks';
-import { Button, ButtonLink } from '../../../shared/ui';
+import { useSetPageData } from 'shared/hooks';
+import { Button, ButtonLink } from 'shared/ui';
 import { useParams } from 'next/navigation';
-import { ProductPageProps } from '../../../app/[locale]/products/[id]/page';
+import { ProductPageProps } from 'app/[locale]/products/[id]/page';
 
 const columns: GridColDef[] = [
   {
@@ -103,6 +103,7 @@ let Product: FC = () => {
         <ProductModalDelete
           id={showModal.id}
           onClose={() => setShowModal(null)}
+          afterDelete={() => {}}
         />
       )}
     </div>

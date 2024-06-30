@@ -178,7 +178,7 @@ let Products: FC = () => {
         <ProductModalDelete
           id={showModal.id}
           onClose={closeShowModal}
-          refreshList={refreshList}
+          afterDelete={refreshList}
         />
       )}
 
