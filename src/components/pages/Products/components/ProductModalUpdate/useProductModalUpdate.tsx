@@ -30,9 +30,9 @@ export function useProductModalUpdate({ onClose, afterUpdate, id }: IProps) {
     const { data } = await dispatch(updateProductThunk(id, formData));
 
     if (data) {
+      onClose();
       dispatch(notify(tc('successUpdated'), 'success'));
       afterUpdate();
-      onClose();
     }
   };
 

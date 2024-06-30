@@ -25,9 +25,9 @@ export function useProductModalCreate({ onClose, afterCreate }: IProps) {
     const { data } = await dispatch(createProductThunk(formData));
 
     if (data) {
+      onClose();
       dispatch(notify(tc('successCreated'), 'success'));
       afterCreate();
-      onClose();
     }
   };
 
