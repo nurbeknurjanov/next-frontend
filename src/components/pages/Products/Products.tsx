@@ -53,13 +53,13 @@ let Products: FC = () => {
     },
     {
       field: 'createdAt',
-      headerName: tc('createdDate'),
+      headerName: tc('createdAt'),
       flex: 1,
       valueGetter: params => dayjs(params.value).format(DATE_FORMAT),
     },
     {
       field: 'updatedAt',
-      headerName: tc('updatedDate'),
+      headerName: tc('updatedAt'),
       flex: 1,
       valueGetter: params => dayjs(params.value).format(DATE_FORMAT),
     },
@@ -121,6 +121,7 @@ let Products: FC = () => {
           </Alert>
         ) : (
           <DataGrid
+            disableColumnFilter
             rows={data.list}
             getRowId={el => el._id}
             columns={columns}

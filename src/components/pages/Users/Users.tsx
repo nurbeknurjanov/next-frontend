@@ -63,13 +63,13 @@ let Users: FC = () => {
     },
     {
       field: 'createdAt',
-      headerName: tc('createdDate'),
+      headerName: tc('createdAt'),
       flex: 1,
       valueGetter: params => dayjs(params.value).format(DATE_FORMAT),
     },
     {
       field: 'updatedAt',
-      headerName: tc('updatedDate'),
+      headerName: tc('updatedAt'),
       flex: 1,
       valueGetter: params => dayjs(params.value).format(DATE_FORMAT),
     },

@@ -20,12 +20,10 @@ export function useProductModel({ id }: { id: string }) {
   );
 
   useEffect(() => {
-    if (!isHydratedToClientRef.current) return;
-
     if (id) {
       getProduct(id);
     }
-  }, [id, getProduct, dispatch, isHydratedToClientRef]);
+  }, [id, getProduct]);
 
   useEffect(
     () => () => {
