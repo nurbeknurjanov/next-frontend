@@ -49,13 +49,14 @@ export function usePrepareForm({ model }: IProps) {
     }),
   });
 
-  const initialValues = useMemo<IProductPost>(() => {
+  const initialValues = useMemo<IProductPost>((): IProductPost => {
     if (!model) {
       return { name: null, description: null, imageFile: null, image: null };
     }
 
+    const pickedProperties = pick(model, ['name', 'description']);
     return {
-      ...pick(model, ['name', 'description']),
+      ...pickedProperties,
       imageFile: null,
     };
   }, [model]);
