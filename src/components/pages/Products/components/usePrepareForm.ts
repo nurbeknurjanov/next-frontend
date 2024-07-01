@@ -66,6 +66,8 @@ export function usePrepareForm({ model }: IProps) {
     handleSubmit,
     formState: { errors, isValid, isDirty },
     reset,
+    setValue,
+    watch,
   } = useForm<IProductPost>({
     mode: 'onTouched',
     resolver: joiResolver(schema),
@@ -78,6 +80,8 @@ export function usePrepareForm({ model }: IProps) {
 
   return {
     register,
+    setValue,
+    watch,
     errors,
     isValid,
     isDirty,

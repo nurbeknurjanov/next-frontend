@@ -4,6 +4,7 @@ import { useTranslations } from 'next-intl';
 import { IProductPost } from 'api/productsApi';
 import { IProps } from './ProductModalUpdate';
 import { usePrepareForm } from '../usePrepareForm';
+import { useUploadFile } from '../useUploadFile';
 import { useProductModel } from 'components/pages/Product';
 import { notify } from 'store/common/thunks';
 import { updateProductThunk } from 'store/products/thunks';
@@ -22,8 +23,15 @@ export function useProductModalUpdate({ onClose, afterUpdate, id }: IProps) {
   );
   const aggStates = getAggStates(updateProductState);
 
-  const { register, errors, isValid, isDirty, handleSubmit } = usePrepareForm({
-    model: model!,
+  const { register, setValue, watch, errors, isValid, isDirty, handleSubmit } =
+    usePrepareForm({
+      model: model!,
+    });
+
+  const { percentUploadImage, imageObject, deleteFile } = useUploadFile({
+    setValue,
+    watch,
+    errors,
   });
 
   const updateProduct = async (id: string, formData: IProductPost) => {
@@ -52,5 +60,8 @@ export function useProductModalUpdate({ onClose, afterUpdate, id }: IProps) {
     isDirty,
     handleSubmit,
     submitForm,
+    percentUploadImage,
+    imageObject,
+    deleteFile,
   };
 }

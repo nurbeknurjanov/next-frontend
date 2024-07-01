@@ -9,12 +9,36 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import { useRef } from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
+import {
+  LinearProgress,
+  LinearProgressProps,
+  Box,
+  Typography,
+} from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 export type IProps = {
   id: string;
   onClose: () => void;
   afterUpdate: () => void;
 };
+
+function LinearProgressWithLabel(
+  props: LinearProgressProps & { value: number }
+) {
+  return (
+    <Box sx={{ display: 'flex', alignItems: 'center' }}>
+      <Box sx={{ width: '100%', mr: 1 }}>
+        <LinearProgress variant="determinate" {...props} />
+      </Box>
+      <Box sx={{ minWidth: 35 }}>
+        <Typography variant="body2" color="text.secondary">{`${Math.round(
+          props.value
+        )}%`}</Typography>
+      </Box>
+    </Box>
+  );
+}
 
 export const ProductModalUpdate: React.FC<IProps> = ({
   onClose,
@@ -36,6 +60,9 @@ export const ProductModalUpdate: React.FC<IProps> = ({
     isDirty,
     handleSubmit,
     submitForm,
+    percentUploadImage,
+    imageObject,
+    deleteFile,
   } = useProductModalUpdate({
     id: id!,
     onClose,
@@ -70,6 +97,34 @@ export const ProductModalUpdate: React.FC<IProps> = ({
               helperText={errors['description']?.message as string}
               {...register('description')}
             />
+
+            {imageObject ? (
+              <Box sx={{ my: 2 }}>
+                <img src={imageObject.url} width={200} />
+                <DeleteIcon
+                  color={'error'}
+                  sx={{ cursor: 'pointer' }}
+                  onClick={() => deleteFile(imageObject._id!)}
+                />
+              </Box>
+            ) : (
+              <>
+                {/*<input {...register('image')} type={'hidden'} />*/}
+                {!!percentUploadImage && (
+                  <LinearProgressWithLabel
+                    variant="determinate"
+                    value={percentUploadImage}
+                  />
+                )}
+                <TextField
+                  type={'file'}
+                  label={'Image file'}
+                  error={!!errors['imageFile']}
+                  helperText={errors['imageFile']?.message as string}
+                  {...register('imageFile')}
+                />
+              </>
+            )}
           </form>
         )}
       </DialogContent>
