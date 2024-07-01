@@ -86,22 +86,30 @@ export function useUploadFile({ setValue, watch, errors }: IProps) {
     [setValue]
   );
 
-  const imageFile = watch('imageFile');
-  const imageFileError = errors['imageFile'];
+  const imageFileValue = watch('imageFile');
+  const imageFileValueError = errors['imageFile'];
   useEffect(() => {
-    if (!imageFileError && !!imageFile?.[0]) {
-      dispatch(
-        uploadFileThunk({
-          model: 'Game',
-          modelId: id,
-          data: {
-            type: 'image',
-          },
-          fileField: imageFile,
-        })
-      );
+    if (!imageFileValueError && !!imageFileValue?.[0]) {
+      if (id) {
+        dispatch(
+          uploadFileThunk({
+            model: 'Product',
+            modelId: id,
+            data: {
+              type: 'image',
+            },
+            fileField: imageFileValue,
+          })
+        );
+      } else {
+        dispatch(
+          uploadFileThunk({
+            fileField: imageFileValue,
+          })
+        );
+      }
     }
-  }, [imageFile, imageFileError, dispatch, id, uploadFileThunk]);
+  }, [imageFileValue, imageFileValueError, dispatch, id, uploadFileThunk]);
 
   return {
     percentUploadImage,
