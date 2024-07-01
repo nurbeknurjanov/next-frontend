@@ -16,7 +16,7 @@ export function useUploadFile({ setValue, watch, errors }: IProps) {
   const dispatch = useAppDispatch();
 
   const { id } = useParams<{ id: string }>();
-  const model = useAppSelector(products.getProduct.selector.data);
+  const product = useAppSelector(products.getProduct.selector.data);
   const [imageObject, setImageObject] = useState<IFile | null>(null);
 
   const deleteFileThunk =
@@ -29,20 +29,23 @@ export function useUploadFile({ setValue, watch, errors }: IProps) {
       }
 
       if (data) {
-        setValue(data.data.type, null);
-
         if (data.data.type === 'image') {
           setImageObject(null);
+        }
+
+        //on product create scenario
+        if (!product) {
+          setValue(data.data.type, null);
         }
       }
     };
   const deleteFile = (id: string) => dispatch(deleteFileThunk(id));
 
   useEffect(() => {
-    if (model) {
-      setImageObject(model.image);
+    if (product) {
+      setImageObject(product.image);
     }
-  }, [model]);
+  }, [product]);
 
   const [percentUploadImage, setPercentUploadImage] = useState(0);
 
@@ -53,18 +56,21 @@ export function useUploadFile({ setValue, watch, errors }: IProps) {
           files.createFile.thunk.request({
             body: fileData,
             config: {
-              onUploadProgress: function (progressEvent) {
-                const percentCompleted = Math.round(
-                  (progressEvent.loaded * 100) / (progressEvent.total as number)
-                );
+              onUploadProgress(progressEvent) {
                 if (fileData?.data?.type === 'image') {
-                  setPercentUploadImage(percentCompleted);
+                  setPercentUploadImage(
+                    Math.round(
+                      (progressEvent.loaded * 100) /
+                        (progressEvent.total as number)
+                    )
+                  );
                 }
               },
             },
           })
         );
         setPercentUploadImage(0);
+
         const { error, data } = files.createFile.selector.state(getState());
 
         if (error) {
@@ -73,13 +79,12 @@ export function useUploadFile({ setValue, watch, errors }: IProps) {
 
         if (data) {
           alert('File successfully uploaded');
+          if (data.data.type === 'image') {
+            setImageObject(data);
+          }
 
-          if (fileData?.data?.type) {
-            setValue(fileData.data.type, data._id);
-
-            if (fileData.data.type === 'image') {
-              setImageObject(data);
-            }
+          if (data.data.type) {
+            setValue(data.data.type, data._id);
           }
         }
       },
