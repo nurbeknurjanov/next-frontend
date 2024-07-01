@@ -29,6 +29,7 @@ export function useProductModalUpdate({ onClose, afterUpdate, id }: IProps) {
     });
 
   const { percentUploadImage, imageObject, deleteFile } = useUploadFile({
+    id,
     setValue,
     watch,
     errors,

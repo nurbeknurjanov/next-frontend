@@ -2,20 +2,18 @@ import { useCallback, useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
 import { products, files } from 'store';
 import { AppThunk } from 'store/store';
-import { useParams } from 'next/navigation';
 import { IFile, IFilePost } from 'api/filesApi';
 import { UseFormSetValue, UseFormWatch, FieldErrors } from 'react-hook-form';
-import { IProductPost } from 'api/productsApi';
 
 interface IProps {
+  id: string;
   setValue: UseFormSetValue<any>;
   watch: UseFormWatch<any>;
   errors: FieldErrors;
 }
-export function useUploadFile({ setValue, watch, errors }: IProps) {
+export function useUploadFile({ id, setValue, watch, errors }: IProps) {
   const dispatch = useAppDispatch();
 
-  const { id } = useParams<{ id: string }>();
   const product = useAppSelector(products.getProduct.selector.data);
   const [imageObject, setImageObject] = useState<IFile | null>(null);
 
