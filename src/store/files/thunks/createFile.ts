@@ -1,14 +1,18 @@
 import { AppThunk } from 'store/store';
 import { files } from 'store';
 import { notify } from 'store/common/thunks';
-import { IFile, IFilePost } from 'api/filesApi';
+import { IFile, IFileApiConfig, IFilePost } from 'api/filesApi';
 
 export const createFileThunk =
-  (body: IFilePost): AppThunk<Promise<{ data: IFile | null }>> =>
+  (
+    body: IFilePost,
+    config?: IFileApiConfig
+  ): AppThunk<Promise<{ data: IFile | null }>> =>
   async (dispatch, getState) => {
     await dispatch(
       files.createFile.thunk.request({
         body,
+        config,
       })
     );
 

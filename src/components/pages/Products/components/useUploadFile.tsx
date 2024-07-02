@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
-import { products, files } from 'store';
-import { AppThunk } from 'store/store';
+import { products } from 'store';
 import { deleteFileThunk, createFileThunk } from 'store/files/thunks';
 import { IFile, IFilePost } from 'api/filesApi';
 import { UseFormSetValue, UseFormWatch, FieldErrors } from 'react-hook-form';
@@ -23,11 +22,10 @@ export function useUploadFile({ id, setValue, watch, errors }: IProps) {
     if (data) {
       if (data.data.type === 'image') {
         setImageObject(null);
-      }
-
-      //on product create scenario
-      if (!product) {
-        setValue(data.data.type, null);
+        //on product create scenario
+        if (!product) {
+          setValue('image', null);
+        }
       }
     }
   };
@@ -40,46 +38,35 @@ export function useUploadFile({ id, setValue, watch, errors }: IProps) {
 
   const [percentUploadImage, setPercentUploadImage] = useState(0);
 
-  const uploadFileThunk = useCallback(
-    (fileData: IFilePost): AppThunk =>
-      async (dispatch, getState) => {
-        await dispatch(
-          files.createFile.thunk.request({
-            body: fileData,
-            config: {
-              onUploadProgress(progressEvent) {
-                if (fileData?.data?.type === 'image') {
-                  setPercentUploadImage(
-                    Math.round(
-                      (progressEvent.loaded * 100) /
-                        (progressEvent.total as number)
-                    )
-                  );
-                }
-              },
-            },
-          })
-        );
-        setPercentUploadImage(0);
+  const uploadFile = useCallback(
+    async (fileData: IFilePost) => {
+      const { data } = await dispatch(
+        createFileThunk(fileData, {
+          onUploadProgress(progressEvent) {
+            if (fileData?.data?.type === 'image') {
+              setPercentUploadImage(
+                Math.round(
+                  (progressEvent.loaded * 100) / (progressEvent.total as number)
+                )
+              );
+            }
+          },
+        })
+      );
+      setPercentUploadImage(0);
 
-        const { error, data } = files.createFile.selector.state(getState());
+      if (data) {
+        if (data.data.type === 'image') {
+          setImageObject(data);
 
-        if (error) {
-          return alert('error' + error.data);
-        }
-
-        if (data) {
-          alert('File successfully uploaded');
-          if (data.data.type === 'image') {
-            setImageObject(data);
-          }
-
-          if (data.data.type) {
-            setValue(data.data.type, data._id);
+          //on product create scenario
+          if (!product) {
+            setValue('image', data._id);
           }
         }
-      },
-    [setValue]
+      }
+    },
+    [dispatch, setValue, product]
   );
 
   const imageFileValue = watch('imageFile');
@@ -87,25 +74,19 @@ export function useUploadFile({ id, setValue, watch, errors }: IProps) {
   useEffect(() => {
     if (!imageFileValueError && !!imageFileValue?.[0]) {
       if (id) {
-        dispatch(
-          uploadFileThunk({
-            model: 'Product',
-            modelId: id,
-            data: {
-              type: 'image',
-            },
-            fileField: imageFileValue,
-          })
-        );
+        uploadFile({
+          model: 'Product',
+          modelId: id,
+          data: {
+            type: 'image',
+          },
+          fileField: imageFileValue,
+        });
       } else {
-        dispatch(
-          uploadFileThunk({
-            fileField: imageFileValue,
-          })
-        );
+        uploadFile({ fileField: imageFileValue });
       }
     }
-  }, [imageFileValue, imageFileValueError, dispatch, id, uploadFileThunk]);
+  }, [imageFileValue, imageFileValueError, dispatch, id, uploadFile]);
 
   return {
     percentUploadImage,
