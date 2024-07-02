@@ -8,7 +8,7 @@ import { AxiosRequestConfig } from 'axios';
 
 export interface IFile {
   _id: string;
-  model: 'Product';
+  modelName: 'Product';
   modelId: string;
   data: {
     type: 'image';
@@ -23,7 +23,7 @@ export interface IFile {
 type IFileWithout_id = Omit<IFile, '_id'>;
 
 export interface IFilePost
-  extends Partial<Pick<IFile, 'model' | 'modelId' | 'data'>> {
+  extends Partial<Pick<IFile, 'modelName' | 'modelId' | 'data'>> {
   fileField: FileList;
 }
 

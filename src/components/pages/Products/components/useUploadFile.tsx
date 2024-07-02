@@ -75,7 +75,7 @@ export function useUploadFile({ id, setValue, watch, errors }: IProps) {
     if (!imageFileValueError && !!imageFileValue?.[0]) {
       if (id) {
         uploadFile({
-          model: 'Product',
+          modelName: 'Product',
           modelId: id,
           data: {
             type: 'image',
