@@ -1,10 +1,12 @@
 import { AppThunk } from 'store/store';
 import { files } from 'store';
 import { notify } from 'store/common/thunks';
-import { IFileApiError } from 'api/filesApi';
+import { IFileApiError, IFile } from 'api/filesApi';
 
 export const deleteFileThunk =
-  (id: string): AppThunk<Promise<{ error: IFileApiError | null }>> =>
+  (
+    id: string
+  ): AppThunk<Promise<{ error: IFileApiError | null; data: IFile | null }>> =>
   async (dispatch, getState) => {
     await dispatch(
       files.deleteFile.thunk.request({
@@ -12,12 +14,13 @@ export const deleteFileThunk =
       })
     );
 
-    const { error } = files.deleteFile.selector.state(getState());
+    const { error, data } = files.deleteFile.selector.state(getState());
     if (error) {
       dispatch(notify(error.data, 'error'));
     }
 
     return {
       error,
+      data,
     };
   };

@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
 import { products, files } from 'store';
 import { AppThunk } from 'store/store';
+import { deleteFileThunk } from 'store/files/thunks';
 import { IFile, IFilePost } from 'api/filesApi';
 import { UseFormSetValue, UseFormWatch, FieldErrors } from 'react-hook-form';
 
@@ -17,27 +18,19 @@ export function useUploadFile({ id, setValue, watch, errors }: IProps) {
   const product = useAppSelector(products.getProduct.selector.data);
   const [imageObject, setImageObject] = useState<IFile | null>(null);
 
-  const deleteFileThunk =
-    (id: string): AppThunk =>
-    async (dispatch, getState) => {
-      await dispatch(files.deleteFile.thunk.request({ id }));
-      const { error, data } = files.deleteFile.selector.state(getState());
-      if (error) {
-        return alert('error' + error.data);
+  const deleteFile = async (id: string) => {
+    const { data } = await dispatch(deleteFileThunk(id));
+    if (data) {
+      if (data.data.type === 'image') {
+        setImageObject(null);
       }
 
-      if (data) {
-        if (data.data.type === 'image') {
-          setImageObject(null);
-        }
-
-        //on product create scenario
-        if (!product) {
-          setValue(data.data.type, null);
-        }
+      //on product create scenario
+      if (!product) {
+        setValue(data.data.type, null);
       }
-    };
-  const deleteFile = (id: string) => dispatch(deleteFileThunk(id));
+    }
+  };
 
   useEffect(() => {
     if (product) {
