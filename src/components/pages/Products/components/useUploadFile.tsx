@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
 import { products, files } from 'store';
 import { AppThunk } from 'store/store';
-import { deleteFileThunk } from 'store/files/thunks';
+import { deleteFileThunk, createFileThunk } from 'store/files/thunks';
 import { IFile, IFilePost } from 'api/filesApi';
 import { UseFormSetValue, UseFormWatch, FieldErrors } from 'react-hook-form';
 
