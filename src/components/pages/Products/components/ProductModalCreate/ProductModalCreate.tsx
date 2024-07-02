@@ -93,6 +93,7 @@ export const ProductModalCreate: React.FC<IProps> = ({
               {...register('description')}
             />
 
+            <input {...register('image')} type={'text'} />
             {imageObject ? (
               <Box sx={{ my: 2 }}>
                 <img src={imageObject.url} width={200} />
@@ -104,7 +105,6 @@ export const ProductModalCreate: React.FC<IProps> = ({
               </Box>
             ) : (
               <>
-                <input {...register('image')} type={'hidden'} />
                 {!!percentUploadImage && (
                   <LinearProgressWithLabel
                     variant="determinate"

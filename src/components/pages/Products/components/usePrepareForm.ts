@@ -17,6 +17,7 @@ export function usePrepareForm({ model }: IProps) {
   const schema = i18nJoi.object({
     name: Joi.string().label(tProduct('name')),
     description: Joi.string().label(tProduct('description')),
+    image: Joi.optional(),
     imageFile: Joi.any().custom((value: FileList, helper) => {
       if (!value?.[0]) {
         return value;
@@ -42,7 +43,7 @@ export function usePrepareForm({ model }: IProps) {
     }),
   });
   if (!model) {
-    schema.append({ image: Joi.optional() });
+    //schema.append({ image: Joi.optional() });
   }
 
   //validation for file field
