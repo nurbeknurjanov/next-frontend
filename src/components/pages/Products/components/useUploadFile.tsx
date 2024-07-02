@@ -16,6 +16,12 @@ export function useUploadFile({ id, setValue, watch, errors }: IProps) {
 
   const product = useAppSelector(products.getProduct.selector.data);
   const [imageObject, setImageObject] = useState<IFile | null>(null);
+  const [percentUploadImage, setPercentUploadImage] = useState(0);
+  useEffect(() => {
+    if (product) {
+      setImageObject(product.image);
+    }
+  }, [product]);
 
   const deleteFile = async (id: string) => {
     const { data } = await dispatch(deleteFileThunk(id));
@@ -30,26 +36,17 @@ export function useUploadFile({ id, setValue, watch, errors }: IProps) {
     }
   };
 
-  useEffect(() => {
-    if (product) {
-      setImageObject(product.image);
-    }
-  }, [product]);
-
-  const [percentUploadImage, setPercentUploadImage] = useState(0);
-
   const uploadFile = useCallback(
     async (fileData: IFilePost) => {
       const { data } = await dispatch(
         createFileThunk(fileData, {
           onUploadProgress(progressEvent) {
-            if (fileData?.data?.type === 'image') {
+            fileData?.data?.type === 'image' &&
               setPercentUploadImage(
                 Math.round(
                   (progressEvent.loaded * 100) / (progressEvent.total as number)
                 )
               );
-            }
           },
         })
       );
