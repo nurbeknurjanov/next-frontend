@@ -20,7 +20,7 @@ export function useUploadFile({ id, setValue, watch, errors }: IProps) {
   const deleteFile = async (id: string) => {
     const { data } = await dispatch(deleteFileThunk(id));
     if (data) {
-      if (data.data.type === 'image') {
+      if (data.data?.type === 'image') {
         setImageObject(null);
         //on product create scenario
         if (!product) {
@@ -56,7 +56,7 @@ export function useUploadFile({ id, setValue, watch, errors }: IProps) {
       setPercentUploadImage(0);
 
       if (data) {
-        if (data.data.type === 'image') {
+        if (data.data?.type === 'image') {
           setImageObject(data);
 
           //on product create scenario
