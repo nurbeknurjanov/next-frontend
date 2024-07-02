@@ -6,6 +6,7 @@ import { IProps } from './ProductModalCreate';
 import { usePrepareForm } from '../usePrepareForm';
 import { notify } from 'store/common/thunks';
 import { createProductThunk } from 'store/products/thunks';
+import { useUploadFile } from '../useUploadFile';
 
 export function useProductModalCreate({ onClose, afterCreate }: IProps) {
   const dispatch = useAppDispatch();
@@ -17,9 +18,14 @@ export function useProductModalCreate({ onClose, afterCreate }: IProps) {
     products.createProduct.selector.state
   );
 
-  const { register, errors, isValid, isDirty, handleSubmit } = usePrepareForm(
-    {}
-  );
+  const { register, setValue, watch, errors, isValid, isDirty, handleSubmit } =
+    usePrepareForm({});
+
+  const { percentUploadImage, imageObject, deleteFile } = useUploadFile({
+    setValue,
+    watch,
+    errors,
+  });
 
   const createProduct = async (formData: IProductPost) => {
     const { data } = await dispatch(createProductThunk(formData));
@@ -44,5 +50,8 @@ export function useProductModalCreate({ onClose, afterCreate }: IProps) {
     isDirty,
     handleSubmit,
     submitForm,
+    percentUploadImage,
+    imageObject,
+    deleteFile,
   };
 }

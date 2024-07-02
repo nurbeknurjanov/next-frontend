@@ -6,7 +6,7 @@ import { IFile, IFilePost } from 'api/filesApi';
 import { UseFormSetValue, UseFormWatch, FieldErrors } from 'react-hook-form';
 
 interface IProps {
-  id: string;
+  id?: string;
   setValue: UseFormSetValue<any>;
   watch: UseFormWatch<any>;
   errors: FieldErrors;
