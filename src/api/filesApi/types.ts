@@ -22,8 +22,13 @@ export interface IFile {
 
 type IFileWithout_id = Omit<IFile, '_id'>;
 
-export interface IFilePost
-  extends Partial<Pick<IFile, 'modelName' | 'modelId' | 'data'>> {
+export interface IFilePost {
+  modelName?: 'Product';
+  modelId?: string;
+
+  data: {
+    type: 'image';
+  };
   fileField: FileList;
 }
 

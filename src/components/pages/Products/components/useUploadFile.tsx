@@ -77,7 +77,12 @@ export function useUploadFile({ id, setValue, watch, errors }: IProps) {
           fileField: imageFileValue,
         });
       } else {
-        uploadFile({ fileField: imageFileValue });
+        uploadFile({
+          fileField: imageFileValue,
+          data: {
+            type: 'image',
+          },
+        });
       }
     }
   }, [imageFileValue, imageFileValueError, dispatch, id, uploadFile]);
