@@ -25,13 +25,12 @@ export function useUploadFile({ id, setValue, watch, errors }: IProps) {
 
   const deleteFile = async (id: string) => {
     const { data } = await dispatch(deleteFileThunk(id));
-    if (data) {
-      if (data.data?.type === 'image') {
-        setImageObject(null);
-        //on product create scenario
-        if (!product) {
-          setValue('image', null);
-        }
+
+    if (data?.data?.type === 'image') {
+      setImageObject(null);
+      //on product create scenario
+      if (!product) {
+        setValue('image', null);
       }
     }
   };
@@ -52,14 +51,12 @@ export function useUploadFile({ id, setValue, watch, errors }: IProps) {
       );
       setPercentUploadImage(0);
 
-      if (data) {
-        if (data.data?.type === 'image') {
-          setImageObject(data);
+      if (data?.data?.type === 'image') {
+        setImageObject(data);
 
-          //on product create scenario
-          if (!product) {
-            setValue('image', data._id);
-          }
+        //on product create scenario
+        if (!product) {
+          setValue('image', data._id);
         }
       }
     },
