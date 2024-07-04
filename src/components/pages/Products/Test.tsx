@@ -3,6 +3,10 @@ import { useForm, useFieldArray, useWatch, Control } from 'react-hook-form';
 
 type IPost = {
   title: string;
+  person: {
+    firstName: string;
+    lastName: string;
+  };
   cart: {
     name: string;
     price: number;
@@ -32,6 +36,10 @@ export default function App() {
   } = useForm<IPost>({
     defaultValues: {
       title: 'default',
+      person: {
+        firstName: 'Nurbek',
+        lastName: 'Nurjanov',
+      },
       cart: [{ name: 'test', quantity: 1, price: 10 }],
     },
     mode: 'onBlur',
@@ -46,12 +54,25 @@ export default function App() {
     <div>
       <form onSubmit={handleSubmit(onSubmit)}>
         <input
-          placeholder="name"
           {...register(`title`, {
             required,
           })}
         />
         <div>{errors.title?.message}</div>
+        <br />
+        <br />
+        <input
+          {...register(`person.firstName`, {
+            required,
+          })}
+        />
+        <div>{errors.person?.firstName?.message}</div>
+        <input
+          {...register(`person.lastName`, {
+            required,
+          })}
+        />
+        <div>{errors.person?.lastName?.message}</div>
         <br />
         <br />
 
@@ -61,7 +82,6 @@ export default function App() {
               <section style={{ display: 'flex' }} key={field.id}>
                 <div>
                   <input
-                    placeholder="name"
                     {...register(`cart.${index}.name` as const, {
                       required,
                     })}
@@ -70,7 +90,6 @@ export default function App() {
                 </div>
                 <div>
                   <input
-                    placeholder="quantity"
                     type="number"
                     {...register(`cart.${index}.quantity` as const, {
                       valueAsNumber: true,
@@ -82,7 +101,6 @@ export default function App() {
 
                 <div>
                   <input
-                    placeholder="value"
                     type="number"
                     {...register(`cart.${index}.price` as const, {
                       valueAsNumber: true,
