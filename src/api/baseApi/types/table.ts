@@ -23,4 +23,4 @@ export type Nullable<T extends Record<string, any>> =
     ? {
         [key in K]: T[key] | Any | null;
       }
-    : any;
+    : never;
