@@ -106,11 +106,7 @@ export function usePrepareForm({ model }: IProps) {
     defaultValues: initialValues!,
   });
 
-  const { fields, append, remove } = useFieldArray<
-    IProductPost,
-    never,
-    'units'
-  >({
+  const { fields, append, remove } = useFieldArray({
     control,
     name: 'units',
   });
