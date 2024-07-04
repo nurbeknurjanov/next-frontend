@@ -24,6 +24,8 @@ export interface IProductPost extends Nullable<IProductWithout_id> {
   image?: string | null; // on product create, to keep ID of first created File
 
   imageFile: FileList | null;
+
+  units: { color: string; size: string }[];
 }
 export interface IProductFilters extends Nullable<Partial<IProductWithout_id>> {
   id?: string | null;

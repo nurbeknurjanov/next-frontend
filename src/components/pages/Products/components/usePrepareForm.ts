@@ -1,7 +1,7 @@
 'use client';
 import { useI18nJoi } from 'shared/utils';
 import Joi from 'joi';
-import { useForm } from 'react-hook-form';
+import { useForm, useFieldArray } from 'react-hook-form';
 import { joiResolver } from '@hookform/resolvers/joi';
 import { IProductPost, IProduct } from 'api/productsApi';
 import { pick } from 'lodash';
@@ -75,13 +75,20 @@ export function usePrepareForm({ model }: IProps) {
 
   const initialValues = useMemo<IProductPost>((): IProductPost => {
     if (!model) {
-      return { name: null, description: null, imageFile: null, image: null };
+      return {
+        name: null,
+        description: null,
+        imageFile: null,
+        image: null,
+        units: [],
+      };
     }
 
     const pickedProperties = pick(model, ['name', 'description']);
     return {
       ...pickedProperties,
       imageFile: null,
+      units: [],
     };
   }, [model]);
 
@@ -92,10 +99,16 @@ export function usePrepareForm({ model }: IProps) {
     reset,
     setValue,
     watch,
+    control,
   } = useForm<IProductPost>({
     mode: 'onTouched',
     resolver: joiResolver(schema),
     defaultValues: initialValues!,
+  });
+
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: 'units',
   });
 
   useEffect(() => {
