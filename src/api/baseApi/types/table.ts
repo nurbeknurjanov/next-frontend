@@ -14,6 +14,13 @@ export interface IPaginationRequest
   extends Omit<IPagination, 'total' | 'pageCount'> {}
 
 //export type Nullable<T> = T | null;
-export type Nullable<T extends Record<string, any>> = {
+/*export type Nullable<T extends Record<string, any>> = {
   [key in string]: T[key] | null;
-};
+};*/
+
+export type Nullable<T extends Record<string, any>> =
+  T extends Record<infer K, infer Any>
+    ? {
+        [key in K]: T[key] | Any | null;
+      }
+    : any;

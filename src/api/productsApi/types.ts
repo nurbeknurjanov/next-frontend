@@ -27,7 +27,7 @@ export interface IProductPost extends Nullable<IProductWithout_id> {
 
   units: { color: string; size: string }[];
 }
-export interface IProductFilters extends Nullable<Partial<IProductWithout_id>> {
+export interface IProductFilters extends Partial<Nullable<IProductWithout_id>> {
   id?: string | null;
 }
 export type IProductSortFields = keyof IProductWithout_id;

@@ -99,21 +99,21 @@ export function usePrepareForm({ model }: IProps) {
     reset,
     setValue,
     watch,
-    //control,
+    control,
   } = useForm<IProductPost>({
     mode: 'onTouched',
     resolver: joiResolver(schema),
     defaultValues: initialValues!,
   });
 
-  /*const { fields, append, remove } = useFieldArray<
+  const { fields, append, remove } = useFieldArray<
     IProductPost,
     never,
     'units'
   >({
     control,
     name: 'units',
-  });*/
+  });
 
   useEffect(() => {
     reset(initialValues);
