@@ -86,11 +86,25 @@ export default function App() {
       <form onSubmit={handleSubmit(onSubmit)}>
         <input
           {...register(`title`, {
-            required,
+            /*required,
             min: {
               value: 3,
               message: 'Digit must be greater than 3',
-            },
+            },*/
+            /*pattern: {
+              //type is "pattern"
+              value: /[A-Za-z]{3}/,
+              message: 'Bad format',
+            },*/
+            /*validate: (value, formValues) =>
+              (formValues.title === value && false) || 'Must be equal', //type validate*/
+            /*validate: {
+              typeEqualCondition: (value, formValues) =>
+                (formValues.title === value && false) || 'Must be equal',
+              checkAsync: async () =>
+                (await new Promise(resolve => resolve(false))) ||
+                'error from Promise',
+            },*/
           })}
         />
         <div>{errors.title?.message}</div>
