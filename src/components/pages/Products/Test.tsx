@@ -4,12 +4,30 @@ import { useI18nJoi } from '../../../shared/utils';
 import { joiResolver } from '@hookform/resolvers/joi';
 import Joi from 'joi';
 
+//кастомные хуки они не центральные а паралельные
+
 //Reset - обычное очищение html формы не меняет состояние реакт хука, даже если поля хоть и очищаются
 //hook reset() работает всегда,onClick={reset} не будет работать,
 //но будет работать если к кнопке добавить type=reset или надо вешать на <form onReset={reset}
 
+//getValues() не вызывает обновления
+//watch если его вызвать даже в onclick, все потом будет постоянно обновляться
+//watch он тоже экономный, только указанное поле будет слушать и рендерить
+
+//разница useWatch он работает через контекст, и работает из потомков, при этом также как и watch работает только после подписи
+//но с корня не обновляет
+//useWatch его обычно через контект в потомках используют чтоб корень зря не обновлять
+//в корне сысла нет
+//основной смысл беречь КОРЕНЬ
+
+/*
+куки можно вот так записывать
+document.cookie = "surname=Nurjanov ";
+document.cookie = "name=Nurbek; max-age=0; ";*/
+
 type IPost = {
   title: string;
+  title2: string;
   person: {
     firstName: string;
     lastName: string;
@@ -38,6 +56,7 @@ export default function App() {
   const i18nJoi = useI18nJoi();
   const schema = i18nJoi.object({
     title: Joi.number(),
+    title2: Joi.number(),
   });
 
   const {
@@ -45,13 +64,16 @@ export default function App() {
     control,
     handleSubmit,
     formState: { errors },
+    watch,
   } = useForm<IPost>({
     mode: 'onBlur',
     resolver: joiResolver(schema),
     defaultValues: {
       title: '',
+      title2: '',
     },
   });
+  console.log(11);
   const { fields, append, remove } = useFieldArray({
     name: 'cart',
     control,
@@ -63,6 +85,11 @@ export default function App() {
       <form onSubmit={handleSubmit(onSubmit)}>
         <input
           {...register(`title`, {
+            required,
+          })}
+        />
+        <input
+          {...register(`title2`, {
             required,
           })}
         />
@@ -82,7 +109,7 @@ export default function App() {
           APPEND
         </button>
 
-        <input type="reset" />
+        <button onClick={() => watch('title')}>click</button>
         <input type="submit" />
       </form>
     </div>
