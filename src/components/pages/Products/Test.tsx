@@ -4,7 +4,10 @@ import { useI18nJoi } from '../../../shared/utils';
 import { joiResolver } from '@hookform/resolvers/joi';
 import Joi from 'joi';
 
-//Reset -обычный html формы и реакт хука оба работают
+//Reset - обычное очищение html формы не меняет состояние реакт хука, даже если поля хоть и очищаются
+//hook reset() работает всегда,onClick={reset} не будет работать,
+//но будет работать если к кнопке добавить type=reset или надо вешать на <form onReset={reset}
+
 type IPost = {
   title: string;
   person: {
