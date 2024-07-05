@@ -20,6 +20,8 @@ import Joi from 'joi';
 //в корне сысла нет
 //основной смысл беречь КОРЕНЬ
 
+//joi перетирует html валидацию
+
 /*
 куки можно вот так записывать
 document.cookie = "surname=Nurjanov ";
@@ -56,7 +58,6 @@ export default function App() {
   const i18nJoi = useI18nJoi();
   const schema = i18nJoi.object({
     title: Joi.number(),
-    title2: Joi.number(),
   });
 
   const {
@@ -67,17 +68,17 @@ export default function App() {
     watch,
   } = useForm<IPost>({
     mode: 'onBlur',
-    resolver: joiResolver(schema),
+    //resolver: joiResolver(schema),
     defaultValues: {
       title: '',
-      title2: '',
     },
   });
-  console.log(11);
-  const { fields, append, remove } = useFieldArray({
+  /*const { fields, append, remove } = useFieldArray({
     name: 'cart',
     control,
-  });
+  });*/
+
+  console.log('errors', errors);
   const onSubmit = (data: IPost) => console.log(data);
 
   return (
@@ -86,11 +87,10 @@ export default function App() {
         <input
           {...register(`title`, {
             required,
-          })}
-        />
-        <input
-          {...register(`title2`, {
-            required,
+            min: {
+              value: 3,
+              message: 'Digit must be greater than 3',
+            },
           })}
         />
         <div>{errors.title?.message}</div>
