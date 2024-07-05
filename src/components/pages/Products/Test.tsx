@@ -53,11 +53,22 @@ const Total = ({ control }: { control: Control<IPost> }) => {
   return <p>Total Amount: {total}</p>;
 };
 
-const required = 'This field is required';
 export default function App() {
   const i18nJoi = useI18nJoi();
   const schema = i18nJoi.object({
-    title: Joi.number(),
+    title: Joi.string(),
+    //title2: Joi.string().equal(Joi.ref('title')),
+    /*title2: Joi.when('title', {
+      is: Joi.exist().valid(1, 2),
+      then: Joi.date().required(),
+      otherwise: Joi.valid(''),
+    }),*/
+    /*title: Joi.string()
+      .pattern(/[A-Za-z]{3}/)
+      .messages({ 'string.pattern.base': 'bad format' }),*/
+    //title: Joi.array().items(Joi.number().valid(2)).required(),
+    //title: Joi.array().items(Joi.number(), Joi.string()).required(),
+    cart: Joi.any(),
   });
 
   const {
@@ -68,15 +79,16 @@ export default function App() {
     watch,
   } = useForm<IPost>({
     mode: 'onBlur',
-    //resolver: joiResolver(schema),
+    resolver: joiResolver(schema),
     defaultValues: {
       title: '',
+      title2: '',
     },
   });
-  /*const { fields, append, remove } = useFieldArray({
+  const { fields, append, remove } = useFieldArray({
     name: 'cart',
     control,
-  });*/
+  });
 
   console.log('errors', errors);
   const onSubmit = (data: IPost) => console.log(data);
@@ -84,6 +96,10 @@ export default function App() {
   return (
     <div>
       <form onSubmit={handleSubmit(onSubmit)}>
+        {/*<select multiple {...register(`title`)}>
+          <option value={1}>1</option>
+          <option value={2}>2</option>
+        </select>*/}
         <input
           {...register(`title`, {
             /*required,
@@ -108,6 +124,11 @@ export default function App() {
           })}
         />
         <div>{errors.title?.message}</div>
+        <br />
+        <br />
+        <input {...register('title2')} />
+        <div>{errors.title2?.message}</div>
+        <br />
         <br />
         <br />
         <button
