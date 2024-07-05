@@ -1,5 +1,8 @@
 import * as React from 'react';
 import { useForm, useFieldArray, useWatch, Control } from 'react-hook-form';
+import { useI18nJoi } from '../../../shared/utils';
+import { joiResolver } from '@hookform/resolvers/joi';
+import Joi from 'joi';
 
 type IPost = {
   title: string;
@@ -28,21 +31,22 @@ const Total = ({ control }: { control: Control<IPost> }) => {
 
 const required = 'This field is required';
 export default function App() {
+  const i18nJoi = useI18nJoi();
+  const schema = i18nJoi.object({
+    title: Joi.number(),
+  });
+
   const {
     register,
     control,
     handleSubmit,
     formState: { errors },
   } = useForm<IPost>({
-    defaultValues: {
-      title: 'default',
-      person: {
-        firstName: 'Nurbek',
-        lastName: 'Nurjanov',
-      },
-      cart: [{ name: 'test', quantity: 1, price: 10 }],
-    },
     mode: 'onBlur',
+    resolver: joiResolver(schema),
+    defaultValues: {
+      title: '',
+    },
   });
   const { fields, append, remove } = useFieldArray({
     name: 'cart',
@@ -61,63 +65,6 @@ export default function App() {
         <div>{errors.title?.message}</div>
         <br />
         <br />
-        <input
-          {...register(`person.firstName`, {
-            required,
-          })}
-        />
-        <div>{errors.person?.firstName?.message}</div>
-        <input
-          {...register(`person.lastName`, {
-            required,
-          })}
-        />
-        <div>{errors.person?.lastName?.message}</div>
-        <br />
-        <br />
-
-        {fields.map((field, index) => {
-          return (
-            <div key={field.id}>
-              <section style={{ display: 'flex' }} key={field.id}>
-                <div>
-                  <input
-                    {...register(`cart.${index}.name` as const, {
-                      required,
-                    })}
-                  />
-                  <div>{errors?.cart?.[index]?.name?.message}</div>
-                </div>
-                <div>
-                  <input
-                    type="number"
-                    {...register(`cart.${index}.quantity` as const, {
-                      valueAsNumber: true,
-                      required,
-                    })}
-                  />
-                  <div>{errors?.cart?.[index]?.quantity?.message}</div>
-                </div>
-
-                <div>
-                  <input
-                    type="number"
-                    {...register(`cart.${index}.price` as const, {
-                      valueAsNumber: true,
-                      required,
-                    })}
-                    className={errors?.cart?.[index]?.price ? 'error' : ''}
-                  />
-                  <div>{errors?.cart?.[index]?.price?.message}</div>
-                </div>
-                <button type="button" onClick={() => remove(index)}>
-                  DELETE
-                </button>
-              </section>
-            </div>
-          );
-        })}
-
         <button
           type="button"
           onClick={() =>
@@ -133,8 +80,6 @@ export default function App() {
 
         <input type="submit" />
       </form>
-
-      <Total control={control} />
     </div>
   );
 }

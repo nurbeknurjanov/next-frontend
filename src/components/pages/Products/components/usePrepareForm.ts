@@ -1,7 +1,7 @@
 'use client';
 import { useI18nJoi } from 'shared/utils';
 import Joi from 'joi';
-import { useForm, useFieldArray, UseFieldArrayProps } from 'react-hook-form';
+import { useForm, useFieldArray } from 'react-hook-form';
 import { joiResolver } from '@hookform/resolvers/joi';
 import { IProductPost, IProduct } from 'api/productsApi';
 import { pick } from 'lodash';

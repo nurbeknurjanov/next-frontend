@@ -35,7 +35,7 @@ export const ProductsFilters = ({ filters, setFilters }: IProps) => {
           }}
           onReset={e => {
             e.preventDefault();
-            reset({ name: null, description: null });
+            reset();
             submitForm({ name: null, description: null });
           }}
         >
