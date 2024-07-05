@@ -4,6 +4,7 @@ import { useI18nJoi } from '../../../shared/utils';
 import { joiResolver } from '@hookform/resolvers/joi';
 import Joi from 'joi';
 
+//Reset -обычный html формы и реакт хука оба работают
 type IPost = {
   title: string;
   person: {
@@ -78,6 +79,7 @@ export default function App() {
           APPEND
         </button>
 
+        <input type="reset" />
         <input type="submit" />
       </form>
     </div>
