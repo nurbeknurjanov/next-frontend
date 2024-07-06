@@ -22,6 +22,9 @@ import Joi from 'joi';
 
 //joi перетирует html валидацию
 
+//.message сильнее чем .messages
+//.messages сильнее чем helpers.message
+
 /*
 куки можно вот так записывать
 document.cookie = "surname=Nurjanov ";
@@ -91,6 +94,16 @@ export default function App() {
     })*/
   schema.xor('title', 'title2');
 
+  console.log(
+    schema.validate({ title: '', title2: '' }, { abortEarly: false })
+  );
+  /*console.log(
+    schema.validate(
+      { title: '', title2: '', person: { firstName: '', lastName: '' } },
+      { abortEarly: false }
+    )
+  );*/
+
   const {
     register,
     control,
@@ -119,8 +132,6 @@ export default function App() {
     name: 'cart',
     control,
   });
-
-  console.log('errors', errors);
 
   const onSubmit = (data: IPost) => alert(JSON.stringify(data));
 
