@@ -75,10 +75,9 @@ export default function App() {
     control,
     handleSubmit,
     formState: { errors },
-    watch,
   } = useForm<IPost>({
     mode: 'onBlur',
-    resolver: joiResolver(schema),
+    //resolver: joiResolver(schema),
     defaultValues: {
       title: '',
       cart: [
@@ -95,7 +94,9 @@ export default function App() {
     control,
   });
 
-  const onSubmit = (data: IPost) => console.log(data);
+  console.log('errors', errors);
+
+  const onSubmit = (data: IPost) => alert(JSON.stringify(data));
 
   return (
     <div>
@@ -133,26 +134,38 @@ export default function App() {
         {fields.map((field, index) => {
           return (
             <div key={field.id}>
-              <section className={'section'} key={field.id}>
-                <input
-                  {...register(`cart.${index}.name`, {
-                    required: true,
-                  })}
-                />
-                <input
-                  type="number"
-                  {...register(`cart.${index}.quantity`, {
-                    valueAsNumber: true,
-                    required: true,
-                  })}
-                />
-                <input
-                  type="number"
-                  {...register(`cart.${index}.price` as const, {
-                    valueAsNumber: true,
-                    required: true,
-                  })}
-                />
+              <section style={{ display: 'flex' }} key={field.id}>
+                <div>
+                  <input
+                    {...register(`cart.${index}.name`, {
+                      required: 'Mandatory',
+                    })}
+                  />
+                  <div>{errors.cart?.[index]?.name?.message}</div>
+                </div>
+
+                <div>
+                  <input
+                    type="number"
+                    {...register(`cart.${index}.quantity`, {
+                      valueAsNumber: true,
+                      required: 'Mandatory',
+                    })}
+                  />
+                  <div>{errors.cart?.[index]?.quantity?.message}</div>
+                </div>
+
+                <div>
+                  <input
+                    type="number"
+                    {...register(`cart.${index}.price` as const, {
+                      valueAsNumber: true,
+                      required: 'Mandatory',
+                    })}
+                  />
+                  <div>{errors.cart?.[index]?.price?.message}</div>
+                </div>
+
                 <button type="button" onClick={() => remove(index)}>
                   DELETE
                 </button>
@@ -176,7 +189,7 @@ export default function App() {
           APPEND
         </button>
 
-        <button type="submit" />
+        <button type="submit">Submit</button>
       </form>
     </div>
   );
