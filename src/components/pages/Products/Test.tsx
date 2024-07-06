@@ -134,11 +134,11 @@ export default function App() {
         <br />
         <br />
 
-        <input {...register('person.firstName', { required: 'Mandatory' })} />
+        <input {...register('person.firstName')} />
         <div>{errors.person?.firstName?.message}</div>
         <br />
         <br />
-        <input {...register('person.lastName', { required: 'Mandatory' })} />
+        <input {...register('person.lastName')} />
         <div>{errors.person?.lastName?.message}</div>
         <br />
         <br />
@@ -147,33 +147,20 @@ export default function App() {
             <div key={field.id}>
               <section style={{ display: 'flex' }} key={field.id}>
                 <div>
-                  <input
-                    {...register(`cart.${index}.name`, {
-                      required: 'Mandatory',
-                    })}
-                  />
+                  <input {...register(`cart.${index}.name`)} />
                   <div>{errors.cart?.[index]?.name?.message}</div>
                 </div>
 
                 <div>
                   <input
                     type="number"
-                    {...register(`cart.${index}.quantity`, {
-                      valueAsNumber: true,
-                      required: 'Mandatory',
-                    })}
+                    {...register(`cart.${index}.quantity`)}
                   />
                   <div>{errors.cart?.[index]?.quantity?.message}</div>
                 </div>
 
                 <div>
-                  <input
-                    type="number"
-                    {...register(`cart.${index}.price` as const, {
-                      valueAsNumber: true,
-                      required: 'Mandatory',
-                    })}
-                  />
+                  <input type="number" {...register(`cart.${index}.price`)} />
                   <div>{errors.cart?.[index]?.price?.message}</div>
                 </div>
 
