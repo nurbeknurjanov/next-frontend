@@ -28,13 +28,13 @@ document.cookie = "surname=Nurjanov ";
 document.cookie = "name=Nurbek; max-age=0; ";*/
 
 type IPost = {
-  title: string;
+  title: string | null;
   person: {
-    firstName: string;
-    lastName: string;
+    firstName: string | null;
+    lastName: string | null;
   };
   cart: {
-    name: string;
+    name: string | null;
     price: number;
     quantity: number;
   }[];
@@ -77,9 +77,13 @@ export default function App() {
     formState: { errors },
   } = useForm<IPost>({
     mode: 'onBlur',
-    //resolver: joiResolver(schema),
+    resolver: joiResolver(schema),
     defaultValues: {
-      title: '',
+      title: null,
+      person: {
+        firstName: null,
+        lastName: null,
+      },
       cart: [
         {
           name: '',
@@ -127,6 +131,15 @@ export default function App() {
           })}
         />
         <div>{errors.title?.message}</div>
+        <br />
+        <br />
+
+        <input {...register('person.firstName', { required: 'Mandatory' })} />
+        <div>{errors.person?.firstName?.message}</div>
+        <br />
+        <br />
+        <input {...register('person.lastName', { required: 'Mandatory' })} />
+        <div>{errors.person?.lastName?.message}</div>
         <br />
         <br />
         {fields.map((field, index) => {
