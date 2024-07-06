@@ -57,6 +57,7 @@ export default function App() {
   const i18nJoi = useI18nJoi();
   let schema = i18nJoi.object({
     title: Joi.string(),
+    title2: Joi.string(),
     //title2: Joi.string().equal(Joi.ref('title')),
     /*title2: Joi.when('title', {
       is: Joi.exist().valid(1, 2),
@@ -84,9 +85,11 @@ export default function App() {
       })
     ),
   });
-  schema = schema.append({
-    title2: Joi.string(),
-  });
+  /*schema = schema
+    .append({
+      title2: Joi.string(),
+    })*/
+  schema.xor('title', 'title2');
 
   const {
     register,
@@ -116,6 +119,8 @@ export default function App() {
     name: 'cart',
     control,
   });
+
+  console.log('errors', errors);
 
   const onSubmit = (data: IPost) => alert(JSON.stringify(data));
 
@@ -152,33 +157,10 @@ export default function App() {
         <div>{errors.title?.message}</div>
         <br />
         <br />
-        <input
-          placeholder={'title2'}
-          {...register(`title2`, {
-            /*required,
-            min: {
-              value: 3,
-              message: 'Digit must be greater than 3',
-            },*/
-            /*pattern: {
-              //type is "pattern"
-              value: /[A-Za-z]{3}/,
-              message: 'Bad format',
-            },*/
-            /*validate: (value, formValues) =>
-              (formValues.title === value && false) || 'Must be equal', //type validate*/
-            /*validate: {
-              typeEqualCondition: (value, formValues) =>
-                (formValues.title === value && false) || 'Must be equal',
-              checkAsync: async () =>
-                (await new Promise(resolve => resolve(false))) ||
-                'error from Promise',
-            },*/
-          })}
-        />
+        {/*<input placeholder={'title2'} {...register(`title2`)} />
         <div>{errors.title2?.message}</div>
         <br />
-        <br />
+        <br />*/}
 
         <input {...register('person.firstName')} />
         <div>{errors.person?.firstName?.message}</div>
