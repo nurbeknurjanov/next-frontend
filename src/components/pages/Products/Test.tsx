@@ -94,8 +94,6 @@ export default function App() {
     control,
   });
 
-  console.log('errors', errors);
-
   const onSubmit = (data: IPost) => alert(JSON.stringify(data));
 
   return (
@@ -191,6 +189,8 @@ export default function App() {
 
         <button type="submit">Submit</button>
       </form>
+
+      <Total control={control} />
     </div>
   );
 }
