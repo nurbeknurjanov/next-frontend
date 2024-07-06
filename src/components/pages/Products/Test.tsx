@@ -55,9 +55,8 @@ const Total = ({ control }: { control: Control<IPost> }) => {
 
 export default function App() {
   const i18nJoi = useI18nJoi();
-  const schema = i18nJoi.object({
+  let schema = i18nJoi.object({
     title: Joi.string(),
-    title2: Joi.string(),
     //title2: Joi.string().equal(Joi.ref('title')),
     /*title2: Joi.when('title', {
       is: Joi.exist().valid(1, 2),
@@ -84,6 +83,9 @@ export default function App() {
         price: Joi.number().label('Price'),
       })
     ),
+  });
+  schema = schema.append({
+    title2: Joi.string(),
   });
 
   const {
