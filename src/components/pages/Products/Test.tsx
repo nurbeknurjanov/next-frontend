@@ -29,7 +29,6 @@ document.cookie = "name=Nurbek; max-age=0; ";*/
 
 type IPost = {
   title: string;
-  title2: string;
   person: {
     firstName: string;
     lastName: string;
@@ -82,7 +81,13 @@ export default function App() {
     resolver: joiResolver(schema),
     defaultValues: {
       title: '',
-      title2: '',
+      cart: [
+        {
+          name: '',
+          quantity: 0,
+          price: 0,
+        },
+      ],
     },
   });
   const { fields, append, remove } = useFieldArray({
@@ -90,7 +95,6 @@ export default function App() {
     control,
   });
 
-  console.log('errors', errors);
   const onSubmit = (data: IPost) => console.log(data);
 
   return (
@@ -126,8 +130,36 @@ export default function App() {
         <div>{errors.title?.message}</div>
         <br />
         <br />
-        <input {...register('title2')} />
-        <div>{errors.title2?.message}</div>
+        {fields.map((field, index) => {
+          return (
+            <div key={field.id}>
+              <section className={'section'} key={field.id}>
+                <input
+                  {...register(`cart.${index}.name`, {
+                    required: true,
+                  })}
+                />
+                <input
+                  type="number"
+                  {...register(`cart.${index}.quantity`, {
+                    valueAsNumber: true,
+                    required: true,
+                  })}
+                />
+                <input
+                  type="number"
+                  {...register(`cart.${index}.price` as const, {
+                    valueAsNumber: true,
+                    required: true,
+                  })}
+                />
+                <button type="button" onClick={() => remove(index)}>
+                  DELETE
+                </button>
+              </section>
+            </div>
+          );
+        })}
         <br />
         <br />
         <br />
