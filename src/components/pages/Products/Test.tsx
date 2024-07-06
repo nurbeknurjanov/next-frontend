@@ -32,7 +32,6 @@ document.cookie = "name=Nurbek; max-age=0; ";*/
 
 type IPost = {
   title: string | null;
-  title2?: string | null;
   person: {
     firstName: string | null;
     lastName: string | null;
@@ -60,7 +59,8 @@ export default function App() {
   const i18nJoi = useI18nJoi();
   let schema = i18nJoi.object({
     title: Joi.string(),
-    title2: Joi.string(),
+    //title2: Joi.alternatives([1, 2]), // same as title2: Joi.alternatives().try(1, 2),
+    //title2: Joi.alternatives().conditional('title', { is: '1', then: Joi.string(), otherwise: Joi.number() }),
     //title2: Joi.string().equal(Joi.ref('title')),
     /*title2: Joi.when('title', {
       is: Joi.exist().valid(1, 2),
@@ -88,15 +88,12 @@ export default function App() {
       })
     ),
   });
+  //.with('title', 'title2')//для бакенда, чтоб все поля валидировались, кстати надо тут вызывать with, а не позде отдельно
   /*schema = schema
     .append({
       title2: Joi.string(),
     })*/
-  schema.xor('title', 'title2');
 
-  console.log(
-    schema.validate({ title: '', title2: '' }, { abortEarly: false })
-  );
   /*console.log(
     schema.validate(
       { title: '', title2: '', person: { firstName: '', lastName: '' } },
@@ -114,7 +111,6 @@ export default function App() {
     resolver: joiResolver(schema),
     defaultValues: {
       title: null,
-      title2: null,
       person: {
         firstName: null,
         lastName: null,
@@ -168,17 +164,18 @@ export default function App() {
         <div>{errors.title?.message}</div>
         <br />
         <br />
-        {/*<input placeholder={'title2'} {...register(`title2`)} />
-        <div>{errors.title2?.message}</div>
-        <br />
-        <br />*/}
 
-        <input {...register('person.firstName')} />
-        <div>{errors.person?.firstName?.message}</div>
-        <br />
-        <br />
-        <input {...register('person.lastName')} />
-        <div>{errors.person?.lastName?.message}</div>
+        <div style={{ display: 'flex' }}>
+          <div>
+            <input {...register('person.firstName')} />
+            <div>{errors.person?.firstName?.message}</div>
+          </div>
+          <div>
+            <input {...register('person.lastName')} />
+            <div>{errors.person?.lastName?.message}</div>
+          </div>
+        </div>
+
         <br />
         <br />
         {fields.map((field, index) => {
