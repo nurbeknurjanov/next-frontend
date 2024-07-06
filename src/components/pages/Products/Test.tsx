@@ -67,6 +67,10 @@ export default function App() {
       .messages({ 'string.pattern.base': 'bad format' }),*/
     //title: Joi.array().items(Joi.number().valid(2)).required(),
     //title: Joi.array().items(Joi.number(), Joi.string()).required(),
+    person: {
+      firstName: Joi.string().label('First name'),
+      lastName: Joi.string().label('Last name'),
+    },
     cart: Joi.any(),
   });
 
