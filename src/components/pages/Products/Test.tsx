@@ -176,8 +176,7 @@ export default function App() {
           APPEND
         </button>
 
-        <button onClick={() => watch('title')}>click</button>
-        <input type="submit" />
+        <button type="submit" />
       </form>
     </div>
   );
