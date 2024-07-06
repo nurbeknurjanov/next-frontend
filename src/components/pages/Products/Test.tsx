@@ -67,11 +67,21 @@ export default function App() {
       .messages({ 'string.pattern.base': 'bad format' }),*/
     //title: Joi.array().items(Joi.number().valid(2)).required(),
     //title: Joi.array().items(Joi.number(), Joi.string()).required(),
-    person: {
+    /*person: {
       firstName: Joi.string().label('First name'),
       lastName: Joi.string().label('Last name'),
-    },
-    cart: Joi.any(),
+    },*/
+    /*person: Joi.object({
+      firstName: Joi.string().label('First name'),
+      lastName: Joi.string().label('First name'),
+    }),*/
+    cart: Joi.array().items(
+      Joi.object({
+        name: Joi.string().label('Name'),
+        quantity: Joi.number().label('Quantity'),
+        price: Joi.number().label('Price'),
+      })
+    ),
   });
 
   const {
