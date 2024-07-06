@@ -20,7 +20,6 @@ import { IProduct } from 'api/productsApi';
 import { Alert } from '@mui/material';
 import { useSetPageData } from 'shared/hooks';
 import { useTranslations } from 'next-intl';
-import Test from './Test';
 
 let Products: FC = () => {
   const {
@@ -130,7 +129,6 @@ let Products: FC = () => {
   return (
     <>
       <div className={styles.productsContent}>
-        <Test></Test>
         <ProductsFilters filters={filters} setFilters={setFilters} />
 
         {!data?.list?.length ? (

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useForm, useFieldArray, useWatch, Control } from 'react-hook-form';
-import { useI18nJoi } from '../../../shared/utils';
+import { useI18nJoi } from '../../shared/utils';
 import { joiResolver } from '@hookform/resolvers/joi';
 import Joi from 'joi';
 
@@ -55,7 +55,7 @@ const Total = ({ control }: { control: Control<IPost> }) => {
   return <p>Total Amount: {total}</p>;
 };
 
-export default function App() {
+export function ReactHookFormExample() {
   const i18nJoi = useI18nJoi();
   let schema = i18nJoi.object({
     title: Joi.string(),
