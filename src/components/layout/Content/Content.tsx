@@ -6,13 +6,13 @@ import { PropsWithChildren } from 'react';
 
 export function Content({ children }: PropsWithChildren) {
   return (
-    <section className={styles.content}>
+    <section className={styles.container}>
       <div className={styles.top}>
         <Breadcrumbs />
         <Buttons />
       </div>
 
-      <div className={styles.bottom}>
+      <div className={styles.center}>
         <Notify />
         <Title />
         <Page>{children}</Page>

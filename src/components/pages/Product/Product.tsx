@@ -102,6 +102,8 @@ let Product: FC = () => {
         rows={rows}
         columns={columns}
         getRowId={el => el.label}
+        paginationMode={'client'}
+        sortingMode={'client'}
       />
 
       {showModal?.type === 'delete' && (
