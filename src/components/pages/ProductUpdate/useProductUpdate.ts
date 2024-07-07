@@ -4,7 +4,7 @@ import { useParams, useRouter } from 'next/navigation';
 import { ProductPageProps } from 'app/[locale]/products/[id]/page';
 import { useProductModel } from '../Product';
 import { useState } from 'react';
-import { usePrepareForm } from '../Products';
+import { useModelForm } from '../Products';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
 import { products } from 'store';
 import { IProductPost } from 'api/productsApi';
@@ -28,7 +28,7 @@ export function useProductUpdate() {
   const { id } = useParams<ProductPageProps['params']>();
   const { model, getProductState } = useProductModel({ id });
 
-  const { register, errors, isValid, isDirty, handleSubmit } = usePrepareForm({
+  const { register, errors, isValid, isDirty, handleSubmit } = useModelForm({
     model: model!,
   });
 

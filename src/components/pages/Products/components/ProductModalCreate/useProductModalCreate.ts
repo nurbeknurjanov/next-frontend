@@ -3,7 +3,7 @@ import { products } from 'store';
 import { useTranslations } from 'next-intl';
 import { IProductPost } from 'api/productsApi';
 import { IProps } from './ProductModalCreate';
-import { usePrepareForm } from '../usePrepareForm';
+import { useModelForm } from '../useModelForm';
 import { notify } from 'store/common/thunks';
 import { createProductThunk } from 'store/products/thunks';
 import { useUploadFile } from '../useUploadFile';
@@ -19,7 +19,7 @@ export function useProductModalCreate({ onClose, afterCreate }: IProps) {
   );
 
   const { register, setValue, watch, errors, isValid, isDirty, handleSubmit } =
-    usePrepareForm({});
+    useModelForm({});
 
   const { percentUploadImage, imageObject, deleteFile } = useUploadFile({
     setValue,

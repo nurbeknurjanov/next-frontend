@@ -10,7 +10,7 @@ import { useTranslations } from 'next-intl';
 interface IProps {
   model?: IFile;
 }
-export function usePrepareForm({ model }: IProps) {
+export function useModelForm({ model }: IProps) {
   const tm = useTranslations('File');
   const i18nJoi = useI18nJoi();
   const schema = i18nJoi.object({

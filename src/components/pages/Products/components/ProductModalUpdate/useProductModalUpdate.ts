@@ -3,7 +3,7 @@ import { products } from 'store';
 import { useTranslations } from 'next-intl';
 import { IProductPost } from 'api/productsApi';
 import { IProps } from './ProductModalUpdate';
-import { usePrepareForm } from '../usePrepareForm';
+import { useModelForm } from '../useModelForm';
 import { useUploadFile } from '../useUploadFile';
 import { useProductModel } from 'components/pages/Product';
 import { notify } from 'store/common/thunks';
@@ -24,7 +24,7 @@ export function useProductModalUpdate({ onClose, afterUpdate, id }: IProps) {
   const aggStates = getAggStates(updateProductState);
 
   const { register, setValue, watch, errors, isValid, isDirty, handleSubmit } =
-    usePrepareForm({
+    useModelForm({
       model: model!,
     });
 
