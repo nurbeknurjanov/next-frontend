@@ -1,3 +1,4 @@
+'use client';
 export { Products } from './Products';
 export {
   useProductForm,
