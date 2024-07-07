@@ -34,14 +34,6 @@ export const ProductModalView: FC<IProps> = ({ onClose, id }) => {
       headerName: 'Value',
       flex: 2,
       renderCell: params => {
-        if (params.row.label === tCommon('image')) {
-          return (
-            <Link href={params.value} target={'_blank'}>
-              <img src={params.value} width={300} />
-            </Link>
-          );
-        }
-
         return params.value;
       },
     },
@@ -71,10 +63,10 @@ export const ProductModalView: FC<IProps> = ({ onClose, id }) => {
     });
 
     if (model.image) {
-      rows.push({
-        label: tCommon('image'),
+      /*rows.push({
+        label: 'image',
         value: model.image.url,
-      });
+      });*/
     }
   }
 
@@ -95,8 +87,7 @@ export const ProductModalView: FC<IProps> = ({ onClose, id }) => {
           <DataGrid
             columnHeaderHeight={0}
             getRowHeight={params => {
-              return 'auto';
-              if (params.id === tCommon('image')) return 'auto';
+              if (params.id === 'image') return 'auto';
             }}
             /*
             sx={{
