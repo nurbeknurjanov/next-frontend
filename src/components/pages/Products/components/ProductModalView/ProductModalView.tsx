@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { useProductModel } from '../../../Product';
+import { useProductModel } from 'components/pages/Product';
 import { Button } from 'shared/ui';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
