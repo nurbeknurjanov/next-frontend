@@ -9,8 +9,9 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import { useRef } from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
-import { Box } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
 
 export type IProps = {
   id: string;
@@ -77,34 +78,36 @@ export const ProductModalUpdate: React.FC<IProps> = ({
             />
 
             {imageObject ? (
-              <Box sx={{ my: 2 }}>
-                <img src={imageObject.url} width={200} />
-                <DeleteIcon
-                  color={'error'}
-                  sx={{ cursor: 'pointer' }}
-                  onClick={() => deleteFile(imageObject._id!)}
-                />
-              </Box>
+              <Card sx={{ mb: 1 }}>
+                <CardContent
+                  sx={{ display: 'flex', justifyContent: 'space-between' }}
+                >
+                  <img src={imageObject.url} width={200} />
+                  <DeleteIcon
+                    color={'error'}
+                    sx={{ cursor: 'pointer' }}
+                    onClick={() => deleteFile(imageObject._id!)}
+                  />
+                </CardContent>
+              </Card>
             ) : (
-              <>
-                <TextField
-                  type={'file'}
-                  label={'Image file'}
-                  error={!!errors['imageFile']}
-                  FormHelperTextProps={{
-                    component: 'div',
-                  }}
-                  helperText={
-                    errors['imageFile']?.message ?? (
-                      <LinearProgressWithLabel
-                        variant="determinate"
-                        value={percentUploadImage}
-                      />
-                    )
-                  }
-                  {...register('imageFile')}
-                />
-              </>
+              <TextField
+                type={'file'}
+                label={'Image file'}
+                error={!!errors['imageFile']}
+                FormHelperTextProps={{
+                  component: 'div',
+                }}
+                helperText={
+                  errors['imageFile']?.message ?? (
+                    <LinearProgressWithLabel
+                      variant="determinate"
+                      value={percentUploadImage}
+                    />
+                  )
+                }
+                {...register('imageFile')}
+              />
             )}
           </form>
         )}

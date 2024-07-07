@@ -18,13 +18,21 @@ export function useProductModalCreate({ onClose, afterCreate }: IProps) {
     products.createProduct.selector.state
   );
 
-  const { register, setValue, watch, errors, isValid, isDirty, handleSubmit } =
-    useModelForm({});
+  const {
+    register,
+    setValue,
+    watch,
+    errors,
+    isValid,
+    isDirty,
+    handleSubmit,
+    schema,
+  } = useModelForm({});
 
   const { percentUploadImage, imageObject, deleteFile } = useUploadFile({
     setValue,
     watch,
-    errors,
+    schema,
   });
 
   const createProduct = async (formData: IProductPost) => {
