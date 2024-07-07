@@ -65,14 +65,14 @@ let ProductUpdate: FC = () => {
             <TextField
               label={tProduct('name')}
               error={!!errors['name']}
-              helperText={errors['name']?.message as string}
+              helperText={errors['name']?.message}
               {...register('name')}
             />
 
             <TextField
               label={tProduct('description')}
               error={!!errors['description']}
-              helperText={errors['description']?.message as string}
+              helperText={errors['description']?.message}
               {...register('description')}
             />
 

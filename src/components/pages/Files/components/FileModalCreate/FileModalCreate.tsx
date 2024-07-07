@@ -52,14 +52,14 @@ export const FileModalCreate: React.FC<IProps> = ({ onClose, refreshList }) => {
             <TextField
               label={tm('name')}
               error={!!errors['name']}
-              helperText={errors['name']?.message as string}
+              helperText={errors['name']?.message}
               {...register('name')}
             />
 
             <TextField
               label={tm('description')}
               error={!!errors['description']}
-              helperText={errors['description']?.message as string}
+              helperText={errors['description']?.message}
               {...register('description')}
             />
           </form>

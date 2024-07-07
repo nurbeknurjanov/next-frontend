@@ -89,21 +89,21 @@ export const UserModalUpdate: React.FC<IProps> = ({
             <TextField
               label={tUser('name')}
               error={!!errors['name']}
-              helperText={errors['name']?.message as string}
+              helperText={errors['name']?.message}
               {...register('name')}
             />
 
             <TextField
               label={tUser('email')}
               error={!!errors['email']}
-              helperText={errors['email']?.message as string}
+              helperText={errors['email']?.message}
               {...register('email')}
             />
 
             <TextField
               label={tUser('password')}
               error={!!errors['password']}
-              helperText={errors['password']?.message as string}
+              helperText={errors['password']?.message}
               {...register('password')}
             />
 
@@ -111,7 +111,7 @@ export const UserModalUpdate: React.FC<IProps> = ({
               label={tUser('age')}
               type="number"
               error={!!errors['age']}
-              helperText={errors['age']?.message as string}
+              helperText={errors['age']?.message}
               {...register('age')}
             />
 

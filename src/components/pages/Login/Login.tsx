@@ -105,7 +105,7 @@ let Login: FC = () => {
             >
               <TextField
                 error={!!errors[name]}
-                helperText={errors[name]?.message as string}
+                helperText={errors[name]?.message}
                 label={t('fields.email')}
                 name={name}
                 onChange={onChange}
@@ -115,7 +115,7 @@ let Login: FC = () => {
               <TextField
                 label={t('fields.password')}
                 error={!!errors['password']}
-                helperText={errors['password']?.message as string}
+                helperText={errors['password']?.message}
                 {...register('password')}
               />
               <Button

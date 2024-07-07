@@ -82,14 +82,14 @@ export const ProductModalCreate: React.FC<IProps> = ({
             <TextField
               label={tProduct('name')}
               error={!!errors['name']}
-              helperText={errors['name']?.message as string}
+              helperText={errors['name']?.message}
               {...register('name')}
             />
 
             <TextField
               label={tProduct('description')}
               error={!!errors['description']}
-              helperText={errors['description']?.message as string}
+              helperText={errors['description']?.message}
               {...register('description')}
             />
 
@@ -115,7 +115,7 @@ export const ProductModalCreate: React.FC<IProps> = ({
                   type={'file'}
                   label={'Image file'}
                   error={!!errors['imageFile']}
-                  helperText={errors['imageFile']?.message as string}
+                  helperText={errors['imageFile']?.message}
                   {...register('imageFile')}
                 />
               </>
