@@ -17,7 +17,7 @@ import {
 } from 'store/common/types';
 import axios from 'axios';
 import { isEqual } from 'lodash';
-import { IUser } from 'api/userApi';
+import { IUser } from 'api/usersApi';
 //import { JWT } from '../../../backend/helpers';
 
 export interface LoginStateType

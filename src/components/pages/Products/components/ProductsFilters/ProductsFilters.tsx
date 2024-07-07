@@ -1,3 +1,4 @@
+'use client';
 import { useProductsFilters } from './useProductsFilters';
 import { TextField } from '@mui/material';
 import { Button } from 'shared/ui';
