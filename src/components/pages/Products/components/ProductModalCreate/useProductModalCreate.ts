@@ -32,6 +32,7 @@ export function useProductModalCreate({ onClose, afterCreate }: IProps) {
     setValue,
     watch,
     schema,
+    afterFileUploadAndRemove: afterCreate,
   });
 
   const createProduct = async (formData: IProductPost) => {
