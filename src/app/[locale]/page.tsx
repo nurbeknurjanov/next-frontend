@@ -1,5 +1,4 @@
 import React from 'react';
-import styles from '../../components/layout/Content/components/Page/page.module.scss';
 import { Home } from 'components/pages';
 import { serverStore } from 'store/store';
 import { common } from 'store';
@@ -18,9 +17,5 @@ export default async function HomePage(props: PageProps) {
   someFetch();
 
   serverStore.dispatch(common.title.actions.set({ title: t('title') }));
-  return (
-    <div className={styles.page}>
-      <Home />
-    </div>
-  );
+  return <Home />;
 }

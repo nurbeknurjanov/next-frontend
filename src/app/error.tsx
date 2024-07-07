@@ -1,6 +1,5 @@
 'use client';
 import React from 'react';
-import styles from '../components/layout/Content/components/Page/page.module.scss';
 import { useTranslations } from 'next-intl';
 
 //error not support async, and it must be client
@@ -9,6 +8,6 @@ import { useTranslations } from 'next-intl';
 // eslint-disable-next-line
 export default function ErrorPage(props: { error: string }) {
   const t = useTranslations('ErrorPage');
-  return <div className={styles.page}>{t('title')}</div>;
+  return <>{t('title')}</>;
 }
 /* eslint-enable */

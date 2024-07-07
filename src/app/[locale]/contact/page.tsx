@@ -1,5 +1,4 @@
 import React from 'react';
-import styles from '../../../components/layout/Content/components/Page/page.module.scss';
 import { Contact } from 'components/pages';
 import { serverStore } from 'store/store';
 import { common } from 'store';
@@ -17,9 +16,5 @@ export default async function ContactPage(props: PageProps) {
   const t = await getTranslations('ContactPage');
 
   serverStore.dispatch(common.title.actions.set({ title: t('title') }));
-  return (
-    <div className={styles.page}>
-      <Contact />
-    </div>
-  );
+  return <Contact />;
 }

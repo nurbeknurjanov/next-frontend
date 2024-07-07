@@ -1,4 +1,3 @@
-import styles from '../../../components/layout/Content/components/Page/page.module.scss';
 import * as React from 'react';
 import { Login } from 'components/pages';
 import { serverStore } from 'store/store';
@@ -11,9 +10,5 @@ export default function LoginPage(props: PageProps) {
   const t = useTranslations('LoginPage');
   serverStore.dispatch(common.title.actions.set({ title: t('title') }));
 
-  return (
-    <div className={styles.page}>
-      <Login />
-    </div>
-  );
+  return <Login />;
 }

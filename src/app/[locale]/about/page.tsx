@@ -1,5 +1,4 @@
 import React from 'react';
-import styles from '../../../components/layout/Content/components/Page/page.module.scss';
 import { About } from 'components/pages';
 import { serverStore } from 'store/store';
 import { common } from 'store';
@@ -11,11 +10,5 @@ export default function AboutPage(props: PageProps) {
   const t = useTranslations('AboutPage');
   serverStore.dispatch(common.title.actions.set({ title: t('title') }));
 
-  return (
-    <div className={styles.page}>
-      <p>Seo title {serverStore.getState().common.title.title}</p>
-      <p>Seo text: {t('description')}</p>
-      <About />
-    </div>
-  );
+  return <About />;
 }
