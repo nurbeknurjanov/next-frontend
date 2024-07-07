@@ -92,5 +92,15 @@
       "enabled": "Enabled",
       "disabled": "Disabled"
     }
+  },
+  "FilesPage": {
+    "title": "Files"
+  },
+  "FilePage": {
+    "title": "File",
+    "delete": "Delete file",
+    "view": "View file"
+  },
+  "File": {
   }
 }

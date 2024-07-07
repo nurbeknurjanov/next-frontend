@@ -92,5 +92,15 @@
       "enabled": "Активный",
       "disabled": "Отключен"
     }
+  },
+  "FilesPage": {
+    "title": "Файлы"
+  },
+  "FilePage": {
+    "title": "Файл",
+    "delete": "Удалить файл",
+    "view": "Просмотр файла"
+  },
+  "File": {
   }
 }

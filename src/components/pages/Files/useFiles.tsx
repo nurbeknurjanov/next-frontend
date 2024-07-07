@@ -16,22 +16,22 @@ type ModalType = { type: 'create' } | { type: 'delete' | 'view'; id: string };
 //const env = process.env.NODE_ENV;
 export function useFiles() {
   const dispatch = useAppDispatch();
-  const tc = useTranslations('Common');
-  const tm = useTranslations('File');
-  const tps = useTranslations('FilesPage');
+  const tCommon = useTranslations('Common');
+  const tFile = useTranslations('File');
+  const tFiles = useTranslations('FilesPage');
 
   const [showModal, setShowModal] = useState<ModalType | null>();
   const closeShowModal = useCallback(() => setShowModal(null), []);
 
   useSetPageData(
-    tps('title'),
-    [tps('title')],
+    tFiles('title'),
+    [tFiles('title')],
     <Button
       variant={'contained'}
       size={'small'}
       onClick={() => setShowModal({ type: 'create' })}
     >
-      {tps('create')}
+      {tFiles('create')}
     </Button>
   );
 
@@ -104,9 +104,9 @@ export function useFiles() {
   );
 
   return {
-    tc,
-    tm,
-    tps,
+    tCommon,
+    tFiles,
+    tFile,
     getFilesState,
     setPagination,
     sorting,

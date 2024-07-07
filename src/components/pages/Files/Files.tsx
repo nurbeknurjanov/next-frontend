@@ -6,6 +6,7 @@ import { DataGrid, GridColDef, GridActionsCellItem } from '@mui/x-data-grid';
 import { useFiles } from './useFiles';
 import { Link } from 'shared/ui';
 import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 /*import {
   FileModalCreate,
   FileModalView,
@@ -15,12 +16,12 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { withCleanHooks } from 'shared/hocs';
 import { DATE_FORMAT } from 'shared/utils';
 import { IFile } from 'api/filesApi';
-import { Alert } from '@mui/material';
 
 let Files: FC = () => {
   const {
-    tc,
-    tm,
+    tCommon,
+    tFiles,
+    tFile,
     getFilesState,
     setPagination,
     sorting,
@@ -38,7 +39,7 @@ let Files: FC = () => {
   const columns: GridColDef<IFile>[] = [
     {
       field: 'id',
-      headerName: tm('id'),
+      headerName: tCommon('id'),
       renderCell: params => (
         <Link href={'/files/' + params.row._id}>{params.row._id}</Link>
       ),
@@ -46,37 +47,17 @@ let Files: FC = () => {
     },
     {
       field: 'createdAt',
-      headerName: tc('createdAt'),
+      headerName: tCommon('createdAt'),
       flex: 1,
       valueGetter: params => dayjs(params.value).format(DATE_FORMAT),
     },
     {
       field: 'updatedAt',
-      headerName: tc('updatedAt'),
+      headerName: tCommon('updatedAt'),
       flex: 1,
       valueGetter: params => dayjs(params.value).format(DATE_FORMAT),
     },
     {
-      field: 'actions',
-      type: 'actions',
-      getActions: params => [
-        <GridActionsCellItem
-          key={params.row._id}
-          icon={<DeleteIcon color={'primary'} />}
-          onClick={() => setShowModal({ type: 'view', id: params.row._id })}
-          label={tc('view')}
-          showInMenu
-        />,
-        <GridActionsCellItem
-          key={params.row._id}
-          icon={<DeleteIcon color={'error'} />}
-          onClick={() => setShowModal({ type: 'delete', id: params.row._id })}
-          label={tc('delete')}
-          showInMenu
-        />,
-      ],
-    },
-    /*{
       field: 'actions',
       headerName: 'Actions',
       renderCell: params => (
@@ -84,16 +65,18 @@ let Files: FC = () => {
           <EditIcon
             color={'primary'}
             sx={{ cursor: 'pointer' }}
-            onClick={setSelectedIdToUpdate.bind(null, params.row._id)}
+            onClick={() => setShowModal({ type: 'view', id: params.row._id })}
           />
           <DeleteIcon
             color={'error'}
             sx={{ cursor: 'pointer' }}
-            onClick={() => setSelectedIdToDelete(params.row._id)}
+            onClick={() => () =>
+              setShowModal({ type: 'delete', id: params.row._id })
+            }
           />
         </>
       ),
-    },*/
+    },
   ];
 
   return (
@@ -101,44 +84,30 @@ let Files: FC = () => {
       <div className={styles.filesContent}>
         {/*<FilesFilters filters={filters} setFilters={setFilters} />*/}
 
-        {!data?.list?.length ? (
-          <Alert severity={'warning'} variant="outlined">
-            {tc('noData')}
-          </Alert>
-        ) : (
-          <DataGrid
-            rows={data.list}
-            getRowId={el => el._id}
-            columns={columns}
-            loading={isFetching}
-            paginationModel={{
-              page: data.pagination.pageNumber ?? 0,
-              pageSize: data.pagination.pageSize ?? 12,
-            }}
-            onPaginationModelChange={({ page, pageSize }) =>
-              setPagination({ pageNumber: page, pageSize })
-            }
-            pageSizeOptions={[12, 24, 48]}
-            paginationMode={'server'}
-            rowCount={data.pagination.total || 0}
-            sortingMode={'server'}
-            onSortModelChange={setSorting}
-            sortModel={sorting}
-          />
-        )}
+        <DataGrid
+          rows={data?.list ?? []}
+          getRowId={el => el._id}
+          columns={columns}
+          loading={isFetching}
+          paginationModel={{
+            page: data?.pagination?.pageNumber ?? 0,
+            pageSize: data?.pagination?.pageSize ?? 12,
+          }}
+          onPaginationModelChange={({ page, pageSize }) =>
+            setPagination({ pageNumber: page, pageSize })
+          }
+          pageSizeOptions={[12, 24, 48]}
+          rowCount={data?.pagination?.total || 0}
+          onSortModelChange={setSorting}
+          sortModel={sorting}
+        />
       </div>
 
       {/*{showModal?.type === 'create' && (
         <FileModalCreate onClose={closeShowModal} refreshList={refreshList} />
       )}
 
-      {showModal?.type === 'delete' && (
-        <FileModalDelete
-          id={showModal.id}
-          onClose={closeShowModal}
-          refreshList={refreshList}
-        />
-      )}
+
 
       {showModal?.type === 'view' && (
         <FileModalView id={showModal.id} onClose={closeShowModal} />
