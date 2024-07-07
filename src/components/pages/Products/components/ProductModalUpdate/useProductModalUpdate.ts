@@ -23,16 +23,24 @@ export function useProductModalUpdate({ onClose, afterUpdate, id }: IProps) {
   );
   const aggStates = getAggStates(updateProductState);
 
-  const { register, setValue, watch, errors, isValid, isDirty, handleSubmit } =
-    useModelForm({
-      model: model!,
-    });
+  const {
+    register,
+    setValue,
+    watch,
+    getFieldState,
+    errors,
+    isValid,
+    isDirty,
+    handleSubmit,
+  } = useModelForm({
+    model: model!,
+  });
 
   const { percentUploadImage, imageObject, deleteFile } = useUploadFile({
     id,
     setValue,
     watch,
-    errors,
+    getFieldState,
   });
 
   const updateProduct = async (id: string, formData: IProductPost) => {

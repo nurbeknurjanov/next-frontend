@@ -91,6 +91,9 @@ export const ProductModalUpdate: React.FC<IProps> = ({
                   type={'file'}
                   label={'Image file'}
                   error={!!errors['imageFile']}
+                  FormHelperTextProps={{
+                    component: 'div',
+                  }}
                   helperText={
                     errors['imageFile']?.message ?? (
                       <LinearProgressWithLabel

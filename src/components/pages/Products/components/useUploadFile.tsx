@@ -3,15 +3,19 @@ import { useAppDispatch, useAppSelector } from 'store/hooks';
 import { products } from 'store';
 import { deleteFileThunk, createFileThunk } from 'store/files/thunks';
 import { IFile, IFilePost } from 'api/filesApi';
-import { UseFormSetValue, UseFormWatch, FieldErrors } from 'react-hook-form';
+import {
+  UseFormSetValue,
+  UseFormWatch,
+  UseFormGetFieldState,
+} from 'react-hook-form';
 
 interface IProps {
   id?: string;
   setValue: UseFormSetValue<any>;
   watch: UseFormWatch<any>;
-  errors: FieldErrors;
+  getFieldState: UseFormGetFieldState<any>;
 }
-export function useUploadFile({ id, setValue, watch, errors }: IProps) {
+export function useUploadFile({ id, setValue, watch, getFieldState }: IProps) {
   const dispatch = useAppDispatch();
 
   const product = useAppSelector(products.getProduct.selector.data);
@@ -63,10 +67,15 @@ export function useUploadFile({ id, setValue, watch, errors }: IProps) {
     [dispatch, setValue, product]
   );
 
+  const imageFileFieldState = getFieldState('imageFile');
   const imageFileValue = watch('imageFile');
-  const imageFileValueError = errors['imageFile'];
   useEffect(() => {
-    if (!imageFileValueError && !!imageFileValue?.[0]) {
+    if (
+      imageFileFieldState.isTouched &&
+      imageFileFieldState.isDirty &&
+      !imageFileFieldState.invalid &&
+      imageFileValue?.[0]
+    ) {
       if (id) {
         uploadFile({
           modelName: 'Product',
@@ -86,7 +95,7 @@ export function useUploadFile({ id, setValue, watch, errors }: IProps) {
         });
       }
     }
-  }, [imageFileValue, imageFileValueError, dispatch, id, uploadFile]);
+  }, [imageFileValue, dispatch, id, uploadFile, imageFileFieldState]);
 
   return {
     percentUploadImage,

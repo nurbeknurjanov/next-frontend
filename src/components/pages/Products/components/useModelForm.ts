@@ -69,6 +69,7 @@ export function useModelForm({ model }: IProps) {
     reset,
     setValue,
     watch,
+    getFieldState,
   } = useForm<IProductPost>({
     mode: 'onTouched',
     resolver: joiResolver(schema),
@@ -87,5 +88,6 @@ export function useModelForm({ model }: IProps) {
     isValid,
     isDirty,
     handleSubmit,
+    getFieldState,
   };
 }
