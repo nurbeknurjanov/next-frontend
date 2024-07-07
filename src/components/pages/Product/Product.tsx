@@ -12,6 +12,7 @@ import { useSetPageData } from 'shared/hooks';
 import { Button, ButtonLink } from 'shared/ui';
 import { useParams } from 'next/navigation';
 import { ProductPageProps } from 'app/[locale]/products/[id]/page';
+import Link from 'next/link';
 
 const columns: GridColDef[] = [
   {
@@ -22,7 +23,10 @@ const columns: GridColDef[] = [
   {
     field: 'value',
     headerName: 'Value',
-    flex: 1,
+    flex: 2,
+    renderCell: params => {
+      return params.value;
+    },
   },
 ];
 
@@ -88,6 +92,17 @@ let Product: FC = () => {
       label: tCommon('updatedAt'),
       value: dayjs(model.updatedAt).format(DATE_FORMAT),
     });
+
+    if (model.image) {
+      rows.push({
+        label: tCommon('image'),
+        value: (
+          <Link href={model.image.url} target={'_blank'}>
+            <img src={model.image.url} width={300} />
+          </Link>
+        ),
+      });
+    }
   }
 
   if (!getProductState.isFetched || getProductState.isFetching) {
@@ -98,6 +113,9 @@ let Product: FC = () => {
     <div className={styles.productContent}>
       <DataGrid
         columnHeaderHeight={0}
+        getRowHeight={params => {
+          if (params.id === tCommon('image')) return 'auto';
+        }}
         hideFooter
         rows={rows}
         columns={columns}
