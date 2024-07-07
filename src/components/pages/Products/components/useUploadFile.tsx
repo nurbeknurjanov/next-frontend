@@ -79,6 +79,7 @@ export function useUploadFile({ id, setValue, watch, errors }: IProps) {
       } else {
         uploadFile({
           fileField: imageFileValue,
+          //we must identify type for preview
           data: {
             type: 'image',
           },

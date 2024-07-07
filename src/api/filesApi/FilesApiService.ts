@@ -64,8 +64,6 @@ export class FilesApiService extends BaseApiService {
     }
     formData.append('fileField', body.fileField[0]);
 
-    console.log('send', formData);
-
     return this.request<IFile>({
       method: 'post',
       url: '/files/upload',

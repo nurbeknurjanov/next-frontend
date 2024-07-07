@@ -23,13 +23,14 @@ export interface IFile {
 type IFileWithout_id = Omit<IFile, '_id'>;
 
 export interface IFilePost {
-  modelName?: 'Product';
-  modelId?: string;
-
   data: {
     type: 'image';
   };
   fileField: FileList;
+
+  //lazy identify which product it relates
+  modelName?: 'Product';
+  modelId?: string;
 }
 
 export type IFileFilters = Nullable<Partial<IFileWithout_id>> & {
