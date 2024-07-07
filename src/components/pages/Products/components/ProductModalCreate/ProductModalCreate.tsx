@@ -93,7 +93,7 @@ export const ProductModalCreate: React.FC<IProps> = ({
               {...register('description')}
             />
 
-            <input {...register('image')} type={'text'} />
+            <input {...register('image')} type="hidden" />
             {imageObject ? (
               <Box sx={{ my: 2 }}>
                 <img src={imageObject.url} width={200} />
