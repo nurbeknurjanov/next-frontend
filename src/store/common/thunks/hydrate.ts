@@ -5,3 +5,5 @@ export const setServerWait = (waitForServer: boolean) =>
 
 export const hydratedToClient = (hydratedToClient: boolean) =>
   common.hydrate.actions.hydratedToClient(hydratedToClient);
+
+export const ignoreServerData = () => hydratedToClient(true);

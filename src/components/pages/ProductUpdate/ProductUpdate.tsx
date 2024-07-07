@@ -6,8 +6,11 @@ import Loading from 'app/[locale]/loading';
 import { ProductModalDelete } from 'components/pages/Products';
 import CircularProgress from '@mui/material/CircularProgress';
 import { TextField } from '@mui/material';
-import { Button } from 'shared/ui';
+import { Button, LinearProgressWithLabel } from 'shared/ui';
 import { useSetPageData } from 'shared/hooks';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 let ProductUpdate: FC = () => {
   const formRef = useRef<HTMLFormElement>();
@@ -29,6 +32,9 @@ let ProductUpdate: FC = () => {
     submitForm,
     showModal,
     setShowModal,
+    percentUploadImage,
+    imageObject,
+    deleteFile,
   } = useProductUpdate();
 
   const title = tProductPage('update');
@@ -75,6 +81,39 @@ let ProductUpdate: FC = () => {
               helperText={errors['description']?.message}
               {...register('description')}
             />
+
+            {imageObject ? (
+              <Card sx={{ mb: 2 }}>
+                <CardContent
+                  sx={{ display: 'flex', justifyContent: 'space-between' }}
+                >
+                  <img src={imageObject.url} width={200} />
+                  <DeleteIcon
+                    color={'error'}
+                    sx={{ cursor: 'pointer' }}
+                    onClick={() => deleteFile(imageObject._id!)}
+                  />
+                </CardContent>
+              </Card>
+            ) : (
+              <TextField
+                type={'file'}
+                label={'Image file'}
+                error={!!errors['imageFile']}
+                FormHelperTextProps={{
+                  component: 'div',
+                }}
+                helperText={
+                  errors['imageFile']?.message ?? (
+                    <LinearProgressWithLabel
+                      variant="determinate"
+                      value={percentUploadImage}
+                    />
+                  )
+                }
+                {...register('imageFile')}
+              />
+            )}
 
             <Button
               variant={'outlined'}

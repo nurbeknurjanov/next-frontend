@@ -1,3 +1,3 @@
-export * from './notify';
-export * from './hydrate';
-export * from './title';
+export { notify } from './notify';
+export { setServerWait, hydratedToClient, ignoreServerData } from './hydrate';
+export { setTitle } from './title';

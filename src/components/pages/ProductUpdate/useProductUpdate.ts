@@ -12,11 +12,12 @@ import { useAppDispatch, useAppSelector } from 'store/hooks';
 import { products } from 'store';
 import { IProductPost } from 'api/productsApi';
 import { updateProductThunk } from 'store/products/thunks';
-import { notify } from 'store/common/thunks';
+import { ignoreServerData, notify } from 'store/common/thunks';
 
 type ModalType = { type: 'delete'; id: string };
 export function useProductUpdate() {
   const dispatch = useAppDispatch();
+  dispatch(ignoreServerData());
   const router = useRouter();
   const tCommon = useTranslations('Common');
   const tProduct = useTranslations('Product');
@@ -86,5 +87,8 @@ export function useProductUpdate() {
     submitForm,
     showModal,
     setShowModal,
+    percentUploadImage,
+    imageObject,
+    deleteFile,
   };
 }
