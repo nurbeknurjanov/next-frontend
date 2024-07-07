@@ -3,11 +3,11 @@ import React, { FC, useRef } from 'react';
 import { useProductUpdate } from './useProductUpdate';
 import { withCleanHooks } from 'shared/hocs';
 import Loading from 'app/[locale]/loading';
-import { ProductModalDelete } from '../Products';
+import { ProductModalDelete } from 'components/pages/Products';
 import CircularProgress from '@mui/material/CircularProgress';
 import { TextField } from '@mui/material';
 import { Button } from 'shared/ui';
-import { useSetPageData } from '../../../shared/hooks';
+import { useSetPageData } from 'shared/hooks';
 
 let ProductUpdate: FC = () => {
   const formRef = useRef<HTMLFormElement>();

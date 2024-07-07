@@ -2,9 +2,12 @@
 import { useTranslations } from 'next-intl';
 import { useParams, useRouter } from 'next/navigation';
 import { ProductPageProps } from 'app/[locale]/products/[id]/page';
-import { useProductModel } from '../Product';
+import { useProductModel } from 'components/pages/Product';
 import { useState } from 'react';
-import { useModelForm } from '../Products';
+import {
+  useProductForm,
+  useProductUploadFile,
+} from 'components/pages/Products';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
 import { products } from 'store';
 import { IProductPost } from 'api/productsApi';
@@ -28,8 +31,24 @@ export function useProductUpdate() {
   const { id } = useParams<ProductPageProps['params']>();
   const { model, getProductState } = useProductModel({ id });
 
-  const { register, errors, isValid, isDirty, handleSubmit } = useModelForm({
+  const {
+    register,
+    errors,
+    isValid,
+    isDirty,
+    handleSubmit,
+    schema,
+    setValue,
+    watch,
+  } = useProductForm({
     model: model!,
+  });
+
+  const { percentUploadImage, imageObject, deleteFile } = useProductUploadFile({
+    id,
+    setValue,
+    watch,
+    schema,
   });
 
   const updateProduct = async (id: string, formData: IProductPost) => {

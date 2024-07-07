@@ -3,8 +3,10 @@ import { products } from 'store';
 import { useTranslations } from 'next-intl';
 import { IProductPost } from 'api/productsApi';
 import { IProps } from './ProductModalUpdate';
-import { useModelForm } from '../useModelForm';
-import { useUploadFile } from '../useUploadFile';
+import {
+  useProductForm,
+  useProductUploadFile,
+} from 'components/pages/Products';
 import { useProductModel } from 'components/pages/Product';
 import { notify } from 'store/common/thunks';
 import { updateProductThunk } from 'store/products/thunks';
@@ -32,11 +34,11 @@ export function useProductModalUpdate({ onClose, afterUpdate, id }: IProps) {
     isValid,
     isDirty,
     handleSubmit,
-  } = useModelForm({
+  } = useProductForm({
     model: model!,
   });
 
-  const { percentUploadImage, imageObject, deleteFile } = useUploadFile({
+  const { percentUploadImage, imageObject, deleteFile } = useProductUploadFile({
     id,
     setValue,
     watch,

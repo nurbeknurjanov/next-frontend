@@ -11,7 +11,7 @@ import { useTranslations } from 'next-intl';
 interface IProps {
   model?: IUser;
 }
-export function useModelForm({ model }: IProps) {
+export function useUserForm({ model }: IProps) {
   const tUser = useTranslations('User');
   const i18nJoi = useI18nJoi();
   const schema = i18nJoi.object({

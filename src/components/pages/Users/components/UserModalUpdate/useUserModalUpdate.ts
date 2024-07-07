@@ -3,7 +3,7 @@ import { users } from 'store';
 import { useTranslations } from 'next-intl';
 import { IUserPost } from 'api/usersApi';
 import { IProps } from './UserModalUpdate';
-import { useModelForm } from '../useModelForm';
+import { useUserForm } from '../useUserForm';
 import { useUserModel } from 'components/pages/User';
 import { notify } from 'store/common/thunks';
 import { updateUserThunk } from 'store/users/thunks';
@@ -21,7 +21,7 @@ export function useUserModalUpdate({ onClose, afterUpdate, id }: IProps) {
   const aggStates = getAggStates(updateUserState);
 
   const { register, errors, isValid, isDirty, handleSubmit, watch, setValue } =
-    useModelForm({
+    useUserForm({
       model: model!,
     });
 

@@ -1,5 +1,5 @@
 import { AxiosRequestConfig } from 'axios';
-import { RequestParams, AxiosResponseData, BaseApiService } from '../baseApi';
+import { RequestParams, AxiosResponseData, BaseApiService } from 'api/baseApi';
 import {
   IUserSort,
   IUserFilters,

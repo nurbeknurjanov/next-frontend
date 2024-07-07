@@ -3,7 +3,7 @@ import { files } from 'store';
 import { useTranslations } from 'next-intl';
 import { IFilePost } from 'api/filesApi';
 import { IProps } from './FileModalCreate';
-import { useModelForm } from '../useModelForm';
+import { useProductForm } from 'components/pages/Products';
 import { notify } from 'store/common/thunks';
 import { createFileThunk } from 'store/files/thunks';
 
@@ -15,7 +15,9 @@ export function useFileModalCreate({ onClose, refreshList }: IProps) {
 
   const createFileState = useAppSelector(files.createFile.selector.state);
 
-  const { register, errors, isValid, isDirty, handleSubmit } = useModelForm({});
+  const { register, errors, isValid, isDirty, handleSubmit } = useProductForm(
+    {}
+  );
 
   const createFile = async (formData: IFilePost) => {
     const { data } = await dispatch(createFileThunk(formData));

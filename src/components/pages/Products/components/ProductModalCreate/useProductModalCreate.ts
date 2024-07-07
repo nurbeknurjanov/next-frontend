@@ -3,10 +3,12 @@ import { products } from 'store';
 import { useTranslations } from 'next-intl';
 import { IProductPost } from 'api/productsApi';
 import { IProps } from './ProductModalCreate';
-import { useModelForm } from '../useModelForm';
+import {
+  useProductForm,
+  useProductUploadFile,
+} from 'components/pages/Products';
 import { notify } from 'store/common/thunks';
 import { createProductThunk } from 'store/products/thunks';
-import { useUploadFile } from '../useUploadFile';
 
 export function useProductModalCreate({ onClose, afterCreate }: IProps) {
   const dispatch = useAppDispatch();
@@ -27,9 +29,9 @@ export function useProductModalCreate({ onClose, afterCreate }: IProps) {
     isDirty,
     handleSubmit,
     schema,
-  } = useModelForm({});
+  } = useProductForm({});
 
-  const { percentUploadImage, imageObject, deleteFile } = useUploadFile({
+  const { percentUploadImage, imageObject, deleteFile } = useProductUploadFile({
     setValue,
     watch,
     schema,

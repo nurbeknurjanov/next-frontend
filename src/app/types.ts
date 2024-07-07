@@ -1,4 +1,4 @@
-import type { localeType } from '../i18n';
+import type { localeType } from 'i18n';
 
 export type PageProps = {
   params: { locale: localeType };

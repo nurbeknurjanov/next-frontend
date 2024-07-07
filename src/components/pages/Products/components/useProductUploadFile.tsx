@@ -12,7 +12,7 @@ interface IProps {
   watch: UseFormWatch<any>;
   schema: ObjectSchema;
 }
-export function useUploadFile({ id, setValue, watch, schema }: IProps) {
+export function useProductUploadFile({ id, setValue, watch, schema }: IProps) {
   const dispatch = useAppDispatch();
 
   const product = useAppSelector(products.getProduct.selector.data);
