@@ -1,4 +1,5 @@
-import * as React from 'react';
+'use client';
+import React from 'react';
 import { useForm, useFieldArray, useWatch, Control } from 'react-hook-form';
 import { useI18nJoi } from '../../shared/utils';
 import { joiResolver } from '@hookform/resolvers/joi';

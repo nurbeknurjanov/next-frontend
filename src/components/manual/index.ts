@@ -1,2 +1,2 @@
-export * from './Counter';
-export * from './ReactHookFormExample';
+export { Counter } from './Counter';
+export { ReactHookFormExample } from './ReactHookFormExample';
