@@ -72,6 +72,7 @@ const Theme = createTheme({
       styleOverrides: {
         root: {
           marginLeft: 0,
+          marginRight: 0,
         },
       },
     },

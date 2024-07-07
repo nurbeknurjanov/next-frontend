@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useProductModalUpdate } from './useProductModalUpdate';
 import { TextField } from '@mui/material';
-import { Button } from 'shared/ui';
+import { Button, LinearProgressWithLabel } from 'shared/ui';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
@@ -9,12 +9,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import { useRef } from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
-import {
-  LinearProgress,
-  LinearProgressProps,
-  Box,
-  Typography,
-} from '@mui/material';
+import { Box } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 export type IProps = {
@@ -22,19 +17,6 @@ export type IProps = {
   onClose: () => void;
   afterUpdate: () => void;
 };
-
-function LinearProgressWithLabel(
-  props: LinearProgressProps & { value: number }
-) {
-  return (
-    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-      <LinearProgress variant="determinate" sx={{ flexGrow: 1 }} {...props} />
-      <Typography variant="body2" color="text.secondary">{`${Math.round(
-        props.value
-      )}%`}</Typography>
-    </Box>
-  );
-}
 
 export const ProductModalUpdate: React.FC<IProps> = ({
   onClose,
@@ -105,15 +87,18 @@ export const ProductModalUpdate: React.FC<IProps> = ({
               </Box>
             ) : (
               <>
-                <LinearProgressWithLabel
-                  variant="determinate"
-                  value={percentUploadImage}
-                />
                 <TextField
                   type={'file'}
                   label={'Image file'}
                   error={!!errors['imageFile']}
-                  helperText={errors['imageFile']?.message as string}
+                  helperText={
+                    errors['imageFile']?.message ?? (
+                      <LinearProgressWithLabel
+                        variant="determinate"
+                        value={percentUploadImage}
+                      />
+                    )
+                  }
                   {...register('imageFile')}
                 />
               </>
