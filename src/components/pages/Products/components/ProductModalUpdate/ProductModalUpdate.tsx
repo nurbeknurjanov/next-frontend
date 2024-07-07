@@ -27,15 +27,11 @@ function LinearProgressWithLabel(
   props: LinearProgressProps & { value: number }
 ) {
   return (
-    <Box sx={{ display: 'flex', alignItems: 'center' }}>
-      <Box sx={{ width: '100%', mr: 1 }}>
-        <LinearProgress variant="determinate" {...props} />
-      </Box>
-      <Box sx={{ minWidth: 35 }}>
-        <Typography variant="body2" color="text.secondary">{`${Math.round(
-          props.value
-        )}%`}</Typography>
-      </Box>
+    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+      <LinearProgress variant="determinate" sx={{ flexGrow: 1 }} {...props} />
+      <Typography variant="body2" color="text.secondary">{`${Math.round(
+        props.value
+      )}%`}</Typography>
     </Box>
   );
 }
@@ -109,13 +105,10 @@ export const ProductModalUpdate: React.FC<IProps> = ({
               </Box>
             ) : (
               <>
-                {/*<input {...register('image')} type={'hidden'} />*/}
-                {!!percentUploadImage && (
-                  <LinearProgressWithLabel
-                    variant="determinate"
-                    value={percentUploadImage}
-                  />
-                )}
+                <LinearProgressWithLabel
+                  variant="determinate"
+                  value={percentUploadImage}
+                />
                 <TextField
                   type={'file'}
                   label={'Image file'}
