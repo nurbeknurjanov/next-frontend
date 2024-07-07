@@ -17,7 +17,8 @@
     "successUpdated": "Успешно обновлено",
     "successDeleted": "Успешно удалено",
     "deleteAlert": "Вы уверены удалить ?",
-    "noData": "Нет данных"
+    "noData": "Нет данных",
+    "image": "Картина"
   },
   "HomePage": {
     "title": "Добро пожаловать",

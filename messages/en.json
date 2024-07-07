@@ -17,7 +17,8 @@
     "successUpdated": "Successfully updated",
     "successDeleted": "Successfully deleted",
     "deleteAlert": "Are you sure to delete ?",
-    "noData": "No data"
+    "noData": "No data",
+    "image": "Image"
   },
   "HomePage": {
     "title": "Welcome",

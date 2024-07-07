@@ -17,35 +17,35 @@ export type IProps = {
   onClose: () => void;
 };
 
-const columns: GridColDef[] = [
-  {
-    field: 'label',
-    headerName: 'Label',
-    flex: 1,
-  },
-  {
-    field: 'value',
-    headerName: 'Value',
-    flex: 1,
-    renderCell: params => {
-      if (params.row.label === 'image') {
-        return (
-          <Link href={params.value} target={'_blank'}>
-            <img src={params.value} width={300} />
-          </Link>
-        );
-      }
-
-      return params.value;
-    },
-  },
-];
-
 export const ProductModalView: FC<IProps> = ({ onClose, id }) => {
   const { tCommon, tProduct, tProductPage, model, getProductState } =
     useProductModel({
       id,
     });
+
+  const columns: GridColDef[] = [
+    {
+      field: 'label',
+      headerName: 'Label',
+      flex: 1,
+    },
+    {
+      field: 'value',
+      headerName: 'Value',
+      flex: 2,
+      renderCell: params => {
+        if (params.row.label === tCommon('image')) {
+          return (
+            <Link href={params.value} target={'_blank'}>
+              <img src={params.value} width={300} />
+            </Link>
+          );
+        }
+
+        return params.value;
+      },
+    },
+  ];
 
   const rows: { label: string; value: string | React.ReactNode }[] = [];
   if (model) {
@@ -72,7 +72,7 @@ export const ProductModalView: FC<IProps> = ({ onClose, id }) => {
 
     if (model.image) {
       rows.push({
-        label: 'image',
+        label: tCommon('image'),
         value: model.image.url,
       });
     }
@@ -94,6 +94,10 @@ export const ProductModalView: FC<IProps> = ({ onClose, id }) => {
         ) : (
           <DataGrid
             columnHeaderHeight={0}
+            getRowHeight={params => {
+              return 'auto';
+              if (params.id === tCommon('image')) return 'auto';
+            }}
             /*
             sx={{
               '& .MuiDataGrid-columnHeaders': {
