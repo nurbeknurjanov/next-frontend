@@ -1,5 +1,5 @@
-export * from './layout/Header';
-export * from './layout/Sidebar';
-export * from './layout/Content';
-export * from './layout/Footer';
+export { Header } from './layout/Header';
+export { Sidebar } from './layout/Sidebar';
+export { Content } from './layout/Content';
+export { Footer } from './layout/Footer';
 export * from './manual';

@@ -75,7 +75,7 @@ export const ProductModalView: FC<IProps> = ({ onClose, id }) => {
   }
 
   return (
-    <Dialog open onClose={onClose}>
+    <Dialog open onClose={onClose} fullWidth>
       <DialogTitle>{tProductPage('view')}</DialogTitle>
       <DialogContent>
         {/*<DialogContentText>
@@ -108,6 +108,8 @@ export const ProductModalView: FC<IProps> = ({ onClose, id }) => {
             rows={rows}
             columns={columns}
             getRowId={el => el.label}
+            sortingMode={'client'}
+            paginationMode={'client'}
           />
         )}
       </DialogContent>
