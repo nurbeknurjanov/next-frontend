@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { joiResolver } from '@hookform/resolvers/joi';
 import { IProductPost, IProduct } from 'api/productsApi';
 import { pick } from 'lodash';
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import { useTranslations } from 'next-intl';
 
 interface IProps {
@@ -14,36 +14,42 @@ interface IProps {
 export function useModelForm({ model }: IProps) {
   const tProduct = useTranslations('Product');
   const i18nJoi = useI18nJoi();
-  let schema = i18nJoi.object({
-    name: Joi.string().label(tProduct('name')),
-    description: Joi.string().label(tProduct('description')),
-    imageFile: Joi.any().custom((value: FileList, helper) => {
-      if (!value?.[0]) {
+  const i18nJoiRef = useRef(i18nJoi);
+  const schema = useMemo(() => {
+    let schemaObject = i18nJoiRef.current.object({
+      name: Joi.string().label(tProduct('name')),
+      description: Joi.string().label(tProduct('description')),
+      imageFile: Joi.any().custom((value: FileList, helper) => {
+        if (!value?.[0]) {
+          return value;
+        }
+
+        if (
+          ![
+            'image/jpg',
+            'image/jpeg',
+            'image/png',
+            'image/gif',
+            'application/pdf',
+          ].includes(value?.[0]?.type?.toLowerCase())
+        ) {
+          return helper.error('custom.image_type');
+        }
+
+        if (value?.[0]?.size > 1048576 * 10) {
+          return helper.error('custom.size');
+        }
+
         return value;
-      }
+      }),
+    });
 
-      if (
-        ![
-          'image/jpg',
-          'image/jpeg',
-          'image/png',
-          'image/gif',
-          'application/pdf',
-        ].includes(value?.[0]?.type?.toLowerCase())
-      ) {
-        return helper.error('custom.image_type');
-      }
+    if (!model) {
+      schemaObject = schemaObject.append({ image: Joi.optional() });
+    }
 
-      if (value?.[0]?.size > 1048576 * 10) {
-        return helper.error('custom.size');
-      }
-
-      return value;
-    }),
-  });
-  if (!model) {
-    schema = schema.append({ image: Joi.optional() });
-  }
+    return schemaObject;
+  }, [model, tProduct]);
 
   const initialValues = useMemo<IProductPost>((): IProductPost => {
     if (!model) {
@@ -69,7 +75,6 @@ export function useModelForm({ model }: IProps) {
     reset,
     setValue,
     watch,
-    getFieldState,
   } = useForm<IProductPost>({
     mode: 'onTouched',
     resolver: joiResolver(schema),
@@ -88,6 +93,6 @@ export function useModelForm({ model }: IProps) {
     isValid,
     isDirty,
     handleSubmit,
-    getFieldState,
+    schema,
   };
 }

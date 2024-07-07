@@ -3,19 +3,16 @@ import { useAppDispatch, useAppSelector } from 'store/hooks';
 import { products } from 'store';
 import { deleteFileThunk, createFileThunk } from 'store/files/thunks';
 import { IFile, IFilePost } from 'api/filesApi';
-import {
-  UseFormSetValue,
-  UseFormWatch,
-  UseFormGetFieldState,
-} from 'react-hook-form';
+import { UseFormSetValue, UseFormWatch } from 'react-hook-form';
+import { ObjectSchema } from 'joi';
 
 interface IProps {
   id?: string;
   setValue: UseFormSetValue<any>;
   watch: UseFormWatch<any>;
-  getFieldState: UseFormGetFieldState<any>;
+  schema: ObjectSchema;
 }
-export function useUploadFile({ id, setValue, watch, getFieldState }: IProps) {
+export function useUploadFile({ id, setValue, watch, schema }: IProps) {
   const dispatch = useAppDispatch();
 
   const product = useAppSelector(products.getProduct.selector.data);
@@ -67,35 +64,32 @@ export function useUploadFile({ id, setValue, watch, getFieldState }: IProps) {
     [dispatch, setValue, product]
   );
 
-  const imageFileFieldState = getFieldState('imageFile');
   const imageFileValue = watch('imageFile');
   useEffect(() => {
-    if (
-      imageFileFieldState.isTouched &&
-      imageFileFieldState.isDirty &&
-      !imageFileFieldState.invalid &&
-      imageFileValue?.[0]
-    ) {
-      if (id) {
-        uploadFile({
-          modelName: 'Product',
-          modelId: id,
-          data: {
-            type: 'image',
-          },
-          fileField: imageFileValue,
-        });
-      } else {
-        uploadFile({
-          fileField: imageFileValue,
-          //we must identify type for preview
-          data: {
-            type: 'image',
-          },
-        });
+    if (imageFileValue?.[0]) {
+      const validated = schema.validate({ imageFile: imageFileValue });
+      if (!validated.error) {
+        if (id) {
+          uploadFile({
+            modelName: 'Product',
+            modelId: id,
+            data: {
+              type: 'image',
+            },
+            fileField: imageFileValue,
+          });
+        } else {
+          uploadFile({
+            fileField: imageFileValue,
+            //we must identify type for preview
+            data: {
+              type: 'image',
+            },
+          });
+        }
       }
     }
-  }, [imageFileValue, dispatch, id, uploadFile, imageFileFieldState]);
+  }, [dispatch, id, uploadFile, imageFileValue, schema]);
 
   return {
     percentUploadImage,

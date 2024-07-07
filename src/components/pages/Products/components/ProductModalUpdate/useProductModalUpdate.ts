@@ -27,7 +27,7 @@ export function useProductModalUpdate({ onClose, afterUpdate, id }: IProps) {
     register,
     setValue,
     watch,
-    getFieldState,
+    schema,
     errors,
     isValid,
     isDirty,
@@ -40,7 +40,7 @@ export function useProductModalUpdate({ onClose, afterUpdate, id }: IProps) {
     id,
     setValue,
     watch,
-    getFieldState,
+    schema,
   });
 
   const updateProduct = async (id: string, formData: IProductPost) => {
