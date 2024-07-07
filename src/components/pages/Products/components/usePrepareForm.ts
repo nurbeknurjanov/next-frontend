@@ -14,10 +14,9 @@ interface IProps {
 export function usePrepareForm({ model }: IProps) {
   const tProduct = useTranslations('Product');
   const i18nJoi = useI18nJoi();
-  const schema = i18nJoi.object({
+  let schema = i18nJoi.object({
     name: Joi.string().label(tProduct('name')),
     description: Joi.string().label(tProduct('description')),
-    image: Joi.optional(),
     imageFile: Joi.any().custom((value: FileList, helper) => {
       if (!value?.[0]) {
         return value;
@@ -43,35 +42,8 @@ export function usePrepareForm({ model }: IProps) {
     }),
   });
   if (!model) {
-    //schema.append({ image: Joi.optional() });
+    schema = schema.append({ image: Joi.optional() });
   }
-
-  //validation for file field
-  /*  schema.append({
-    imageFile: Joi.any().custom((value: FileList, helper) => {
-      if (!value?.[0]) {
-        return value;
-      }
-
-      if (
-        ![
-          'image/jpg',
-          'image/jpeg',
-          'image/png',
-          'image/gif',
-          'application/pdf',
-        ].includes(value?.[0]?.type?.toLowerCase())
-      ) {
-        return helper.error('custom.image_type');
-      }
-
-      if (value?.[0]?.size > 1048576 * 10) {
-        return helper.error('custom.size');
-      }
-
-      return value;
-    }),
-  });*/
 
   const initialValues = useMemo<IProductPost>((): IProductPost => {
     if (!model) {
@@ -80,7 +52,6 @@ export function usePrepareForm({ model }: IProps) {
         description: null,
         imageFile: null,
         image: null,
-        units: [{ color: 'yellow', size: 'sm' }],
       };
     }
 
@@ -88,7 +59,6 @@ export function usePrepareForm({ model }: IProps) {
     return {
       ...pickedProperties,
       imageFile: null,
-      units: [{ color: 'yellow', size: 'sm' }],
     };
   }, [model]);
 
@@ -99,16 +69,10 @@ export function usePrepareForm({ model }: IProps) {
     reset,
     setValue,
     watch,
-    control,
   } = useForm<IProductPost>({
     mode: 'onTouched',
     resolver: joiResolver(schema),
     defaultValues: initialValues!,
-  });
-
-  const { fields, append, remove } = useFieldArray({
-    control,
-    name: 'units',
   });
 
   useEffect(() => {

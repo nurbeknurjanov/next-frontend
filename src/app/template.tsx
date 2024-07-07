@@ -42,6 +42,7 @@ export default async function Template({ children }: PropsWithChildren) {
     });
   }
 
+  console.log("header headersList.get('Referer')", headersList.get('Referer'));
   if (headersList.get('Referer')) {
     serverStore.dispatch(hydratedToClient(true));
   }
