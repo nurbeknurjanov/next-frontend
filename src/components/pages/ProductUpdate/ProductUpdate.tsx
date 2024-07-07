@@ -34,7 +34,7 @@ let ProductUpdate: FC = () => {
   const title = tProductPage('update');
   useSetPageData(title, [
     {
-      label: tProductsPage('update'),
+      label: tProductsPage('title'),
       href: '/products',
     },
     {
