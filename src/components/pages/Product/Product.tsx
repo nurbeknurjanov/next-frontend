@@ -90,7 +90,7 @@ let Product: FC = () => {
     });
   }
 
-  if (getProductState.isFetching) {
+  if (!getProductState.isFetched || getProductState.isFetching) {
     return <Loading />;
   }
 
