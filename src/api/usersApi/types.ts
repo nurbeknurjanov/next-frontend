@@ -27,12 +27,13 @@ export type IUser = {
   updatedAt: string;
 };
 
-type IUserWithout_id = Omit<IUser, '_id' | 'createdAt' | 'updatedAt'>;
-export interface IUserPost extends Nullable<IUserWithout_id> {}
-export interface IUserFilters extends Nullable<Partial<IUserWithout_id>> {
+type IUserWithoutSystemFields = Omit<IUser, '_id' | 'createdAt' | 'updatedAt'>;
+export interface IUserPost extends Nullable<IUserWithoutSystemFields> {}
+export interface IUserFilters
+  extends Partial<Nullable<IUserWithoutSystemFields>> {
   id?: string | null;
 }
-export type IUserSortFields = keyof IUserWithout_id;
+export type IUserSortFields = keyof IUserWithoutSystemFields;
 export interface IUserSort extends ISort<IUserSortFields> {}
 
 export type IUsersList = ResponseDataListPagination<IUser>;

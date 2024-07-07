@@ -16,19 +16,20 @@ export interface IProduct {
 
   image: IFile;
 }
-type IProductWithout_id = Omit<
+type IProductWithoutSystemFields = Omit<
   IProduct,
   '_id' | 'createdAt' | 'updatedAt' | 'image'
 >;
-export interface IProductPost extends Nullable<IProductWithout_id> {
+export interface IProductPost extends Nullable<IProductWithoutSystemFields> {
   image?: string | null; // on product create, to keep ID of first created File
 
   imageFile: FileList | null;
 }
-export interface IProductFilters extends Partial<Nullable<IProductWithout_id>> {
+export interface IProductFilters
+  extends Partial<Nullable<IProductWithoutSystemFields>> {
   id?: string | null;
 }
-export type IProductSortFields = keyof IProductWithout_id;
+export type IProductSortFields = keyof IProductWithoutSystemFields;
 export interface IProductSort extends ISort<IProductSortFields> {}
 
 export type IProductsList = ResponseDataListPagination<IProduct>;
