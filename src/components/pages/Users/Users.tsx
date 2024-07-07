@@ -17,7 +17,6 @@ import {
 import { withCleanHooks } from 'shared/hocs';
 import { DATE_FORMAT } from 'shared/utils';
 import { IUser } from 'api/usersApi';
-import { Alert } from '@mui/material';
 import { useSetPageData } from 'shared/hooks';
 
 let Users: FC = () => {
@@ -139,32 +138,23 @@ let Users: FC = () => {
       <div className={styles.usersContent}>
         <UsersFilters filters={filters} setFilters={setFilters} />
 
-        {!data?.list?.length ? (
-          <Alert severity={'warning'} variant="outlined">
-            {tCommon('noData')}
-          </Alert>
-        ) : (
-          <DataGrid
-            disableColumnFilter
-            rows={data.list}
-            getRowId={el => el._id}
-            columns={columns}
-            loading={isFetching}
-            paginationModel={{
-              page: data.pagination.pageNumber ?? 0,
-              pageSize: data.pagination.pageSize ?? 12,
-            }}
-            onPaginationModelChange={({ page, pageSize }) =>
-              setPagination({ pageNumber: page, pageSize })
-            }
-            pageSizeOptions={[12, 24, 48]}
-            paginationMode={'server'}
-            rowCount={data.pagination.total || 0}
-            sortingMode={'server'}
-            onSortModelChange={setSorting}
-            sortModel={sorting}
-          />
-        )}
+        <DataGrid
+          rows={data?.list ?? []}
+          getRowId={el => el._id}
+          columns={columns}
+          loading={isFetching}
+          paginationModel={{
+            page: data?.pagination?.pageNumber ?? 0,
+            pageSize: data?.pagination?.pageSize ?? 12,
+          }}
+          onPaginationModelChange={({ page, pageSize }) =>
+            setPagination({ pageNumber: page, pageSize })
+          }
+          pageSizeOptions={[12, 24, 48]}
+          rowCount={data?.pagination?.total || 0}
+          onSortModelChange={setSorting}
+          sortModel={sorting}
+        />
       </div>
 
       {showModal?.type === 'create' && (

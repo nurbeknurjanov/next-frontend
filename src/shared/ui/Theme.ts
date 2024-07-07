@@ -2,6 +2,7 @@
 //import { Roboto } from "next/font/google";
 import { createTheme } from '@mui/material/styles';
 import { lime, red } from '@mui/material/colors';
+import type {} from '@mui/x-data-grid/themeAugmentation';
 
 /*eslint-disable*/
 declare module '@mui/material/styles' {
@@ -251,6 +252,14 @@ const Theme = createTheme({
         root: {
           width: '100% !important',
         },
+      },
+    },
+    MuiDataGrid: {
+      defaultProps: {
+        autoHeight: true,
+        disableColumnFilter: true,
+        paginationMode: 'server',
+        sortingMode: 'server',
       },
     },
     MuiTablePagination: {

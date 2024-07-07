@@ -63,10 +63,14 @@ export const ProductModalView: FC<IProps> = ({ onClose, id }) => {
     });
 
     if (model.image) {
-      /*rows.push({
-        label: 'image',
-        value: model.image.url,
-      });*/
+      rows.push({
+        label: tCommon('image'),
+        value: (
+          <Link href={model.image.url} target={'_blank'}>
+            <img src={model.image.url} width={300} />
+          </Link>
+        ),
+      });
     }
   }
 
@@ -87,7 +91,7 @@ export const ProductModalView: FC<IProps> = ({ onClose, id }) => {
           <DataGrid
             columnHeaderHeight={0}
             getRowHeight={params => {
-              if (params.id === 'image') return 'auto';
+              if (params.id === tCommon('image')) return 'auto';
             }}
             /*
             sx={{
@@ -100,7 +104,6 @@ export const ProductModalView: FC<IProps> = ({ onClose, id }) => {
                 <div ref={ref}>&nbsp;</div>
               )),
             }}*/
-            disableColumnFilter
             hideFooter
             rows={rows}
             columns={columns}
