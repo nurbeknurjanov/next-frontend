@@ -7,7 +7,7 @@ import dayjs from 'dayjs';
 import { DATE_FORMAT } from 'shared/utils';
 import { withCleanHooks } from 'shared/hocs';
 import Loading from 'app/[locale]/loading';
-import { ProductModalDelete } from 'components/pages/Products';
+import { ProductModalDelete } from '../Products';
 import { useSetPageData } from 'shared/hooks';
 import { Button, ButtonLink } from 'shared/ui';
 import { useParams } from 'next/navigation';

@@ -3,10 +3,7 @@ import { products } from 'store';
 import { useTranslations } from 'next-intl';
 import { IProductPost } from 'api/productsApi';
 import { IProps } from './ProductModalCreate';
-import {
-  useProductForm,
-  useProductUploadFile,
-} from 'components/pages/Products';
+import { useProductForm, useProductUploadFile } from '../';
 import { notify } from 'store/common/thunks';
 import { createProductThunk } from 'store/products/thunks';
 
