@@ -10,6 +10,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import dayjs from 'dayjs';
 import { DATE_FORMAT } from 'shared/utils';
+import Link from 'next/link';
 
 export type IProps = {
   id: string;
@@ -26,6 +27,17 @@ const columns: GridColDef[] = [
     field: 'value',
     headerName: 'Value',
     flex: 1,
+    renderCell: params => {
+      if (params.row.label === 'image') {
+        return (
+          <Link href={params.value} target={'_blank'}>
+            <img src={params.value} width={300} />
+          </Link>
+        );
+      }
+
+      return params.value;
+    },
   },
 ];
 
@@ -57,6 +69,13 @@ export const ProductModalView: FC<IProps> = ({ onClose, id }) => {
       label: tCommon('updatedAt'),
       value: dayjs(model.updatedAt).format(DATE_FORMAT),
     });
+
+    if (model.image) {
+      rows.push({
+        label: 'image',
+        value: model.image.url,
+      });
+    }
   }
 
   return (
