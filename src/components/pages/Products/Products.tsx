@@ -60,6 +60,24 @@ let Products: FC = () => {
       flex: 1,
     },
     {
+      field: 'image',
+      headerName: tCommon('image'),
+      renderCell: params => {
+        if (params.row.image) {
+          return (
+            <Link
+              href={params.row.image.url}
+              target={'_blank'}
+              sx={{ fontSize: 0 }}
+            >
+              <img src={params.row.image.url} width={100} />
+            </Link>
+          );
+        }
+      },
+      flex: 1,
+    },
+    {
       field: 'description',
       headerName: tProduct('description'),
       flex: 1,
@@ -131,6 +149,9 @@ let Products: FC = () => {
         <ProductsFilters filters={filters} setFilters={setFilters} />
 
         <DataGrid
+          getRowHeight={params => {
+            if (params.model.image) return 'auto';
+          }}
           rows={data?.list ?? []}
           getRowId={el => el._id}
           columns={columns}

@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { useProductModel } from 'components/pages/Product';
-import { Button } from 'shared/ui';
+import { Button, Link } from 'shared/ui';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
@@ -10,7 +10,6 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import dayjs from 'dayjs';
 import { DATE_FORMAT } from 'shared/utils';
-import Link from 'next/link';
 
 export type IProps = {
   id: string;
@@ -66,7 +65,7 @@ export const ProductModalView: FC<IProps> = ({ onClose, id }) => {
       rows.push({
         label: tCommon('image'),
         value: (
-          <Link href={model.image.url} target={'_blank'}>
+          <Link href={model.image.url} target={'_blank'} sx={{ fontSize: 0 }}>
             <img src={model.image.url} width={300} />
           </Link>
         ),

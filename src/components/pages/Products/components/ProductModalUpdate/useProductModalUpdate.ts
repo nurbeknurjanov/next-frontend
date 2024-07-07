@@ -40,6 +40,7 @@ export function useProductModalUpdate({ onClose, afterUpdate, id }: IProps) {
     setValue,
     watch,
     schema,
+    afterFileUploadAndRemove: afterUpdate,
   });
 
   const updateProduct = async (id: string, formData: IProductPost) => {

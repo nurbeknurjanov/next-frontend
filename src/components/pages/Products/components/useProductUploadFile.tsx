@@ -1,4 +1,3 @@
-'use client';
 import { useCallback, useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
 import { products } from 'store';
@@ -6,14 +5,24 @@ import { deleteFileThunk, createFileThunk } from 'store/files/thunks';
 import { IFile, IFilePost } from 'api/filesApi';
 import { UseFormSetValue, UseFormWatch } from 'react-hook-form';
 import { ObjectSchema } from 'joi';
+import { notify } from '../../../../store/common/thunks';
+import { useTranslations } from 'next-intl';
 
 interface IProps {
   id?: string;
   setValue: UseFormSetValue<any>;
   watch: UseFormWatch<any>;
   schema: ObjectSchema;
+  afterFileUploadAndRemove: () => void;
 }
-export function useProductUploadFile({ id, setValue, watch, schema }: IProps) {
+export function useProductUploadFile({
+  id,
+  setValue,
+  watch,
+  schema,
+  afterFileUploadAndRemove,
+}: IProps) {
+  const tCommon = useTranslations('Common');
   const dispatch = useAppDispatch();
 
   const product = useAppSelector(products.getProduct.selector.data);
@@ -34,6 +43,9 @@ export function useProductUploadFile({ id, setValue, watch, schema }: IProps) {
       if (!product) {
         setValue('image', null);
       }
+
+      dispatch(notify(tCommon('successDeleted'), 'success'));
+      afterFileUploadAndRemove();
     }
   };
 
@@ -60,9 +72,12 @@ export function useProductUploadFile({ id, setValue, watch, schema }: IProps) {
         if (!product) {
           setValue('image', data._id);
         }
+
+        dispatch(notify(tCommon('successUploaded'), 'success'));
+        afterFileUploadAndRemove();
       }
     },
-    [dispatch, setValue, product]
+    [dispatch, setValue, product, afterFileUploadAndRemove, tCommon]
   );
 
   const imageFileValue = watch('imageFile');

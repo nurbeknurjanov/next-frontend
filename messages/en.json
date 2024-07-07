@@ -16,6 +16,7 @@
     "successCreated": "Successfully created",
     "successUpdated": "Successfully updated",
     "successDeleted": "Successfully deleted",
+    "successUploaded": "Successfully uploaded",
     "deleteAlert": "Are you sure to delete ?",
     "noData": "No data",
     "image": "Image"

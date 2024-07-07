@@ -9,10 +9,9 @@ import { withCleanHooks } from 'shared/hocs';
 import Loading from 'app/[locale]/loading';
 import { ProductModalDelete } from 'components/pages/Products';
 import { useSetPageData } from 'shared/hooks';
-import { Button, ButtonLink } from 'shared/ui';
+import { Button, ButtonLink, Link } from 'shared/ui';
 import { useParams } from 'next/navigation';
 import { ProductPageProps } from 'app/[locale]/products/[id]/page';
-import Link from 'next/link';
 
 const columns: GridColDef[] = [
   {
@@ -97,7 +96,7 @@ let Product: FC = () => {
       rows.push({
         label: tCommon('image'),
         value: (
-          <Link href={model.image.url} target={'_blank'}>
+          <Link href={model.image.url} target={'_blank'} sx={{ fontSize: 0 }}>
             <img src={model.image.url} width={300} />
           </Link>
         ),
