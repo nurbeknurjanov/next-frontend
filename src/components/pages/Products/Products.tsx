@@ -7,6 +7,7 @@ import { useProducts } from './useProducts';
 import { Button, Link } from 'shared/ui';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import Pagination from '@mui/material/Pagination';
 import {
   ProductModalCreate,
   ProductModalUpdate,
@@ -121,24 +122,6 @@ let Products: FC = () => {
         />,
       ],
     },
-    /*{
-      field: 'actions',
-      headerName: 'Actions',
-      renderCell: params => (
-        <>
-          <EditIcon
-            color={'primary'}
-            sx={{ cursor: 'pointer' }}
-            onClick={setSelectedIdToUpdate.bind(null, params.row._id)}
-          />
-          <DeleteIcon
-            color={'error'}
-            sx={{ cursor: 'pointer' }}
-            onClick={() => setSelectedIdToDelete(params.row._id)}
-          />
-        </>
-      ),
-    },*/
   ];
 
   const { data, isFetching } = getProductsState;
@@ -164,9 +147,24 @@ let Products: FC = () => {
             setPagination({ pageNumber: page, pageSize })
           }
           pageSizeOptions={[12, 24, 48]}
-          rowCount={data?.pagination?.total || 0}
+          rowCount={data?.pagination?.total ?? 0}
           onSortModelChange={setSorting}
           sortModel={sorting}
+          slotProps={{
+            pagination: {
+              count: data?.pagination?.pageCount ?? 0,
+              page: (data?.pagination?.pageNumber ?? 0) + 1,
+              onChange: ((
+                event: React.ChangeEvent<HTMLTableCellElement>,
+                page: number
+              ) => {
+                setPagination({ pageNumber: page - 1, pageSize: 12 });
+              }) as React.FormEventHandler<HTMLTableCellElement>,
+            },
+          }}
+          slots={{
+            pagination: Pagination,
+          }}
         />
       </div>
 
