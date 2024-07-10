@@ -37,6 +37,7 @@ type IFileWithoutSystemFields = Omit<IFile, '_id' | 'data' | 'url' | 'model'>;
 export type IFileFilters = Partial<Nullable<IFileWithoutSystemFields>> & {
   id?: string | null;
   type?: string | null;
+  modelSearch?: string | null;
 };
 export type IFileSortFields = keyof IFileWithoutSystemFields;
 export interface IFileSort extends ISort<IFileSortFields> {}

@@ -20,7 +20,7 @@ export interface IProps {
 }
 export const FilesFilters = ({ filters, setFilters }: IProps) => {
   const tCommon = useTranslations('Common');
-  const tFile = useTranslations('File');
+  const tProductPage = useTranslations('ProductPage');
 
   const {
     onSubmitForm,
@@ -53,6 +53,12 @@ export const FilesFilters = ({ filters, setFilters }: IProps) => {
               <MenuItem value={'image'}>{tCommon('image')}</MenuItem>
             </Select>
           </FormControl>
+
+          <TextField
+            label={tProductPage('title')}
+            {...register('modelSearch')}
+            InputLabelProps={{ shrink: !!watch('modelSearch') }}
+          />
 
           <Button
             type={'submit'}
