@@ -20,6 +20,7 @@ export const FilesFilters = ({ filters, setFilters }: IProps) => {
     onSubmitForm,
     onResetForm,
     register,
+    watch,
     isDirty,
     isValid,
     getFilesState,
@@ -30,7 +31,11 @@ export const FilesFilters = ({ filters, setFilters }: IProps) => {
     <Card>
       <CardContent>
         <form onSubmit={onSubmitForm} onReset={onResetForm}>
-          <TextField label={tCommon('id')} {...register('id')} />
+          <TextField
+            label={tCommon('id')}
+            {...register('id')}
+            InputLabelProps={{ shrink: !!watch('id') }}
+          />
 
           <Button
             type={'submit'}

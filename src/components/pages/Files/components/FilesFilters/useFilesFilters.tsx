@@ -9,16 +9,23 @@ export function useFilesFilters({ filters, setFilters }: IProps) {
   const previousFilters = useRef<IFileFilters | null>(null);
   const getFilesState = useAppSelector(files.getFiles.selector.state);
 
-  const defaultValues = { name: null, description: null, ...filters };
+  const defaultValues = { id: null };
   const {
     register,
     handleSubmit,
     reset,
+    setValue,
+    watch,
     formState: { isDirty, isValid },
   } = useForm<IFileFilters>({
     mode: 'onTouched',
     defaultValues,
   });
+  useEffect(() => {
+    Object.entries(filters).forEach(([key, value]) => {
+      setValue(key, value);
+    });
+  }, [filters, setValue]);
 
   const submitForm = (formData: IFileFilters) => {
     setFilters(formData);
@@ -30,6 +37,7 @@ export function useFilesFilters({ filters, setFilters }: IProps) {
   const onResetForm = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     reset();
+    handleSubmit(submitForm)(event);
   };
 
   useEffect(() => {
@@ -43,6 +51,7 @@ export function useFilesFilters({ filters, setFilters }: IProps) {
     onResetForm,
     register,
     reset,
+    watch,
     isDirty,
     isValid,
     getFilesState,
