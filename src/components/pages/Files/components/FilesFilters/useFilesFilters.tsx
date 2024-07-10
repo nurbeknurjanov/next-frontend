@@ -23,7 +23,7 @@ export function useFilesFilters({ filters, setFilters }: IProps) {
   });
   useEffect(() => {
     Object.entries(filters).forEach(([key, value]) => {
-      setValue(key, value);
+      setValue(key as keyof typeof filters, value);
     });
   }, [filters, setValue]);
 
