@@ -28,9 +28,7 @@ export function useUsersFilters({ filters, setFilters }: IProps) {
     });
   }, [filters, setValue]);
 
-  const submitForm = (formData: IUserFilters) => {
-    setFilters(formData);
-  };
+  const submitForm = (formData: IUserFilters) => setFilters(formData);
 
   const onSubmitForm = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
