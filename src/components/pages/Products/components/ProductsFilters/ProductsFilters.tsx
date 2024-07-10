@@ -30,10 +30,15 @@ export const ProductsFilters = ({ filters, setFilters }: IProps) => {
     <Card>
       <CardContent>
         <form onSubmit={onSubmitForm} onReset={onResetForm}>
-          <TextField label={tProduct('name')} {...register('name')} />
+          <TextField
+            label={tProduct('name')}
+            {...register('name')}
+            InputLabelProps={{ shrink: !!watch('name') }}
+          />
           <TextField
             label={tProduct('description')}
             {...register('description')}
+            InputLabelProps={{ shrink: !!watch('description') }}
           />
 
           <Button
