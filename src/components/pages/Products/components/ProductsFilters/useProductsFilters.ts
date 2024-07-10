@@ -13,7 +13,7 @@ export function useProductsFilters({ filters, setFilters }: IProps) {
   const previousFilters = useRef<IProductFilters | null>(null);
   const getProductsState = useAppSelector(products.getProducts.selector.state);
 
-  const defaultValues = { name: null, description: null, ...filters };
+  const defaultValues = { name: null, description: null };
   const {
     register,
     handleSubmit,
@@ -23,6 +23,9 @@ export function useProductsFilters({ filters, setFilters }: IProps) {
     mode: 'onTouched',
     defaultValues,
   });
+  useEffect(() => {
+    reset(filters);
+  }, [filters, reset]);
 
   const submitForm = (formData: IProductFilters) => {
     setFilters(formData);
@@ -34,7 +37,8 @@ export function useProductsFilters({ filters, setFilters }: IProps) {
   };
   const onResetForm = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    reset();
+    reset(defaultValues);
+    handleSubmit(submitForm)(event);
   };
 
   useEffect(() => {
