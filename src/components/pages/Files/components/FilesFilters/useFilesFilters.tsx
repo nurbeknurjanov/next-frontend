@@ -9,7 +9,7 @@ export function useFilesFilters({ filters, setFilters }: IProps) {
   const previousFilters = useRef<IFileFilters | null>(null);
   const getFilesState = useAppSelector(files.getFiles.selector.state);
 
-  const defaultValues = { id: null, type: null };
+  const defaultValues = { id: null, type: null, modelSearch: null };
   const {
     register,
     handleSubmit,

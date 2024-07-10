@@ -38,11 +38,7 @@ let Files: FC = () => {
       field: 'id',
       headerName: '',
       renderCell: params => (
-        <Link
-          href={'/files/' + params.row._id}
-          target={'_blank'}
-          sx={{ fontSize: 0 }}
-        >
+        <Link href={params.row.url} target={'_blank'} sx={{ fontSize: 0 }}>
           <img src={params.row.url} width={100} />
         </Link>
       ),
