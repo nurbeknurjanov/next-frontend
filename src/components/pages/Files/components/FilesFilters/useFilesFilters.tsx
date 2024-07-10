@@ -1,3 +1,4 @@
+'use client';
 import { useForm } from 'react-hook-form';
 import { IProps } from './FilesFilters';
 import { IFileFilters } from 'api/filesApi';

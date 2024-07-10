@@ -7,11 +7,12 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 //import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
+import { FileModalDelete } from 'components/pages/Files';
 
 export type IProps = {
   id: string;
@@ -48,85 +49,102 @@ export const ProductModalUpdate: React.FC<IProps> = ({
     afterUpdate,
   });
 
+  const [selectedFileIdToDelete, setSelectedFileIdToDelete] = useState<
+    string | null
+  >();
+
   return (
-    <Dialog open onClose={onClose}>
-      <DialogTitle>{tProductPage('update')}</DialogTitle>
-      <DialogContent>
-        {getProductState.isFetching ? (
-          <CircularProgress sx={{ mx: 'auto', mb: 2, display: 'block' }} />
-        ) : (
-          <form
-            ref={el => (formRef.current = el!)}
-            /*ref={formRef}*/
-            onSubmit={e => {
-              e.preventDefault();
-              handleSubmit(submitForm)(e);
-            }}
-          >
-            <TextField
-              label={tProduct('name')}
-              error={!!errors['name']}
-              helperText={errors['name']?.message}
-              {...register('name')}
-            />
-
-            <TextField
-              label={tProduct('description')}
-              error={!!errors['description']}
-              helperText={errors['description']?.message}
-              {...register('description')}
-            />
-
-            {imageObject ? (
-              <Card sx={{ mb: 1 }}>
-                <CardContent
-                  sx={{ display: 'flex', justifyContent: 'space-between' }}
-                >
-                  <img src={imageObject.url} width={200} />
-                  <DeleteIcon
-                    color={'error'}
-                    sx={{ cursor: 'pointer' }}
-                    onClick={() => deleteFile(imageObject._id!)}
-                  />
-                </CardContent>
-              </Card>
-            ) : (
+    <>
+      <Dialog open onClose={onClose}>
+        <DialogTitle>{tProductPage('update')}</DialogTitle>
+        <DialogContent>
+          {getProductState.isFetching ? (
+            <CircularProgress sx={{ mx: 'auto', mb: 2, display: 'block' }} />
+          ) : (
+            <form
+              ref={el => (formRef.current = el!)}
+              /*ref={formRef}*/
+              onSubmit={e => {
+                e.preventDefault();
+                handleSubmit(submitForm)(e);
+              }}
+            >
               <TextField
-                type={'file'}
-                label={'Image file'}
-                error={!!errors['imageFile']}
-                FormHelperTextProps={{
-                  component: 'div',
-                }}
-                helperText={
-                  errors['imageFile']?.message ?? (
-                    <LinearProgressWithLabel
-                      variant="determinate"
-                      value={percentUploadImage}
-                    />
-                  )
-                }
-                {...register('imageFile')}
+                label={tProduct('name')}
+                error={!!errors['name']}
+                helperText={errors['name']?.message}
+                {...register('name')}
               />
-            )}
-          </form>
-        )}
-      </DialogContent>
-      <DialogActions>
-        <Button onClick={onClose}>{tCommon('close')}</Button>
-        <Button
-          variant={'contained'}
-          onClick={() => {
-            formRef.current?.requestSubmit();
-          }}
-          disabled={!isDirty || !isValid}
-          autoFocus
-          loading={aggStates.isFetching}
-          sx={{ minWidth: 120 }}
-        >
-          {tCommon('update')}
-        </Button>
-      </DialogActions>
-    </Dialog>
+
+              <TextField
+                label={tProduct('description')}
+                error={!!errors['description']}
+                helperText={errors['description']?.message}
+                {...register('description')}
+              />
+
+              {imageObject ? (
+                <Card sx={{ mb: 1 }}>
+                  <CardContent
+                    sx={{ display: 'flex', justifyContent: 'space-between' }}
+                  >
+                    <img src={imageObject.url} width={200} />
+                    <DeleteIcon
+                      color={'error'}
+                      sx={{ cursor: 'pointer' }}
+                      onClick={() => {
+                        //deleteFile(imageObject._id!);
+                        setSelectedFileIdToDelete(imageObject._id!);
+                      }}
+                    />
+                  </CardContent>
+                </Card>
+              ) : (
+                <TextField
+                  type={'file'}
+                  label={'Image file'}
+                  error={!!errors['imageFile']}
+                  FormHelperTextProps={{
+                    component: 'div',
+                  }}
+                  helperText={
+                    errors['imageFile']?.message ?? (
+                      <LinearProgressWithLabel
+                        variant="determinate"
+                        value={percentUploadImage}
+                      />
+                    )
+                  }
+                  {...register('imageFile')}
+                />
+              )}
+            </form>
+          )}
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={onClose}>{tCommon('close')}</Button>
+          <Button
+            variant={'contained'}
+            onClick={() => {
+              formRef.current?.requestSubmit();
+            }}
+            disabled={!isDirty || !isValid}
+            autoFocus
+            loading={aggStates.isFetching}
+            sx={{ minWidth: 120 }}
+          >
+            {tCommon('update')}
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      {selectedFileIdToDelete && (
+        <FileModalDelete
+          id={selectedFileIdToDelete}
+          onClose={() => setSelectedFileIdToDelete(null)}
+          afterDelete={afterUpdate}
+        />
+      )}
+    </>
   );
 };
