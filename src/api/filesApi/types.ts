@@ -33,7 +33,7 @@ export interface IFilePost {
   modelId?: string;
 }
 
-export type IFileFilters = Nullable<Partial<IFileWithoutSystemFields>> & {
+export type IFileFilters = Partial<Nullable<IFileWithoutSystemFields>> & {
   id?: string | null;
 };
 export type IFileSortFields = keyof IFileWithoutSystemFields;

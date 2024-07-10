@@ -13,14 +13,13 @@ export interface IProps {
   setFilters: (_filters: IFileFilters) => void;
 }
 export const FilesFilters = ({ filters, setFilters }: IProps) => {
-  const tc = useTranslations('Common');
-  const tp = useTranslations('File');
+  const tCommon = useTranslations('Common');
+  const tFile = useTranslations('File');
 
   const {
-    submitForm,
+    onSubmitForm,
+    onResetForm,
     register,
-    handleSubmit,
-    reset,
     isDirty,
     isValid,
     getFilesState,
@@ -30,19 +29,8 @@ export const FilesFilters = ({ filters, setFilters }: IProps) => {
   return (
     <Card>
       <CardContent>
-        <form
-          onSubmit={e => {
-            e.preventDefault();
-            handleSubmit(submitForm)(e);
-          }}
-          onReset={e => {
-            e.preventDefault();
-            reset({ name: null, description: null });
-            submitForm({ name: null, description: null });
-          }}
-        >
-          <TextField label={tp('name')} {...register('name')} />
-          <TextField label={tp('description')} {...register('description')} />
+        <form onSubmit={onSubmitForm} onReset={onResetForm}>
+          <TextField label={tCommon('id')} {...register('id')} />
 
           <Button
             type={'submit'}
@@ -54,10 +42,10 @@ export const FilesFilters = ({ filters, setFilters }: IProps) => {
             }
             sx={{ minWidth: 100 }}
           >
-            {tc('search')}
+            {tCommon('search')}
           </Button>
           <Button type={'reset'} variant={'outlined'} sx={{ ml: 1 }}>
-            {tc('reset')}
+            {tCommon('reset')}
           </Button>
         </form>
       </CardContent>

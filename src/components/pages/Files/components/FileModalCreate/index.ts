@@ -1,1 +1,0 @@
-export { FileModalCreate } from './FileModalCreate';

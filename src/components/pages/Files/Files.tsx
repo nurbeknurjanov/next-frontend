@@ -4,15 +4,9 @@ import dayjs from 'dayjs';
 import styles from './files.module.scss';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import { useFiles } from './useFiles';
-import { Button, Link } from 'shared/ui';
+import { Link } from 'shared/ui';
 import DeleteIcon from '@mui/icons-material/Delete';
-import EditIcon from '@mui/icons-material/Edit';
-/*import {
-  FileModalCreate,
-  FileModalView,
-  FileModalDelete,
-  FilesFilters,
-} from './components';*/
+import { /*FileModalDelete,*/ FilesFilters } from './components';
 import { withCleanHooks } from 'shared/hocs';
 import { DATE_FORMAT } from 'shared/utils';
 import { IFile } from 'api/filesApi';
@@ -82,7 +76,7 @@ let Files: FC = () => {
   return (
     <>
       <div className={styles.filesContent}>
-        {/*<FilesFilters filters={filters} setFilters={setFilters} />*/}
+        <FilesFilters filters={filters} setFilters={setFilters} />
 
         <DataGrid
           getRowHeight={_params => 'auto'}

@@ -3,7 +3,7 @@ import { IProps } from './FilesFilters';
 import { IFileFilters } from 'api/filesApi';
 import { useAppSelector } from 'store/hooks';
 import { files } from 'store';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, FormEvent } from 'react';
 
 export function useFilesFilters({ filters, setFilters }: IProps) {
   const previousFilters = useRef<IFileFilters | null>(null);
@@ -23,6 +23,14 @@ export function useFilesFilters({ filters, setFilters }: IProps) {
   const submitForm = (formData: IFileFilters) => {
     setFilters(formData);
   };
+  const onSubmitForm = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    handleSubmit(submitForm)(event);
+  };
+  const onResetForm = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    reset();
+  };
 
   useEffect(() => {
     if (getFilesState.isFetching) {
@@ -31,9 +39,9 @@ export function useFilesFilters({ filters, setFilters }: IProps) {
   }, [filters, getFilesState.isFetching]);
 
   return {
-    submitForm,
+    onSubmitForm,
+    onResetForm,
     register,
-    handleSubmit,
     reset,
     isDirty,
     isValid,

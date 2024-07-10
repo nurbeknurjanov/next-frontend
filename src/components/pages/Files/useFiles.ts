@@ -1,17 +1,16 @@
 'use client';
-import React, { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
 import { files } from 'store';
 import { getFilesThunk } from 'store/files/thunks';
 import { useTranslations } from 'next-intl';
 import { IPaginationRequest } from 'api/baseApi';
 import { isEqual } from 'lodash';
-import { Button } from 'shared/ui';
-import { useSetPageData, useTableStates } from 'shared/hooks';
+import { useTableStates } from 'shared/hooks';
 import { GridSortModel } from '@mui/x-data-grid';
 import { IFileFilters } from 'api/filesApi';
 
-type ModalType = { type: 'create' } | { type: 'delete' | 'view'; id: string };
+type ModalType = { type: 'delete'; id: string };
 
 //const env = process.env.NODE_ENV;
 export function useFiles() {
