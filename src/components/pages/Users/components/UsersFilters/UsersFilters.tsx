@@ -17,10 +17,10 @@ export const UsersFilters = ({ filters, setFilters }: IProps) => {
   const tUser = useTranslations('User');
 
   const {
-    submitForm,
+    onSubmitForm,
+    onResetForm,
     register,
-    handleSubmit,
-    reset,
+    watch,
     isDirty,
     isValid,
     getUsersState,
@@ -30,19 +30,17 @@ export const UsersFilters = ({ filters, setFilters }: IProps) => {
   return (
     <Card>
       <CardContent>
-        <form
-          onSubmit={e => {
-            e.preventDefault();
-            handleSubmit(submitForm)(e);
-          }}
-          onReset={e => {
-            e.preventDefault();
-            reset({ name: null, email: null });
-            submitForm({ name: null, email: null });
-          }}
-        >
-          <TextField label={tUser('name')} {...register('name')} />
-          <TextField label={tUser('email')} {...register('email')} />
+        <form onSubmit={onSubmitForm} onReset={onResetForm}>
+          <TextField
+            label={tUser('name')}
+            {...register('name')}
+            InputLabelProps={{ shrink: !!watch('name') }}
+          />
+          <TextField
+            label={tUser('email')}
+            {...register('email')}
+            InputLabelProps={{ shrink: !!watch('email') }}
+          />
 
           <Button
             type={'submit'}
