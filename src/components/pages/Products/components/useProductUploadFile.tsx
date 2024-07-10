@@ -37,11 +37,13 @@ export function useProductUploadFile({
   const deleteFile = async (id: string) => {
     const { data } = await dispatch(deleteFileThunk(id));
 
-    if (data?.data?.type === 'image') {
-      setImageObject(null);
-      //on product create scenario
-      if (!product) {
-        setValue('imageId', null);
+    if (data) {
+      if (data.data?.type === 'image') {
+        setImageObject(null);
+        //on product create scenario
+        if (!product) {
+          setValue('imageId', null);
+        }
       }
 
       dispatch(notify(tCommon('successDeleted'), 'success'));
@@ -65,12 +67,14 @@ export function useProductUploadFile({
       );
       setPercentUploadImage(0);
 
-      if (data?.data?.type === 'image') {
-        setImageObject(data);
+      if (data) {
+        if (data.data?.type === 'image') {
+          setImageObject(data);
 
-        //on product create scenario
-        if (!product) {
-          setValue('imageId', data._id);
+          //on product create scenario
+          if (!product) {
+            setValue('imageId', data._id);
+          }
         }
 
         dispatch(notify(tCommon('successUploaded'), 'success'));
