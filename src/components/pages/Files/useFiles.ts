@@ -16,7 +16,7 @@ type ModalType = { type: 'delete'; id: string };
 export function useFiles() {
   const dispatch = useAppDispatch();
   const tCommon = useTranslations('Common');
-  const tFile = useTranslations('File');
+  const tProductPage = useTranslations('ProductPage');
   const tFiles = useTranslations('FilesPage');
 
   const [showModal, setShowModal] = useState<ModalType | null>();
@@ -93,7 +93,7 @@ export function useFiles() {
   return {
     tCommon,
     tFiles,
-    tFile,
+    tProductPage,
     getFilesState,
     setPagination,
     sorting,

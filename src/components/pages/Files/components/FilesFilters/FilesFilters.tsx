@@ -51,7 +51,6 @@ export const FilesFilters = ({ filters, setFilters }: IProps) => {
               value={watch('type') ?? ''}
             >
               <MenuItem value={'image'}>{tCommon('image')}</MenuItem>
-              <MenuItem value={'other'}>Other</MenuItem>
             </Select>
           </FormControl>
 

@@ -16,7 +16,7 @@ let Files: FC = () => {
   const {
     tCommon,
     tFiles,
-    //  tFile,
+    tProductPage,
     getFilesState,
     setPagination,
     sorting,
@@ -47,6 +47,16 @@ let Files: FC = () => {
         </Link>
       ),
       flex: 1,
+    },
+    {
+      field: 'modelId',
+      headerName: tProductPage('title'),
+      flex: 1,
+      renderCell: params => (
+        <Link href={'/products/' + params.row.model._id} target={'_blank'}>
+          {params.row.model.name}
+        </Link>
+      ),
     },
     {
       field: 'type',

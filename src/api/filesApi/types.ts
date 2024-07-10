@@ -5,6 +5,7 @@ import {
   ResponseDataListPagination,
 } from 'api/baseApi';
 import { AxiosRequestConfig } from 'axios';
+import { IProduct } from 'api/productsApi';
 
 export interface IFile {
   _id: string;
@@ -16,6 +17,7 @@ export interface IFile {
   ext: string;
   originalFileName: string;
   url: string;
+  model: IProduct;
   createdAt: string;
   updatedAt: string;
 }
@@ -31,7 +33,7 @@ export interface IFilePost {
   modelId?: string;
 }
 
-type IFileWithoutSystemFields = Omit<IFile, '_id' | 'data'>;
+type IFileWithoutSystemFields = Omit<IFile, '_id' | 'data' | 'url' | 'model'>;
 export type IFileFilters = Partial<Nullable<IFileWithoutSystemFields>> & {
   id?: string | null;
   type?: string | null;
