@@ -23,18 +23,6 @@ export function useFiles() {
   const [showModal, setShowModal] = useState<ModalType | null>();
   const closeShowModal = useCallback(() => setShowModal(null), []);
 
-  useSetPageData(
-    tFiles('title'),
-    [tFiles('title')],
-    <Button
-      variant={'contained'}
-      size={'small'}
-      onClick={() => setShowModal({ type: 'create' })}
-    >
-      {tFiles('create')}
-    </Button>
-  );
-
   const getFilesState = useAppSelector(files.getFiles.selector.state);
 
   const {

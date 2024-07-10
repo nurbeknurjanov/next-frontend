@@ -113,24 +113,6 @@ let Users: FC = () => {
         />,
       ],
     },
-    /*{
-      field: 'actions',
-      headerName: 'Actions',
-      renderCell: params => (
-        <>
-          <EditIcon
-            color={'primary'}
-            sx={{ cursor: 'pointer' }}
-            onClick={setSelectedIdToUpdate.bind(null, params.row._id)}
-          />
-          <DeleteIcon
-            color={'error'}
-            sx={{ cursor: 'pointer' }}
-            onClick={() => setSelectedIdToDelete(params.row._id)}
-          />
-        </>
-      ),
-    },*/
   ];
 
   return (

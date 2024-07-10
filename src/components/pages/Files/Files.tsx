@@ -2,9 +2,9 @@
 import React, { FC } from 'react';
 import dayjs from 'dayjs';
 import styles from './files.module.scss';
-import { DataGrid, GridColDef, GridActionsCellItem } from '@mui/x-data-grid';
+import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import { useFiles } from './useFiles';
-import { Link } from 'shared/ui';
+import { Button, Link } from 'shared/ui';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 /*import {
@@ -16,6 +16,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import { withCleanHooks } from 'shared/hocs';
 import { DATE_FORMAT } from 'shared/utils';
 import { IFile } from 'api/filesApi';
+import { useSetPageData } from '../../../shared/hooks';
 
 let Files: FC = () => {
   const {
@@ -34,14 +35,22 @@ let Files: FC = () => {
     closeShowModal,
   } = useFiles();
 
+  useSetPageData(tFiles('title'), [tFiles('title')]);
+
   const { data, isFetching } = getFilesState;
 
   const columns: GridColDef<IFile>[] = [
     {
       field: 'id',
-      headerName: tCommon('id'),
+      headerName: tCommon('image'),
       renderCell: params => (
-        <Link href={'/files/' + params.row._id}>{params.row._id}</Link>
+        <Link
+          href={'/files/' + params.row._id}
+          target={'_blank'}
+          sx={{ fontSize: 0 }}
+        >
+          <img src={params.row.url} width={100} />
+        </Link>
       ),
       flex: 1,
     },
@@ -59,22 +68,13 @@ let Files: FC = () => {
     },
     {
       field: 'actions',
-      headerName: 'Actions',
+      headerName: tCommon('actions'),
       renderCell: params => (
-        <>
-          <EditIcon
-            color={'primary'}
-            sx={{ cursor: 'pointer' }}
-            onClick={() => setShowModal({ type: 'view', id: params.row._id })}
-          />
-          <DeleteIcon
-            color={'error'}
-            sx={{ cursor: 'pointer' }}
-            onClick={() => () =>
-              setShowModal({ type: 'delete', id: params.row._id })
-            }
-          />
-        </>
+        <DeleteIcon
+          color={'error'}
+          sx={{ cursor: 'pointer' }}
+          onClick={() => setShowModal({ type: 'delete', id: params.row._id })}
+        />
       ),
     },
   ];
@@ -85,6 +85,7 @@ let Files: FC = () => {
         {/*<FilesFilters filters={filters} setFilters={setFilters} />*/}
 
         <DataGrid
+          getRowHeight={_params => 'auto'}
           rows={data?.list ?? []}
           getRowId={el => el._id}
           columns={columns}
@@ -100,6 +101,11 @@ let Files: FC = () => {
           rowCount={data?.pagination?.total || 0}
           onSortModelChange={setSorting}
           sortModel={sorting}
+          slotProps={{
+            pagination: {
+              labelRowsPerPage: tCommon('rowsPerPage:'),
+            },
+          }}
         />
       </div>
 

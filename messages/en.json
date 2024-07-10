@@ -19,7 +19,9 @@
     "successUploaded": "Successfully uploaded",
     "deleteAlert": "Are you sure to delete ?",
     "noData": "No data",
-    "image": "Image"
+    "image": "Image",
+    "actions": "Actions",
+    "rowsPerPage:": "Rows per page:"
   },
   "HomePage": {
     "title": "Welcome",
