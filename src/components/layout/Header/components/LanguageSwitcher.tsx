@@ -1,9 +1,11 @@
 'use client';
-import React from 'react';
+import React, { useEffect } from 'react';
 import MuiLink from '@mui/material/Link';
 import { usePathname, useRouter } from 'navigation';
 import { useSearchParams, useParams } from 'next/navigation';
-import { locales } from 'i18n';
+import { locales, localeType } from 'i18n';
+import dayjs from 'dayjs';
+require('dayjs/locale/ru');
 
 export const LanguageSwitcher = () => {
   /*let url = new URL("https://example.com?foo[]=1&foo[]=2&bar=2");
@@ -21,6 +23,9 @@ export const LanguageSwitcher = () => {
   };
 
   const { locale } = useParams();
+  useEffect(() => {
+    dayjs.locale(locale as localeType);
+  }, [locale]);
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
