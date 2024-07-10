@@ -36,7 +36,7 @@ let Files: FC = () => {
   const columns: GridColDef<IFile>[] = [
     {
       field: 'id',
-      headerName: tCommon('image'),
+      headerName: '',
       renderCell: params => (
         <Link
           href={'/files/' + params.row._id}
@@ -47,6 +47,12 @@ let Files: FC = () => {
         </Link>
       ),
       flex: 1,
+    },
+    {
+      field: 'type',
+      headerName: tCommon('type'),
+      flex: 1,
+      valueGetter: params => tCommon(params.row.data.type),
     },
     {
       field: 'createdAt',

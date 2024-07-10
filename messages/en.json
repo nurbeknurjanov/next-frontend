@@ -20,6 +20,7 @@
     "deleteAlert": "Are you sure to delete ?",
     "noData": "No data",
     "image": "Image",
+    "type": "Type",
     "actions": "Actions",
     "rowsPerPage:": "Rows per page:"
   },
