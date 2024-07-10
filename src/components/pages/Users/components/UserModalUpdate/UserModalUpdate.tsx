@@ -169,7 +169,7 @@ export const UserModalUpdate: React.FC<IProps> = ({
               </FormGroup>
             </FormControl>*/}
 
-            <FormControl size="small" sx={{ mb: 2 }}>
+            <FormControl sx={{ mb: 2 }}>
               <InputLabel>{tUser('status')}</InputLabel>
               <Select
                 label={tUser('status')}

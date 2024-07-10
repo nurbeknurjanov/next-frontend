@@ -9,7 +9,7 @@ export function useFilesFilters({ filters, setFilters }: IProps) {
   const previousFilters = useRef<IFileFilters | null>(null);
   const getFilesState = useAppSelector(files.getFiles.selector.state);
 
-  const defaultValues = { id: null };
+  const defaultValues = { id: null, type: null };
   const {
     register,
     handleSubmit,
@@ -27,9 +27,7 @@ export function useFilesFilters({ filters, setFilters }: IProps) {
     });
   }, [filters, setValue]);
 
-  const submitForm = (formData: IFileFilters) => {
-    setFilters(formData);
-  };
+  const submitForm = (formData: IFileFilters) => setFilters(formData);
   const onSubmitForm = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     handleSubmit(submitForm)(event);

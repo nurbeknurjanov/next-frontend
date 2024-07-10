@@ -20,8 +20,6 @@ export interface IFile {
   updatedAt: string;
 }
 
-type IFileWithoutSystemFields = Omit<IFile, '_id'>;
-
 export interface IFilePost {
   data: {
     type: 'image';
@@ -33,8 +31,10 @@ export interface IFilePost {
   modelId?: string;
 }
 
+type IFileWithoutSystemFields = Omit<IFile, '_id' | 'data'>;
 export type IFileFilters = Partial<Nullable<IFileWithoutSystemFields>> & {
   id?: string | null;
+  type?: string | null;
 };
 export type IFileSortFields = keyof IFileWithoutSystemFields;
 export interface IFileSort extends ISort<IFileSortFields> {}

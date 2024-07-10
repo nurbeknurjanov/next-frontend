@@ -249,6 +249,9 @@ const Theme = createTheme({
       },
     },
     MuiFormControl: {
+      defaultProps: {
+        size: 'small',
+      },
       styleOverrides: {
         root: {
           width: '100% !important',

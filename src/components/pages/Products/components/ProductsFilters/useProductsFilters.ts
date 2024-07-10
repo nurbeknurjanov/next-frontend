@@ -28,9 +28,7 @@ export function useProductsFilters({ filters, setFilters }: IProps) {
     reset(filters);
   }, [filters, reset]);
 
-  const submitForm = (formData: IProductFilters) => {
-    setFilters(formData);
-  };
+  const submitForm = (formData: IProductFilters) => setFilters(formData);
 
   const onSubmitForm = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();

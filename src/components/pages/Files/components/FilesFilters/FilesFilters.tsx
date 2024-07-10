@@ -1,5 +1,11 @@
 import { useFilesFilters } from './useFilesFilters';
-import { TextField } from '@mui/material';
+import {
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+} from '@mui/material';
 import { Button } from 'shared/ui';
 import * as React from 'react';
 import { IFileFilters } from 'api/filesApi';
@@ -36,6 +42,18 @@ export const FilesFilters = ({ filters, setFilters }: IProps) => {
             {...register('id')}
             InputLabelProps={{ shrink: !!watch('id') }}
           />
+
+          <FormControl sx={{ mb: 2 }}>
+            <InputLabel>{tCommon('type')}</InputLabel>
+            <Select
+              label={tCommon('type')}
+              {...register('type')}
+              value={watch('type') ?? ''}
+            >
+              <MenuItem value={'image'}>{tCommon('image')}</MenuItem>
+              <MenuItem value={'other'}>Other</MenuItem>
+            </Select>
+          </FormControl>
 
           <Button
             type={'submit'}

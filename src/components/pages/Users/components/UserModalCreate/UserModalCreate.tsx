@@ -123,7 +123,7 @@ export const UserModalCreate: React.FC<IProps> = ({ onClose, afterCreate }) => {
               )}
             </FormControl>
 
-            <FormControl size="small" sx={{ mb: 2 }} error={!!errors['status']}>
+            <FormControl sx={{ mb: 2 }} error={!!errors['status']}>
               <InputLabel>{tUser('status')}</InputLabel>
               <Select
                 label={tUser('status')}

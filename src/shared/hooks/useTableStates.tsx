@@ -6,7 +6,7 @@ import { useSearchParams } from 'next/navigation';
 import { usePathname, useRouter } from 'navigation';
 
 export function useTableStates<TableFilters extends Record<string, any>>(
-  fieldNames: (keyof TableFilters)[]
+  fieldNamesForFilters: (keyof TableFilters)[]
 ) {
   const router = useRouter();
   const pathname = usePathname();
@@ -74,17 +74,17 @@ export function useTableStates<TableFilters extends Record<string, any>>(
 
   const filters = useMemo<TableFilters>(() => {
     const values = {} as TableFilters;
-    fieldNames.forEach(fieldName => {
+    fieldNamesForFilters.forEach(fieldName => {
       const value = query[fieldName as string];
       if (value) {
         values[fieldName] = value as any;
       }
     });
     return values;
-  }, [fieldNames, query]);
+  }, [fieldNamesForFilters, query]);
   const setFilters = useCallback(
     (filters: TableFilters) => {
-      fieldNames.forEach(fieldName => {
+      fieldNamesForFilters.forEach(fieldName => {
         const value = filters[fieldName];
         if (value) {
           query[fieldName as string] = value;
@@ -99,7 +99,7 @@ export function useTableStates<TableFilters extends Record<string, any>>(
       delete query.sortDirection;
       router.push({ pathname, query }, { scroll: false });
     },
-    [fieldNames, query, router, pathname]
+    [fieldNamesForFilters, query, router, pathname]
   );
   const previousFilters = useRef<TableFilters | null>(null);
 

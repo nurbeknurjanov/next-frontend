@@ -37,7 +37,7 @@ export function useFiles() {
     refreshListKey,
     refreshList,
     previousRefreshListKey,
-  } = useTableStates<IFileFilters>(['id']);
+  } = useTableStates<IFileFilters>(['id', 'type']);
 
   const getFiles = useCallback(
     (
