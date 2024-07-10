@@ -61,7 +61,7 @@ let Products: FC = () => {
       flex: 1,
     },
     {
-      field: 'image',
+      field: 'imageId',
       headerName: tCommon('image'),
       renderCell: params => {
         if (params.row.image) {

@@ -29,7 +29,7 @@ export function useProductUploadFile({
   const [imageObject, setImageObject] = useState<IFile | null>(null);
   const [percentUploadImage, setPercentUploadImage] = useState(0);
   useEffect(() => {
-    if (product) {
+    if (product?.image) {
       setImageObject(product.image);
     }
   }, [product]);
@@ -41,7 +41,7 @@ export function useProductUploadFile({
       setImageObject(null);
       //on product create scenario
       if (!product) {
-        setValue('image', null);
+        setValue('imageId', null);
       }
 
       dispatch(notify(tCommon('successDeleted'), 'success'));
@@ -70,7 +70,7 @@ export function useProductUploadFile({
 
         //on product create scenario
         if (!product) {
-          setValue('image', data._id);
+          setValue('imageId', data._id);
         }
 
         dispatch(notify(tCommon('successUploaded'), 'success'));

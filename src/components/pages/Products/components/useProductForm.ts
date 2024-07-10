@@ -45,7 +45,7 @@ export function useProductForm({ model }: IProps) {
     });
 
     if (!model) {
-      schemaObject = schemaObject.append({ image: Joi.optional() });
+      schemaObject = schemaObject.append({ imageId: Joi.optional() });
     }
 
     return schemaObject;
@@ -57,7 +57,7 @@ export function useProductForm({ model }: IProps) {
         name: null,
         description: null,
         imageFile: null,
-        image: null,
+        imageId: null,
       };
     }
 

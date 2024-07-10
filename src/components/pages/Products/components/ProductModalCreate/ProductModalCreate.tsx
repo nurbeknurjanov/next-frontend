@@ -95,7 +95,7 @@ export const ProductModalCreate: React.FC<IProps> = ({
               {...register('description')}
             />
 
-            <input {...register('image')} type="hidden" />
+            <input {...register('imageId')} type="hidden" />
 
             {imageObject ? (
               <Card sx={{ mb: 1 }}>

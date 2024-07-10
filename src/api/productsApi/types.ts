@@ -14,15 +14,15 @@ export interface IProduct {
   createdAt: string;
   updatedAt: string;
 
-  image: IFile;
+  imageId?: string;
+  image?: IFile;
 }
 type IProductWithoutSystemFields = Omit<
   IProduct,
-  '_id' | 'createdAt' | 'updatedAt' | 'image'
+  '_id' | 'createdAt' | 'updatedAt' | 'image' | 'imageId'
 >;
 export interface IProductPost extends Nullable<IProductWithoutSystemFields> {
-  image?: string | null; // on product create, to keep ID of first created File
-
+  imageId?: string | null; // on product create, to keep ID of first created File
   imageFile: FileList | null;
 }
 export interface IProductFilters
