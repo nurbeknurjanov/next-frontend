@@ -6,17 +6,17 @@ import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import { useFiles } from './useFiles';
 import { Link } from 'shared/ui';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { /*FileModalDelete,*/ FilesFilters } from './components';
+import { FileModalDelete, FilesFilters } from './components';
 import { withCleanHooks } from 'shared/hocs';
 import { DATE_FORMAT } from 'shared/utils';
 import { IFile } from 'api/filesApi';
-import { useSetPageData } from '../../../shared/hooks';
+import { useSetPageData } from 'shared/hooks';
 
 let Files: FC = () => {
   const {
     tCommon,
     tFiles,
-    tFile,
+    //  tFile,
     getFilesState,
     setPagination,
     sorting,
@@ -103,15 +103,13 @@ let Files: FC = () => {
         />
       </div>
 
-      {/*{showModal?.type === 'create' && (
-        <FileModalCreate onClose={closeShowModal} refreshList={refreshList} />
+      {showModal?.type === 'delete' && (
+        <FileModalDelete
+          id={showModal.id}
+          onClose={closeShowModal}
+          afterDelete={refreshList}
+        />
       )}
-
-
-
-      {showModal?.type === 'view' && (
-        <FileModalView id={showModal.id} onClose={closeShowModal} />
-      )}*/}
     </>
   );
 };

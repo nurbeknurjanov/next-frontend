@@ -7,11 +7,11 @@ import { useCallback } from 'react';
 import { files } from 'store';
 
 export function useFileModalDelete({
-  refreshList,
+  afterDelete,
   onClose,
 }: Omit<IProps, 'id'>) {
-  const t = useTranslations('FilePage');
-  const tc = useTranslations('Common');
+  const tFilePage = useTranslations('FilePage');
+  const tCommon = useTranslations('Common');
   const dispatch = useAppDispatch();
   const deleteFileState = useAppSelector(files.deleteFile.selector.state);
 
@@ -21,16 +21,16 @@ export function useFileModalDelete({
 
       if (!error) {
         onClose();
-        dispatch(notify(tc('successDeleted'), 'success'));
-        refreshList();
+        dispatch(notify(tCommon('successDeleted'), 'success'));
+        afterDelete();
       }
     },
-    [onClose, refreshList, dispatch, tc]
+    [onClose, afterDelete, dispatch, tCommon]
   );
 
   return {
-    t,
-    tc,
+    tFilePage,
+    tCommon,
     deleteFile,
     deleteFileState,
   };

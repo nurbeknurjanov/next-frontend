@@ -10,26 +10,27 @@ import DialogTitle from '@mui/material/DialogTitle';
 export interface IProps {
   id: string;
   onClose: () => void;
-  refreshList: () => void;
+  afterDelete: () => void;
 }
 export const FileModalDelete: React.FC<IProps> = ({
   id,
   onClose,
-  refreshList,
+  afterDelete,
 }) => {
-  const { t, tc, deleteFile, deleteFileState } = useFileModalDelete({
-    onClose,
-    refreshList,
-  });
+  const { tFilePage, tCommon, deleteFile, deleteFileState } =
+    useFileModalDelete({
+      onClose,
+      afterDelete,
+    });
 
   return (
     <Dialog open onClose={onClose}>
-      <DialogTitle>{t('delete')}</DialogTitle>
+      <DialogTitle>{tFilePage('delete')}</DialogTitle>
       <DialogContent>
-        <DialogContentText>{tc('deleteAlert')}</DialogContentText>
+        <DialogContentText>{tCommon('deleteAlert')}</DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button onClick={onClose}>{tc('close')}</Button>
+        <Button onClick={onClose}>{tCommon('close')}</Button>
         <Button
           variant={'contained'}
           onClick={() => {
@@ -39,7 +40,7 @@ export const FileModalDelete: React.FC<IProps> = ({
           loading={deleteFileState.isFetching}
           sx={{ minWidth: 110 }}
         >
-          {tc('delete')}
+          {tCommon('delete')}
         </Button>
       </DialogActions>
     </Dialog>
