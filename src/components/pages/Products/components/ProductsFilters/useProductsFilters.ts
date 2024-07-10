@@ -3,7 +3,7 @@ import { IProps } from './ProductsFilters';
 import { IProductFilters } from 'api/productsApi';
 import { useAppSelector } from 'store/hooks';
 import { products } from 'store';
-import { useEffect, useRef } from 'react';
+import { FormEvent, useEffect, useRef } from 'react';
 import { useTranslations } from 'next-intl';
 
 export function useProductsFilters({ filters, setFilters }: IProps) {
@@ -28,6 +28,15 @@ export function useProductsFilters({ filters, setFilters }: IProps) {
     setFilters(formData);
   };
 
+  const onSubmitForm = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    handleSubmit(submitForm)(event);
+  };
+  const onResetForm = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    reset();
+  };
+
   useEffect(() => {
     if (getProductsState.isFetching) {
       previousFilters.current = filters;
@@ -37,10 +46,9 @@ export function useProductsFilters({ filters, setFilters }: IProps) {
   return {
     tCommon,
     tProduct,
-    submitForm,
+    onSubmitForm,
+    onResetForm,
     register,
-    handleSubmit,
-    reset,
     isDirty,
     isValid,
     getProductsState,
