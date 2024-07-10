@@ -23,6 +23,7 @@ export const ProductsFilters = ({ filters, setFilters }: IProps) => {
     isValid,
     getProductsState,
     previousFilters,
+    watch,
   } = useProductsFilters({ filters, setFilters });
 
   return (
