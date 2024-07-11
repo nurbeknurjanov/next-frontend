@@ -1,5 +1,5 @@
 'use client';
-import * as React from 'react';
+import React from 'react';
 import Paper from '@mui/material/Paper';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';

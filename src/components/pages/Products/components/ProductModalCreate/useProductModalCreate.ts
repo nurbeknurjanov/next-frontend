@@ -6,6 +6,7 @@ import { IProps } from './ProductModalCreate';
 import { useProductForm, useProductUploadFile } from '../';
 import { notify } from 'store/common/thunks';
 import { createProductThunk } from 'store/products/thunks';
+import { useState } from 'react';
 
 export function useProductModalCreate({ onClose, afterCreate }: IProps) {
   const dispatch = useAppDispatch();
@@ -28,11 +29,17 @@ export function useProductModalCreate({ onClose, afterCreate }: IProps) {
     schema,
   } = useProductForm({});
 
+  const [selectedFileIdToDelete, setSelectedFileIdToDelete] = useState<
+    string | null
+  >();
   const { percentUploadImage, imageObject, deleteFile } = useProductUploadFile({
     setValue,
     watch,
     schema,
-    afterFileUploadAndRemove: afterCreate,
+    afterFileUploadAndRemove: () => {
+      afterCreate();
+      setSelectedFileIdToDelete(null);
+    },
   });
 
   const createProduct = async (formData: IProductPost) => {
@@ -61,5 +68,7 @@ export function useProductModalCreate({ onClose, afterCreate }: IProps) {
     percentUploadImage,
     imageObject,
     deleteFile,
+    selectedFileIdToDelete,
+    setSelectedFileIdToDelete,
   };
 }

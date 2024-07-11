@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { useUserModalDelete } from './useUserModalDelete';
 import { Button } from 'shared/ui';
 import Dialog from '@mui/material/Dialog';

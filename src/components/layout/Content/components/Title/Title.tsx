@@ -1,5 +1,5 @@
 'use client';
-import * as React from 'react';
+import React from 'react';
 import Typography from '@mui/material/Typography';
 import { useAppSelector } from 'store/hooks';
 import { common } from 'store';

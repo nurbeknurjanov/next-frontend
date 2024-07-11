@@ -1,5 +1,5 @@
 'use client';
-import * as React from 'react';
+import React from 'react';
 import AppBar from '@mui/material/AppBar';
 import { AppBarProps } from '@mui/material';
 import Toolbar from '@mui/material/Toolbar';

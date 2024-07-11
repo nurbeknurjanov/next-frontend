@@ -1,5 +1,5 @@
 'use client';
-import * as React from 'react';
+import React from 'react';
 import styles from './content.module.scss';
 import { Page, Title, Buttons, Breadcrumbs, Notify } from './components';
 import { PropsWithChildren } from 'react';

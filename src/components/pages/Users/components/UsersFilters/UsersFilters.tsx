@@ -1,7 +1,7 @@
 import { useUsersFilters } from './useUsersFilters';
 import { TextField } from '@mui/material';
 import { Button } from 'shared/ui';
-import * as React from 'react';
+import React from 'react';
 import { IUserFilters } from 'api/usersApi';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';

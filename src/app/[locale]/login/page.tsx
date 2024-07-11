@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Login } from 'components/pages';
 import { serverStore } from 'store/store';
 import { common } from 'store';

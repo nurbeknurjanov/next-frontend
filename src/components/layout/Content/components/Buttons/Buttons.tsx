@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { useAppSelector } from 'store/hooks';
 import { common } from 'store';
 import styles from './buttons.module.scss';

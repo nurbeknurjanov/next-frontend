@@ -7,7 +7,7 @@ import {
   TextField,
 } from '@mui/material';
 import { Button } from 'shared/ui';
-import * as React from 'react';
+import React from 'react';
 import { IFileFilters } from 'api/filesApi';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';

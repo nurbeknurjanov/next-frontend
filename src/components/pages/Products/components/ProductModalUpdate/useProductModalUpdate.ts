@@ -8,6 +8,7 @@ import { useProductModel } from 'components/pages/Product';
 import { notify } from 'store/common/thunks';
 import { updateProductThunk } from 'store/products/thunks';
 import { getAggStates } from 'store/common/types';
+import { useState } from 'react';
 
 export function useProductModalUpdate({ onClose, afterUpdate, id }: IProps) {
   const dispatch = useAppDispatch();
@@ -35,12 +36,18 @@ export function useProductModalUpdate({ onClose, afterUpdate, id }: IProps) {
     model: model!,
   });
 
+  const [selectedFileIdToDelete, setSelectedFileIdToDelete] = useState<
+    string | null
+  >();
   const { percentUploadImage, imageObject, deleteFile } = useProductUploadFile({
     id,
     setValue,
     watch,
     schema,
-    afterFileUploadAndRemove: afterUpdate,
+    afterFileUploadAndRemove: () => {
+      setSelectedFileIdToDelete(null);
+      afterUpdate();
+    },
   });
 
   const updateProduct = async (id: string, formData: IProductPost) => {
@@ -72,5 +79,7 @@ export function useProductModalUpdate({ onClose, afterUpdate, id }: IProps) {
     percentUploadImage,
     imageObject,
     deleteFile,
+    selectedFileIdToDelete,
+    setSelectedFileIdToDelete,
   };
 }

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { useProductModalUpdate } from './useProductModalUpdate';
 import { TextField } from '@mui/material';
 import { Button, LinearProgressWithLabel } from 'shared/ui';
@@ -7,7 +7,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 //import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Card from '@mui/material/Card';
@@ -43,15 +43,13 @@ export const ProductModalUpdate: React.FC<IProps> = ({
     percentUploadImage,
     imageObject,
     deleteFile,
+    selectedFileIdToDelete,
+    setSelectedFileIdToDelete,
   } = useProductModalUpdate({
     id: id!,
     onClose,
     afterUpdate,
   });
-
-  const [selectedFileIdToDelete, setSelectedFileIdToDelete] = useState<
-    string | null
-  >();
 
   return (
     <>
@@ -92,10 +90,9 @@ export const ProductModalUpdate: React.FC<IProps> = ({
                     <DeleteIcon
                       color={'error'}
                       sx={{ cursor: 'pointer' }}
-                      onClick={() => {
-                        //deleteFile(imageObject._id!);
-                        setSelectedFileIdToDelete(imageObject._id!);
-                      }}
+                      onClick={() =>
+                        setSelectedFileIdToDelete(imageObject._id!)
+                      }
                     />
                   </CardContent>
                 </Card>
