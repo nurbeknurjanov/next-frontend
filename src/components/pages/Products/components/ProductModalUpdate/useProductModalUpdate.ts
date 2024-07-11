@@ -8,7 +8,7 @@ import { useProductModel } from 'components/pages/Product';
 import { notify } from 'store/common/thunks';
 import { updateProductThunk } from 'store/products/thunks';
 import { getAggStates } from 'store/common/types';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 
 export function useProductModalUpdate({ onClose, afterUpdate, id }: IProps) {
   const dispatch = useAppDispatch();
@@ -39,15 +39,16 @@ export function useProductModalUpdate({ onClose, afterUpdate, id }: IProps) {
   const [selectedFileIdToDelete, setSelectedFileIdToDelete] = useState<
     string | null
   >();
+  const afterFileUploadAndRemove = useCallback(() => {
+    setSelectedFileIdToDelete(null);
+    afterUpdate();
+  }, [afterUpdate]);
   const { percentUploadImage, imageObject, deleteFile } = useProductUploadFile({
     id,
     setValue,
     watch,
     schema,
-    afterFileUploadAndRemove: () => {
-      setSelectedFileIdToDelete(null);
-      afterUpdate();
-    },
+    afterFileUploadAndRemove,
   });
 
   const updateProduct = async (id: string, formData: IProductPost) => {

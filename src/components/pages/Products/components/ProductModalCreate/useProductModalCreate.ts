@@ -6,7 +6,7 @@ import { IProps } from './ProductModalCreate';
 import { useProductForm, useProductUploadFile } from '../';
 import { notify } from 'store/common/thunks';
 import { createProductThunk } from 'store/products/thunks';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 
 export function useProductModalCreate({ onClose, afterCreate }: IProps) {
   const dispatch = useAppDispatch();
@@ -32,14 +32,15 @@ export function useProductModalCreate({ onClose, afterCreate }: IProps) {
   const [selectedFileIdToDelete, setSelectedFileIdToDelete] = useState<
     string | null
   >();
+  const afterFileUploadAndRemove = useCallback(() => {
+    setSelectedFileIdToDelete(null);
+    afterCreate();
+  }, [afterCreate]);
   const { percentUploadImage, imageObject, deleteFile } = useProductUploadFile({
     setValue,
     watch,
     schema,
-    afterFileUploadAndRemove: () => {
-      afterCreate();
-      setSelectedFileIdToDelete(null);
-    },
+    afterFileUploadAndRemove,
   });
 
   const createProduct = async (formData: IProductPost) => {
