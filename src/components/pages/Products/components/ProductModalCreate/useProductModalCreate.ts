@@ -6,7 +6,7 @@ import { IProps } from './ProductModalCreate';
 import { useProductForm, useProductUploadFile } from '../';
 import { notify } from 'store/common/thunks';
 import { createProductThunk } from 'store/products/thunks';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 export function useProductModalCreate({ onClose, afterCreate }: IProps) {
   const dispatch = useAppDispatch();
@@ -19,6 +19,8 @@ export function useProductModalCreate({ onClose, afterCreate }: IProps) {
   const createProductState = useAppSelector(
     products.createProduct.selector.state
   );
+  const createFileStateRef = useRef(createFileState);
+  const createProductStateRef = useRef(createProductState);
 
   const {
     register,
@@ -67,11 +69,14 @@ export function useProductModalCreate({ onClose, afterCreate }: IProps) {
 
   useEffect(
     () => () => {
-      if (!createProductState.isFetched && createFileState.data) {
-        deleteFile(createFileState.data._id);
+      if (
+        !createProductStateRef.current.data &&
+        createFileStateRef.current.data
+      ) {
+        deleteFile(createFileStateRef.current.data._id);
       }
     },
-    [createProductState.isFetched, createFileState.data, deleteFile]
+    [deleteFile]
   );
 
   useEffect(
