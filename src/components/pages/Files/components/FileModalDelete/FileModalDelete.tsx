@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { useFileModalDelete } from './useFileModalDelete';
 import { Button } from 'shared/ui';
 import Dialog from '@mui/material/Dialog';
@@ -7,20 +7,26 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
-export interface IProps {
+interface IPropsBase {
   id: string;
   onClose: () => void;
+}
+export interface IProps extends IPropsBase {
   afterDelete: () => void;
 }
-export const FileModalDelete: React.FC<IProps> = ({
+interface IPropsCustom extends IPropsBase {
+  customDeleteFile: (_id: string) => void;
+}
+
+export const FileModalDelete: React.FC<IProps | IPropsCustom> = ({
   id,
   onClose,
-  afterDelete,
+  ...props
 }) => {
   const { tFilePage, tCommon, deleteFile, deleteFileState } =
     useFileModalDelete({
       onClose,
-      afterDelete,
+      afterDelete: 'afterDelete' in props ? props.afterDelete : () => {},
     });
 
   return (
@@ -34,6 +40,10 @@ export const FileModalDelete: React.FC<IProps> = ({
         <Button
           variant={'contained'}
           onClick={() => {
+            if ('customDeleteFile' in props && props.customDeleteFile) {
+              return props.customDeleteFile(id);
+            }
+
             deleteFile(id);
           }}
           autoFocus

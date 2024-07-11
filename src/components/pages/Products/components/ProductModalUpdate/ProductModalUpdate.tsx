@@ -142,7 +142,7 @@ export const ProductModalUpdate: React.FC<IProps> = ({
         <FileModalDelete
           id={selectedFileIdToDelete}
           onClose={() => setSelectedFileIdToDelete(null)}
-          afterDelete={afterUpdate}
+          customDeleteFile={() => deleteFile(selectedFileIdToDelete)}
         />
       )}
     </>

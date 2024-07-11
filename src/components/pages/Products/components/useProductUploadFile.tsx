@@ -5,7 +5,7 @@ import { deleteFileThunk, createFileThunk } from 'store/files/thunks';
 import { IFile, IFilePost } from 'api/filesApi';
 import { UseFormSetValue, UseFormWatch } from 'react-hook-form';
 import { ObjectSchema } from 'joi';
-import { notify } from '../../../../store/common/thunks';
+import { notify } from 'store/common/thunks';
 import { useTranslations } from 'next-intl';
 
 interface IProps {
