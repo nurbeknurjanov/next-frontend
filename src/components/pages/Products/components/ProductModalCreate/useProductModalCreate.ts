@@ -1,18 +1,20 @@
 import { useAppDispatch, useAppSelector } from 'store/hooks';
-import { products } from 'store';
+import { files, products } from 'store';
 import { useTranslations } from 'next-intl';
 import { IProductPost } from 'api/productsApi';
 import { IProps } from './ProductModalCreate';
 import { useProductForm, useProductUploadFile } from '../';
 import { notify } from 'store/common/thunks';
 import { createProductThunk } from 'store/products/thunks';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 export function useProductModalCreate({ onClose, afterCreate }: IProps) {
   const dispatch = useAppDispatch();
   const tCommon = useTranslations('Common');
   const tProductsPage = useTranslations('ProductsPage');
   const tProduct = useTranslations('Product');
+
+  const createFileState = useAppSelector(files.createFile.selector.state);
 
   const createProductState = useAppSelector(
     products.createProduct.selector.state
@@ -54,6 +56,22 @@ export function useProductModalCreate({ onClose, afterCreate }: IProps) {
   };
 
   const submitForm = createProduct;
+
+  useEffect(
+    () => () => {
+      if (!createProductState.isFetched && createFileState.data) {
+        deleteFile(createFileState.data._id);
+      }
+    },
+    [createProductState.isFetched, createFileState.data, deleteFile]
+  );
+
+  useEffect(
+    () => () => {
+      dispatch(products.createProduct.action.reset());
+    },
+    [dispatch]
+  );
 
   return {
     tCommon,

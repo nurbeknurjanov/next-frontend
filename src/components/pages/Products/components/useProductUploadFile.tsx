@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
-import { products } from 'store';
+import { files, products } from 'store';
 import { deleteFileThunk, createFileThunk } from 'store/files/thunks';
 import { IFile, IFilePost } from 'api/filesApi';
 import { UseFormSetValue, UseFormWatch } from 'react-hook-form';
@@ -34,22 +34,25 @@ export function useProductUploadFile({
     }
   }, [product]);
 
-  const deleteFile = async (id: string) => {
-    const { data } = await dispatch(deleteFileThunk(id));
+  const deleteFile = useCallback(
+    async (id: string) => {
+      const { data } = await dispatch(deleteFileThunk(id));
 
-    if (data) {
-      if (data.data?.type === 'image') {
-        setImageObject(null);
-        //on product create scenario
-        if (!product) {
-          setValue('imageId', null);
+      if (data) {
+        if (data.data?.type === 'image') {
+          setImageObject(null);
+          //on product create scenario
+          if (!product) {
+            setValue('imageId', null);
+          }
         }
-      }
 
-      dispatch(notify(tCommon('successDeleted'), 'success'));
-      afterFileUploadAndRemove();
-    }
-  };
+        dispatch(notify(tCommon('successDeleted'), 'success'));
+        afterFileUploadAndRemove();
+      }
+    },
+    [dispatch, afterFileUploadAndRemove, setValue, tCommon, product]
+  );
 
   const uploadFile = useCallback(
     async (fileData: IFilePost) => {
@@ -110,6 +113,14 @@ export function useProductUploadFile({
       }
     }
   }, [dispatch, id, uploadFile, imageFileValue, schema]);
+
+  useEffect(
+    () => () => {
+      dispatch(files.deleteFile.action.reset());
+      dispatch(files.createFile.action.reset());
+    },
+    [dispatch]
+  );
 
   return {
     percentUploadImage,
