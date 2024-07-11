@@ -3,7 +3,7 @@ import { useTranslations } from 'next-intl';
 import { useParams, useRouter } from 'next/navigation';
 import { ProductPageProps } from 'app/[locale]/products/[id]/page';
 import { useProductModel } from 'components/pages/Product';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import {
   useProductForm,
   useProductUploadFile,
@@ -45,11 +45,18 @@ export function useProductUpdate() {
     model: model!,
   });
 
+  const [selectedFileIdToDelete, setSelectedFileIdToDelete] = useState<
+    string | null
+  >();
+  const afterFileUploadAndRemove = useCallback(() => {
+    setSelectedFileIdToDelete(null);
+  }, []);
   const { percentUploadImage, imageObject, deleteFile } = useProductUploadFile({
     id,
     setValue,
     watch,
     schema,
+    afterFileUploadAndRemove,
   });
 
   const updateProduct = async (id: string, formData: IProductPost) => {
@@ -90,5 +97,7 @@ export function useProductUpdate() {
     percentUploadImage,
     imageObject,
     deleteFile,
+    selectedFileIdToDelete,
+    setSelectedFileIdToDelete,
   };
 }

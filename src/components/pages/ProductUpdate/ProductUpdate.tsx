@@ -4,13 +4,13 @@ import { useProductUpdate } from './useProductUpdate';
 import { withCleanHooks } from 'shared/hocs';
 import Loading from 'app/[locale]/loading';
 import { ProductModalDelete } from 'components/pages/Products';
-import CircularProgress from '@mui/material/CircularProgress';
 import { TextField } from '@mui/material';
 import { Button, LinearProgressWithLabel } from 'shared/ui';
 import { useSetPageData } from 'shared/hooks';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { FileModalDelete } from 'components/pages/Files';
 
 let ProductUpdate: FC = () => {
   const formRef = useRef<HTMLFormElement>();
@@ -35,6 +35,8 @@ let ProductUpdate: FC = () => {
     percentUploadImage,
     imageObject,
     deleteFile,
+    selectedFileIdToDelete,
+    setSelectedFileIdToDelete,
   } = useProductUpdate();
 
   const title = tProductPage('update');
@@ -87,7 +89,7 @@ let ProductUpdate: FC = () => {
               <DeleteIcon
                 color={'error'}
                 sx={{ cursor: 'pointer' }}
-                onClick={() => deleteFile(imageObject._id!)}
+                onClick={() => setSelectedFileIdToDelete(imageObject._id!)}
               />
             </CardContent>
           </Card>
@@ -136,11 +138,20 @@ let ProductUpdate: FC = () => {
           {tCommon('update')}
         </Button>
       </form>
+
       {showModal?.type === 'delete' && (
         <ProductModalDelete
           id={showModal.id}
           onClose={() => setShowModal(null)}
           afterDelete={() => router.push('/products')}
+        />
+      )}
+
+      {selectedFileIdToDelete && (
+        <FileModalDelete
+          id={selectedFileIdToDelete}
+          onClose={() => setSelectedFileIdToDelete(null)}
+          customDeleteFile={() => deleteFile(selectedFileIdToDelete)}
         />
       )}
     </>
