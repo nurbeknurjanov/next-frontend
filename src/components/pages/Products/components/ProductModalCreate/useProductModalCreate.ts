@@ -45,6 +45,14 @@ export function useProductModalCreate({ onClose, afterCreate }: IProps) {
     afterFileUploadAndRemove,
   });
 
+  const onCloseWrapper = () => {
+    if (!createProductState.data && createFileState.data) {
+      return setSelectedFileIdToDelete(createFileState.data._id);
+    }
+
+    onClose();
+  };
+
   const createProduct = async (formData: IProductPost) => {
     const { data } = await dispatch(createProductThunk(formData));
 
@@ -89,5 +97,6 @@ export function useProductModalCreate({ onClose, afterCreate }: IProps) {
     deleteFile,
     selectedFileIdToDelete,
     setSelectedFileIdToDelete,
+    onCloseWrapper,
   };
 }

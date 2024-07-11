@@ -41,6 +41,7 @@ export const ProductModalCreate: React.FC<IProps> = ({
     deleteFile,
     selectedFileIdToDelete,
     setSelectedFileIdToDelete,
+    onCloseWrapper,
   } = useProductModalCreate({
     onClose,
     afterCreate,
@@ -48,7 +49,7 @@ export const ProductModalCreate: React.FC<IProps> = ({
 
   return (
     <>
-      <Dialog open onClose={onClose}>
+      <Dialog open onClose={onCloseWrapper}>
         <DialogTitle>{tProductsPage('create')}</DialogTitle>
         <DialogContent>
           {createProductState.isFetching ? (
@@ -116,7 +117,7 @@ export const ProductModalCreate: React.FC<IProps> = ({
           )}
         </DialogContent>
         <DialogActions>
-          <Button onClick={onClose}>{tCommon('close')}</Button>
+          <Button onClick={onCloseWrapper}>{tCommon('close')}</Button>
           <Button
             variant={'contained'}
             onClick={() => {

@@ -49,6 +49,7 @@ export function useProductUploadFile({
 
         dispatch(notify(tCommon('successDeleted'), 'success'));
         afterFileUploadAndRemove();
+        dispatch(files.createFile.action.reset());
       }
     },
     [dispatch, afterFileUploadAndRemove, setValue, tCommon, product]
