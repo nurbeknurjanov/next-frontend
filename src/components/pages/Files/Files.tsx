@@ -48,11 +48,12 @@ let Files: FC = () => {
       field: 'modelId',
       headerName: tProductPage('title'),
       flex: 1,
-      renderCell: params => (
-        <Link href={'/products/' + params.row.model._id} target={'_blank'}>
-          {params.row.model.name}
-        </Link>
-      ),
+      renderCell: params =>
+        params.row.model && (
+          <Link href={'/products/' + params.row.model._id} target={'_blank'}>
+            {params.row.model.name}
+          </Link>
+        ),
     },
     {
       field: 'type',
