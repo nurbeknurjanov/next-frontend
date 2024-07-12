@@ -69,7 +69,8 @@
   },
   "Product": {
     "name": "Название",
-    "description": "Описание"
+    "description": "Описание",
+    "image": "Изображение"
   },
   "UsersPage": {
     "title": "Пользователи",

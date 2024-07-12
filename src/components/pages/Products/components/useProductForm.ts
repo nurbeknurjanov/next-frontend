@@ -19,29 +19,31 @@ export function useProductForm({ model }: IProps) {
     let schemaObject = i18nJoiRef.current.object({
       name: Joi.string().label(tProduct('name')),
       description: Joi.string().label(tProduct('description')),
-      imageFile: Joi.any().custom((value: FileList, helper) => {
-        if (!value?.[0]) {
+      imageFile: Joi.any()
+        .label(tProduct('image'))
+        .custom((value: FileList, helper) => {
+          if (!value?.[0]) {
+            return value;
+          }
+
+          if (
+            ![
+              'image/jpg',
+              'image/jpeg',
+              'image/png',
+              'image/gif',
+              'application/pdf',
+            ].includes(value?.[0]?.type?.toLowerCase())
+          ) {
+            return helper.error('custom.image_type');
+          }
+
+          if (value?.[0]?.size > 1048576 * 10) {
+            return helper.error('custom.size');
+          }
+
           return value;
-        }
-
-        if (
-          ![
-            'image/jpg',
-            'image/jpeg',
-            'image/png',
-            'image/gif',
-            'application/pdf',
-          ].includes(value?.[0]?.type?.toLowerCase())
-        ) {
-          return helper.error('custom.image_type');
-        }
-
-        if (value?.[0]?.size > 1048576 * 10) {
-          return helper.error('custom.size');
-        }
-
-        return value;
-      }),
+        }),
     });
 
     if (!model) {

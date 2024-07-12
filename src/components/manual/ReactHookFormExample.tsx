@@ -26,6 +26,17 @@ import Joi from 'joi';
 //.message сильнее чем .messages
 //.messages сильнее чем helpers.message
 
+//.allow("") //надо так добавить чтоб пропускало, а то будет обязательным, несмотря на отстуствие required
+/*.custom((value, helper) => {
+  //throw new Error("Some error");
+  //return helper.error("any.custom");
+  return value;
+})*/
+/*
+notRequiredField: Joi.string().allow(""),
+notRequiredField: Joi.optional().allow("")
+*/
+
 /*
 куки можно вот так записывать
 document.cookie = "surname=Nurjanov ";

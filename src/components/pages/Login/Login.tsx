@@ -21,7 +21,7 @@ import { useRouter } from 'next/navigation';
 
 let Login: FC = () => {
   const t = useTranslations('LoginPage');
-  //const tf = useTranslations('LoginPage.fields');
+  const tf = useTranslations('LoginPage.fields');
   const dispatch = useAppDispatch();
   const router = useRouter();
   const [_cookies, setCookie] = useCookies(['accessToken']);
@@ -46,7 +46,7 @@ let Login: FC = () => {
         minDomainSegments: 2,
         tlds: { allow: ['ru', 'com', 'net'] },
       })
-      .label(t('fields.email')),
+      .label(tf('email')),
     password: Joi.string()
       //.allow("") //надо так добавить чтоб пропускало, а то будет обязательным, несмотря на отстуствие required
       .label(t('fields.password'))

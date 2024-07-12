@@ -97,7 +97,7 @@ export const ProductModalCreate: React.FC<IProps> = ({
               ) : (
                 <TextField
                   type={'file'}
-                  label={'Image file'}
+                  label={tProduct('image')}
                   error={!!errors['imageFile']}
                   FormHelperTextProps={{
                     component: 'div',

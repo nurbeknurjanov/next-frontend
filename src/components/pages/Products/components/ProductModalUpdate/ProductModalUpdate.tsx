@@ -99,7 +99,7 @@ export const ProductModalUpdate: React.FC<IProps> = ({
               ) : (
                 <TextField
                   type={'file'}
-                  label={'Image file'}
+                  label={tProduct('image')}
                   error={!!errors['imageFile']}
                   FormHelperTextProps={{
                     component: 'div',

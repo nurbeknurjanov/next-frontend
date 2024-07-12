@@ -69,7 +69,8 @@
   },
   "Product": {
     "name": "Name",
-    "description": "Description"
+    "description": "Description",
+    "image": "Image"
   },
   "UsersPage": {
     "title": "Users",
