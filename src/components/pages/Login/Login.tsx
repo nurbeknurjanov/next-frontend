@@ -24,8 +24,6 @@ let Login: FC = () => {
 
   useSetPageData(tLoginPage('title'), [tLoginPage('title')]);
 
-  const { name, onChange, onBlur, ref } = register('email');
-
   return (
     <>
       <Card sx={{ maxWidth: 300 }}>
@@ -33,13 +31,10 @@ let Login: FC = () => {
           <div className={styles.loginContent}>
             <form onSubmit={handleSubmit(login)}>
               <TextField
-                error={!!errors[name]}
-                helperText={errors[name]?.message}
                 label={tLoginPage('fields.email')}
-                name={name}
-                onChange={onChange}
-                onBlur={onBlur}
-                ref={ref}
+                error={!!errors['email']}
+                helperText={errors['email']?.message}
+                {...register('email')}
               />
               <TextField
                 label={tLoginPage('fields.password')}
