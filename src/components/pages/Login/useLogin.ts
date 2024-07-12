@@ -11,15 +11,16 @@ import { useRouter } from 'next/navigation';
 import tlds from 'tlds';
 
 export const useLogin = () => {
+  const tCommon = useTranslations('Common');
   const tLoginPage = useTranslations('LoginPage');
   const tLoginPageFields = useTranslations('LoginPage.fields');
   const dispatch = useAppDispatch();
   const router = useRouter();
   const [_cookies, setCookie] = useCookies(['accessToken']);
 
-  const initialValues = {
-    email: null,
-    password: null,
+  const initialValues: LoginRequestBodyParams = {
+    email: '',
+    password: '',
   };
 
   const i18nJoi = useI18nJoi();
@@ -44,14 +45,22 @@ export const useLogin = () => {
     defaultValues: initialValues,
   });
 
-  const login = async (formData: typeof initialValues) => {
+  const login = async (formData: LoginRequestBodyParams) => {
     const { data } = await dispatch(loginThunk(formData));
     if (data) {
       setCookie('accessToken', data, { path: '/' });
       router.push('/');
     }
   };
-  const submitForm = (data: typeof initialValues) => login(data);
 
-  return { submitForm };
+  return {
+    register,
+    handleSubmit,
+    isValid,
+    isDirty,
+    errors,
+    tCommon,
+    tLoginPage,
+    login,
+  };
 };
