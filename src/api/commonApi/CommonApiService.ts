@@ -17,7 +17,7 @@ export class CommonApiService extends BaseApiService {
   ): Promise<AxiosResponseData<LoginResponse>> {
     return this.request<LoginResponse>({
       method: 'post',
-      url: '/login',
+      url: '/auth/login',
       data: body,
       ...config,
       headers: {
@@ -26,12 +26,12 @@ export class CommonApiService extends BaseApiService {
     });
   }
 
-  public auth(
+  public check(
     config?: CommonApiConfig
   ): Promise<AxiosResponseData<LoginResponse>> {
     return this.request<LoginResponse>({
       method: 'get',
-      url: '/login',
+      url: '/auth/user',
       ...config,
       headers: {
         ...config?.headers,

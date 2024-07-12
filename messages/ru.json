@@ -43,6 +43,16 @@
   "ErrorPage": {
     "title": "Ошибка"
   },
+  "Validation": {
+    "required": "{label} не может быть пустым",
+    "email": "{label} должна быть верной почтой",
+    "number": "Поле {label} должно быть числом",
+    "choose": "В поле {label} должно быть выбрано одна из опций",
+    "custom": "Поле {label} введено не верно",
+    "string": {
+      "min": "Поле {label} должно иметь длину от {limit} символов"
+    }
+  },
   "LoginPage": {
     "title": "Вход",
     "fields": {
@@ -50,13 +60,6 @@
       "password": "Пароль"
     },
     "submit": "Отправить"
-  },
-  "Validation": {
-    "required": "{label} не может быть пустым",
-    "email": "{label} должна быть верной почтой",
-    "number": "Поле {label} должен быть числом",
-    "choose": "В поле {label} должна быть выбрана одна из опций",
-    "custom": "Поле {label} введено не верно"
   },
   "ProductsPage": {
     "title": "Продукты",

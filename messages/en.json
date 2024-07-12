@@ -43,6 +43,16 @@
   "ErrorPage": {
     "title": "Error"
   },
+  "Validation": {
+    "required": "{label} is not allowed to be empty",
+    "email": "{label} must be a valid email",
+    "number": "{label} must be a number",
+    "choose": "At {label} one of options must be selected",
+    "custom": "{label} is invalid",
+    "string": {
+      "min": "{label} length must be at least {limit} characters long"
+    }
+  },
   "LoginPage": {
     "title": "Login",
     "fields": {
@@ -50,13 +60,6 @@
       "password": "Password"
     },
     "submit": "Submit"
-  },
-  "Validation": {
-    "required": "{label} is not allowed to be empty",
-    "email": "{label} must be a valid email",
-    "number": "{label} must be a number",
-    "choose": "At {label} one of options must be selected",
-    "custom": "{label} is invalid"
   },
   "ProductsPage": {
     "title": "Products",

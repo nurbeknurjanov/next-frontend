@@ -2,20 +2,26 @@ import Joi from 'joi';
 import { useTranslations } from 'next-intl';
 
 export const useI18nJoi = () => {
-  const t = useTranslations('Validation');
+  const tValidation = useTranslations('Validation');
   return Joi.defaults(schema => {
     /*return schema.messages({
-          "string.email": t("email", { label: "{{#label}}" }),
+          "string.email": tValidation("email", { label: "{{#label}}" }),
         });*/
     return schema.options({
       messages: {
-        'string.empty': t('required', { label: '{{#label}}' }),
-        'string.base': t('required', { label: '{{#label}}' }),
-        'string.email': t('email', { label: '{{#label}}' }),
-        'number.base': t('number', { label: '{{#label}}' }),
-        'any.only': t('choose', { label: '{{#label}}' }),
+        'string.empty': tValidation('required', { label: '{{#label}}' }),
+        'string.base': tValidation('required', { label: '{{#label}}' }),
+        'string.email': tValidation('email', { label: '{{#label}}' }),
+        'string.min': tValidation('string.min', {
+          label: '{{#label}}',
+          limit: '{{#limit}}',
+        }),
 
-        'any.custom': t('custom', { label: '{{#label}}' }),
+        'number.base': tValidation('number', { label: '{{#label}}' }),
+
+        'any.only': tValidation('choose', { label: '{{#label}}' }),
+
+        'any.custom': tValidation('custom', { label: '{{#label}}' }),
 
         'custom.image_type': 'Upload only png, jpg, gif format image files',
         'custom.size': 'Size of file too large',
