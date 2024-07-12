@@ -1,8 +1,5 @@
 'use client';
-import { useAppDispatch } from 'store/hooks';
 import { FC } from 'react';
-import { common } from 'store';
-import { AppThunk } from 'store/store';
 import React from 'react';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
