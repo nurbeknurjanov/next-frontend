@@ -4,7 +4,7 @@ import { IUser } from 'api/usersApi';
 interface IPayload {
   user: IUser;
   expire: string;
-  type: 'refresh-token' | 'access-token';
+  type: 'refreshToken' | 'accessToken';
 }
 
 const secret_key: string = 'secret_key';
