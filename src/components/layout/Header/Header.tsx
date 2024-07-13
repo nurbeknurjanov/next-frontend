@@ -12,6 +12,7 @@ import { styled } from '@mui/material/styles';
 import { Link } from 'shared/ui';
 import { LanguageSwitcher } from './components';
 import { common } from 'store';
+import { getAccessTokenThunk } from 'store/common/thunks';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
 import { useCookies } from 'react-cookie';
 
@@ -38,7 +39,9 @@ export const Header = () => {
   };
 
   useEffect(() => {
-    const interval = setInterval(() => {}, 1000);
+    const interval = setInterval(() => {
+      getAccessTokenThunk({ config: { withCredentials: true } });
+    }, 10 * 1000);
     return () => clearInterval(interval);
   }, []);
 

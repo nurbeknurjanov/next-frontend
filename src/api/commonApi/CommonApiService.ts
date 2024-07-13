@@ -36,7 +36,6 @@ export class CommonApiService extends BaseApiService {
       headers: {
         ...config?.headers,
       },
-      withCredentials: true,
     });
   }
 }

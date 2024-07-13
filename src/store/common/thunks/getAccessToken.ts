@@ -5,7 +5,11 @@ import { CommonApiConfig } from 'api/commonApi';
 import { JWT } from 'shared/utils';
 
 export const getAccessTokenThunk =
-  (config: CommonApiConfig): AppThunk<Promise<{ data: string | null }>> =>
+  ({
+    config,
+  }: {
+    config: CommonApiConfig;
+  }): AppThunk<Promise<{ data: string | null }>> =>
   async (dispatch, getState) => {
     await dispatch(
       common.getAccessToken.thunk.request({
