@@ -17,23 +17,13 @@ export default function middleware(req: NextRequest) {
   const cookieStore = cookies();
   const accessTokenCookie = cookieStore.get('accessToken');
   const pathname = req.nextUrl.pathname;
-  if (
-    pathname.includes('/api/products') ||
-    pathname.includes('/api/users') ||
-    pathname.includes('/api/files')
-  ) {
-    if (!accessTokenCookie?.value) {
-      return new Response('Not authorized', {
-        status: 401,
-      });
-    }
-  }
 
   if (
     pathname.includes('/products') ||
     pathname.includes('/users') ||
     pathname.includes('/files')
   ) {
+    console.log('accessTokenCookie?.value', accessTokenCookie?.value);
     if (!accessTokenCookie?.value) {
       //return NextResponse.redirect(new URL('/login', req.url));
       /*return new Response('Not authorized', {
