@@ -17,14 +17,9 @@ import {
 } from 'store/common/types';
 import axios from 'axios';
 import { isEqual } from 'lodash';
-import { IUser } from 'api/usersApi';
-import { JWT } from 'shared/utils';
 
 export interface LoginStateType
-  extends MergeResponseState<LoginResponse, CommonApiError> {
-  isAuth: boolean | null;
-  user: IUser | null;
-}
+  extends MergeResponseState<LoginResponse, CommonApiError> {}
 
 const selector = {
   state: (state: RootStateType) => state.common.login,
@@ -37,8 +32,6 @@ const initialState: LoginStateType = {
   ...getInitialResponseState(),
   error: null,
   data: null,
-  isAuth: null,
-  user: null,
 };
 
 const SLICE_NAME = '@common/login';
@@ -98,8 +91,6 @@ const { actions, reducer } = createSlice({
     builder.addCase(requestThunk.fulfilled, (state, action) => {
       Object.assign(state, getFetchedResponseState());
       state.data = action.payload;
-      state.isAuth = true;
-      state.user = JWT.parseToken(action.payload).user;
       state.error = null;
     });
     builder.addCase(requestThunk.rejected, (state, action) => {

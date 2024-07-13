@@ -1,7 +1,7 @@
-import jwt from 'jsonwebtoken';
+import * as jose from 'jose';
 import { IUser } from 'api/usersApi';
 
-interface IPayload {
+interface IJWTPayload {
   user: IUser;
   expire: string;
   type: 'refreshToken' | 'accessToken';
@@ -10,7 +10,12 @@ interface IPayload {
 const secret_key: string = 'secret_key';
 
 export class JWT {
-  static parseToken(token: string): IPayload {
-    return jwt.verify(token, secret_key) as IPayload;
+  static async parseToken(token: string): Promise<IJWTPayload> {
+    const parsed = await jose.jwtVerify<IJWTPayload>(
+      token,
+      new TextEncoder().encode(secret_key)
+    );
+
+    return parsed.payload;
   }
 }

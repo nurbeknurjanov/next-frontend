@@ -5,6 +5,7 @@ import {
   login,
   hydrate,
   notify,
+  auth,
 } from './slices';
 
 export const common = {
@@ -14,4 +15,5 @@ export const common = {
   login,
   hydrate,
   notify,
+  auth,
 };

@@ -1,5 +1,10 @@
 import dotenv from 'dotenv';
-dotenv.config();
+
+try {
+  dotenv.config();
+} catch (_error) {
+  _error;
+}
 
 export const DATE_FORMAT = 'MMM D, YYYY h:mm A';
 

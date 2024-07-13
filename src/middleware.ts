@@ -3,6 +3,8 @@ import { pathnames, locales, localePrefix, defaultLocale } from './i18n';
 import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { JWT } from 'shared/utils/jwt';
+import { serverStore } from 'store/store';
+import { auth } from 'store/common/thunks';
 
 const resultOfLocale = createMiddleware({
   defaultLocale,
@@ -13,7 +15,7 @@ const resultOfLocale = createMiddleware({
 
 //resultOfLocale function middleware(request)
 
-export default function middleware(req: NextRequest) {
+export default async function middleware(req: NextRequest) {
   const NextResponseLocale = resultOfLocale(req);
   const cookieStore = cookies();
   const accessTokenCookie = cookieStore.get('accessToken');
@@ -25,11 +27,13 @@ export default function middleware(req: NextRequest) {
     pathname.includes('/files')
   ) {
     if (accessTokenCookie?.value) {
-      console.log('parseToken', JWT.parseToken(accessTokenCookie?.value));
-      //return NextResponse.redirect(new URL('/login', req.url));
-      /*return new Response('Not authorized', {
-        status: 401,
-      });*/
+      try {
+        const parsed = await JWT.parseToken(accessTokenCookie?.value);
+        serverStore.dispatch(auth({ isAuth: true, user: parsed.user }));
+      } catch (error) {
+        return NextResponse.redirect(new URL('/login', req.url));
+        //return new Response('Not authorized', { status: 401});
+      }
     }
   }
 

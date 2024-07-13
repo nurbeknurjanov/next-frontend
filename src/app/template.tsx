@@ -3,11 +3,9 @@ import React, { PropsWithChildren } from 'react';
 import { StoreProvider } from 'shared/wrappers';
 import { serverStore } from 'store/store';
 import { Content, Footer, Header, Sidebar } from 'components';
-import { cookies, headers } from 'next/headers';
+import { headers } from 'next/headers';
 import styles from 'css/common.module.scss';
 import { hydratedToClient } from 'store/common/thunks';
-//import { common } from 'store';
-//import { JWT } from '../backend/helpers';
 
 /*
 Template works only on server side like a layout,
@@ -18,19 +16,6 @@ Template works only on server side like a layout,
 */
 export default async function Template({ children }: PropsWithChildren) {
   const headersList = headers();
-  const cookieStore = cookies();
-  const accessTokenCookie = cookieStore.get('accessToken');
-  if (accessTokenCookie?.value) {
-    /*const user = JWT.parseToken(accessTokenCookie.value).user;
-    serverStore.dispatch(
-      common.login.actions.set({
-        data: accessTokenCookie?.value,
-        //@ts-ignore
-        user,
-        isAuth: true,
-      })
-    );*/
-  }
 
   if (serverStore.getState().common.hydrate.serverWait) {
     await new Promise(resolve => {

@@ -1,7 +1,8 @@
 import { AppThunk } from 'store/store';
 import { common } from 'store';
-import { notify } from 'store/common/thunks';
+import { notify, auth } from 'store/common/thunks';
 import { LoginRequestBodyParams, LoginResponse } from 'api/commonApi';
+import { JWT } from 'shared/utils';
 
 export const loginThunk =
   (
@@ -19,5 +20,9 @@ export const loginThunk =
       dispatch(notify(error.data, 'error'));
     }
 
+    if (data) {
+      const parsed = await JWT.parseToken(data);
+      dispatch(auth({ isAuth: true, user: parsed.user }));
+    }
     return { data, error };
   };
