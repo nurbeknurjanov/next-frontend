@@ -1,4 +1,4 @@
-import { useAppDispatch } from 'store/hooks';
+import { useAppDispatch, useAppSelector } from 'store/hooks';
 import { LoginRequestBodyParams } from 'api/commonApi';
 import { loginThunk } from 'store/common/thunks';
 import { joiResolver } from '@hookform/resolvers/joi';
@@ -9,12 +9,14 @@ import { useI18nJoi } from 'shared/utils';
 import { useCookies } from 'react-cookie';
 import { useRouter } from 'next/navigation';
 import tlds from 'tlds';
+import { common } from 'store';
 
 export const useLogin = () => {
   const tCommon = useTranslations('Common');
   const tLoginPage = useTranslations('LoginPage');
   const tLoginPageFields = useTranslations('LoginPage.fields');
   const dispatch = useAppDispatch();
+  const loginState = useAppSelector(common.login.selector.state);
   const router = useRouter();
   const [_cookies, setCookie] = useCookies(['accessToken']);
 
@@ -62,5 +64,6 @@ export const useLogin = () => {
     tCommon,
     tLoginPage,
     login,
+    loginState,
   };
 };
