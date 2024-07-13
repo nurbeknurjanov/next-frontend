@@ -26,6 +26,7 @@ const AppBarStyled = styled<typeof AppBar>(AppBar)<AppBarProps>(
 
 export const Header = () => {
   const { isAuth, user } = useAppSelector(common.auth.selector.state);
+
   const dispatch = useAppDispatch();
   const [_cookies, _setCookie, removeCookie] = useCookies([
     'refreshToken',
@@ -39,13 +40,22 @@ export const Header = () => {
   };
 
   useEffect(() => {
-    const interval = setInterval(
-      () =>
-        dispatch(getAccessTokenThunk({ config: { withCredentials: true } })),
-      10 * 1000
-    );
-    return () => clearInterval(interval);
-  }, [dispatch]);
+    let interval: ReturnType<typeof setTimeout>;
+
+    if (isAuth) {
+      interval = setInterval(
+        () =>
+          dispatch(getAccessTokenThunk({ config: { withCredentials: true } })),
+        10 * 1000
+      );
+    }
+
+    return () => {
+      if (interval !== undefined) {
+        clearInterval(interval);
+      }
+    };
+  }, [dispatch, isAuth]);
 
   return (
     <AppBarStyled position="static" component={'header'}>
