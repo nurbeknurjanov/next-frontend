@@ -20,7 +20,7 @@ export default async function middleware(req: NextRequest) {
   const pathname = req.nextUrl.pathname;
 
   if (
-    pathname.includes('/products') ||
+    pathname.match(/products\/\w*\d\w*\/update/) ||
     pathname.includes('/users') ||
     pathname.includes('/files')
   ) {
