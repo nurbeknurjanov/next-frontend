@@ -34,6 +34,8 @@ export default async function middleware(req: NextRequest) {
         return NextResponse.redirect(new URL('/login', req.url));
         //return new Response('Not authorized', { status: 401});
       }
+    } else {
+      return NextResponse.redirect(new URL('/login', req.url));
     }
   }
 
