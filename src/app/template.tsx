@@ -3,9 +3,10 @@ import React, { PropsWithChildren } from 'react';
 import { StoreProvider } from 'shared/wrappers';
 import { serverStore } from 'store/store';
 import { Content, Footer, Header, Sidebar } from 'components';
-import { headers } from 'next/headers';
+import { cookies, headers } from 'next/headers';
 import styles from 'css/common.module.scss';
-import { hydratedToClient } from 'store/common/thunks';
+import { auth, hydratedToClient } from 'store/common/thunks';
+import { JWT } from 'shared/utils';
 
 /*
 Template works only on server side like a layout,
@@ -17,6 +18,20 @@ Template works only on server side like a layout,
 export default async function Template({ children }: PropsWithChildren) {
   const headersList = headers();
 
+  const cookieStore = cookies();
+  const accessTokenCookie = cookieStore.get('accessToken');
+
+  if (accessTokenCookie?.value) {
+    try {
+      const parsed = await JWT.parseToken(accessTokenCookie?.value);
+      serverStore.dispatch(auth({ isAuth: true, user: parsed.user }));
+    } catch (_error) {
+      _error;
+    }
+  } else {
+    serverStore.dispatch(auth({ isAuth: null, user: null }));
+  }
+
   if (serverStore.getState().common.hydrate.serverWait) {
     await new Promise(resolve => {
       setInterval(() => {
@@ -27,7 +42,7 @@ export default async function Template({ children }: PropsWithChildren) {
     });
   }
 
-  console.log("header headersList.get('Referer')", headersList.get('Referer'));
+  //console.log("header headersList.get('Referer')", headersList.get('Referer'));
   serverStore.dispatch(hydratedToClient(!!headersList.get('Referer')));
 
   return (

@@ -14,7 +14,7 @@ import { useAppSelector } from 'store/hooks';
 import { common } from 'store';
 
 export function Sidebar() {
-  const { isAuth } = useAppSelector(common.login.selector.state);
+  const { isAuth } = useAppSelector(common.auth.selector.state);
   return (
     <section className={styles.sidebar}>
       <Paper sx={{ height: '100%' }}>

@@ -3,8 +3,6 @@ import { pathnames, locales, localePrefix, defaultLocale } from './i18n';
 import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { JWT } from 'shared/utils/jwt';
-import { serverStore } from 'store/store';
-import { auth } from 'store/common/thunks';
 
 const resultOfLocale = createMiddleware({
   defaultLocale,
@@ -28,8 +26,7 @@ export default async function middleware(req: NextRequest) {
   ) {
     if (accessTokenCookie?.value) {
       try {
-        const parsed = await JWT.parseToken(accessTokenCookie?.value);
-        serverStore.dispatch(auth({ isAuth: true, user: parsed.user }));
+        const _parsed = await JWT.parseToken(accessTokenCookie?.value);
       } catch (error) {
         return NextResponse.redirect(new URL('/login', req.url));
         //return new Response('Not authorized', { status: 401});

@@ -4,11 +4,11 @@ import type { RootStateType } from 'store/store';
 import type { IUser } from 'api/usersApi';
 
 export type AuthStateType = {
-  isAuth: boolean;
+  isAuth: boolean | null;
   user: IUser | null;
 };
 const initialState: AuthStateType = {
-  isAuth: false,
+  isAuth: null,
   user: null,
 };
 
