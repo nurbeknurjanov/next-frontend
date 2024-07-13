@@ -59,7 +59,7 @@ export const Header = () => {
         if (data) {
           setCookie('accessToken', data, { path: '/' });
         }
-      }, 3 * 1000);
+      }, 30 * 1000);
     }
 
     return () => {

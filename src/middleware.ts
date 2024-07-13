@@ -39,6 +39,19 @@ export default async function middleware(req: NextRequest) {
     }
   }
 
+  if (pathname.includes('/login') || pathname.includes('/vhod')) {
+    if (accessTokenCookie?.value) {
+      try {
+        const parsed = await JWT.parseToken(accessTokenCookie?.value);
+        if (!(new Date(parsed.expire).getTime() < new Date().getTime())) {
+          return NextResponse.redirect(new URL('/', req.url));
+        }
+      } catch (error) {
+        error;
+      }
+    }
+  }
+
   return NextResponseLocale;
 }
 
