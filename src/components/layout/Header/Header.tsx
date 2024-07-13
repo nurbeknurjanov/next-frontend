@@ -15,6 +15,7 @@ import { common } from 'store';
 import { getAccessTokenThunk, logout } from 'store/common/thunks';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
 import { useCookies } from 'react-cookie';
+import { useRouter } from 'next/navigation';
 
 const AppBarStyled = styled<typeof AppBar>(AppBar)<AppBarProps>(
   ({ theme }) => ({
@@ -27,6 +28,7 @@ const AppBarStyled = styled<typeof AppBar>(AppBar)<AppBarProps>(
 export const Header = () => {
   const { isAuth, user } = useAppSelector(common.auth.selector.state);
 
+  const router = useRouter();
   const dispatch = useAppDispatch();
   const [_cookies, setCookie, removeCookie] = useCookies([
     'refreshToken',
@@ -51,6 +53,7 @@ export const Header = () => {
         if (error && error.status === 401) {
           removeCookie('refreshToken');
           removeCookie('accessToken');
+          router.push('/login');
         }
 
         if (data) {
@@ -64,7 +67,7 @@ export const Header = () => {
         clearInterval(interval);
       }
     };
-  }, [dispatch, isAuth, setCookie, removeCookie]);
+  }, [dispatch, isAuth, setCookie, removeCookie, router]);
 
   return (
     <AppBarStyled position="static" component={'header'}>
