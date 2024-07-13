@@ -7,8 +7,10 @@ import { useTranslations } from 'next-intl';
 
 //eslint-disable-next-line
 export default function LoginPage(props: PageProps) {
-  const t = useTranslations('LoginPage');
-  serverStore.dispatch(common.title.actions.set({ title: t('title') }));
+  const tLoginPage = useTranslations('LoginPage');
+  serverStore.dispatch(
+    common.title.actions.set({ title: tLoginPage('title') })
+  );
 
   return <Login />;
 }

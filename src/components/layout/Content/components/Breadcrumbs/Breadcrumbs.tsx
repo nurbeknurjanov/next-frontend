@@ -9,7 +9,7 @@ import { useTranslations } from 'next-intl';
 
 export function Breadcrumbs() {
   const _theme = useTheme();
-  const t = useTranslations('Common');
+  const tCommon = useTranslations('Common');
   const breadcrumbsState = useAppSelector(common.breadcrumbs.selector.state);
   const { items } = breadcrumbsState;
 
@@ -20,7 +20,7 @@ export function Breadcrumbs() {
   return (
     <MuiBreadcrumbs>
       <Link underline="hover" color="inherit" href={'/'}>
-        {t('home')}
+        {tCommon('home')}
       </Link>
       {items.map((el, index) => {
         if (!el) {

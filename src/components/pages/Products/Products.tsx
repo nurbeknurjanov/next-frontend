@@ -37,17 +37,17 @@ let Products: FC = () => {
     closeShowModal,
   } = useProducts();
 
-  const tps = useTranslations('ProductsPage');
+  const tProductsPage = useTranslations('ProductsPage');
 
   useSetPageData(
-    tps('title'),
-    [tps('title')],
+    tProductsPage('title'),
+    [tProductsPage('title')],
     <Button
       variant={'contained'}
       size={'small'}
       onClick={() => setShowModal({ type: 'create' })}
     >
-      {tps('create')}
+      {tProductsPage('create')}
     </Button>
   );
 

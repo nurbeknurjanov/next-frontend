@@ -5,20 +5,10 @@ import { useSetPageData } from 'shared/hooks';
 import { withCleanHooks } from 'shared/hocs';
 
 let Contact: FC = () => {
-  const t = useTranslations('ContactPage');
-  useSetPageData(t('title'), [
-    {
-      label: 'Home',
-      href: '/',
-    },
-    {
-      label: t('title'),
-      href: '/contact',
-    },
-    t('title'),
-  ]);
+  const tContactPage = useTranslations('ContactPage');
+  useSetPageData(tContactPage('title'), [tContactPage('title')]);
 
-  return <>{t('description', { phone: '996558011477' })}</>;
+  return <>{tContactPage('description', { phone: '996558011477' })}</>;
 };
 
 Contact = withCleanHooks(Contact);

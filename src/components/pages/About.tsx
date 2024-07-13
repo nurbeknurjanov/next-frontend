@@ -8,23 +8,13 @@ import { withCleanHooks } from 'shared/hocs';
 import { useSetPageData } from 'shared/hooks';
 
 let About: FC = () => {
-  const t = useTranslations('AboutPage');
+  const tAboutPage = useTranslations('AboutPage');
   const title = useAppSelector(common.title.selector.title)!;
   //serverStore.getState().common.title.title
 
-  useSetPageData(title, [
-    {
-      label: 'Home',
-      href: '/',
-    },
-    {
-      label: 'About us',
-      href: '/about',
-    },
-    title,
-  ]);
+  useSetPageData(title, [title]);
 
-  return <>{t('description')}</>;
+  return <>{tAboutPage('description')}</>;
 };
 
 About = withCleanHooks(About);

@@ -6,16 +6,16 @@ import { withCleanHooks } from 'shared/hocs';
 import { useTranslations } from 'next-intl';
 
 let Home: FC = () => {
-  const t = useTranslations('HomePage');
+  const tHomePage = useTranslations('HomePage');
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(common.title.actions.set({ title: t('title') }));
+    dispatch(common.title.actions.set({ title: tHomePage('title') }));
     return () => {
       dispatch(common.title.actions.reset());
     };
-  }, [dispatch, t]);
-  return <>{t('description')}</>;
+  }, [dispatch, tHomePage]);
+  return <>{tHomePage('description')}</>;
 };
 
 Home = withCleanHooks(Home);

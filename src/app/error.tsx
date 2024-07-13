@@ -7,7 +7,7 @@ import { useTranslations } from 'next-intl';
 /* eslint-disable */
 // eslint-disable-next-line
 export default function ErrorPage(props: { error: string }) {
-  const t = useTranslations('ErrorPage');
-  return <>{t('title')}</>;
+  const tErrorPage = useTranslations('ErrorPage');
+  return <>{tErrorPage('title')}</>;
 }
 /* eslint-enable */
