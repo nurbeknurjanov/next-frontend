@@ -39,11 +39,13 @@ export const Header = () => {
   };
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      getAccessTokenThunk({ config: { withCredentials: true } });
-    }, 10 * 1000);
+    const interval = setInterval(
+      () =>
+        dispatch(getAccessTokenThunk({ config: { withCredentials: true } })),
+      10 * 1000
+    );
     return () => clearInterval(interval);
-  }, []);
+  }, [dispatch]);
 
   return (
     <AppBarStyled position="static" component={'header'}>
