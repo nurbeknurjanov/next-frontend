@@ -1,15 +1,16 @@
 import { AppThunk } from 'store/store';
 import { common } from 'store';
-import { notify, auth } from 'store/common/thunks';
-import { CommonApiConfig } from 'api/commonApi';
-import { JWT } from 'shared/utils';
+import { notify, logout } from 'store/common/thunks';
+import { CommonApiConfig, CommonApiError } from 'api/commonApi';
 
 export const getAccessTokenThunk =
   ({
     config,
   }: {
     config: CommonApiConfig;
-  }): AppThunk<Promise<{ data: string | null }>> =>
+  }): AppThunk<
+    Promise<{ data: string | null; error: CommonApiError | null }>
+  > =>
   async (dispatch, getState) => {
     await dispatch(
       common.getAccessToken.thunk.request({
@@ -20,11 +21,7 @@ export const getAccessTokenThunk =
     const { error, data } = common.getAccessToken.selector.state(getState());
     if (error) {
       dispatch(notify(error.data, 'error'));
-    }
-
-    if (data) {
-      const accessTokenParsed = await JWT.parseToken(data);
-      dispatch(auth({ isAuth: true, user: accessTokenParsed.user }));
+      dispatch(logout());
     }
 
     return { data, error };

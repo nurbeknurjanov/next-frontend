@@ -12,7 +12,7 @@ import { styled } from '@mui/material/styles';
 import { Link } from 'shared/ui';
 import { LanguageSwitcher } from './components';
 import { common } from 'store';
-import { getAccessTokenThunk } from 'store/common/thunks';
+import { getAccessTokenThunk, logout } from 'store/common/thunks';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
 import { useCookies } from 'react-cookie';
 
@@ -28,13 +28,13 @@ export const Header = () => {
   const { isAuth, user } = useAppSelector(common.auth.selector.state);
 
   const dispatch = useAppDispatch();
-  const [_cookies, _setCookie, removeCookie] = useCookies([
+  const [_cookies, setCookie, removeCookie] = useCookies([
     'refreshToken',
     'accessToken',
   ]);
 
-  const logout = () => {
-    dispatch(common.login.actions.reset());
+  const onLogout = () => {
+    dispatch(logout());
     removeCookie('refreshToken');
     removeCookie('accessToken');
   };
@@ -43,11 +43,20 @@ export const Header = () => {
     let interval: ReturnType<typeof setTimeout>;
 
     if (isAuth) {
-      interval = setInterval(
-        () =>
-          dispatch(getAccessTokenThunk({ config: { withCredentials: true } })),
-        10 * 1000
-      );
+      interval = setInterval(async () => {
+        const { data, error } = await dispatch(
+          getAccessTokenThunk({ config: { withCredentials: true } })
+        );
+
+        if (error && error.status === 401) {
+          removeCookie('refreshToken');
+          removeCookie('accessToken');
+        }
+
+        if (data) {
+          setCookie('accessToken', data, { path: '/' });
+        }
+      }, 3 * 1000);
     }
 
     return () => {
@@ -55,7 +64,7 @@ export const Header = () => {
         clearInterval(interval);
       }
     };
-  }, [dispatch, isAuth]);
+  }, [dispatch, isAuth, setCookie, removeCookie]);
 
   return (
     <AppBarStyled position="static" component={'header'}>
@@ -81,7 +90,7 @@ export const Header = () => {
         </Typography>
 
         {isAuth ? (
-          <Link color="inherit" href={'/'} onClick={logout} mx={1}>
+          <Link color="inherit" href={'/'} onClick={onLogout} mx={1}>
             Logout
           </Link>
         ) : (

@@ -1,11 +1,11 @@
-//'use client';если так сделать, тогда он будет работать постоянно на клиенте и постоянно обновляться будет
+//'use client'; //если так сделать, тогда он будет работать постоянно на клиенте и постоянно обновляться будет
 import React, { PropsWithChildren } from 'react';
 import { StoreProvider } from 'shared/wrappers';
 import { serverStore } from 'store/store';
 import { Content, Footer, Header, Sidebar } from 'components';
 import { cookies, headers } from 'next/headers';
 import styles from 'css/common.module.scss';
-import { auth, hydratedToClient } from 'store/common/thunks';
+import { authorize, logout, hydratedToClient } from 'store/common/thunks';
 import { JWT } from 'shared/utils';
 
 /*
@@ -28,12 +28,12 @@ export default async function Template({ children }: PropsWithChildren) {
         throw new Error('Access token is expired');
       }
 
-      serverStore.dispatch(auth({ isAuth: true, user: parsed.user }));
+      serverStore.dispatch(authorize({ user: parsed.user }));
     } catch (_error) {
-      serverStore.dispatch(auth({ isAuth: null, user: null }));
+      serverStore.dispatch(logout());
     }
   } else {
-    serverStore.dispatch(auth({ isAuth: null, user: null }));
+    serverStore.dispatch(logout());
   }
 
   if (serverStore.getState().common.hydrate.serverWait) {

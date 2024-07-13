@@ -16,6 +16,9 @@ const { actions, reducer } = createSlice({
   name: 'auth',
   initialState,
   reducers: {
+    reset() {
+      return initialState;
+    },
     set: (state, action: PayloadAction<AuthStateType>) => {
       state = action.payload;
       return state;
