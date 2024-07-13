@@ -2,6 +2,7 @@ import createMiddleware from 'next-intl/middleware';
 import { pathnames, locales, localePrefix, defaultLocale } from './i18n';
 import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
+import { JWT } from 'shared/utils/jwt';
 
 const resultOfLocale = createMiddleware({
   defaultLocale,
@@ -23,8 +24,8 @@ export default function middleware(req: NextRequest) {
     pathname.includes('/users') ||
     pathname.includes('/files')
   ) {
-    console.log('accessTokenCookie?.value', accessTokenCookie?.value);
-    if (!accessTokenCookie?.value) {
+    if (accessTokenCookie?.value) {
+      console.log('parseToken', JWT.parseToken(accessTokenCookie?.value));
       //return NextResponse.redirect(new URL('/login', req.url));
       /*return new Response('Not authorized', {
         status: 401,
