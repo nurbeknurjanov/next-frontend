@@ -18,7 +18,7 @@ import {
 import axios from 'axios';
 import { isEqual } from 'lodash';
 import { IUser } from 'api/usersApi';
-//import { JWT } from '../../../backend/helpers';
+import { JWT } from 'shared/utils';
 
 export interface LoginStateType
   extends MergeResponseState<LoginResponse, CommonApiError> {
@@ -99,8 +99,7 @@ const { actions, reducer } = createSlice({
       Object.assign(state, getFetchedResponseState());
       state.data = action.payload;
       state.isAuth = true;
-      //@ts-ignore
-      //state.user = JWT.parseToken(action.payload).user;
+      state.user = JWT.parseToken(action.payload).user;
       state.error = null;
     });
     builder.addCase(requestThunk.rejected, (state, action) => {
