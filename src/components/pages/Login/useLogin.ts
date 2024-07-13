@@ -18,7 +18,7 @@ export const useLogin = () => {
   const dispatch = useAppDispatch();
   const loginState = useAppSelector(common.login.selector.state);
   const router = useRouter();
-  const [_cookies, setCookie] = useCookies(['accessToken']);
+  const [_cookies, setCookie] = useCookies(['refreshToken', 'accessToken']);
 
   const initialValues: LoginRequestBodyParams = {
     email: '',
@@ -50,7 +50,8 @@ export const useLogin = () => {
   const login = async (formData: LoginRequestBodyParams) => {
     const { data } = await dispatch(loginThunk(formData));
     if (data) {
-      setCookie('accessToken', data, { path: '/' });
+      setCookie('refreshToken', data.refreshToken, { path: '/' });
+      setCookie('accessToken', data.accessToken, { path: '/' });
       router.push('/');
     }
   };

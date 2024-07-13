@@ -21,8 +21,8 @@ export const loginThunk =
     }
 
     if (data) {
-      const parsed = await JWT.parseToken(data);
-      dispatch(auth({ isAuth: true, user: parsed.user }));
+      const accessTokenParsed = await JWT.parseToken(data.accessToken);
+      dispatch(auth({ isAuth: true, user: accessTokenParsed.user }));
     }
     return { data, error };
   };

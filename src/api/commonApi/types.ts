@@ -6,7 +6,10 @@ export type LoginRequestBodyParams = {
   password: string;
 };
 
-export type LoginResponse = string;
+export type LoginResponse = {
+  refreshToken: string;
+  accessToken: string;
+};
 
 export type CommonApiConfig = AxiosRequestConfig;
 
