@@ -26,7 +26,10 @@ export default async function middleware(req: NextRequest) {
   ) {
     if (accessTokenCookie?.value) {
       try {
-        const _parsed = await JWT.parseToken(accessTokenCookie?.value);
+        const parsed = await JWT.parseToken(accessTokenCookie?.value);
+        if (new Date(parsed.expire).getTime() < new Date().getTime()) {
+          throw new Error('Access token is expired');
+        }
       } catch (error) {
         return NextResponse.redirect(new URL('/login', req.url));
         //return new Response('Not authorized', { status: 401});

@@ -24,9 +24,13 @@ export default async function Template({ children }: PropsWithChildren) {
   if (accessTokenCookie?.value) {
     try {
       const parsed = await JWT.parseToken(accessTokenCookie?.value);
+      if (new Date(parsed.expire).getTime() < new Date().getTime()) {
+        throw new Error('Access token is expired');
+      }
+
       serverStore.dispatch(auth({ isAuth: true, user: parsed.user }));
     } catch (_error) {
-      _error;
+      serverStore.dispatch(auth({ isAuth: null, user: null }));
     }
   } else {
     serverStore.dispatch(auth({ isAuth: null, user: null }));

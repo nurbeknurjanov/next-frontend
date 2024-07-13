@@ -26,10 +26,14 @@ const AppBarStyled = styled<typeof AppBar>(AppBar)<AppBarProps>(
 export const Header = () => {
   const { isAuth, user } = useAppSelector(common.auth.selector.state);
   const dispatch = useAppDispatch();
-  const [_cookies, _setCookie, removeCookie] = useCookies(['accessToken']);
+  const [_cookies, _setCookie, removeCookie] = useCookies([
+    'refreshToken',
+    'accessToken',
+  ]);
 
   const logout = () => {
     dispatch(common.login.actions.reset());
+    removeCookie('refreshToken');
     removeCookie('accessToken');
   };
 
