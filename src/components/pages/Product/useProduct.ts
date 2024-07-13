@@ -4,11 +4,15 @@ import { ProductPageProps } from 'app/[locale]/products/[id]/page';
 import { useProductModel } from './useProductModel';
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
+import { useAppSelector } from 'store/hooks';
+import { common } from 'store';
 
 type ModalType = { type: 'delete'; id: string };
 export function useProduct() {
   const tProductsPage = useTranslations('ProductsPage');
   const router = useRouter();
+  const isAuth = useAppSelector(common.auth.selector.isAuth);
+
   const [showModal, setShowModal] = useState<ModalType | null>();
 
   const { id } = useParams<ProductPageProps['params']>();
@@ -25,5 +29,6 @@ export function useProduct() {
     showModal,
     setShowModal,
     router,
+    isAuth,
   };
 }

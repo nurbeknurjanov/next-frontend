@@ -35,6 +35,7 @@ let Products: FC = () => {
     showModal,
     setShowModal,
     closeShowModal,
+    isAuth,
   } = useProducts();
 
   const tProductsPage = useTranslations('ProductsPage');
@@ -42,13 +43,15 @@ let Products: FC = () => {
   useSetPageData(
     tProductsPage('title'),
     [tProductsPage('title')],
-    <Button
-      variant={'contained'}
-      size={'small'}
-      onClick={() => setShowModal({ type: 'create' })}
-    >
-      {tProductsPage('create')}
-    </Button>
+    isAuth && (
+      <Button
+        variant={'contained'}
+        size={'small'}
+        onClick={() => setShowModal({ type: 'create' })}
+      >
+        {tProductsPage('create')}
+      </Button>
+    )
   );
 
   const columns: GridColDef<IProduct>[] = [
@@ -106,20 +109,28 @@ let Products: FC = () => {
           label={tCommon('view')}
           showInMenu
         />,
-        <GridActionsCellItem
-          key={params.row._id}
-          icon={<EditIcon color={'warning'} />}
-          onClick={() => setShowModal({ type: 'update', id: params.row._id })}
-          label={tCommon('update')}
-          showInMenu
-        />,
-        <GridActionsCellItem
-          key={params.row._id}
-          icon={<DeleteIcon color={'error'} />}
-          onClick={() => setShowModal({ type: 'delete', id: params.row._id })}
-          label={tCommon('delete')}
-          showInMenu
-        />,
+        ...(isAuth
+          ? [
+              <GridActionsCellItem
+                key={params.row._id}
+                icon={<EditIcon color={'warning'} />}
+                onClick={() =>
+                  setShowModal({ type: 'update', id: params.row._id })
+                }
+                label={tCommon('update')}
+                showInMenu
+              />,
+              <GridActionsCellItem
+                key={params.row._id}
+                icon={<DeleteIcon color={'error'} />}
+                onClick={() =>
+                  setShowModal({ type: 'delete', id: params.row._id })
+                }
+                label={tCommon('delete')}
+                showInMenu
+              />,
+            ]
+          : []),
       ],
     },
   ];

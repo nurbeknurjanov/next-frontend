@@ -42,6 +42,7 @@ let Product: FC = () => {
     showModal,
     setShowModal,
     router,
+    isAuth,
   } = useProduct();
   const title = model?.name!;
 
@@ -54,19 +55,21 @@ let Product: FC = () => {
       },
       title,
     ],
-    <>
-      <ButtonLink href={`/products/${id}/update`} size={'small'}>
-        {tProductPage('update')}
-      </ButtonLink>
-      <Button
-        variant={'contained'}
-        size={'small'}
-        color={'error'}
-        onClick={() => setShowModal({ type: 'delete', id })}
-      >
-        {tProductPage('delete')}
-      </Button>
-    </>
+    isAuth && (
+      <>
+        <ButtonLink href={`/products/${id}/update`} size={'small'}>
+          {tProductPage('update')}
+        </ButtonLink>
+        <Button
+          variant={'contained'}
+          size={'small'}
+          color={'error'}
+          onClick={() => setShowModal({ type: 'delete', id })}
+        >
+          {tProductPage('delete')}
+        </Button>
+      </>
+    )
   );
 
   const rows: { label: string; value: string | React.ReactNode }[] = [];
