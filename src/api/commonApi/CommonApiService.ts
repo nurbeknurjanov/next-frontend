@@ -26,12 +26,12 @@ export class CommonApiService extends BaseApiService {
     });
   }
 
-  public check(
+  public getAccessToken(
     config?: CommonApiConfig
-  ): Promise<AxiosResponseData<LoginResponse>> {
-    return this.request<LoginResponse>({
+  ): Promise<AxiosResponseData<string>> {
+    return this.request<string>({
       method: 'get',
-      url: '/auth/user',
+      url: '/auth/get-access-token',
       ...config,
       headers: {
         ...config?.headers,

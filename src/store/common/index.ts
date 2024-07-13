@@ -6,6 +6,7 @@ import {
   hydrate,
   notify,
   auth,
+  getAccessToken,
 } from './slices';
 
 export const common = {
@@ -16,4 +17,5 @@ export const common = {
   hydrate,
   notify,
   auth,
+  getAccessToken,
 };

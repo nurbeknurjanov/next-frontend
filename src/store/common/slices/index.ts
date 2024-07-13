@@ -15,3 +15,5 @@ export { title } from './title';
 
 export type { AuthStateType } from './auth';
 export { auth } from './auth';
+
+export { getAccessToken } from './getAccessToken';

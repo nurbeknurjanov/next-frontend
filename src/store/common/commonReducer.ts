@@ -7,6 +7,7 @@ import {
   hydrate,
   notify,
   auth,
+  getAccessToken,
 } from './slices';
 
 export const commonReducer = combineReducers({
@@ -17,4 +18,5 @@ export const commonReducer = combineReducers({
   hydrate: hydrate.reducer,
   notify: notify.reducer,
   auth: auth.reducer,
+  getAccessToken: getAccessToken.reducer,
 });

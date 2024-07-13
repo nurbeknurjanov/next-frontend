@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { useEffect } from 'react';
 import AppBar from '@mui/material/AppBar';
 import { AppBarProps } from '@mui/material';
 import Toolbar from '@mui/material/Toolbar';
@@ -36,6 +36,11 @@ export const Header = () => {
     removeCookie('refreshToken');
     removeCookie('accessToken');
   };
+
+  useEffect(() => {
+    const interval = setInterval(() => {}, 1000);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <AppBarStyled position="static" component={'header'}>
