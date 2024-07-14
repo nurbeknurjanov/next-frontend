@@ -1,13 +1,11 @@
 'use client';
 import React, { useEffect } from 'react';
-import MuiLink from '@mui/material/Link';
 import { usePathname, useRouter } from 'navigation';
 import { useSearchParams, useParams } from 'next/navigation';
 import { locales, localeType } from 'i18n';
 import dayjs from 'dayjs';
 import LanguageIcon from '@mui/icons-material/Language';
 import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 require('dayjs/locale/ru');

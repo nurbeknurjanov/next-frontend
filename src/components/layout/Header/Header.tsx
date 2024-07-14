@@ -100,9 +100,7 @@ export const Header = () => {
           component="div"
           sx={{ flexGrow: 1 }}
           className={styles.slogan}
-        >
-          Hello {authUser ? authUser.name : 'Guest'}
-        </Typography>
+        ></Typography>
 
         {isAuth ? (
           <Link color="inherit" href={'/'} onClick={onLogout} mx={1}>
@@ -113,8 +111,6 @@ export const Header = () => {
             Login
           </Link>
         )}
-
-        <LanguageSwitcher />
 
         <IconButton
           size="large"
@@ -143,6 +139,8 @@ export const Header = () => {
           <MenuItem onClick={handleClose}>Profile</MenuItem>
           <MenuItem onClick={handleClose}>My account</MenuItem>
         </Menu>
+
+        <LanguageSwitcher />
       </Toolbar>
     </AppBarStyled>
   );
