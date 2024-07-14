@@ -23,19 +23,17 @@
     "image": "Image",
     "type": "Type",
     "actions": "Actions",
-    "rowsPerPage:": "Rows per page:"
+    "rowsPerPage:": "Rows per page:",
+    "profile": "Profile",
+    "logout": "Logout"
   },
   "HomePage": {
     "title": "Welcome",
     "description": "This is welcome page"
   },
-  "AboutPage": {
-    "title": "About us",
-    "description": "This is a custom next app"
-  },
   "ContactPage": {
     "title": "Contact",
-    "description": "This is contact phone {phone}"
+    "description": "Call {phone}"
   },
   "NotFoundPage": {
     "title": "Not found"

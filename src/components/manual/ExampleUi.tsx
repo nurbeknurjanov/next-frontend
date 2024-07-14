@@ -2,18 +2,8 @@
 import React from 'react';
 import { Box, Button, TextField } from '@mui/material';
 import { Checkbox } from 'shared/ui';
-import { useSetPageData } from 'shared/hooks';
 
-export function Manual() {
-  const title = 'Manual page';
-  useSetPageData(title, [
-    {
-      label: 'Home',
-      href: '/',
-    },
-    title,
-  ]);
-
+export function ExampleUi() {
   return (
     <>
       <Box component={'span'} sx={{ color: 'secondary.main', my: '20px' }}>

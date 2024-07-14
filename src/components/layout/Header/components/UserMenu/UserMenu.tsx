@@ -8,13 +8,21 @@ import Box from '@mui/material/Box';
 import { useUserMenu } from './useUserMenu';
 
 export const UserMenu: FC = () => {
-  const { isAuth, authUser, onLogout, anchorEl, handleMenu, handleClose } =
-    useUserMenu();
+  const {
+    tCommon,
+    tLoginPage,
+    isAuth,
+    authUser,
+    onLogout,
+    anchorEl,
+    handleMenu,
+    handleClose,
+  } = useUserMenu();
 
   if (!isAuth) {
     return (
       <Link color="inherit" href={'/login'} mx={1}>
-        Login
+        {tLoginPage('title')}
       </Link>
     );
   }
@@ -53,7 +61,7 @@ export const UserMenu: FC = () => {
           href={'/profile'}
           onClick={() => handleClose()}
         >
-          Profile
+          {tCommon('profile')}
         </MenuItem>
         <MenuItem
           component={Link}
@@ -63,7 +71,7 @@ export const UserMenu: FC = () => {
             handleClose();
           }}
         >
-          Logout
+          {tCommon('logout')}
         </MenuItem>
       </Menu>
     </>

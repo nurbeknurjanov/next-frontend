@@ -12,8 +12,21 @@ import styles from './siderbar.module.scss';
 import { to } from 'shared/utils';
 import { useAppSelector } from 'store/hooks';
 import { getIsAuth } from 'store/common/selectors';
+import { useTranslations } from 'next-intl';
+import { useRouter } from 'next/navigation';
+import CategoryIcon from '@mui/icons-material/Category';
+import GroupIcon from '@mui/icons-material/Group';
+import AttachFileIcon from '@mui/icons-material/AttachFile';
+import PhoneIcon from '@mui/icons-material/Phone';
+import HomeIcon from '@mui/icons-material/Home';
 
 export function Sidebar() {
+  const tCommon = useTranslations('Common');
+  const tProductsPage = useTranslations('ProductsPage');
+  const tUsersPage = useTranslations('UsersPage');
+  const tFilesPage = useTranslations('FilesPage');
+  const tContactPage = useTranslations('ContactPage');
+  const router = useRouter();
   const isAuth = useAppSelector(getIsAuth);
   return (
     <section className={styles.sidebar}>
@@ -21,83 +34,56 @@ export function Sidebar() {
         <List>
           <ListItem disablePadding>
             <ListItemButton component={ActiveLink} href={to({ pathname: '/' })}>
-              <ListItemText primary={'Home'} />
+              <ListItemIcon>
+                <HomeIcon />
+              </ListItemIcon>
+              <ListItemText primary={tCommon('home')} />
             </ListItemButton>
           </ListItem>
           <ListItem disablePadding>
             <ListItemButton component={ActiveLink} href="/products">
               <ListItemIcon>
-                <InboxIcon />
+                <CategoryIcon />
               </ListItemIcon>
-              <ListItemText primary={'Products'} />
+              <ListItemText primary={tProductsPage('title')} />
             </ListItemButton>
           </ListItem>
-          {/*<ListItem disablePadding>
-            <ListItemButton component={ActiveLink} href="/manual">
-              <ListItemText primary={"Manual"} />
-            </ListItemButton>
-          </ListItem>*/}
-          {/*<ListItem disablePadding>
-            <ListItemButton
-              component={ActiveLink}
-              href="/about"
-              onClick={() =>
-                router.push(
-                  to({ pathname: '/about', search: { page: 'about' } })
-                )
-              }
-            >
-              <ListItemIcon>
-                <InboxIcon />
-              </ListItemIcon>
-              <ListItemText primary={'About us'} />
-            </ListItemButton>
-          </ListItem>
-          <ListItem disablePadding>
-            <ListItemButton component={ActiveLink} href="/contact">
-              <ListItemIcon>
-                <InboxIcon />
-              </ListItemIcon>
-              <ListItemText primary={'Contact'} />
-            </ListItemButton>
-          </ListItem>*/}
           {isAuth && (
             <>
               <ListItem disablePadding>
                 <ListItemButton component={ActiveLink} href="/users">
                   <ListItemIcon>
-                    <InboxIcon />
+                    <GroupIcon />
                   </ListItemIcon>
-                  <ListItemText primary={'Users'} />
+                  <ListItemText primary={tUsersPage('title')} />
                 </ListItemButton>
               </ListItem>
               <ListItem disablePadding>
                 <ListItemButton component={ActiveLink} href="/files">
                   <ListItemIcon>
-                    <InboxIcon />
+                    <AttachFileIcon />
                   </ListItemIcon>
-                  <ListItemText primary={'Files'} />
+                  <ListItemText primary={tFilesPage('title')} />
                 </ListItemButton>
               </ListItem>
             </>
           )}
-
-          {/*<ListItem disablePadding>
+          <ListItem disablePadding>
             <ListItemButton
               component={ActiveLink}
-              href={to({ pathname: "/product/2", search: { name: "Nurbek" } })}
+              href={to({ pathname: '/contact', search: { fromSidebar: '1' } })}
               onClick={() =>
                 router.push(
-                  to({ pathname: "/product/3", search: { name: "Nurbek" } }),
+                  to({ pathname: '/contact', search: { fromSidebar: '2' } })
                 )
               }
             >
               <ListItemIcon>
-                <InboxIcon />
+                <PhoneIcon />
               </ListItemIcon>
-              <ListItemText primary={"Product"} />
+              <ListItemText primary={tContactPage('title')} />
             </ListItemButton>
-          </ListItem>*/}
+          </ListItem>
         </List>
       </Paper>
     </section>

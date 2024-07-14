@@ -23,19 +23,17 @@
     "image": "Изображение",
     "type": "Тип",
     "actions": "Действия",
-    "rowsPerPage:": "Кол-во строк по странице:"
+    "rowsPerPage:": "Кол-во строк по странице:",
+    "profile": "Профиль",
+    "logout": "Выход"
   },
   "HomePage": {
     "title": "Добро пожаловать",
     "description": "Это главная страница"
   },
-  "AboutPage": {
-    "title": "О нас",
-    "description": "Это кастомное Некст приложение"
-  },
   "ContactPage": {
     "title": "Контакты",
-    "description": "Это контактный телефон {phone}"
+    "description": "Звоните {phone}"
   },
   "NotFoundPage": {
     "title": "Не найдено"
