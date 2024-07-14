@@ -19,7 +19,7 @@ export const Title = () => {
   }
 
   return (
-    <Typography variant="h5" sx={{ mb: 2, mt: 1 }}>
+    <Typography variant="h5" sx={{ my: 1 }}>
       {title}
     </Typography>
   );
