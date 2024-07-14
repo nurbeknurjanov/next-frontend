@@ -42,7 +42,8 @@ export default async function middleware(req: NextRequest) {
         throw new Error('Forbidden');
       }
     } catch (error) {
-      return new Response((error as Error).message, { status: 401 });
+      return NextResponse.redirect(new URL('/login', req.url));
+      //return new Response((error as Error).message, { status: 401 });
     }
   }
 

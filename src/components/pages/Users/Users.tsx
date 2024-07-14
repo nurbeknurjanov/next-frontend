@@ -121,6 +121,7 @@ let Users: FC = () => {
         <UsersFilters filters={filters} setFilters={setFilters} />
 
         <DataGrid
+          sx={{ mt: 3 }}
           rows={data?.list ?? []}
           getRowId={el => el._id}
           columns={columns}

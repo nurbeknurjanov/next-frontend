@@ -147,6 +147,7 @@ let Products: FC = () => {
         <ProductsFilters filters={filters} setFilters={setFilters} />
 
         <DataGrid
+          sx={{ mt: 3 }}
           getRowHeight={params => {
             if (params.model.image) return 'auto';
           }}

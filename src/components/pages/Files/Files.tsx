@@ -92,6 +92,7 @@ let Files: FC = () => {
         <FilesFilters filters={filters} setFilters={setFilters} />
 
         <DataGrid
+          sx={{ mt: 3 }}
           getRowHeight={_params => 'auto'}
           rows={data?.list ?? []}
           getRowId={el => el._id}
