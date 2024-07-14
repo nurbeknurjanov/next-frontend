@@ -3,6 +3,8 @@ import { pathnames, locales, localePrefix, defaultLocale } from './i18n';
 import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { JWT } from 'shared/utils/jwt';
+import { serverStore } from './store/store';
+import { authorize } from './store/common/thunks';
 
 const resultOfLocale = createMiddleware({
   defaultLocale,
@@ -19,33 +21,36 @@ export default async function middleware(req: NextRequest) {
   const accessTokenCookie = cookieStore.get('accessToken');
   const pathname = req.nextUrl.pathname;
 
-  if (
-    pathname.match(/products\/\w*\d\w*\/update/) ||
+  const updateProductUrl = pathname.match(/products\/\w*\d\w*\/update/);
+  const protectedUrls =
+    updateProductUrl ||
     pathname.includes('/users') ||
-    pathname.includes('/files')
-  ) {
-    if (accessTokenCookie?.value) {
-      try {
-        const parsed = await JWT.parseToken(accessTokenCookie?.value);
-        if (new Date(parsed.expire).getTime() < new Date().getTime()) {
-          throw new Error('Access token is expired');
-        }
-      } catch (error) {
-        return NextResponse.redirect(new URL('/login', req.url));
-        //return new Response('Not authorized', { status: 401});
-      }
-    } else {
+    pathname.includes('/files');
+
+  if (protectedUrls) {
+    if (!accessTokenCookie?.value)
       return NextResponse.redirect(new URL('/login', req.url));
+
+    try {
+      const parsed = await JWT.parseToken(accessTokenCookie.value);
+      serverStore.dispatch(authorize({ user: parsed.user }));
+
+      if (
+        updateProductUrl &&
+        !serverStore.getState().products.productsPermissions.canUpdateProduct
+      ) {
+        throw new Error('Forbidden');
+      }
+    } catch (error) {
+      return new Response((error as Error).message, { status: 401 });
     }
   }
 
   if (pathname.includes('/login') || pathname.includes('/vhod')) {
     if (accessTokenCookie?.value) {
       try {
-        const parsed = await JWT.parseToken(accessTokenCookie?.value);
-        if (!(new Date(parsed.expire).getTime() < new Date().getTime())) {
-          return NextResponse.redirect(new URL('/', req.url));
-        }
+        await JWT.parseToken(accessTokenCookie.value);
+        return NextResponse.redirect(new URL('/', req.url));
       } catch (error) {
         error;
       }

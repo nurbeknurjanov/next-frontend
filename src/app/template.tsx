@@ -1,4 +1,5 @@
 //'use client'; //если так сделать, тогда он будет работать постоянно на клиенте и постоянно обновляться будет
+'use server';
 import React, { PropsWithChildren } from 'react';
 import { StoreProvider } from 'shared/wrappers';
 import { serverStore } from 'store/store';
@@ -23,14 +24,12 @@ export default async function Template({ children }: PropsWithChildren) {
 
   if (accessTokenCookie?.value) {
     try {
-      const parsed = await JWT.parseToken(accessTokenCookie?.value);
-      if (new Date(parsed.expire).getTime() < new Date().getTime()) {
-        throw new Error('Access token is expired');
-      }
-
+      const parsed = await JWT.parseToken(accessTokenCookie.value);
       serverStore.dispatch(authorize({ user: parsed.user }));
     } catch (_error) {
       serverStore.dispatch(logout());
+      cookieStore.delete('refreshToken');
+      cookieStore.delete('accessToken');
     }
   } else {
     serverStore.dispatch(logout());

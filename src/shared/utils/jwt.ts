@@ -16,6 +16,10 @@ export class JWT {
       new TextEncoder().encode(secret_key)
     );
 
+    if (new Date(parsed.payload.expire).getTime() < new Date().getTime()) {
+      throw new Error('Access token is expired');
+    }
+
     return parsed.payload;
   }
 }
