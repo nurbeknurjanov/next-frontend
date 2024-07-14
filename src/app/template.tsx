@@ -28,8 +28,6 @@ export default async function Template({ children }: PropsWithChildren) {
       serverStore.dispatch(authorize({ user: parsed.user }));
     } catch (_error) {
       serverStore.dispatch(logout());
-      cookieStore.delete('refreshToken');
-      cookieStore.delete('accessToken');
     }
   } else {
     serverStore.dispatch(logout());
