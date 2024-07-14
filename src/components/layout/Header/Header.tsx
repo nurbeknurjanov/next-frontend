@@ -4,8 +4,9 @@ import AppBar from '@mui/material/AppBar';
 import { AppBarProps } from '@mui/material';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import Image from 'next/image';
+//import Image from 'next/image';
 import styles from './header.module.scss';
+import NextSVG from '../../../../public/next.svg';
 import { styled } from '@mui/material/styles';
 import { Link } from 'shared/ui';
 import { LanguageSwitcher, UserMenu } from './components';
@@ -24,14 +25,7 @@ export const Header = () => (
   <AppBarStyled position="static" component={'header'}>
     <Toolbar>
       <Link href="/">
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
+        <NextSVG width={180} height={37} alt="Next" className={styles.logo} />
       </Link>
 
       <Typography
