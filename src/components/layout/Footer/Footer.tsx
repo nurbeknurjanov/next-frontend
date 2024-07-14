@@ -8,7 +8,12 @@ import styles from './footer.module.scss';
 export const Footer = () => {
   const theme = useTheme();
   return (
-    <Box mx={theme.spacing(3)} className={styles.footer}>
+    <Box
+      mx={theme.spacing(3)}
+      className={styles.footer}
+      color={'secondary.main'}
+    >
+      box
       <Paper sx={{ color: 'secondary' }}>Next © 2024</Paper>
     </Box>
   );
