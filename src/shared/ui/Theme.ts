@@ -42,6 +42,9 @@ const defaultTheme = createTheme();
 const Theme = createTheme({
   //someVar: "red",
   //someVar: "secondary.main",
+  shape: {
+    borderRadius: 0,
+  },
   spacing: 8,
   palette: {
     mode: 'light',
@@ -149,6 +152,16 @@ const Theme = createTheme({
         root: ({ theme, ownerState: ownProps, ...mergedProps }) => {
           return {
             padding: theme.spacing(2),
+            /*borderRadius: 0,*/
+          };
+        },
+      },
+    },
+    MuiMenu: {
+      styleOverrides: {
+        paper: ({ theme, ownerState: ownProps, ...mergedProps }) => {
+          return {
+            padding: 0,
           };
         },
       },
