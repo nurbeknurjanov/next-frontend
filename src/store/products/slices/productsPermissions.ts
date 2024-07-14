@@ -1,12 +1,14 @@
+import { AuthStateType } from '../../common/slices';
 import { RootStateType } from 'store/store';
 import { createSlice } from '@reduxjs/toolkit';
+import type { PayloadAction } from '@reduxjs/toolkit';
 
 export interface ProductsPermissionsStateType {
-  canViewProducts: boolean;
-  canViewProduct: boolean;
-  canCreateProduct: boolean;
-  canUpdateProduct: boolean;
-  canDeleteProduct: boolean;
+  canViewProducts: boolean | null;
+  canViewProduct: boolean | null;
+  canCreateProduct: boolean | null;
+  canUpdateProduct: boolean | null;
+  canDeleteProduct: boolean | null;
 }
 
 const selector = {
@@ -28,6 +30,14 @@ const { actions, reducer } = createSlice({
   reducers: {
     reset(_state) {
       return initialState;
+    },
+    setPermissions(state, payloadAuthState: PayloadAction<AuthStateType>) {
+      const { payload: authState } = payloadAuthState;
+
+      state.canCreateProduct = authState.isAuth;
+      state.canUpdateProduct = authState.isAuth;
+      state.canDeleteProduct = authState.isAuth;
+      return state;
     },
   },
 });
