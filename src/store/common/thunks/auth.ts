@@ -1,8 +1,9 @@
 import { AuthStateType } from '../slices';
 import { common, products } from 'store';
-import type { AppDispatchType } from 'store/store';
+import type { AppThunk } from 'store/store';
 export const authorize =
-  (data: Omit<AuthStateType, 'isAuth'>) => (dispatch: AppDispatchType) => {
+  (data: Omit<AuthStateType, 'isAuth'>): AppThunk =>
+  dispatch => {
     dispatch(common.auth.actions.set({ ...data, isAuth: true }));
     dispatch(
       products.productsPermissions.actions.setPermissions({
@@ -12,7 +13,7 @@ export const authorize =
     );
   };
 
-export const logout = () => (dispatch: AppDispatchType) => {
+export const logout = (): AppThunk => dispatch => {
   dispatch(common.auth.actions.reset());
   dispatch(products.productsPermissions.actions.reset());
 };
