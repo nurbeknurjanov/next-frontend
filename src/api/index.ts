@@ -8,7 +8,7 @@ export { usersApi };
 export { productsApi };
 export { filesApi };
 
-[usersApi, productsApi].forEach(api => {
+[usersApi, productsApi, filesApi, commonApi].forEach(api => {
   api.getAxiosInstance().interceptors.request.use(
     config => {
       config.withCredentials = true;
