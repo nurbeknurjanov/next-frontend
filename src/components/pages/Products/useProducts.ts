@@ -3,6 +3,7 @@ import { useEffect, useState, useCallback } from 'react';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
 import { products, common } from 'store';
 import { getProductsThunk } from 'store/products/thunks';
+import { getProductsStateSelector } from 'store/products/selectors';
 import { useTranslations } from 'next-intl';
 import { IPaginationRequest } from 'api/baseApi';
 import { isEqual } from 'lodash';
@@ -26,7 +27,7 @@ export function useProducts() {
   const closeShowModal = useCallback(() => setShowModal(null), []);
 
   const isAuth = useAppSelector(common.auth.selector.isAuth);
-  const getProductsState = useAppSelector(products.getProducts.selector.state);
+  const getProductsState = useAppSelector(getProductsStateSelector);
 
   const {
     pagination,

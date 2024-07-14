@@ -5,6 +5,7 @@ import { products } from 'store';
 import { getProductThunk } from 'store/products/thunks';
 import { useHydratedClient } from 'shared/hooks';
 import { useTranslations } from 'next-intl';
+import { getProductStateSelector } from 'store/products/selectors';
 
 export function useProductModel({ id }: { id: string }) {
   const tCommon = useTranslations('Common');
@@ -14,7 +15,7 @@ export function useProductModel({ id }: { id: string }) {
   const isHydratedToClientRef = useHydratedClient();
 
   const dispatch = useAppDispatch();
-  const getProductState = useAppSelector(products.getProduct.selector.state);
+  const getProductState = useAppSelector(getProductStateSelector);
   const model = getProductState.data;
 
   const getProduct = useCallback(

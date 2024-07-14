@@ -2,16 +2,16 @@ import { useForm } from 'react-hook-form';
 import { IProps } from './ProductsFilters';
 import { IProductFilters } from 'api/productsApi';
 import { useAppSelector } from 'store/hooks';
-import { products } from 'store';
 import { FormEvent, useEffect, useRef } from 'react';
 import { useTranslations } from 'next-intl';
+import { getProductStateSelector } from 'store/products/selectors';
 
 export function useProductsFilters({ filters, setFilters }: IProps) {
   const tCommon = useTranslations('Common');
   const tProduct = useTranslations('Product');
 
   const previousFilters = useRef<IProductFilters | null>(null);
-  const getProductsState = useAppSelector(products.getProducts.selector.state);
+  const getProductsState = useAppSelector(getProductStateSelector);
 
   const defaultValues = { name: null, description: null };
   const {

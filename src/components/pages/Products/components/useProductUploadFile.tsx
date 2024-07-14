@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
-import { files, products } from 'store';
+import { files } from 'store';
 import { deleteFileThunk, createFileThunk } from 'store/files/thunks';
+import { getProductSelector } from 'store/products/selectors';
 import { IFile, IFilePost } from 'api/filesApi';
 import { UseFormSetValue, UseFormWatch } from 'react-hook-form';
 import { ObjectSchema } from 'joi';
@@ -25,7 +26,7 @@ export function useProductUploadFile({
   const tCommon = useTranslations('Common');
   const dispatch = useAppDispatch();
 
-  const product = useAppSelector(products.getProduct.selector.data);
+  const product = useAppSelector(getProductSelector);
   const [imageObject, setImageObject] = useState<IFile | null>(null);
   const [percentUploadImage, setPercentUploadImage] = useState(0);
   useEffect(() => {

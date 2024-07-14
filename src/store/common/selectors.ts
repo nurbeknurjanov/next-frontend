@@ -1,12 +1,12 @@
 import { createSelector } from 'reselect';
 import { RootStateType } from 'store/store';
 
-export const getAuthState = (state: RootStateType) => state.common.auth;
+export const getAuthStateSelector = (state: RootStateType) => state.common.auth;
 
-export const getIsAuth = createSelector(getAuthState, data => {
+export const getIsAuth = createSelector(getAuthStateSelector, data => {
   return data.isAuth;
 });
 
-export const getAuthUser = createSelector(getAuthState, data => {
+export const getAuthUser = createSelector(getAuthStateSelector, data => {
   return data.user;
 });
