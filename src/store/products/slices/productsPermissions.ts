@@ -43,13 +43,13 @@ const { actions, reducer } = createSlice({
 });
 
 interface ProductsPermissionsType {
-  action: typeof actions;
+  actions: typeof actions;
   reducer: typeof reducer;
   selector: typeof selector;
 }
 
 export const productsPermissions: ProductsPermissionsType = {
-  action: actions,
+  actions,
   reducer,
   selector,
 };

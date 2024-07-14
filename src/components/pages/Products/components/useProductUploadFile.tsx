@@ -50,7 +50,7 @@ export function useProductUploadFile({
 
         dispatch(notify(tCommon('successDeleted'), 'success'));
         afterFileUploadAndRemove();
-        dispatch(files.createFile.action.reset());
+        dispatch(files.createFile.actions.reset());
       }
     },
     [dispatch, afterFileUploadAndRemove, setValue, tCommon, product]
@@ -118,8 +118,8 @@ export function useProductUploadFile({
 
   useEffect(
     () => () => {
-      dispatch(files.deleteFile.action.reset());
-      dispatch(files.createFile.action.reset());
+      dispatch(files.deleteFile.actions.reset());
+      dispatch(files.createFile.actions.reset());
     },
     [dispatch]
   );

@@ -37,7 +37,7 @@ export function useProductModel({ id }: { id: string }) {
     () => () => {
       if (!isHydratedToClientRef.current) return;
 
-      dispatch(products.getProduct.action.reset());
+      dispatch(products.getProduct.actions.reset());
     },
     [dispatch, isHydratedToClientRef]
   );

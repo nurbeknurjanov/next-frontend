@@ -25,7 +25,7 @@ export function useUserModel({ id }: { id: string }) {
 
   useEffect(
     () => () => {
-      dispatch(users.getUser.action.reset());
+      dispatch(users.getUser.actions.reset());
     },
     [dispatch]
   );

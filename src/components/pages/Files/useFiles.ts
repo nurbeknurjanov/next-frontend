@@ -86,7 +86,7 @@ export function useFiles() {
 
   useEffect(
     () => () => {
-      dispatch(files.getFiles.action.reset());
+      dispatch(files.getFiles.actions.reset());
     },
     [dispatch]
   );

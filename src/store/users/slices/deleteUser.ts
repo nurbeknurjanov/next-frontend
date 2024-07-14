@@ -84,7 +84,7 @@ const { actions, reducer } = createSlice({
 });
 
 interface DeleteUserType {
-  action: typeof actions;
+  actions: typeof actions;
   thunk: {
     request: typeof requestThunk;
   };
@@ -93,7 +93,7 @@ interface DeleteUserType {
 }
 
 export const deleteUserObject: DeleteUserType = {
-  action: actions,
+  actions,
   thunk: {
     request: requestThunk,
   },

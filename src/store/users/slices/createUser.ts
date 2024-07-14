@@ -84,7 +84,7 @@ const { actions, reducer } = createSlice({
 });
 
 interface CreateUserType {
-  action: typeof actions;
+  actions: typeof actions;
   thunk: {
     request: typeof requestThunk;
   };
@@ -93,7 +93,7 @@ interface CreateUserType {
 }
 
 export const createUserObject: CreateUserType = {
-  action: actions,
+  actions,
   thunk: {
     request: requestThunk,
   },

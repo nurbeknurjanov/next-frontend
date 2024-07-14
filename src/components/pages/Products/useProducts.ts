@@ -96,7 +96,7 @@ export function useProducts() {
     () => () => {
       if (!isHydratedToClientRef.current) return;
 
-      dispatch(products.getProducts.action.reset());
+      dispatch(products.getProducts.actions.reset());
     },
     [dispatch, isHydratedToClientRef]
   );

@@ -84,7 +84,7 @@ const { actions, reducer } = createSlice({
 });
 
 interface DeleteFileType {
-  action: typeof actions;
+  actions: typeof actions;
   thunk: {
     request: typeof requestThunk;
   };
@@ -93,7 +93,7 @@ interface DeleteFileType {
 }
 
 export const deleteFileObject: DeleteFileType = {
-  action: actions,
+  actions,
   thunk: {
     request: requestThunk,
   },

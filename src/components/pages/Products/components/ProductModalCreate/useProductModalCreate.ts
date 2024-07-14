@@ -81,7 +81,7 @@ export function useProductModalCreate({ onClose, afterCreate }: IProps) {
 
   useEffect(
     () => () => {
-      dispatch(products.createProduct.action.reset());
+      dispatch(products.createProduct.actions.reset());
     },
     [dispatch]
   );

@@ -99,7 +99,7 @@ const { actions, reducer } = createSlice({
 });
 
 interface GetProductsType {
-  action: typeof actions;
+  actions: typeof actions;
   thunk: {
     request: typeof requestThunk;
   };
@@ -108,7 +108,7 @@ interface GetProductsType {
 }
 
 export const getProductsObject: GetProductsType = {
-  action: actions,
+  actions,
   thunk: {
     request: requestThunk,
   },

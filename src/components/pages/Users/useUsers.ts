@@ -88,7 +88,7 @@ export function useUsers() {
 
   useEffect(
     () => () => {
-      dispatch(users.getUsers.action.reset());
+      dispatch(users.getUsers.actions.reset());
     },
     [dispatch]
   );

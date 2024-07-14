@@ -84,7 +84,7 @@ const { actions, reducer } = createSlice({
 });
 
 interface GetFileType {
-  action: typeof actions;
+  actions: typeof actions;
   thunk: {
     request: typeof requestThunk;
   };
@@ -93,7 +93,7 @@ interface GetFileType {
 }
 
 export const getFileObject: GetFileType = {
-  action: actions,
+  actions,
   thunk: {
     request: requestThunk,
   },
