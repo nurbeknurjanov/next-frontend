@@ -61,7 +61,7 @@ export function Sidebar() {
               <ListItemText primary={'Contact'} />
             </ListItemButton>
           </ListItem>*/}
-          {(isAuth || true) && (
+          {isAuth && (
             <>
               <ListItem disablePadding>
                 <ListItemButton component={ActiveLink} href="/users">

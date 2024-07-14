@@ -42,7 +42,7 @@ let Product: FC = () => {
     showModal,
     setShowModal,
     router,
-    isAuth,
+    productsPermissions,
   } = useProduct();
   const title = model?.name!;
 
@@ -55,11 +55,14 @@ let Product: FC = () => {
       },
       title,
     ],
-    isAuth && (
-      <>
+    <>
+      {productsPermissions.canUpdateProduct && (
         <ButtonLink href={`/products/${id}/update`} size={'small'}>
           {tProductPage('update')}
         </ButtonLink>
+      )}
+
+      {productsPermissions.canDeleteProduct && (
         <Button
           variant={'contained'}
           size={'small'}
@@ -68,8 +71,8 @@ let Product: FC = () => {
         >
           {tProductPage('delete')}
         </Button>
-      </>
-    )
+      )}
+    </>
   );
 
   const rows: { label: string; value: string | React.ReactNode }[] = [];

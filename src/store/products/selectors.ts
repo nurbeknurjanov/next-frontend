@@ -13,3 +13,6 @@ export const getProductSelector = createSelector(
     return productState.data;
   }
 );
+
+export const getProductsPermissionsStateSelector = (state: RootStateType) =>
+  state.products.productsPermissions;

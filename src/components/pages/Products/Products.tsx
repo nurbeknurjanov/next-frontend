@@ -35,7 +35,7 @@ let Products: FC = () => {
     showModal,
     setShowModal,
     closeShowModal,
-    isAuth,
+    productsPermissions,
   } = useProducts();
 
   const tProductsPage = useTranslations('ProductsPage');
@@ -43,7 +43,7 @@ let Products: FC = () => {
   useSetPageData(
     tProductsPage('title'),
     [tProductsPage('title')],
-    isAuth && (
+    productsPermissions.canCreateProduct && (
       <Button
         variant={'contained'}
         size={'small'}
@@ -109,7 +109,7 @@ let Products: FC = () => {
           label={tCommon('view')}
           showInMenu
         />,
-        ...(isAuth
+        ...(productsPermissions.canUpdateProduct
           ? [
               <GridActionsCellItem
                 key={params.row._id}
@@ -120,6 +120,10 @@ let Products: FC = () => {
                 label={tCommon('update')}
                 showInMenu
               />,
+            ]
+          : []),
+        ...(productsPermissions.canDeleteProduct
+          ? [
               <GridActionsCellItem
                 key={params.row._id}
                 icon={<DeleteIcon color={'error'} />}

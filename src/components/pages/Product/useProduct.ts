@@ -6,12 +6,16 @@ import { useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { useAppSelector } from 'store/hooks';
 import { common } from 'store';
+import { getProductsPermissionsStateSelector } from 'store/products/selectors';
 
 type ModalType = { type: 'delete'; id: string };
 export function useProduct() {
   const tProductsPage = useTranslations('ProductsPage');
   const router = useRouter();
-  const isAuth = useAppSelector(common.auth.selector.isAuth);
+
+  const productsPermissions = useAppSelector(
+    getProductsPermissionsStateSelector
+  );
 
   const [showModal, setShowModal] = useState<ModalType | null>();
 
@@ -29,6 +33,6 @@ export function useProduct() {
     showModal,
     setShowModal,
     router,
-    isAuth,
+    productsPermissions,
   };
 }
