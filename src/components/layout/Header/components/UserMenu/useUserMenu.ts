@@ -21,7 +21,6 @@ export const useUserMenu = () => {
     dispatch(logout());
     removeCookie('refreshToken');
     removeCookie('accessToken');
-    router.push('/');
   };
 
   useEffect(() => {
@@ -61,5 +60,5 @@ export const useUserMenu = () => {
     setAnchorEl(null);
   };
 
-  return { isAuth, onLogout, anchorEl, handleMenu, handleClose };
+  return { isAuth, authUser, onLogout, anchorEl, handleMenu, handleClose };
 };

@@ -4,10 +4,12 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { Link } from 'shared/ui';
+import Box from '@mui/material/Box';
 import { useUserMenu } from './useUserMenu';
 
 export const UserMenu: FC = () => {
-  const { isAuth, onLogout, anchorEl, handleMenu, handleClose } = useUserMenu();
+  const { isAuth, authUser, onLogout, anchorEl, handleMenu, handleClose } =
+    useUserMenu();
 
   if (!isAuth) {
     return (
@@ -19,6 +21,9 @@ export const UserMenu: FC = () => {
 
   return (
     <>
+      <Box sx={{ mx: 1 }} component={Link} href={'/profile'} color="inherit">
+        {authUser!.name}
+      </Box>
       <IconButton
         size="large"
         edge={'end'}
@@ -43,18 +48,23 @@ export const UserMenu: FC = () => {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        {isAuth && (
-          <MenuItem
-            component={Link}
-            href={'/'}
-            onClick={() => {
-              onLogout();
-              handleClose();
-            }}
-          >
-            Logout
-          </MenuItem>
-        )}
+        <MenuItem
+          component={Link}
+          href={'/profile'}
+          onClick={() => handleClose()}
+        >
+          Profile
+        </MenuItem>
+        <MenuItem
+          component={Link}
+          href={'/'}
+          onClick={() => {
+            onLogout();
+            handleClose();
+          }}
+        >
+          Logout
+        </MenuItem>
       </Menu>
     </>
   );
