@@ -1,2 +1,2 @@
 export * from './types';
-export * from './CommonApiService';
+export { CommonApiService } from './CommonApiService';
