@@ -16,6 +16,8 @@ import { getAuthStateSelector, getAuthUser } from 'store/common/selectors';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
 import { useCookies } from 'react-cookie';
 import { useRouter } from 'next/navigation';
+import MenuItem from '@mui/material/MenuItem';
+import Menu from '@mui/material/Menu';
 
 const AppBarStyled = styled<typeof AppBar>(AppBar)<AppBarProps>(
   ({ theme }) => ({
@@ -70,6 +72,15 @@ export const Header = () => {
     };
   }, [dispatch, isAuth, setCookie, removeCookie, router]);
 
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
   return (
     <AppBarStyled position="static" component={'header'}>
       <Toolbar>
@@ -105,9 +116,33 @@ export const Header = () => {
 
         <LanguageSwitcher />
 
-        <IconButton size="large" edge={'end'} color="inherit" aria-label="menu">
+        <IconButton
+          size="large"
+          edge={'end'}
+          color="inherit"
+          aria-label="menu"
+          onClick={handleMenu}
+        >
           <MenuIcon />
         </IconButton>
+        <Menu
+          id="menu-appbar"
+          anchorEl={anchorEl}
+          anchorOrigin={{
+            vertical: 'top',
+            horizontal: 'right',
+          }}
+          keepMounted
+          transformOrigin={{
+            vertical: 'top',
+            horizontal: 'right',
+          }}
+          open={Boolean(anchorEl)}
+          onClose={handleClose}
+        >
+          <MenuItem onClick={handleClose}>Profile</MenuItem>
+          <MenuItem onClick={handleClose}>My account</MenuItem>
+        </Menu>
       </Toolbar>
     </AppBarStyled>
   );
