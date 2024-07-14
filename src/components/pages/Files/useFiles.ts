@@ -3,6 +3,7 @@ import { useEffect, useState, useCallback } from 'react';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
 import { files } from 'store';
 import { getFilesThunk } from 'store/files/thunks';
+import { getFilesStateSelector } from 'store/files/selectors';
 import { useTranslations } from 'next-intl';
 import { IPaginationRequest } from 'api/baseApi';
 import { isEqual } from 'lodash';
@@ -22,7 +23,7 @@ export function useFiles() {
   const [showModal, setShowModal] = useState<ModalType | null>();
   const closeShowModal = useCallback(() => setShowModal(null), []);
 
-  const getFilesState = useAppSelector(files.getFiles.selector.state);
+  const getFilesState = useAppSelector(getFilesStateSelector);
 
   const {
     pagination,

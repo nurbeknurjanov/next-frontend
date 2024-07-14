@@ -3,12 +3,12 @@ import { useForm } from 'react-hook-form';
 import { IProps } from './FilesFilters';
 import { IFileFilters } from 'api/filesApi';
 import { useAppSelector } from 'store/hooks';
-import { files } from 'store';
+import { getFilesStateSelector } from 'store/files/selectors';
 import { useEffect, useRef, FormEvent } from 'react';
 
 export function useFilesFilters({ filters, setFilters }: IProps) {
   const previousFilters = useRef<IFileFilters | null>(null);
-  const getFilesState = useAppSelector(files.getFiles.selector.state);
+  const getFilesState = useAppSelector(getFilesStateSelector);
 
   const defaultValues = { id: null, type: null, modelSearch: null };
   const {
