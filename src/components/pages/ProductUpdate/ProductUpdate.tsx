@@ -57,104 +57,106 @@ let ProductUpdate: FC = () => {
   }
 
   return (
-    <>
-      <form
-        ref={el => (formRef.current = el!)}
-        /*ref={formRef}*/
-        onSubmit={e => {
-          e.preventDefault();
-          handleSubmit(submitForm)(e);
-        }}
-      >
-        <TextField
-          label={tProduct('name')}
-          error={!!errors['name']}
-          helperText={errors['name']?.message}
-          {...register('name')}
-        />
-
-        <TextField
-          label={tProduct('description')}
-          error={!!errors['description']}
-          helperText={errors['description']?.message}
-          {...register('description')}
-        />
-
-        {imageObject ? (
-          <Card sx={{ mb: 2 }}>
-            <CardContent
-              sx={{ display: 'flex', justifyContent: 'space-between' }}
-            >
-              <img src={imageObject.url} width={200} />
-              <DeleteIcon
-                color={'error'}
-                sx={{ cursor: 'pointer' }}
-                onClick={() => setSelectedFileIdToDelete(imageObject._id!)}
-              />
-            </CardContent>
-          </Card>
-        ) : (
+    <Card>
+      <CardContent>
+        <form
+          ref={el => (formRef.current = el!)}
+          /*ref={formRef}*/
+          onSubmit={e => {
+            e.preventDefault();
+            handleSubmit(submitForm)(e);
+          }}
+        >
           <TextField
-            type={'file'}
-            label={'Image file'}
-            error={!!errors['imageFile']}
-            FormHelperTextProps={{
-              component: 'div',
-            }}
-            helperText={
-              errors['imageFile']?.message ?? (
-                <LinearProgressWithLabel
-                  variant="determinate"
-                  value={percentUploadImage}
+            label={tProduct('name')}
+            error={!!errors['name']}
+            helperText={errors['name']?.message}
+            {...register('name')}
+          />
+
+          <TextField
+            label={tProduct('description')}
+            error={!!errors['description']}
+            helperText={errors['description']?.message}
+            {...register('description')}
+          />
+
+          {imageObject ? (
+            <Card sx={{ mb: 2 }}>
+              <CardContent
+                sx={{ display: 'flex', justifyContent: 'space-between' }}
+              >
+                <img src={imageObject.url} width={200} />
+                <DeleteIcon
+                  color={'error'}
+                  sx={{ cursor: 'pointer' }}
+                  onClick={() => setSelectedFileIdToDelete(imageObject._id!)}
                 />
-              )
-            }
-            {...register('imageFile')}
+              </CardContent>
+            </Card>
+          ) : (
+            <TextField
+              type={'file'}
+              label={'Image file'}
+              error={!!errors['imageFile']}
+              FormHelperTextProps={{
+                component: 'div',
+              }}
+              helperText={
+                errors['imageFile']?.message ?? (
+                  <LinearProgressWithLabel
+                    variant="determinate"
+                    value={percentUploadImage}
+                  />
+                )
+              }
+              {...register('imageFile')}
+            />
+          )}
+
+          <Button
+            variant={'outlined'}
+            sx={{ mr: 1 }}
+            onClick={() => {
+              if (document.referrer) {
+                return router.back();
+              }
+              router.push(`/products/${model?._id}`);
+            }}
+          >
+            {tCommon('back')}
+          </Button>
+          <Button
+            variant={'contained'}
+            onClick={() => {
+              formRef.current?.requestSubmit();
+            }}
+            disabled={!isDirty || !isValid}
+            autoFocus
+            loading={updateProductState.isFetching}
+            sx={{ minWidth: 120 }}
+          >
+            {tCommon('update')}
+          </Button>
+        </form>
+
+        {showModal?.type === 'delete' && (
+          <ProductModalDelete
+            id={showModal.id}
+            onClose={() => setShowModal(null)}
+            afterDelete={() => router.push('/products')}
           />
         )}
 
-        <Button
-          variant={'outlined'}
-          sx={{ mr: 1 }}
-          onClick={() => {
-            if (document.referrer) {
-              return router.back();
-            }
-            router.push(`/products/${model?._id}`);
-          }}
-        >
-          {tCommon('back')}
-        </Button>
-        <Button
-          variant={'contained'}
-          onClick={() => {
-            formRef.current?.requestSubmit();
-          }}
-          disabled={!isDirty || !isValid}
-          autoFocus
-          loading={updateProductState.isFetching}
-          sx={{ minWidth: 120 }}
-        >
-          {tCommon('update')}
-        </Button>
-      </form>
-
-      {showModal?.type === 'delete' && (
-        <ProductModalDelete
-          id={showModal.id}
-          onClose={() => setShowModal(null)}
-          afterDelete={() => router.push('/products')}
-        />
-      )}
-
-      {selectedFileIdToDelete && (
-        <FileModalDelete
-          id={selectedFileIdToDelete}
-          onClose={() => setSelectedFileIdToDelete(null)}
-          customDeleteFile={() => deleteFile(selectedFileIdToDelete)}
-        />
-      )}
-    </>
+        {selectedFileIdToDelete && (
+          <FileModalDelete
+            id={selectedFileIdToDelete}
+            onClose={() => setSelectedFileIdToDelete(null)}
+            customDeleteFile={() => deleteFile(selectedFileIdToDelete)}
+          />
+        )}
+      </CardContent>
+    </Card>
   );
 };
 
