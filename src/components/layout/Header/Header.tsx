@@ -14,7 +14,9 @@ const AppBarStyled = styled<typeof AppBar>(AppBar)<AppBarProps>(
   ({ theme }) => ({
     margin: theme.spacing(0),
     padding: theme.spacing(0),
-    '&.MuiPaper-root': {},
+    '& .MuiIconButton-root': {
+      margin: 0,
+    },
   })
 );
 
