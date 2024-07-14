@@ -26,10 +26,10 @@ const nextConfig = {
   },
 };
 
-nextConfig.module.rules.push({
+/*nextConfig.module.rules.push({
   test: /\.svg$/i,
   issuer: /\.[jt]sx?$/,
   use: ['@svgr/webpack'],
-});
+});*/
 
 module.exports = withNextIntl(nextConfig);

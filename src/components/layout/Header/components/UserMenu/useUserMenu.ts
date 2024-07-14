@@ -6,7 +6,7 @@ import { useAppDispatch, useAppSelector } from 'store/hooks';
 import { useCookies } from 'react-cookie';
 import { useRouter } from 'next/navigation';
 
-export const useHeader = () => {
+export const useUserMenu = () => {
   const { isAuth, user: _authUser } = useAppSelector(getAuthStateSelector);
   const authUser = useAppSelector(getAuthUser);
 
@@ -21,6 +21,7 @@ export const useHeader = () => {
     dispatch(logout());
     removeCookie('refreshToken');
     removeCookie('accessToken');
+    router.push('/');
   };
 
   useEffect(() => {
@@ -60,5 +61,5 @@ export const useHeader = () => {
     setAnchorEl(null);
   };
 
-  return { isAuth, onLogout };
+  return { isAuth, onLogout, anchorEl, handleMenu, handleClose };
 };
