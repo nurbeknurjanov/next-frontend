@@ -1,7 +1,7 @@
 'use client';
 //import { Roboto } from "next/font/google";
 import { createTheme } from '@mui/material/styles';
-import { lime, red } from '@mui/material/colors';
+import { lime, red, grey } from '@mui/material/colors';
 import type {} from '@mui/x-data-grid/themeAugmentation';
 
 /*eslint-disable*/
@@ -49,12 +49,11 @@ const Theme = createTheme({
   palette: {
     mode: 'light',
     //primary: orange,
-    /*
-        secondary: {
-          main: "#86FF33",
-          //main: "rgb(134, 255, 51)",
-          contrastText: "white",
-        },*/
+    secondary: {
+      main: grey[500],
+      //main: "rgb(134, 255, 51)",
+      contrastText: 'white',
+    },
     /*tertiary: {
           main: lime[500],
           light: lime[700],
