@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect } from 'react';
+import React from 'react';
 import AppBar from '@mui/material/AppBar';
 import { AppBarProps } from '@mui/material';
 import Toolbar from '@mui/material/Toolbar';
@@ -11,13 +11,9 @@ import styles from './header.module.scss';
 import { styled } from '@mui/material/styles';
 import { Link } from 'shared/ui';
 import { LanguageSwitcher } from './components';
-import { getAccessTokenThunk, logout } from 'store/common/thunks';
-import { getAuthStateSelector, getAuthUser } from 'store/common/selectors';
-import { useAppDispatch, useAppSelector } from 'store/hooks';
-import { useCookies } from 'react-cookie';
-import { useRouter } from 'next/navigation';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
+import { useHeader } from './useHeader';
 
 const AppBarStyled = styled<typeof AppBar>(AppBar)<AppBarProps>(
   ({ theme }) => ({
@@ -28,59 +24,7 @@ const AppBarStyled = styled<typeof AppBar>(AppBar)<AppBarProps>(
 );
 
 export const Header = () => {
-  const { isAuth, user: _authUser } = useAppSelector(getAuthStateSelector);
-  const authUser = useAppSelector(getAuthUser);
-
-  const router = useRouter();
-  const dispatch = useAppDispatch();
-  const [_cookies, setCookie, removeCookie] = useCookies([
-    'refreshToken',
-    'accessToken',
-  ]);
-
-  const onLogout = () => {
-    dispatch(logout());
-    removeCookie('refreshToken');
-    removeCookie('accessToken');
-  };
-
-  useEffect(() => {
-    let interval: ReturnType<typeof setTimeout>;
-
-    if (isAuth) {
-      interval = setInterval(async () => {
-        const { data, error } = await dispatch(
-          getAccessTokenThunk({ config: { withCredentials: true } })
-        );
-
-        if (error && error.status === 401) {
-          removeCookie('refreshToken');
-          removeCookie('accessToken');
-          router.push('/login');
-        }
-
-        if (data) {
-          setCookie('accessToken', data, { path: '/' });
-        }
-      }, 30 * 1000);
-    }
-
-    return () => {
-      if (interval !== undefined) {
-        clearInterval(interval);
-      }
-    };
-  }, [dispatch, isAuth, setCookie, removeCookie, router]);
-
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
+  const { isAuth, onLogout } = useHeader();
   return (
     <AppBarStyled position="static" component={'header'}>
       <Toolbar>
