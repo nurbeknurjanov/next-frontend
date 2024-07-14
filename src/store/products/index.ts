@@ -4,6 +4,7 @@ import {
   updateProductObject,
   getProductObject,
   createProductObject,
+  productsPermissions,
 } from './slices';
 
 export const products = {
@@ -12,4 +13,5 @@ export const products = {
   deleteProduct: deleteProductObject,
   getProduct: getProductObject,
   createProduct: createProductObject,
+  productsPermissions,
 };

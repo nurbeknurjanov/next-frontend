@@ -5,6 +5,7 @@ import {
   deleteProductObject,
   getProductObject,
   createProductObject,
+  productsPermissions,
 } from './slices';
 
 export const productsReducer = combineReducers({
@@ -13,4 +14,5 @@ export const productsReducer = combineReducers({
   deleteProduct: deleteProductObject.reducer,
   getProduct: getProductObject.reducer,
   createProduct: createProductObject.reducer,
+  productsPermissions: productsPermissions.reducer,
 });
