@@ -173,7 +173,7 @@ const Theme = createTheme({
       styleOverrides: {
         root: ({ theme, ownerState: ownProps, ...mergedProps }) => {
           return {
-            margin: theme.spacing(2, 0),
+            margin: theme.spacing(1, 0),
             padding: 0,
             '& .MuiCardContent-root:last-child': {
               padding: theme.spacing(2),
@@ -276,6 +276,11 @@ const Theme = createTheme({
         disableColumnFilter: true,
         paginationMode: 'server',
         sortingMode: 'server',
+      },
+      styleOverrides: {
+        root: ({ theme }) => ({
+          margin: theme.spacing(1, 0),
+        }),
       },
     },
     MuiTablePagination: {

@@ -28,31 +28,29 @@ let Login: FC = () => {
   return (
     <Card sx={{ maxWidth: 300 }}>
       <CardContent>
-        <div className={styles.loginContent}>
-          <form onSubmit={handleSubmit(login)}>
-            <TextField
-              label={tLoginPage('fields.email')}
-              error={!!errors['email']}
-              helperText={errors['email']?.message}
-              {...register('email')}
-            />
-            <TextField
-              label={tLoginPage('fields.password')}
-              error={!!errors['password']}
-              helperText={errors['password']?.message}
-              {...register('password')}
-            />
-            <Button
-              type={'submit'}
-              variant={'contained'}
-              disabled={!isDirty || !isValid}
-              loading={loginState.isFetching}
-              sx={{ minWidth: 120 }}
-            >
-              {tCommon('submit')}
-            </Button>
-          </form>
-        </div>
+        <form className={styles.loginContent} onSubmit={handleSubmit(login)}>
+          <TextField
+            label={tLoginPage('fields.email')}
+            error={!!errors['email']}
+            helperText={errors['email']?.message}
+            {...register('email')}
+          />
+          <TextField
+            label={tLoginPage('fields.password')}
+            error={!!errors['password']}
+            helperText={errors['password']?.message}
+            {...register('password')}
+          />
+          <Button
+            type={'submit'}
+            variant={'contained'}
+            disabled={!isDirty || !isValid}
+            loading={loginState.isFetching}
+            sx={{ minWidth: 120 }}
+          >
+            {tCommon('submit')}
+          </Button>
+        </form>
       </CardContent>
     </Card>
   );
