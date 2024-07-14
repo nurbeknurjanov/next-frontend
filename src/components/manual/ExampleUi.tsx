@@ -6,7 +6,11 @@ import { Checkbox } from 'shared/ui';
 export function ExampleUi() {
   return (
     <>
-      <Box component={'span'} sx={{ color: 'secondary.main', my: '20px' }}>
+      <Box
+        component={'span'}
+        sx={{ color: 'secondary.main', my: '20px' }}
+        color={'secondary.main'}
+      >
         Box
       </Box>
       <br />
