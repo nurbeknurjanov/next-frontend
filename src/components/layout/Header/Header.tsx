@@ -11,8 +11,8 @@ import styles from './header.module.scss';
 import { styled } from '@mui/material/styles';
 import { Link } from 'shared/ui';
 import { LanguageSwitcher } from './components';
-import { common } from 'store';
 import { getAccessTokenThunk, logout } from 'store/common/thunks';
+import { getAuthState, getAuthUser } from 'store/common/selectors';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
 import { useCookies } from 'react-cookie';
 import { useRouter } from 'next/navigation';
@@ -26,7 +26,8 @@ const AppBarStyled = styled<typeof AppBar>(AppBar)<AppBarProps>(
 );
 
 export const Header = () => {
-  const { isAuth, user } = useAppSelector(common.auth.selector.state);
+  const { isAuth, user: _authUser } = useAppSelector(getAuthState);
+  const authUser = useAppSelector(getAuthUser);
 
   const router = useRouter();
   const dispatch = useAppDispatch();
@@ -89,7 +90,7 @@ export const Header = () => {
           sx={{ flexGrow: 1 }}
           className={styles.slogan}
         >
-          Hello {user ? user.name : 'Guest'}
+          Hello {authUser ? authUser.name : 'Guest'}
         </Typography>
 
         {isAuth ? (

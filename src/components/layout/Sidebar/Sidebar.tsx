@@ -11,10 +11,10 @@ import { ActiveLink } from 'shared/ui';
 import styles from './siderbar.module.scss';
 import { to } from 'shared/utils';
 import { useAppSelector } from 'store/hooks';
-import { common } from 'store';
+import { getIsAuth } from 'store/common/selectors';
 
 export function Sidebar() {
-  const { isAuth } = useAppSelector(common.auth.selector.state);
+  const isAuth = useAppSelector(getIsAuth);
   return (
     <section className={styles.sidebar}>
       <Paper sx={{ height: '100%' }}>
