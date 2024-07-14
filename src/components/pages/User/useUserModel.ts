@@ -3,10 +3,11 @@ import { useAppDispatch, useAppSelector } from 'store/hooks';
 import { useCallback, useEffect } from 'react';
 import { users } from 'store';
 import { getUserThunk } from 'store/users/thunks';
+import { getUserStateSelector } from 'store/users/selectors';
 
 export function useUserModel({ id }: { id: string }) {
   const dispatch = useAppDispatch();
-  const getUserState = useAppSelector(users.getUser.selector.state);
+  const getUserState = useAppSelector(getUserStateSelector);
   const model = getUserState.data;
 
   const getUser = useCallback(
