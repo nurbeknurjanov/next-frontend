@@ -5,6 +5,11 @@ import { usePathname, useRouter } from 'navigation';
 import { useSearchParams, useParams } from 'next/navigation';
 import { locales, localeType } from 'i18n';
 import dayjs from 'dayjs';
+import LanguageIcon from '@mui/icons-material/Language';
+import IconButton from '@mui/material/IconButton';
+import MenuIcon from '@mui/icons-material/Menu';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
 require('dayjs/locale/ru');
 
 export const LanguageSwitcher = () => {
@@ -31,25 +36,58 @@ export const LanguageSwitcher = () => {
   const searchParams = useSearchParams();
   const query = Object.fromEntries(searchParams.entries());
 
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
   return (
     <>
-      {locales
-        .filter(el => el !== locale)
-        .map(el => {
-          const label = localesMap[el];
-          return (
-            <MuiLink
-              key={el}
-              color="inherit"
-              onClick={() => {
-                router.replace({ pathname, query }, { locale: el });
-                router.refresh();
-              }}
-            >
-              {label}
-            </MuiLink>
-          );
-        })}
+      <IconButton
+        size="large"
+        edge={'end'}
+        color="inherit"
+        aria-label="menu"
+        onClick={handleMenu}
+      >
+        <LanguageIcon />
+      </IconButton>
+      <Menu
+        id="menu-appbar"
+        anchorEl={anchorEl}
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'right',
+        }}
+        keepMounted
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'right',
+        }}
+        open={Boolean(anchorEl)}
+        onClose={handleClose}
+      >
+        {locales
+          .filter(el => el !== locale)
+          .map(el => {
+            const label = localesMap[el];
+            return (
+              <MenuItem
+                key={el}
+                onClick={() => {
+                  router.replace({ pathname, query }, { locale: el });
+                  router.refresh();
+                  handleClose();
+                }}
+              >
+                {label}
+              </MenuItem>
+            );
+          })}
+      </Menu>
     </>
   );
 };
