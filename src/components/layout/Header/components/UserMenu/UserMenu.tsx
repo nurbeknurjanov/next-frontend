@@ -8,12 +8,17 @@ import { useUserMenu } from './useUserMenu';
 
 export const UserMenu: FC = () => {
   const { isAuth, onLogout, anchorEl, handleMenu, handleClose } = useUserMenu();
+
+  if (!isAuth) {
+    return (
+      <Link color="inherit" href={'/login'} mx={1}>
+        Login
+      </Link>
+    );
+  }
+
   return (
     <>
-      {/*<Link color="inherit" href={'/login'} mx={1}>
-        Login
-      </Link>*/}
-
       <IconButton
         size="large"
         edge={'end'}
@@ -38,18 +43,16 @@ export const UserMenu: FC = () => {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        {isAuth ? (
+        {isAuth && (
           <MenuItem
+            component={Link}
+            href={'/'}
             onClick={() => {
               onLogout();
               handleClose();
             }}
           >
             Logout
-          </MenuItem>
-        ) : (
-          <MenuItem onClick={handleClose} component={Link} href={'/login'}>
-            Login
           </MenuItem>
         )}
       </Menu>
