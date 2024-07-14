@@ -3,6 +3,7 @@ import { useEffect, useState, useCallback } from 'react';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
 import { users } from 'store';
 import { getUsersThunk } from 'store/users/thunks';
+import { getUsersStateSelector } from 'store/users/selectors';
 import { useTranslations } from 'next-intl';
 import { IPaginationRequest } from 'api/baseApi';
 import { isEqual } from 'lodash';
@@ -24,7 +25,7 @@ export function useUsers() {
   const [showModal, setShowModal] = useState<ModalType | null>();
   const closeShowModal = useCallback(() => setShowModal(null), []);
 
-  const getUsersState = useAppSelector(users.getUsers.selector.state);
+  const getUsersState = useAppSelector(getUsersStateSelector);
 
   const {
     pagination,

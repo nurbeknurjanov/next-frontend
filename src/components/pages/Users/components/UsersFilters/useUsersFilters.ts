@@ -2,12 +2,12 @@ import { useForm } from 'react-hook-form';
 import { IProps } from './UsersFilters';
 import { IUserFilters } from 'api/usersApi';
 import { useAppSelector } from 'store/hooks';
-import { users } from 'store';
 import { FormEvent, useEffect, useRef } from 'react';
+import { getUsersStateSelector } from 'store/users/selectors';
 
 export function useUsersFilters({ filters, setFilters }: IProps) {
   const previousFilters = useRef<IUserFilters | null>(null);
-  const getUsersState = useAppSelector(users.getUsers.selector.state);
+  const getUsersState = useAppSelector(getUsersStateSelector);
 
   const defaultValues = { name: null, email: null };
   const {
