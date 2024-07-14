@@ -5,6 +5,8 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { Link } from 'shared/ui';
 import Box from '@mui/material/Box';
+import LogoutIcon from '@mui/icons-material/Logout';
+import Person2Icon from '@mui/icons-material/Person2';
 import { useUserMenu } from './useUserMenu';
 
 export const UserMenu: FC = () => {
@@ -61,6 +63,7 @@ export const UserMenu: FC = () => {
           href={'/profile'}
           onClick={() => handleClose()}
         >
+          <Person2Icon sx={{ mr: 1 }} />
           {tCommon('profile')}
         </MenuItem>
         <MenuItem
@@ -71,6 +74,7 @@ export const UserMenu: FC = () => {
             handleClose();
           }}
         >
+          <LogoutIcon sx={{ mr: 1 }} />
           {tCommon('logout')}
         </MenuItem>
       </Menu>
