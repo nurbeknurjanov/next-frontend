@@ -27,10 +27,10 @@ export const withCleanHooks = <T extends object>(
     );
 
     useEffect(() => {
-      if (!isAuth) {
+      /*if (!isAuth) {//todo
         removeCookie('refreshToken');
         removeCookie('accessToken');
-      }
+      }*/
     }, [removeCookie, isAuth]);
 
     return <Component {...props} />;

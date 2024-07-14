@@ -27,10 +27,10 @@ export default async function Template({ children }: PropsWithChildren) {
       const parsed = await JWT.parseToken(accessTokenCookie.value);
       serverStore.dispatch(authorize({ user: parsed.user }));
     } catch (_error) {
-      serverStore.dispatch(logout());
+      //serverStore.dispatch(logout());//todo
     }
   } else {
-    serverStore.dispatch(logout());
+    //serverStore.dispatch(logout());
   }
 
   if (serverStore.getState().common.hydrate.serverWait) {

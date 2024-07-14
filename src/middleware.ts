@@ -27,22 +27,25 @@ export default async function middleware(req: NextRequest) {
     pathname.includes('/users') ||
     pathname.includes('/files');
 
+  console.log('middleware');
   if (protectedUrls) {
-    if (!accessTokenCookie?.value)
-      return NextResponse.redirect(new URL('/login', req.url));
+    /*if (!accessTokenCookie?.value)
+      return NextResponse.redirect(new URL('/login', req.url));*/
 
     try {
-      const parsed = await JWT.parseToken(accessTokenCookie.value);
-      serverStore.dispatch(authorize({ user: parsed.user }));
+      if (accessTokenCookie?.value) {
+        const parsed = await JWT.parseToken(accessTokenCookie.value);
+        serverStore.dispatch(authorize({ user: parsed.user }));
 
-      if (
-        updateProductUrl &&
-        !serverStore.getState().products.productsPermissions.canUpdateProduct
-      ) {
-        throw new Error('Forbidden');
+        if (
+          updateProductUrl &&
+          !serverStore.getState().products.productsPermissions.canUpdateProduct
+        ) {
+          throw new Error('Forbidden');
+        }
       }
     } catch (error) {
-      return NextResponse.redirect(new URL('/login', req.url));
+      //return NextResponse.redirect(new URL('/login', req.url));//todo
       //return new Response((error as Error).message, { status: 401 });
     }
   }
