@@ -11,7 +11,8 @@ export async function authorizeUser() {
   const refreshTokenCookie = cookieStore.get('refreshToken');
   const accessTokenCookie = cookieStore.get('accessToken');
   if (!accessTokenCookie?.value || !refreshTokenCookie?.value) {
-    return serverStore.dispatch(logout());
+    serverStore.dispatch(logout());
+    throw new Error('There is no access token');
   }
 
   try {
