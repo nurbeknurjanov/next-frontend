@@ -4,10 +4,10 @@ import React, { PropsWithChildren } from 'react';
 import { StoreProvider } from 'shared/wrappers';
 import { serverStore } from 'store/store';
 import { Content, Footer, Header, Sidebar } from 'components';
-import { cookies, headers } from 'next/headers';
+import { headers } from 'next/headers';
 import styles from 'css/common.module.scss';
-import { authorize, logout, hydratedToClient } from 'store/common/thunks';
-import { JWT } from 'shared/utils';
+import { hydratedToClient } from 'store/common/thunks';
+import { authorizeUser } from 'app/actions';
 
 /*
 Template works only on server side like a layout,
@@ -19,18 +19,10 @@ Template works only on server side like a layout,
 export default async function Template({ children }: PropsWithChildren) {
   const headersList = headers();
 
-  const cookieStore = cookies();
-  const accessTokenCookie = cookieStore.get('accessToken');
-
-  if (accessTokenCookie?.value) {
-    try {
-      const parsed = await JWT.parseToken(accessTokenCookie.value);
-      serverStore.dispatch(authorize({ user: parsed.user }));
-    } catch (_error) {
-      //serverStore.dispatch(logout());//todo
-    }
-  } else {
-    //serverStore.dispatch(logout());
+  try {
+    authorizeUser();
+  } catch (error) {
+    error;
   }
 
   if (serverStore.getState().common.hydrate.serverWait) {
