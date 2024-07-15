@@ -27,7 +27,9 @@ export default async function middleware(req: NextRequest) {
 
   if (protectedUrls) {
     try {
+      console.log('middlware before');
       await authorizeUser();
+      console.log('middlware after');
     } catch (error) {
       console.log('error in middlware', error);
       if ((error as Error & { status: number }).status === 403) {

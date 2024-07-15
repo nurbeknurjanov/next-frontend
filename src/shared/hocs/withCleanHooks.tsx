@@ -37,8 +37,9 @@ export const withCleanHooks = <T extends object>(
       }
       if (newAccessToken) {
         setCookie('accessToken', newAccessToken, { path: '/' });
+        dispatch(common.auth.actions.resetNewAccessToken());
       }
-    }, [removeCookie, setCookie, isAuth, newAccessToken]);
+    }, [removeCookie, setCookie, isAuth, newAccessToken, dispatch]);
 
     return <Component {...props} />;
   };

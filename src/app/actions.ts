@@ -30,8 +30,10 @@ export async function authorizeUser() {
         authorize({ user: newParsed.user, newAccessToken })
       );
     } catch (refreshTokenError) {
-      if ((refreshTokenError as Error & { status: number }).status === 500)
+      if ((refreshTokenError as Error & { status: number }).status === 500) {
+        console.log('bad error', refreshTokenError);
         return;
+      }
 
       serverStore.dispatch(logout());
 
