@@ -25,7 +25,8 @@
     "actions": "Actions",
     "rowsPerPage:": "Rows per page:",
     "profile": "Profile",
-    "logout": "Logout"
+    "logout": "Logout",
+    "unknownError": "Unknown error"
   },
   "HomePage": {
     "title": "Welcome",

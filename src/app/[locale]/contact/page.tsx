@@ -13,8 +13,10 @@ import { getTranslations } from 'next-intl/server';
 
 //eslint-disable-next-line
 export default async function ContactPage(props: PageProps) {
-  const t = await getTranslations('ContactPage');
+  const tContactPage = await getTranslations('ContactPage');
 
-  serverStore.dispatch(common.title.actions.set({ title: t('title') }));
+  serverStore.dispatch(
+    common.title.actions.set({ title: tContactPage('title') })
+  );
   return <Contact />;
 }

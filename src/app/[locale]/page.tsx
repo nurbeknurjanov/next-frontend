@@ -8,7 +8,7 @@ import { getTranslations } from 'next-intl/server';
 //eslint-disable-next-line
 export default async function HomePage(props: PageProps) {
   //console.log("json data", (await import(`../../messages/ru.json`)).default);
-  const t = await getTranslations('HomePage');
+  const tHomePage = await getTranslations('HomePage');
 
   async function someFetch() {
     'use server';
@@ -16,6 +16,6 @@ export default async function HomePage(props: PageProps) {
 
   someFetch();
 
-  serverStore.dispatch(common.title.actions.set({ title: t('title') }));
+  serverStore.dispatch(common.title.actions.set({ title: tHomePage('title') }));
   return <Home />;
 }

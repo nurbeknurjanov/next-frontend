@@ -25,7 +25,8 @@
     "actions": "Действия",
     "rowsPerPage:": "Кол-во строк по странице:",
     "profile": "Профиль",
-    "logout": "Выход"
+    "logout": "Выход",
+    "unknownError": "Неизвестная ошибка"
   },
   "HomePage": {
     "title": "Добро пожаловать",

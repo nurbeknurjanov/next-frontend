@@ -45,8 +45,8 @@ export default async function ProductsPage({
   if (!headersList.get('Referer')) {
     serverStore.dispatch(setServerWait(true));
 
-    const t = await getTranslations('ProductsPage');
-    serverStore.dispatch(setTitle(t('title')));
+    const tProductsPage = await getTranslations('ProductsPage');
+    serverStore.dispatch(setTitle(tProductsPage('title')));
 
     await serverStore.dispatch(getProductsThunk(pagination, filters, sorting));
 
