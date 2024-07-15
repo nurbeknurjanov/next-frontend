@@ -34,7 +34,8 @@ export { filesApi };
           // originalRequest.headers.Authorization = `Bearer ${newAccessToken.token}`;
           return await api.getAxiosInstance().request(originalRequest);
         } catch (refreshTokenError) {
-          console.log('very bad error', refreshTokenError);
+          //todo to check
+          console.log('refreshTokenError', refreshTokenError);
           throw refreshTokenError;
         }
       }
