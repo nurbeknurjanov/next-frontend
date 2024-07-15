@@ -15,12 +15,15 @@ import { filesApi } from './files';
       return Promise.reject(error);
     }
   );
+});
 
+[usersApi, productsApi, filesApi].forEach(api => {
   api.getAxiosInstance().interceptors.response.use(
     response => {
       return response;
     },
     async error => {
+      console.log('global error.message', error.message);
       if (error.response.status === 401) {
         try {
           const newAccessToken = await commonApi.getAccessToken();
