@@ -21,8 +21,8 @@ const { actions, reducer } = createSlice({
     reset() {
       return initialState;
     },
-    resetNewAccessToken() {
-      return { ...initialState, newAccessToken: null };
+    resetNewAccessToken(state) {
+      return { ...state, newAccessToken: null };
     },
     set: (state, action: PayloadAction<AuthStateType>) => {
       state = action.payload;
