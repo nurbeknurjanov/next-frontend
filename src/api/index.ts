@@ -23,7 +23,6 @@ import { filesApi } from './files';
       return response;
     },
     async error => {
-      console.log('global error.message', error.message);
       if (error.response.status === 401) {
         try {
           const newAccessToken = await commonApi.getAccessToken();
@@ -32,8 +31,7 @@ import { filesApi } from './files';
           // originalRequest.headers.Authorization = `Bearer ${newAccessToken.token}`;
           return await api.getAxiosInstance().request(originalRequest);
         } catch (refreshTokenError) {
-          //todo to check
-          console.log('browser refreshTokenError', refreshTokenError);
+          refreshTokenError;
           throw refreshTokenError;
         }
       }

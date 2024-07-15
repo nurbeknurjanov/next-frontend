@@ -22,9 +22,7 @@ export async function authorizeUser() {
     try {
       commonApi.getAxiosInstance().defaults.headers.cookie = `refreshToken=${refreshTokenCookie.value};path=/;`;
       //originalRequest.headers.Authorization = `Bearer ${newAccessToken.token}`;
-      console.log('calling before');
       const newAccessToken = await commonApi.getAccessToken();
-      console.log('newAccessToken', newAccessToken);
       const newParsed = await JWT.parseToken(newAccessToken);
       return serverStore.dispatch(
         authorize({ user: newParsed.user, newAccessToken })

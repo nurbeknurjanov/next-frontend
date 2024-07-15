@@ -20,7 +20,6 @@ Template works only on server side like a layout,
 export default async function Template({ children }: PropsWithChildren) {
   const headersList = headers();
 
-  console.log('template');
   try {
     await authorizeUser();
   } catch (error) {
