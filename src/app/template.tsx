@@ -8,7 +8,6 @@ import { headers } from 'next/headers';
 import styles from 'css/common.module.scss';
 import { hydratedToClient } from 'store/common/thunks';
 import { authorizeUser } from 'app/actions';
-import { NextResponse } from 'next/server';
 
 /*
 Template works only on server side like a layout,

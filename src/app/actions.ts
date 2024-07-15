@@ -22,12 +22,17 @@ export async function authorizeUser() {
     try {
       commonApi.getAxiosInstance().defaults.headers.cookie = `refreshToken=${refreshTokenCookie.value};path=/;`;
       //originalRequest.headers.Authorization = `Bearer ${newAccessToken.token}`;
+      console.log('before call');
       const newAccessToken = await commonApi.getAccessToken();
+      console.log('after call newAccessToken', newAccessToken);
       const newParsed = await JWT.parseToken(newAccessToken);
       return serverStore.dispatch(
         authorize({ user: newParsed.user, newAccessToken })
       );
     } catch (refreshTokenError) {
+      if ((refreshTokenError as Error & { status: number }).status === 500)
+        return;
+
       serverStore.dispatch(logout());
 
       const error = new Error('Refresh token is bad') as Error & {
