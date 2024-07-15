@@ -24,7 +24,9 @@ export async function authorizeUser() {
       //originalRequest.headers.Authorization = `Bearer ${newAccessToken.token}`;
       const newAccessToken = await commonApi.getAccessToken();
       const newParsed = await JWT.parseToken(newAccessToken);
-      return serverStore.dispatch(authorize({ user: newParsed.user }));
+      return serverStore.dispatch(
+        authorize({ user: newParsed.user, newAccessToken })
+      );
     } catch (refreshTokenError) {
       //todo to check
       console.log('refreshTokenError1', refreshTokenError);

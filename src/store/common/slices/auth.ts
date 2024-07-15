@@ -6,10 +6,12 @@ import type { IUser } from 'api/usersApi';
 export type AuthStateType = {
   isAuth: boolean | null;
   user: IUser | null;
+  newAccessToken?: string | null;
 };
 const initialState: AuthStateType = {
   isAuth: null,
   user: null,
+  newAccessToken: null,
 };
 
 const { actions, reducer } = createSlice({

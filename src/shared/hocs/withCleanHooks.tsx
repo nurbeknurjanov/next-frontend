@@ -3,15 +3,18 @@ import { common } from 'store';
 import { hydratedToClient } from 'store/common/thunks';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
 import { useCookies } from 'react-cookie';
-import { getIsAuth } from 'store/common/selectors';
+import { getAuthStateSelector } from 'store/common/selectors';
 
 export const withCleanHooks = <T extends object>(
   Component: ComponentType<T>
 ) => {
   const NewComponent: FC<T> = props => {
     const dispatch = useAppDispatch();
-    const isAuth = useAppSelector(getIsAuth);
-    const [, , removeCookie] = useCookies(['refreshToken', 'accessToken']);
+    const { isAuth, newAccessToken } = useAppSelector(getAuthStateSelector);
+    const [, setCookie, removeCookie] = useCookies([
+      'refreshToken',
+      'accessToken',
+    ]);
 
     useEffect(
       () => () => {
@@ -30,8 +33,12 @@ export const withCleanHooks = <T extends object>(
       if (!isAuth) {
         removeCookie('refreshToken');
         removeCookie('accessToken');
+        return;
       }
-    }, [removeCookie, isAuth]);
+      if (newAccessToken) {
+        setCookie('accessToken', newAccessToken, { path: '/' });
+      }
+    }, [removeCookie, setCookie, isAuth, newAccessToken]);
 
     return <Component {...props} />;
   };

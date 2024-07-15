@@ -17,7 +17,26 @@ export const useUserMenu = () => {
     'refreshToken',
     'accessToken',
   ]);
+  /*
+*
+*         const { data, error } = await dispatch(
+          getAccessTokenThunk({ config: { withCredentials: true } })
+        );
 
+* //если не удалось получить
+        if (error && error.status === 401) {
+          removeCookie('refreshToken');
+          removeCookie('accessToken');
+          router.push('/login');
+        }
+
+* //а так надо обновить куки
+        if (data) {
+          setCookie('accessToken', data, { path: '/' });
+        }
+      }, 30 * 1000);
+      *
+      * */
   const onLogout = () => {
     dispatch(logout());
     removeCookie('refreshToken');
