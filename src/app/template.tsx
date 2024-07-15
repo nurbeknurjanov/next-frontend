@@ -8,6 +8,7 @@ import { headers } from 'next/headers';
 import styles from 'css/common.module.scss';
 import { hydratedToClient } from 'store/common/thunks';
 import { authorizeUser } from 'app/actions';
+import { NextResponse } from 'next/server';
 
 /*
 Template works only on server side like a layout,
@@ -23,7 +24,9 @@ export default async function Template({ children }: PropsWithChildren) {
   try {
     await authorizeUser();
   } catch (error) {
-    error;
+    if ((error as Error & { status: number }).status === 403) {
+      return NextResponse.redirect(new URL('/login'));
+    }
   }
 
   if (serverStore.getState().common.hydrate.serverWait) {

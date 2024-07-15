@@ -29,7 +29,9 @@ export default async function middleware(req: NextRequest) {
     try {
       await authorizeUser();
     } catch (error) {
-      error;
+      if ((error as Error & { status: number }).status === 403) {
+        return NextResponse.redirect(new URL('/login', req.url));
+      }
     }
 
     const state = serverStore.getState();

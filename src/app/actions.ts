@@ -31,7 +31,7 @@ export async function authorizeUser() {
       );
     } catch (refreshTokenError) {
       //todo to check
-      console.log('refreshTokenError1', refreshTokenError);
+      console.log('server refreshTokenError', refreshTokenError);
       throw new Error((refreshTokenError as Error).message);
     }
   }

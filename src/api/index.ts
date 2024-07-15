@@ -33,7 +33,7 @@ import { filesApi } from './files';
           return await api.getAxiosInstance().request(originalRequest);
         } catch (refreshTokenError) {
           //todo to check
-          console.log('refreshTokenError', refreshTokenError);
+          console.log('browser refreshTokenError', refreshTokenError);
           throw refreshTokenError;
         }
       }
