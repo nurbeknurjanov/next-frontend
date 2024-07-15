@@ -3,11 +3,6 @@ import { usersApi } from './users';
 import { productsApi } from './products';
 import { filesApi } from './files';
 
-export { commonApi };
-export { usersApi };
-export { productsApi };
-export { filesApi };
-
 //if (process.browser) document.cookie = 'accessToken=123;path=/;';
 
 [usersApi, productsApi, filesApi, commonApi].forEach(api => {
@@ -43,3 +38,8 @@ export { filesApi };
     }
   );
 });
+
+export { commonApi };
+export { usersApi };
+export { productsApi };
+export { filesApi };

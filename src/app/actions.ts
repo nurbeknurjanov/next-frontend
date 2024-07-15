@@ -20,10 +20,14 @@ export async function authorizeUser() {
     return serverStore.dispatch(authorize({ user: parsed.user }));
   } catch (error) {
     try {
+      console.log(2);
       const newAccessToken = await commonApi.getAccessToken();
+      console.log(2.5);
       const newParsed = await JWT.parseToken(newAccessToken);
+      console.log(3, 'new token');
       return serverStore.dispatch(authorize({ user: newParsed.user }));
     } catch (refreshTokenError) {
+      console.log('refreshTokenError', refreshTokenError);
       throw new Error((refreshTokenError as Error).message);
     }
   }

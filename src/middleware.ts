@@ -28,7 +28,9 @@ export default async function middleware(req: NextRequest) {
   console.log('middleware');
   if (protectedUrls) {
     try {
+      console.log(1);
       await authorizeUser();
+      console.log(4, 'success');
     } catch (error) {
       error;
     }
@@ -49,12 +51,12 @@ export default async function middleware(req: NextRequest) {
   }
 
   if (pathname.includes('/login') || pathname.includes('/vhod')) {
-    try {
+    /*try {
       await authorizeUser();
       return NextResponse.redirect(new URL('/', req.url));
     } catch (error) {
       error;
-    }
+    }*/
   }
 
   return NextResponseLocale;
