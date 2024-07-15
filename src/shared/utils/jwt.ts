@@ -17,7 +17,11 @@ export class JWT {
     );
 
     if (new Date(parsed.payload.expire).getTime() < new Date().getTime()) {
-      console.log('Token is expired', parsed.payload.expire);
+      console.log(
+        parsed.payload.type,
+        'Token is expired',
+        parsed.payload.expire
+      );
       throw new Error('Token is expired');
     }
 
