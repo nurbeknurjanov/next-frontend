@@ -1,10 +1,8 @@
 import createMiddleware from 'next-intl/middleware';
 import { pathnames, locales, localePrefix, defaultLocale } from './i18n';
 import { NextRequest, NextResponse } from 'next/server';
-import { cookies } from 'next/headers';
-import { JWT } from 'shared/utils/jwt';
 import { serverStore } from './store/store';
-import { authorize } from './store/common/thunks';
+import { authorizeUser } from 'app/actions';
 
 const resultOfLocale = createMiddleware({
   defaultLocale,
@@ -17,47 +15,45 @@ const resultOfLocale = createMiddleware({
 
 export default async function middleware(req: NextRequest) {
   const NextResponseLocale = resultOfLocale(req);
-  const cookieStore = cookies();
-  const accessTokenCookie = cookieStore.get('accessToken');
   const pathname = req.nextUrl.pathname;
 
-  const updateProductUrl = pathname.match(/products\/\w*\d\w*\/update/);
+  const protectedUpdateProductUrl = pathname.match(
+    /products\/\w*\d\w*\/update/
+  );
   const protectedUrls =
-    updateProductUrl ||
     pathname.includes('/users') ||
-    pathname.includes('/files');
+    pathname.includes('/files') ||
+    protectedUpdateProductUrl;
 
   console.log('middleware');
   if (protectedUrls) {
-    /*if (!accessTokenCookie?.value)
-      return NextResponse.redirect(new URL('/login', req.url));*/
-
     try {
-      if (accessTokenCookie?.value) {
-        const parsed = await JWT.parseToken(accessTokenCookie.value);
-        serverStore.dispatch(authorize({ user: parsed.user }));
-
-        if (
-          updateProductUrl &&
-          !serverStore.getState().products.productsPermissions.canUpdateProduct
-        ) {
-          throw new Error('Forbidden');
-        }
-      }
+      await authorizeUser();
     } catch (error) {
-      //return NextResponse.redirect(new URL('/login', req.url));//todo
-      //return new Response((error as Error).message, { status: 401 });
+      error;
     }
+
+    const state = serverStore.getState();
+    const isAuth = state.common.auth.isAuth;
+
+    if (
+      protectedUpdateProductUrl &&
+      !state.products.productsPermissions.canUpdateProduct
+    ) {
+      if (!isAuth) return NextResponse.redirect(new URL('/login', req.url));
+
+      return new Response('Forbidden', { status: 403 });
+    }
+
+    if (!isAuth) return NextResponse.redirect(new URL('/login', req.url));
   }
 
   if (pathname.includes('/login') || pathname.includes('/vhod')) {
-    if (accessTokenCookie?.value) {
-      try {
-        await JWT.parseToken(accessTokenCookie.value);
-        return NextResponse.redirect(new URL('/', req.url));
-      } catch (error) {
-        error;
-      }
+    try {
+      await authorizeUser();
+      return NextResponse.redirect(new URL('/', req.url));
+    } catch (error) {
+      error;
     }
   }
 

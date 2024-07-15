@@ -20,7 +20,7 @@ export default async function Template({ children }: PropsWithChildren) {
   const headersList = headers();
 
   try {
-    authorizeUser();
+    await authorizeUser();
   } catch (error) {
     error;
   }
