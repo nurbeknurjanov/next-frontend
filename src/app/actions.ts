@@ -28,9 +28,13 @@ export async function authorizeUser() {
         authorize({ user: newParsed.user, newAccessToken })
       );
     } catch (refreshTokenError) {
-      //todo to check
-      console.log('server refreshTokenError', refreshTokenError);
-      throw new Error((refreshTokenError as Error).message);
+      serverStore.dispatch(logout());
+
+      const error = new Error('Refresh token is bad') as Error & {
+        status: number;
+      };
+      error.status = 403;
+      throw error;
     }
   }
 }

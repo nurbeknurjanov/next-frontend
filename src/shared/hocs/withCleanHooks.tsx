@@ -31,8 +31,8 @@ export const withCleanHooks = <T extends object>(
 
     useEffect(() => {
       if (!isAuth) {
-        removeCookie('refreshToken');
-        removeCookie('accessToken');
+        removeCookie('refreshToken', { path: '/' });
+        removeCookie('accessToken', { path: '/' });
         return;
       }
       if (newAccessToken) {

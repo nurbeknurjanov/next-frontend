@@ -23,9 +23,7 @@ export default async function Template({ children }: PropsWithChildren) {
   try {
     await authorizeUser();
   } catch (error) {
-    if ((error as Error & { status: number }).status === 403) {
-      return NextResponse.redirect(new URL('/login'));
-    }
+    error;
   }
 
   if (serverStore.getState().common.hydrate.serverWait) {

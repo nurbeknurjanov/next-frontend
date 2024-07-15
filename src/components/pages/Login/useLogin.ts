@@ -1,6 +1,6 @@
 import { useAppDispatch, useAppSelector } from 'store/hooks';
 import { LoginRequestBodyParams } from 'api/commonApi';
-import { loginThunk } from 'store/common/thunks';
+import { loginThunk, logout } from 'store/common/thunks';
 import { joiResolver } from '@hookform/resolvers/joi';
 import Joi from 'joi';
 import { useForm } from 'react-hook-form';
@@ -10,6 +10,7 @@ import { useCookies } from 'react-cookie';
 import { useRouter } from 'next/navigation';
 import tlds from 'tlds';
 import { common } from 'store';
+import { useEffect } from 'react';
 
 export const useLogin = () => {
   const tCommon = useTranslations('Common');
@@ -18,7 +19,10 @@ export const useLogin = () => {
   const dispatch = useAppDispatch();
   const loginState = useAppSelector(common.login.selector.state);
   const router = useRouter();
-  const [_cookies, setCookie] = useCookies(['refreshToken', 'accessToken']);
+  const [_cookies, setCookie, removeCookie] = useCookies([
+    'refreshToken',
+    'accessToken',
+  ]);
 
   const initialValues: LoginRequestBodyParams = {
     email: '',
@@ -55,6 +59,12 @@ export const useLogin = () => {
       router.push('/');
     }
   };
+
+  useEffect(() => {
+    removeCookie('refreshToken', { path: '/' });
+    removeCookie('accessToken', { path: '/' });
+    dispatch(logout());
+  }, [removeCookie, dispatch]);
 
   return {
     register,
