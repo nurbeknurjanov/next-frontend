@@ -32,24 +32,15 @@ export default async function middleware(req: NextRequest) {
       console.log('middlware after');
     } catch (error) {
       console.log('error in middlware', error);
-      if ((error as Error & { status: number }).status === 403) {
-        return NextResponse.redirect(new URL('/login', req.url));
-      }
+      return NextResponse.redirect(new URL('/login', req.url));
     }
-
-    const state = serverStore.getState();
-    const isAuth = state.common.auth.isAuth;
 
     if (
       protectedUpdateProductUrl &&
-      !state.products.productsPermissions.canUpdateProduct
+      !serverStore.getState().products.productsPermissions.canUpdateProduct
     ) {
-      if (!isAuth) return NextResponse.redirect(new URL('/login', req.url));
-
       return new Response('Forbidden', { status: 403 });
     }
-
-    if (!isAuth) return NextResponse.redirect(new URL('/login', req.url));
   }
 
   if (pathname.includes('/login') || pathname.includes('/vhod')) {

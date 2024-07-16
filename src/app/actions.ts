@@ -12,7 +12,7 @@ export async function authorizeUser() {
   const accessTokenCookie = cookieStore.get('accessToken');
   if (!accessTokenCookie?.value || !refreshTokenCookie?.value) {
     serverStore.dispatch(logout());
-    throw new Error('There is no access token');
+    throw new Error('There is no any token');
   }
 
   try {
@@ -20,28 +20,28 @@ export async function authorizeUser() {
     return serverStore.dispatch(authorize({ user: parsed.user }));
   } catch (error) {
     try {
-      commonApi.getAxiosInstance().defaults.headers.cookie = `refreshToken=${refreshTokenCookie.value};path=/;`;
+      //commonApi.getAxiosInstance().defaults.headers.cookie = `refreshToken=${refreshTokenCookie.value};path=/;`;
       //originalRequest.headers.Authorization = `Bearer ${newAccessToken.token}`;
       console.log('before call');
-      const newAccessToken = await commonApi.getAccessToken();
+      const newAccessToken = await fetch(
+        `${commonApi.getAxiosInstance().defaults.baseURL}/auth/get-access-token`,
+        {
+          credentials: 'include',
+          headers: {
+            cookie: `refreshToken=${refreshTokenCookie.value};path=/;`,
+          },
+        }
+      ).then(response => response.text());
       console.log('after call newAccessToken', newAccessToken);
       const newParsed = await JWT.parseToken(newAccessToken);
       return serverStore.dispatch(
         authorize({ user: newParsed.user, newAccessToken })
       );
     } catch (refreshTokenError) {
-      if ((refreshTokenError as Error & { status: number }).status === 500) {
-        console.log('bad error', refreshTokenError);
-        return;
-      }
-
       serverStore.dispatch(logout());
 
-      const error = new Error('Refresh token is bad') as Error & {
-        status: number;
-      };
-      error.status = 403;
-      throw error;
+      console.warn('Bad refreshTokenError', refreshTokenError);
+      throw refreshTokenError;
     }
   }
 }

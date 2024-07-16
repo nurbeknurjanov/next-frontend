@@ -47,7 +47,7 @@ export function Sidebar() {
               <ListItemText primary={tProductsPage('title')} />
             </ListItemButton>
           </ListItem>
-          {isAuth && (
+          {!!'isAuth' && (
             <>
               <ListItem disablePadding>
                 <ListItemButton component={ActiveLink} href="/users">
