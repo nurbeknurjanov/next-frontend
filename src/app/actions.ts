@@ -22,7 +22,6 @@ export async function authorizeUser() {
     try {
       //commonApi.getAxiosInstance().defaults.headers.cookie = `refreshToken=${refreshTokenCookie.value};path=/;`;
       //originalRequest.headers.Authorization = `Bearer ${newAccessToken.token}`;
-      console.log('before call');
       const newAccessToken = await fetch(
         `${commonApi.getAxiosInstance().defaults.baseURL}/auth/get-access-token`,
         {
@@ -31,8 +30,18 @@ export async function authorizeUser() {
             cookie: `refreshToken=${refreshTokenCookie.value};path=/;`,
           },
         }
-      ).then(response => response.text());
-      console.log('after call newAccessToken', newAccessToken);
+      ).then(async response => {
+        if (response.ok) {
+          return response.text();
+        }
+
+        const message = await response.text();
+        const error = new Error(message) as Error & {
+          status: number;
+        };
+        error.status = response.status;
+        throw error;
+      });
       const newParsed = await JWT.parseToken(newAccessToken);
       return serverStore.dispatch(
         authorize({ user: newParsed.user, newAccessToken })
