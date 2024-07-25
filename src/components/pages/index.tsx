@@ -1,6 +1,7 @@
 export { Contact } from './Contact';
 export { Login } from './Login';
 export { Home } from './Home';
+export { Profile } from './Profile';
 
 export { Product } from './Product';
 export { Products } from './Products';

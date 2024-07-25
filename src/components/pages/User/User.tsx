@@ -82,6 +82,7 @@ let User: FC = () => {
         rows={rows}
         columns={columns}
         getRowId={el => el.label}
+        paginationMode={'client'}
       />
     </div>
   );

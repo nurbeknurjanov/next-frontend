@@ -1,6 +1,5 @@
 'use client';
 import React, { FC } from 'react';
-import styles from './user.module.scss';
 import { useProfile } from './useProfile';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import dayjs from 'dayjs';
@@ -70,15 +69,14 @@ let Profile: FC = () => {
   }
 
   return (
-    <div className={styles.userContent}>
-      <DataGrid
-        columnHeaderHeight={0}
-        hideFooter
-        rows={rows}
-        columns={columns}
-        getRowId={el => el.label}
-      />
-    </div>
+    <DataGrid
+      columnHeaderHeight={0}
+      hideFooter
+      rows={rows}
+      columns={columns}
+      getRowId={el => el.label}
+      paginationMode={'client'}
+    />
   );
 };
 
