@@ -7,24 +7,20 @@ interface IJWTPayload {
   type: 'refreshToken' | 'accessToken';
 }
 
-const secret_key: string = 'secret_key';
-
 export class JWT {
   static async parseToken(token: string): Promise<IJWTPayload> {
-    const parsed = await jose.jwtVerify<IJWTPayload>(
+    /*const parsed = await jose.jwtVerify<IJWTPayload>(
       token,
       new TextEncoder().encode(secret_key)
     );
+    parsed.payload;
+    */
+    const payload = await jose.decodeJwt<IJWTPayload>(token);
 
-    if (new Date(parsed.payload.expire).getTime() < new Date().getTime()) {
-      console.log(
-        parsed.payload.type,
-        'Token is expired',
-        parsed.payload.expire
-      );
+    if (new Date(payload.expire).getTime() < new Date().getTime()) {
       throw new Error('Token is expired');
     }
 
-    return parsed.payload;
+    return payload;
   }
 }
