@@ -1,0 +1,87 @@
+'use client';
+import React, { FC } from 'react';
+import styles from './user.module.scss';
+import { useProfile } from './useProfile';
+import { DataGrid, GridColDef } from '@mui/x-data-grid';
+import dayjs from 'dayjs';
+import { DATE_FORMAT } from 'shared/utils';
+import { withCleanHooks } from 'shared/hocs';
+import { useSetPageData } from 'shared/hooks';
+
+const columns: GridColDef[] = [
+  {
+    field: 'label',
+    headerName: 'Label',
+    flex: 1,
+  },
+  {
+    field: 'value',
+    headerName: 'Value',
+    flex: 1,
+  },
+];
+
+let Profile: FC = () => {
+  const { tCommon, tUser, tUsersPage, model } = useProfile();
+  const title = model?.name!;
+
+  useSetPageData(title, [
+    {
+      label: tUsersPage('title'),
+      href: '/users',
+    },
+    title,
+  ]);
+
+  const rows: { label: string; value: string | React.ReactNode }[] = [];
+  if (model) {
+    rows.push({
+      label: tCommon('id'),
+      value: model._id,
+    });
+    rows.push({
+      label: tUser('name'),
+      value: model.name,
+    });
+    rows.push({
+      label: tUser('email'),
+      value: model.email,
+    });
+    rows.push({
+      label: tUser('sex'),
+      value: model.sex,
+    });
+    rows.push({
+      label: tUser('age'),
+      value: model.age,
+    });
+    rows.push({
+      label: tUser('status'),
+      value: model.status,
+    });
+    rows.push({
+      label: tCommon('createdAt'),
+      value: dayjs(model.createdAt).format(DATE_FORMAT),
+    });
+    rows.push({
+      label: tCommon('updatedAt'),
+      value: dayjs(model.updatedAt).format(DATE_FORMAT),
+    });
+  }
+
+  return (
+    <div className={styles.userContent}>
+      <DataGrid
+        columnHeaderHeight={0}
+        hideFooter
+        rows={rows}
+        columns={columns}
+        getRowId={el => el.label}
+      />
+    </div>
+  );
+};
+
+Profile = withCleanHooks(Profile);
+
+export { Profile };
