@@ -4,7 +4,7 @@ import { files } from 'store';
 import { deleteFileThunk, createFileThunk } from 'store/files/thunks';
 import { getProductSelector } from 'store/products/selectors';
 import { IFile, IFilePost } from 'api/filesApi';
-import { UseFormSetValue, UseFormWatch } from 'react-hook-form';
+import { UseFormReset, UseFormSetValue, UseFormWatch } from 'react-hook-form';
 import { ObjectSchema } from 'joi';
 import { notify } from 'store/common/thunks';
 import { useTranslations } from 'next-intl';
@@ -13,6 +13,7 @@ interface IProps {
   id?: string;
   setValue: UseFormSetValue<any>;
   watch: UseFormWatch<any>;
+  reset: UseFormReset<any>;
   schema: ObjectSchema;
   afterFileUploadAndRemove: () => void;
 }
@@ -20,6 +21,7 @@ export function useProductUploadFile({
   id,
   setValue,
   watch,
+  reset,
   schema,
   afterFileUploadAndRemove,
 }: IProps) {

@@ -91,6 +91,7 @@ export function useProductForm({ model }: IProps) {
     isValid,
     isDirty,
     handleSubmit,
+    reset,
     schema,
   };
 }

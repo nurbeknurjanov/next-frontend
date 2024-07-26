@@ -27,11 +27,12 @@ export function useProductModalUpdate({ onClose, afterUpdate, id }: IProps) {
     register,
     setValue,
     watch,
-    schema,
     errors,
     isValid,
     isDirty,
     handleSubmit,
+    reset,
+    schema,
   } = useProductForm({
     model: model!,
   });
@@ -47,6 +48,7 @@ export function useProductModalUpdate({ onClose, afterUpdate, id }: IProps) {
     id,
     setValue,
     watch,
+    reset,
     schema,
     afterFileUploadAndRemove,
   });
