@@ -101,13 +101,6 @@ export const UserModalUpdate: React.FC<IProps> = ({
             />
 
             <TextField
-              label={tUser('password')}
-              error={!!errors['password']}
-              helperText={errors['password']?.message}
-              {...register('password')}
-            />
-
-            <TextField
               label={tUser('age')}
               type="number"
               error={!!errors['age']}
