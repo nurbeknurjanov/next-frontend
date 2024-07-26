@@ -5,6 +5,7 @@ import {
   getUserObject,
   createUserObject,
   userChangePasswordObject,
+  updateProfileObject,
 } from './slices';
 
 export const users = {
@@ -14,4 +15,5 @@ export const users = {
   getUser: getUserObject,
   createUser: createUserObject,
   userChangePassword: userChangePasswordObject,
+  updateProfile: updateProfileObject,
 };

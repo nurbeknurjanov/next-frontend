@@ -6,6 +6,7 @@ import dayjs from 'dayjs';
 import { DATE_FORMAT } from 'shared/utils';
 import { withCleanHooks } from 'shared/hocs';
 import { useSetPageData } from 'shared/hooks';
+import { Button } from '../../../shared/ui';
 
 const columns: GridColDef[] = [
   {
@@ -24,7 +25,18 @@ let Profile: FC = () => {
   const { tCommon, tUser, tProfilePage, model } = useProfile();
   const title = tProfilePage('title');
 
-  useSetPageData(title, [title]);
+  useSetPageData(
+    title,
+    [title],
+    <>
+      <Button variant={'contained'} size={'small'} onClick={() => {}}>
+        Update profile
+      </Button>
+      <Button variant={'outlined'} size={'small'} onClick={() => {}}>
+        Change password
+      </Button>
+    </>
+  );
 
   const rows: { label: string; value: string | React.ReactNode }[] = [];
   if (model) {

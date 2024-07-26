@@ -4,7 +4,7 @@ import { useTranslations } from 'next-intl';
 import { IUserPost } from 'api/usersApi';
 import { IProps } from './UserModalChangePassword';
 import { notify } from 'store/common/thunks';
-import { updateUserThunk } from 'store/users/thunks';
+import { userChangePasswordThunk } from 'store/users/thunks';
 import { useForm } from 'react-hook-form';
 import { joiResolver } from '@hookform/resolvers/joi';
 import { useI18nJoi } from 'shared/utils';
@@ -35,7 +35,7 @@ export function useUserModalChangePassword({ onClose, id }: IProps) {
   });
 
   const updateUserPassword = async (id: string, formData: IUserPost) => {
-    const { data } = await dispatch(updateUserThunk(id, formData));
+    const { data } = await dispatch(userChangePasswordThunk(id, formData));
 
     if (data) {
       onClose();
