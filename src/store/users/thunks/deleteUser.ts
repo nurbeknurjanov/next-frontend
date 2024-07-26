@@ -13,7 +13,7 @@ export const deleteUserThunk =
     );
 
     const { error } = users.deleteUser.selector.state(getState());
-    if (error) {
+    if (error && typeof error.data === 'string') {
       dispatch(notify(error.data, 'error'));
     }
 
