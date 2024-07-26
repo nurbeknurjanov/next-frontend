@@ -35,4 +35,5 @@ export interface IProductSort extends ISort<IProductSortFields> {}
 export type IProductsList = ResponseDataListPagination<IProduct>;
 
 export type IProductApiConfig = AxiosRequestConfig;
-export interface IProductApiError extends ResponseApiError<string> {}
+export interface IProductApiError
+  extends ResponseApiError<{ message: string }> {}

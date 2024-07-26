@@ -45,4 +45,4 @@ export interface IFileSort extends ISort<IFileSortFields> {}
 export type IFilesList = ResponseDataListPagination<IFile>;
 
 export type IFileApiConfig = AxiosRequestConfig;
-export interface IFileApiError extends ResponseApiError<string> {}
+export interface IFileApiError extends ResponseApiError<{ message: string }> {}

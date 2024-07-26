@@ -17,7 +17,7 @@ export const loginThunk =
 
     const { error, data } = common.login.selector.state(getState());
     if (error) {
-      dispatch(notify(error.data, 'error'));
+      dispatch(notify(error.data.message, 'error'));
     }
 
     if (data) {

@@ -18,7 +18,7 @@ export const updateProductThunk =
 
     const { error, data } = products.updateProduct.selector.state(getState());
     if (error) {
-      dispatch(notify(error.data, 'error'));
+      dispatch(notify(error.data.message, 'error'));
     }
 
     return { data, error };

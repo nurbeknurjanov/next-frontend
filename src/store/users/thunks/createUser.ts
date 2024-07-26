@@ -14,13 +14,7 @@ export const createUserThunk =
 
     const { error, data } = users.createUser.selector.state(getState());
     if (error) {
-      if (typeof error.data === 'string') {
-        dispatch(notify(error.data, 'error'));
-      } else {
-        if ('message' in error.data) {
-          dispatch(notify(error.data.message, 'error'));
-        }
-      }
+      dispatch(notify(error.data.message, 'error'));
     }
 
     return {

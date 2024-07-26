@@ -13,6 +13,4 @@ export type LoginResponse = {
 
 export type CommonApiConfig = AxiosRequestConfig;
 
-export interface CommonApiError extends ResponseApiError<string> {}
-
-//export interface CommonApiError extends ResponseApiError<string | {code: number, message: string}> {}
+export interface CommonApiError extends ResponseApiError<{ message: string }> {}

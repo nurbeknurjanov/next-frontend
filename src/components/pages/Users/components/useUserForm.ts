@@ -7,11 +7,17 @@ import { pick } from 'lodash';
 import { useEffect, useMemo } from 'react';
 import tlds from 'tlds';
 import { useTranslations } from 'next-intl';
+import { useAppSelector } from '../../../../store/hooks';
+import { users } from '../../../../store';
 
 interface IProps {
   model?: IUser;
 }
 export function useUserForm({ model }: IProps) {
+  const createUserState = useAppSelector(users.createUser.selector.state);
+  const updateUserState = useAppSelector(users.updateUser.selector.state);
+  const formUserState = model ? updateUserState : createUserState;
+
   const tUser = useTranslations('User');
   const i18nJoi = useI18nJoi();
   const schema = i18nJoi.object({
@@ -52,6 +58,7 @@ export function useUserForm({ model }: IProps) {
     reset,
     watch,
     setValue,
+    setError,
   } = useForm<IUserPost>({
     mode: 'onTouched',
     resolver: joiResolver(schema),
@@ -61,6 +68,17 @@ export function useUserForm({ model }: IProps) {
   useEffect(() => {
     reset(initialValues);
   }, [reset, initialValues]);
+
+  useEffect(() => {
+    if (formUserState.error) {
+      if (formUserState.error.data.fieldsErrors?.email) {
+        setError('email', {
+          type: '400',
+          message: formUserState.error.data.fieldsErrors?.email,
+        });
+      }
+    }
+  }, [formUserState.error, setError]);
 
   return {
     register,

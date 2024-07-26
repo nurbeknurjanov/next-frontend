@@ -41,7 +41,7 @@ export type IUsersList = ResponseDataListPagination<IUser>;
 export type IUserApiConfig = AxiosRequestConfig;
 
 export interface IUserApiError
-  extends ResponseApiError<
-    | string
-    | { code: number; message: string; fieldsErrors: Record<string, string> }
-  > {}
+  extends ResponseApiError<{
+    message: string;
+    fieldsErrors: Record<string, string>;
+  }> {}

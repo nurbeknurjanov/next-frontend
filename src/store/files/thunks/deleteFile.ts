@@ -16,7 +16,7 @@ export const deleteFileThunk =
 
     const { error, data } = files.deleteFile.selector.state(getState());
     if (error) {
-      dispatch(notify(error.data, 'error'));
+      dispatch(notify(error.data.message, 'error'));
     }
 
     return {

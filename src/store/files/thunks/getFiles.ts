@@ -29,6 +29,6 @@ export const getFilesThunk =
     );
     const { error } = files.getFiles.selector.state(getState());
     if (error) {
-      dispatch(notify(error.data, 'error'));
+      dispatch(notify(error.data.message, 'error'));
     }
   };

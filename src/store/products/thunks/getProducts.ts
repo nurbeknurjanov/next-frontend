@@ -33,6 +33,6 @@ export const getProductsThunk =
     );
     const { error } = products.getProducts.selector.state(getState());
     if (error) {
-      dispatch(notify(error.data, 'error'));
+      dispatch(notify(error.data.message, 'error'));
     }
   };

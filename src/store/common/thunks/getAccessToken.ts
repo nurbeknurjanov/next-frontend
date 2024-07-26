@@ -20,7 +20,7 @@ export const getAccessTokenThunk =
 
     const { error, data } = common.getAccessToken.selector.state(getState());
     if (error) {
-      dispatch(notify(error.data, 'error'));
+      dispatch(notify(error.data.message, 'error'));
       dispatch(logout());
     }
 

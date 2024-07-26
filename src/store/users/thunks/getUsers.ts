@@ -28,7 +28,7 @@ export const getUsersThunk =
       })
     );
     const { error } = users.getUsers.selector.state(getState());
-    if (error && typeof error.data === 'string') {
-      dispatch(notify(error.data, 'error'));
+    if (error) {
+      dispatch(notify(error.data.message, 'error'));
     }
   };

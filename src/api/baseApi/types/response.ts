@@ -11,7 +11,7 @@ export interface ResponseDataListPagination<T extends Record<string, any>> {
   pagination: IPagination;
 }
 
-export interface ResponseApiError<T = any> {
+export interface ResponseApiError<T = { message?: string }> {
   code: string; //"ERR_BAD_REQUEST", "ERR_BAD_RESPONSE"
   status: number; //401, 500
   statusText: string; //"Unauthorized", "Internal Server Error"
