@@ -10,11 +10,7 @@ import { joiResolver } from '@hookform/resolvers/joi';
 import { useI18nJoi } from 'shared/utils';
 import Joi from 'joi';
 
-export function useUserModalChangePassword({
-  onClose,
-  afterUpdate,
-  id,
-}: IProps) {
+export function useUserModalChangePassword({ onClose, id }: IProps) {
   const dispatch = useAppDispatch();
   const tCommon = useTranslations('Common');
   const tUserPage = useTranslations('UserPage');
@@ -44,7 +40,6 @@ export function useUserModalChangePassword({
     if (data) {
       onClose();
       dispatch(notify(tCommon('successUpdated'), 'success'));
-      afterUpdate();
     }
   };
 

@@ -13,7 +13,7 @@ import { IUserFilters } from 'api/usersApi';
 
 type ModalType =
   | { type: 'create' }
-  | { type: 'update' | 'delete' | 'view'; id: string };
+  | { type: 'update' | 'delete' | 'view' | 'changePassword'; id: string };
 
 //const env = process.env.NODE_ENV;
 export function useUsers() {
@@ -21,6 +21,7 @@ export function useUsers() {
   const tCommon = useTranslations('Common');
   const tUser = useTranslations('User');
   const tUsersPage = useTranslations('UsersPage');
+  const tUserPage = useTranslations('UserPage');
 
   const [showModal, setShowModal] = useState<ModalType | null>();
   const closeShowModal = useCallback(() => setShowModal(null), []);
@@ -97,6 +98,7 @@ export function useUsers() {
     tCommon,
     tUser,
     tUsersPage,
+    tUserPage,
     getUsersState,
     setPagination,
     sorting,

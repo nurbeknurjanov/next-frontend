@@ -11,14 +11,9 @@ import { useRef } from 'react';
 export type IProps = {
   id: string;
   onClose: () => void;
-  afterUpdate: () => void;
 };
 
-export const UserModalChangePassword: React.FC<IProps> = ({
-  onClose,
-  afterUpdate,
-  id,
-}) => {
+export const UserModalChangePassword: React.FC<IProps> = ({ onClose, id }) => {
   //const id = type === 'update' ? props.id : null;
   const formRef = useRef<HTMLFormElement>();
   //const formRef = useRef<HTMLFormElement>(null); //for direct assign
@@ -36,12 +31,11 @@ export const UserModalChangePassword: React.FC<IProps> = ({
   } = useUserModalChangePassword({
     id: id!,
     onClose,
-    afterUpdate,
   });
 
   return (
     <Dialog open onClose={onClose}>
-      <DialogTitle>{tUserPage('update')}</DialogTitle>
+      <DialogTitle>{tUserPage('changePassword')}</DialogTitle>
       <DialogContent>
         <form
           ref={el => (formRef.current = el!)}

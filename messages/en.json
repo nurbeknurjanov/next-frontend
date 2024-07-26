@@ -95,7 +95,8 @@
     "title": "User",
     "update": "Update user",
     "delete": "Delete user",
-    "view": "View user"
+    "view": "View user",
+    "changePassword": "Change password"
   },
   "User": {
     "name": "Name",

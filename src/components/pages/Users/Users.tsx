@@ -7,12 +7,14 @@ import { useUsers } from './useUsers';
 import { Button, Link } from 'shared/ui';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import PasswordIcon from '@mui/icons-material/Password';
 import {
   UserModalCreate,
   UserModalUpdate,
   UserModalView,
   UserModalDelete,
   UsersFilters,
+  UserModalChangePassword,
 } from './components';
 import { withCleanHooks } from 'shared/hocs';
 import { DATE_FORMAT } from 'shared/utils';
@@ -24,6 +26,7 @@ let Users: FC = () => {
     tCommon,
     tUser,
     tUsersPage,
+    tUserPage,
     getUsersState,
     setPagination,
     sorting,
@@ -111,6 +114,15 @@ let Users: FC = () => {
           label={tCommon('delete')}
           showInMenu
         />,
+        <GridActionsCellItem
+          key={params.row._id}
+          icon={<PasswordIcon />}
+          onClick={() =>
+            setShowModal({ type: 'changePassword', id: params.row._id })
+          }
+          label={tUserPage('changePassword')}
+          showInMenu
+        />,
       ],
     },
   ];
@@ -162,6 +174,10 @@ let Users: FC = () => {
 
       {showModal?.type === 'view' && (
         <UserModalView id={showModal.id} onClose={closeShowModal} />
+      )}
+
+      {showModal?.type === 'changePassword' && (
+        <UserModalChangePassword id={showModal.id} onClose={closeShowModal} />
       )}
     </>
   );
