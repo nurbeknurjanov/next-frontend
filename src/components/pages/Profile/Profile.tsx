@@ -21,16 +21,10 @@ const columns: GridColDef[] = [
 ];
 
 let Profile: FC = () => {
-  const { tCommon, tUser, tUsersPage, model } = useProfile();
-  const title = model?.name!;
+  const { tCommon, tUser, tProfilePage, model } = useProfile();
+  const title = tProfilePage('title');
 
-  useSetPageData(title, [
-    {
-      label: tUsersPage('title'),
-      href: '/users',
-    },
-    title,
-  ]);
+  useSetPageData(title, [title]);
 
   const rows: { label: string; value: string | React.ReactNode }[] = [];
   if (model) {

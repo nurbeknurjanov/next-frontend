@@ -6,13 +6,13 @@ import { getAuthUser } from 'store/common/selectors';
 export function useProfile() {
   const tCommon = useTranslations('Common');
   const tUser = useTranslations('User');
-  const tUsersPage = useTranslations('UsersPage');
+  const tProfilePage = useTranslations('ProfilePage');
   const model = useAppSelector(getAuthUser);
 
   return {
     tCommon,
     tUser,
-    tUsersPage,
+    tProfilePage,
     model,
   };
 }

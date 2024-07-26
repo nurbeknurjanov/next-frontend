@@ -32,6 +32,9 @@
     "title": "Добро пожаловать",
     "description": "Это главная страница"
   },
+  "ProfilePage": {
+    "title": "Профиль"
+  },
   "ContactPage": {
     "title": "Контакты",
     "description": "Звоните {phone}"
