@@ -27,13 +27,9 @@ export function useProductForm({ model }: IProps) {
           }
 
           if (
-            ![
-              'image/jpg',
-              'image/jpeg',
-              'image/png',
-              'image/gif',
-              'application/pdf',
-            ].includes(value?.[0]?.type?.toLowerCase())
+            !['image/jpg', 'image/jpeg', 'image/png', 'image/gif'].includes(
+              value?.[0]?.type?.toLowerCase()
+            )
           ) {
             return helper.error('file.type');
           }
