@@ -1,9 +1,8 @@
 import { useAppDispatch, useAppSelector } from 'store/hooks';
 import { users } from 'store';
 import { useTranslations } from 'next-intl';
-import { IUserPost, SEX_ENUM, STATUS_ENUM } from 'api/usersApi';
+import { IUserPost } from 'api/usersApi';
 import { IProps } from './UserModalChangePassword';
-import { useUserForm } from '../useUserForm';
 import { notify } from 'store/common/thunks';
 import { updateUserThunk } from 'store/users/thunks';
 import { useForm } from 'react-hook-form';
