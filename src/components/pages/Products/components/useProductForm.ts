@@ -38,7 +38,7 @@ export function useProductForm({ model }: IProps) {
             return helper.error('file.type');
           }
 
-          if (value?.[0]?.size > /*1048576*/ 0 * 10) {
+          if (value?.[0]?.size > 1048576 * 10) {
             return helper.error('file.size', { size: '10MB' });
           }
 
