@@ -2,6 +2,7 @@ import { commonApi } from './common';
 import { usersApi } from './users';
 import { productsApi } from './products';
 import { filesApi } from './files';
+import { getCookie } from 'shared/utils';
 
 //if (process.browser) document.cookie = 'accessToken=123;path=/;';
 
@@ -23,7 +24,7 @@ import { filesApi } from './files';
       return response;
     },
     async error => {
-      if (error.response.status === 401) {
+      if (error.response.status === 401 && getCookie('refreshToken')) {
         try {
           const newAccessToken = await commonApi.getAccessToken();
           document.cookie = `accessToken=${newAccessToken};path=/;`;

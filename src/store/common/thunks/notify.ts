@@ -13,5 +13,5 @@ export const notify = (text: NotifyType['text'], type: NotifyType['type']) => {
   if (typeof text === 'string')
     return common.notify.actions.set({ text, type });
 
-  return common.notify.actions.set({ text: 'Unknown error', type });
+  return common.notify.actions.set({ text: 'Unknown error', type: 'error' });
 };
