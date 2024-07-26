@@ -37,10 +37,10 @@
     "description": "Звоните {phone}"
   },
   "NotFoundPage": {
-    "title": "Не найдено"
+    "title": "Страница не найдена"
   },
   "ErrorPage": {
-    "title": "Ошибка"
+    "title": "Произошла ошибка"
   },
   "Validation": {
     "required": "{label} не может быть пустым",

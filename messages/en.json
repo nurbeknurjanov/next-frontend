@@ -37,10 +37,10 @@
     "description": "Call {phone}"
   },
   "NotFoundPage": {
-    "title": "Not found"
+    "title": "Page not found"
   },
   "ErrorPage": {
-    "title": "Error"
+    "title": "Error occurred"
   },
   "Validation": {
     "required": "{label} is not allowed to be empty",
