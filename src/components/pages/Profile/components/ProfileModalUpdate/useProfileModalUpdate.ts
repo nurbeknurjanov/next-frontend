@@ -5,11 +5,11 @@ import { IUserPost } from 'api/usersApi';
 import { IProps } from './ProfileModalUpdate';
 import { useUserForm } from 'components/pages/Users';
 import { notify } from 'store/common/thunks';
-import { updateUserThunk } from 'store/users/thunks';
+import { updateProfileThunk } from 'store/users/thunks';
 import { getAggStates } from 'store/common/types';
 import { getAuthUser } from 'store/common/selectors';
 
-export function useProfileModalUpdate({ onClose, afterUpdate, id }: IProps) {
+export function useProfileModalUpdate({ onClose }: IProps) {
   const dispatch = useAppDispatch();
   const tCommon = useTranslations('Common');
   const tUserPage = useTranslations('UserPage');
@@ -25,18 +25,17 @@ export function useProfileModalUpdate({ onClose, afterUpdate, id }: IProps) {
       model: model!,
     });
 
-  const updateUser = async (id: string, formData: IUserPost) => {
-    const { data } = await dispatch(updateUserThunk(id, formData));
+  const updateUser = async (formData: IUserPost) => {
+    const { data } = await dispatch(updateProfileThunk(formData));
 
     if (data) {
       onClose();
       dispatch(notify(tCommon('successUpdated'), 'success'));
-      afterUpdate();
     }
   };
 
   const submitForm = (formData: IUserPost) => {
-    updateUser(id!, formData);
+    updateUser(formData);
   };
 
   return {

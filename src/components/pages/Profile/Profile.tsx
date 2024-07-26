@@ -6,7 +6,8 @@ import dayjs from 'dayjs';
 import { DATE_FORMAT } from 'shared/utils';
 import { withCleanHooks } from 'shared/hocs';
 import { useSetPageData } from 'shared/hooks';
-import { Button } from '../../../shared/ui';
+import { Button } from 'shared/ui';
+import { ProfileModalUpdate } from './components';
 
 const columns: GridColDef[] = [
   {
@@ -22,14 +23,26 @@ const columns: GridColDef[] = [
 ];
 
 let Profile: FC = () => {
-  const { tCommon, tUser, tProfilePage, model } = useProfile();
+  const {
+    tCommon,
+    tUser,
+    tProfilePage,
+    model,
+    showModal,
+    setShowModal,
+    closeShowModal,
+  } = useProfile();
   const title = tProfilePage('title');
 
   useSetPageData(
     title,
     [title],
     <>
-      <Button variant={'contained'} size={'small'} onClick={() => {}}>
+      <Button
+        variant={'contained'}
+        size={'small'}
+        onClick={() => setShowModal({ type: 'updateProfile' })}
+      >
         Update profile
       </Button>
       <Button variant={'outlined'} size={'small'} onClick={() => {}}>
@@ -75,14 +88,19 @@ let Profile: FC = () => {
   }
 
   return (
-    <DataGrid
-      columnHeaderHeight={0}
-      hideFooter
-      rows={rows}
-      columns={columns}
-      getRowId={el => el.label}
-      paginationMode={'client'}
-    />
+    <>
+      <DataGrid
+        columnHeaderHeight={0}
+        hideFooter
+        rows={rows}
+        columns={columns}
+        getRowId={el => el.label}
+        paginationMode={'client'}
+      />
+      {showModal?.type === 'updateProfile' && (
+        <ProfileModalUpdate onClose={closeShowModal} />
+      )}
+    </>
   );
 };
 

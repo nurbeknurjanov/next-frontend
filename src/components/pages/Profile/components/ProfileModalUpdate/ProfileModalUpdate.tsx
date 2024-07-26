@@ -23,16 +23,10 @@ import { useRef } from 'react';
 import { SEX_ENUM, STATUS_ENUM } from 'api/usersApi';
 
 export type IProps = {
-  id: string;
   onClose: () => void;
-  afterUpdate: () => void;
 };
 
-export const ProfileModalUpdate: React.FC<IProps> = ({
-  onClose,
-  afterUpdate,
-  id,
-}) => {
+export const ProfileModalUpdate: React.FC<IProps> = ({ onClose }) => {
   //const id = type === 'update' ? props.id : null;
   const formRef = useRef<HTMLFormElement>();
   //const formRef = useRef<HTMLFormElement>(null); //for direct assign
@@ -50,9 +44,7 @@ export const ProfileModalUpdate: React.FC<IProps> = ({
     watch,
     setValue,
   } = useProfileModalUpdate({
-    id: id!,
     onClose,
-    afterUpdate,
   });
 
   const {
@@ -71,7 +63,7 @@ export const ProfileModalUpdate: React.FC<IProps> = ({
 
   return (
     <Dialog open onClose={onClose}>
-      <DialogTitle>{tUserPage('update')}</DialogTitle>
+      <DialogTitle>{tUserPage('updateProfile')}</DialogTitle>
       <DialogContent>
         <form
           ref={el => (formRef.current = el!)}

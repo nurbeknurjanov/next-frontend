@@ -96,7 +96,8 @@
     "update": "Update user",
     "delete": "Delete user",
     "view": "View user",
-    "changePassword": "Change password"
+    "changePassword": "Change password",
+    "updateProfile": "Update profile"
   },
   "User": {
     "name": "Name",
