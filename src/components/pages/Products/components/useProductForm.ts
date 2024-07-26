@@ -18,7 +18,7 @@ export function useProductForm({ model }: IProps) {
   const schema = useMemo(() => {
     let schemaObject = i18nJoiRef.current.object({
       name: Joi.string().label(tProduct('name')),
-      description: Joi.string().label(tProduct('description')),
+      description: Joi.string().allow(null, '').label(tProduct('description')),
       imageFile: Joi.any()
         .label(tProduct('image'))
         .custom((value: FileList, helper) => {

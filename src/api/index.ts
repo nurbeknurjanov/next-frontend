@@ -32,10 +32,10 @@ import { getCookie } from 'shared/utils';
           // originalRequest.headers.Authorization = `Bearer ${newAccessToken.token}`;
           return await api.getAxiosInstance().request(originalRequest);
         } catch (refreshTokenError) {
-          refreshTokenError;
-          throw refreshTokenError;
+          return Promise.reject({ response: refreshTokenError });
         }
       }
+
       return Promise.reject(error);
     }
   );
