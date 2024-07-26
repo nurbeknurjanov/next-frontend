@@ -9,22 +9,21 @@ export const useI18nJoi = () => {
         });*/
     return schema.options({
       messages: {
-        'string.empty': tValidation('required', { label: '{{#label}}' }),
-        'string.base': tValidation('required', { label: '{{#label}}' }),
-        'string.email': tValidation('email', { label: '{{#label}}' }),
+        'string.empty': tValidation('string.empty', { label: '{{#label}}' }),
+        'string.base': tValidation('string.base', { label: '{{#label}}' }),
+        'string.email': tValidation('string.email', { label: '{{#label}}' }),
         'string.min': tValidation('string.min', {
           label: '{{#label}}',
           limit: '{{#limit}}',
         }),
 
-        'number.base': tValidation('number', { label: '{{#label}}' }),
+        'number.base': tValidation('number.base', { label: '{{#label}}' }),
 
-        'any.only': tValidation('choose', { label: '{{#label}}' }),
+        'any.only': tValidation('any.only', { label: '{{#label}}' }),
+        'any.custom': tValidation('any.custom', { label: '{{#label}}' }),
 
-        'any.custom': tValidation('custom', { label: '{{#label}}' }),
-
-        'custom.image_type': 'Upload only png, jpg, gif format image files',
-        'custom.size': 'Size of file too large',
+        'file.type': tValidation('file.type'),
+        'file.size': tValidation('file.size', { size: '{{#size}}' }),
       },
     });
   });

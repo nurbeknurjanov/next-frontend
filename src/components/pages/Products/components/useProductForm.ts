@@ -35,11 +35,11 @@ export function useProductForm({ model }: IProps) {
               'application/pdf',
             ].includes(value?.[0]?.type?.toLowerCase())
           ) {
-            return helper.error('custom.image_type');
+            return helper.error('file.type');
           }
 
-          if (value?.[0]?.size > 1048576 * 10) {
-            return helper.error('custom.size');
+          if (value?.[0]?.size > /*1048576*/ 0 * 10) {
+            return helper.error('file.size', { size: '10MB' });
           }
 
           return value;

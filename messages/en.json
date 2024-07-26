@@ -43,13 +43,22 @@
     "title": "Error occurred"
   },
   "Validation": {
-    "required": "{label} is not allowed to be empty",
-    "email": "{label} must be a valid email",
-    "number": "{label} must be a number",
-    "choose": "At {label} one of options must be selected",
-    "custom": "{label} is invalid",
     "string": {
+      "base": "{label} is not allowed to be empty",
+      "empty": "{label} is not allowed to be empty",
+      "email": "{label} must be a valid email",
       "min": "{label} length must be at least {limit} characters long"
+    },
+    "number": {
+      "base": "{label} must be a number"
+    },
+    "any": {
+      "only": "At {label} one of options must be selected",
+      "custom": "{label} is invalid"
+    },
+    "file": {
+      "type": "Only png, jpg, gif format image files",
+      "size": "Size of file can not exceed {size}"
     }
   },
   "LoginPage": {
