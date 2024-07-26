@@ -26,7 +26,7 @@ export function useUserModalChangePassword({
 
   const i18nJoi = useI18nJoi();
   const schema = i18nJoi.object({
-    password: Joi.string().label(tUser('password')),
+    password: Joi.string().min(6).label(tUser('password')),
   });
 
   const {
