@@ -81,6 +81,22 @@ export class UsersApiService extends BaseApiService {
     });
   }
 
+  public userChangePassword(
+    id: string,
+    body: Pick<IUserPost, 'password'>,
+    config?: IUserApiConfig
+  ): Promise<AxiosResponseData<IUser>> {
+    return this.request<IUser>({
+      method: 'put',
+      url: `/users/${id}/change-password`,
+      data: body,
+      ...config,
+      headers: {
+        ...config?.headers,
+      },
+    });
+  }
+
   public deleteUser(
     id: string,
     config?: IUserApiConfig

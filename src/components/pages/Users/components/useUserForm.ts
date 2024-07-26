@@ -7,8 +7,8 @@ import { pick } from 'lodash';
 import { useEffect, useMemo } from 'react';
 import tlds from 'tlds';
 import { useTranslations } from 'next-intl';
-import { useAppSelector } from '../../../../store/hooks';
-import { users } from '../../../../store';
+import { useAppSelector } from 'store/hooks';
+import { users } from 'store';
 
 interface IProps {
   model?: IUser;

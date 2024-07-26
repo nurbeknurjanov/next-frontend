@@ -4,6 +4,7 @@ import {
   updateUserObject,
   getUserObject,
   createUserObject,
+  userChangePasswordObject,
 } from './slices';
 
 export const users = {
@@ -12,4 +13,5 @@ export const users = {
   deleteUser: deleteUserObject,
   getUser: getUserObject,
   createUser: createUserObject,
+  userChangePassword: userChangePasswordObject,
 };
