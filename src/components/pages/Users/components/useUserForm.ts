@@ -3,13 +3,14 @@ import { useI18nJoi } from 'shared/utils';
 import Joi from 'joi';
 import { useForm } from 'react-hook-form';
 import { joiResolver } from '@hookform/resolvers/joi';
-import { IUserPost, IUser, STATUS_ENUM, SEX_ENUM } from 'api/usersApi';
+import { IUserPost, IUser } from 'api/usersApi';
 import { pick } from 'lodash';
 import { useEffect, useMemo } from 'react';
 import tlds from 'tlds';
 import { useTranslations } from 'next-intl';
 import { useAppSelector } from 'store/hooks';
 import { users } from 'store';
+import { useTranslatedData } from 'shared/hooks';
 
 interface IProps {
   model?: IUser;
@@ -18,6 +19,7 @@ export function useUserForm({ model }: IProps) {
   const createUserState = useAppSelector(users.createUser.selector.state);
   const updateUserState = useAppSelector(users.updateUser.selector.state);
   const formUserState = model ? updateUserState : createUserState;
+  const { sexOptions, statusOptions } = useTranslatedData();
 
   const tUser = useTranslations('User');
   const i18nJoi = useI18nJoi();
@@ -31,10 +33,12 @@ export function useUserForm({ model }: IProps) {
       }),
     password: Joi.string().label(tUser('password')),
     age: Joi.number().label(tUser('age')),
-    sex: Joi.number().label(tUser('sex')).valid(SEX_ENUM.MALE, SEX_ENUM.FEMALE),
+    sex: Joi.number()
+      .label(tUser('sex'))
+      .valid(...Object.keys(sexOptions)),
     status: Joi.number()
       .label(tUser('status'))
-      .valid(STATUS_ENUM.ENABLED, STATUS_ENUM.DISABLED),
+      .valid(...Object.keys(statusOptions)),
   });
 
   const initialValues = useMemo<IUserPost>(() => {
