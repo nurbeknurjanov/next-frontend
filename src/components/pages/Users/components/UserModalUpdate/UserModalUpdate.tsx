@@ -13,16 +13,13 @@ import {
   Radio,
   FormHelperText,
 } from '@mui/material';
-
 //import { Checkbox, FormGroup } from '@mui/material';
-
 import { InputLabel, Select, MenuItem } from '@mui/material';
 //import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { useRef } from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
-import { SEX_ENUM, STATUS_ENUM } from 'api/usersApi';
-import { useTranslatedData } from '../../../../../shared/hooks';
+import { useTranslatedData } from 'shared/hooks';
 
 export type IProps = {
   id: string;
@@ -170,12 +167,11 @@ export const UserModalUpdate: React.FC<IProps> = ({
                 {...register('status')}
                 value={watch('status') ?? ''}
               >
-                <MenuItem value={STATUS_ENUM.ENABLED}>
-                  {tUser('statusOptions.enabled')}
-                </MenuItem>
-                <MenuItem value={STATUS_ENUM.DISABLED}>
-                  {tUser('statusOptions.disabled')}
-                </MenuItem>
+                {Object.entries(statusOptions).map(([value, label]) => (
+                  <MenuItem key={value} value={value}>
+                    {label}
+                  </MenuItem>
+                ))}
               </Select>
             </FormControl>
           </form>
