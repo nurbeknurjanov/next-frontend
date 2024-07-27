@@ -18,7 +18,7 @@ import {
 } from './components';
 import { withPageWrapper } from 'shared/hocs';
 import { DATE_FORMAT } from 'shared/utils';
-import { IUser } from 'api/usersApi';
+import { IUser, sexOptions } from 'api/usersApi';
 import { useSetPageData } from 'shared/hooks';
 
 let Users: FC = () => {
@@ -71,11 +71,13 @@ let Users: FC = () => {
       field: 'sex',
       headerName: tUser('sex'),
       flex: 1,
+      valueGetter: params => sexOptions[params.value],
     },
     {
       field: 'status',
       headerName: tUser('status'),
       flex: 1,
+      valueGetter: params => params.value,
     },
     {
       field: 'createdAt',

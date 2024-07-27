@@ -16,10 +16,6 @@ export const sexOptions = {
   [SEX_ENUM.MALE]: 'Male',
   [SEX_ENUM.FEMALE]: 'Female',
 };
-getTranslations('User').then(tUser => {
-  sexOptions[SEX_ENUM.MALE] = tUser('sexOptions.male');
-  sexOptions[SEX_ENUM.FEMALE] = tUser('sexOptions.female');
-});
 
 export enum STATUS_ENUM {
   ENABLED = 1,

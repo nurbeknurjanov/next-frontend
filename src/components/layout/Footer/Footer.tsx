@@ -9,7 +9,7 @@ export const Footer = () => {
   return (
     <Paper
       className={styles.footer}
-      sx={{ color: 'secondary.main', mx: theme.spacing(3) }}
+      sx={{ color: 'secondary.main', m: theme.spacing(0, 3, 3) }}
     >
       Next © 2024
     </Paper>
