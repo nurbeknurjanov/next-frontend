@@ -13,12 +13,12 @@ const columns: GridColDef[] = [
   {
     field: 'label',
     headerName: 'Label',
-    flex: 1,
+    minWidth: 150,
   },
   {
     field: 'value',
     headerName: 'Value',
-    flex: 1,
+    minWidth: 150,
   },
 ];
 
