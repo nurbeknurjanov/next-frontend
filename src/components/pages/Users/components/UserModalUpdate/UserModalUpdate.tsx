@@ -22,6 +22,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import { useRef } from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
 import { SEX_ENUM, STATUS_ENUM } from 'api/usersApi';
+import { useTranslatedData } from '../../../../../shared/hooks';
 
 export type IProps = {
   id: string;
@@ -71,6 +72,8 @@ export const UserModalUpdate: React.FC<IProps> = ({
     }
   };*/
 
+  const { sexOptions, statusOptions } = useTranslatedData();
+
   return (
     <Dialog open onClose={onClose}>
       <DialogTitle>{tUserPage('update')}</DialogTitle>
@@ -117,16 +120,14 @@ export const UserModalUpdate: React.FC<IProps> = ({
                   setValue('sex', Number(value));
                 }}
               >
-                <FormControlLabel
-                  value={SEX_ENUM.MALE}
-                  control={<Radio />}
-                  label={tUser('sexOptions.male')}
-                />
-                <FormControlLabel
-                  value={SEX_ENUM.FEMALE}
-                  control={<Radio />}
-                  label={tUser('sexOptions.female')}
-                />
+                {Object.entries(sexOptions).map(([value, label]) => (
+                  <FormControlLabel
+                    key={value}
+                    value={value}
+                    control={<Radio />}
+                    label={label}
+                  />
+                ))}
               </RadioGroup>
               {!!errors['sex'] && (
                 <FormHelperText>{errors['sex'].message}</FormHelperText>
