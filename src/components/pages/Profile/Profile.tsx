@@ -7,7 +7,7 @@ import { DATE_FORMAT } from 'shared/utils';
 import { withPageWrapper } from 'shared/hocs';
 import { useSetPageData } from 'shared/hooks';
 import { Button } from 'shared/ui';
-import { ProfileModalUpdate } from './components';
+import { ProfileModalUpdate, ProfileModalChangePassword } from './components';
 
 const columns: GridColDef[] = [
   {
@@ -45,7 +45,11 @@ let Profile: FC = () => {
       >
         Update profile
       </Button>
-      <Button variant={'outlined'} size={'small'} onClick={() => {}}>
+      <Button
+        variant={'outlined'}
+        size={'small'}
+        onClick={() => setShowModal({ type: 'changePassword' })}
+      >
         Change password
       </Button>
     </>
@@ -99,6 +103,9 @@ let Profile: FC = () => {
       />
       {showModal?.type === 'updateProfile' && (
         <ProfileModalUpdate onClose={closeShowModal} />
+      )}
+      {showModal?.type === 'changePassword' && (
+        <ProfileModalChangePassword onClose={closeShowModal} />
       )}
     </>
   );
