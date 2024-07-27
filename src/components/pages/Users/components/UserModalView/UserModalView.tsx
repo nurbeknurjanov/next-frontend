@@ -11,6 +11,7 @@ import { useTranslations } from 'next-intl';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import dayjs from 'dayjs';
 import { DATE_FORMAT } from 'shared/utils';
+import { useTranslatedData } from 'shared/hooks';
 
 export type IProps = {
   id: string;
@@ -53,6 +54,8 @@ export const UserModalView: FC<IProps> = ({ onClose, id }) => {
     id,
   });
 
+  const { sexOptions, statusOptions } = useTranslatedData();
+
   const rows: { label: string; value: string | React.ReactNode }[] = [];
   if (model) {
     rows.push({
@@ -69,7 +72,7 @@ export const UserModalView: FC<IProps> = ({ onClose, id }) => {
     });
     rows.push({
       label: tUser('sex'),
-      value: model.sex,
+      value: sexOptions[model.sex],
     });
     rows.push({
       label: tUser('age'),
@@ -77,7 +80,7 @@ export const UserModalView: FC<IProps> = ({ onClose, id }) => {
     });
     rows.push({
       label: tUser('status'),
-      value: model.status,
+      value: statusOptions[model.status],
     });
     rows.push({
       label: tCommon('createdAt'),
@@ -109,6 +112,7 @@ export const UserModalView: FC<IProps> = ({ onClose, id }) => {
             rows={rows}
             columns={columns}
             getRowId={el => el.label}
+            paginationMode={'client'}
           />
         )}
       </DialogContent>

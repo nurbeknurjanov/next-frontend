@@ -7,7 +7,7 @@ import dayjs from 'dayjs';
 import { DATE_FORMAT } from 'shared/utils';
 import { withPageWrapper } from 'shared/hocs';
 import Loading from 'app/[locale]/loading';
-import { useSetPageData } from 'shared/hooks';
+import { useSetPageData, useTranslatedData } from 'shared/hooks';
 
 const columns: GridColDef[] = [
   {
@@ -34,6 +34,8 @@ let User: FC = () => {
     title,
   ]);
 
+  const { sexOptions, statusOptions } = useTranslatedData();
+
   const rows: { label: string; value: string | React.ReactNode }[] = [];
   if (model) {
     rows.push({
@@ -50,7 +52,7 @@ let User: FC = () => {
     });
     rows.push({
       label: tUser('sex'),
-      value: model.sex,
+      value: sexOptions[model.sex],
     });
     rows.push({
       label: tUser('age'),
@@ -58,7 +60,7 @@ let User: FC = () => {
     });
     rows.push({
       label: tUser('status'),
-      value: model.status,
+      value: statusOptions[model.status],
     });
     rows.push({
       label: tCommon('createdAt'),
