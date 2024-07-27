@@ -117,7 +117,7 @@ export const UserModalUpdate: React.FC<IProps> = ({
                 value={watch('sex')}
                 {...sexRegisterOptions}
                 onChange={(e, value) => {
-                  setValue('sex', Number(value));
+                  setValue('sex', Number(value), { shouldDirty: true });
                 }}
               >
                 {Object.entries(sexOptions).map(([value, label]) => (
