@@ -1,2 +1,3 @@
+'use client';
 export { Users } from './Users';
-export { useUserForm } from './components/useUserForm';
+export { useUserForm } from './components';
