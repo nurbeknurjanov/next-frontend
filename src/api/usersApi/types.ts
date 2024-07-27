@@ -5,7 +5,6 @@ import {
   ResponseDataListPagination,
 } from 'api/baseApi';
 import { AxiosRequestConfig } from 'axios';
-import { getTranslations } from 'next-intl/server';
 
 export enum SEX_ENUM {
   MALE = 1,
@@ -21,6 +20,10 @@ export enum STATUS_ENUM {
   ENABLED = 1,
   DISABLED = 0,
 }
+export const statusOptions = {
+  [STATUS_ENUM.ENABLED]: 'Enabled',
+  [STATUS_ENUM.DISABLED]: 'Disabled',
+};
 
 export type IUser = {
   _id: string;

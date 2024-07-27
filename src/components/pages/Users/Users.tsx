@@ -58,7 +58,7 @@ let Users: FC = () => {
 
   const { data, isFetching } = getUsersState;
 
-  const { sexOptions } = useTranslatedData();
+  const { sexOptions, statusOptions } = useTranslatedData();
 
   const columns: GridColDef<IUser>[] = [
     {
@@ -85,7 +85,8 @@ let Users: FC = () => {
       field: 'status',
       headerName: tUser('status'),
       flex: 1,
-      valueGetter: params => params.value,
+      valueGetter: (params: GridValueGetterParams<IUser, IUser['status']>) =>
+        statusOptions[params.value!],
     },
     {
       field: 'createdAt',
