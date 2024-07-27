@@ -11,34 +11,32 @@ import {
 } from 'store/common/types';
 import axios from 'axios';
 
-export interface UserChangePasswordStateType
+export interface ProfileChangePasswordStateType
   extends MergeResponseState<IUser, IUserApiError> {}
 
 const selector = {
-  state: (state: RootStateType) => state.users.userChangePassword,
+  state: (state: RootStateType) => state.users.profileChangePassword,
   isFetching: (state: RootStateType) =>
-    state.users.userChangePassword.isFetching,
-  data: (state: RootStateType) => state.users.userChangePassword.data,
-  error: (state: RootStateType) => state.users.userChangePassword.error,
+    state.users.profileChangePassword.isFetching,
+  data: (state: RootStateType) => state.users.profileChangePassword.data,
+  error: (state: RootStateType) => state.users.profileChangePassword.error,
 };
 
-const initialState: UserChangePasswordStateType = {
+const initialState: ProfileChangePasswordStateType = {
   ...getInitialResponseState(),
   error: null,
   data: null,
 };
 
-const SLICE_NAME = '@users/userChangePassword';
+const SLICE_NAME = '@users/profileChangePassword';
 
 const requestThunk = createAsyncThunk(
   `${SLICE_NAME}/request`,
   (
     {
-      id,
       body,
       config,
     }: {
-      id: string;
       body: Pick<IUserPost, 'password'>;
       config?: IUserApiConfig;
     },
@@ -49,7 +47,7 @@ const requestThunk = createAsyncThunk(
     if (config) {
       config.cancelToken = source.token;
     }
-    return usersApi.userChangePassword(id, body, config).catch(rejectWithValue);
+    return usersApi.profileChangePassword(body, config).catch(rejectWithValue);
   },
   {
     condition: (payload, { getState }) => {
@@ -86,7 +84,7 @@ const { actions, reducer } = createSlice({
   },
 });
 
-interface UserChangePasswordType {
+interface ProfileChangePasswordType {
   actions: typeof actions;
   thunk: {
     request: typeof requestThunk;
@@ -95,7 +93,7 @@ interface UserChangePasswordType {
   selector: typeof selector;
 }
 
-export const userChangePasswordObject: UserChangePasswordType = {
+export const profileChangePasswordObject: ProfileChangePasswordType = {
   actions,
   thunk: {
     request: requestThunk,

@@ -5,3 +5,4 @@ export { getUserObject } from './getUser';
 export { createUserObject } from './createUser';
 export { userChangePasswordObject } from './userChangePassword';
 export { updateProfileObject } from './updateProfile';
+export { profileChangePasswordObject } from './profileChangePassword';

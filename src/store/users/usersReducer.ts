@@ -7,6 +7,7 @@ import {
   createUserObject,
   userChangePasswordObject,
   updateProfileObject,
+  profileChangePasswordObject,
 } from './slices';
 
 export const usersReducer = combineReducers({
@@ -17,4 +18,5 @@ export const usersReducer = combineReducers({
   createUser: createUserObject.reducer,
   userChangePassword: userChangePasswordObject.reducer,
   updateProfile: updateProfileObject.reducer,
+  profileChangePassword: profileChangePasswordObject.reducer,
 });
