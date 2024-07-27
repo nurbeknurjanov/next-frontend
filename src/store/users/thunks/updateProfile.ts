@@ -1,6 +1,6 @@
 import { AppThunk } from 'store/store';
 import { users } from 'store';
-import { notify } from 'store/common/thunks';
+import { notify, getAccessTokenThunk, authorize } from 'store/common/thunks';
 import { IUserPost, IUser } from 'api/usersApi';
 
 export const updateProfileThunk =
@@ -16,6 +16,9 @@ export const updateProfileThunk =
     if (error) {
       dispatch(notify(error.data.message, 'error'));
     }
+
+    dispatch(authorize({ user: data }));
+    await dispatch(getAccessTokenThunk({ config: { withCredentials: true } }));
 
     return { data, error };
   };
