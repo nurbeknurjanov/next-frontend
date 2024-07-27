@@ -4,11 +4,18 @@ import { hydratedToClient } from 'store/common/thunks';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
 import { useCookies } from 'react-cookie';
 import { getAuthStateSelector } from 'store/common/selectors';
+import dayjs from 'dayjs';
+import { localeType } from 'i18n';
+import { useParams } from 'next/navigation';
+require('dayjs/locale/ru');
 
 export const withCleanHooks = <T extends object>(
   Component: ComponentType<T>
 ) => {
   const NewComponent: FC<T> = props => {
+    const { locale } = useParams();
+    dayjs.locale(locale as localeType);
+
     const dispatch = useAppDispatch();
     const { isAuth, newAccessToken } = useAppSelector(getAuthStateSelector);
     const [, setCookie, removeCookie] = useCookies([

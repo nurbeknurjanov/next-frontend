@@ -1,3 +1,4 @@
+'use client';
 export { Contact } from './Contact';
 export { Login } from './Login';
 export { Home } from './Home';

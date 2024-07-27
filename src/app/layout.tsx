@@ -30,7 +30,7 @@ const RootLayout: FC<PropsWithChildren> = ({ children }) => {
 };
 
 /*
-Layout works only time only on server
+Layout works only one time only on server
 It doesn't react to ajax request
 It reacts only to full request
 The links in next are not native links

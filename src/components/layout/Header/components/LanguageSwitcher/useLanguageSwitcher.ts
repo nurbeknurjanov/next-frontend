@@ -1,9 +1,7 @@
 'use client';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { usePathname, useRouter } from 'navigation';
 import { useSearchParams, useParams } from 'next/navigation';
-import { localeType } from 'i18n';
-import dayjs from 'dayjs';
 require('dayjs/locale/ru');
 
 export const useLanguageSwitcher = () => {
@@ -18,9 +16,7 @@ export const useLanguageSwitcher = () => {
     */
 
   const { locale } = useParams();
-  useEffect(() => {
-    dayjs.locale(locale as localeType);
-  }, [locale]);
+
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
