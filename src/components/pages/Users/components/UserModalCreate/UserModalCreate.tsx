@@ -20,7 +20,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import { useRef } from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
-import { SEX_ENUM, STATUS_ENUM } from 'api/usersApi';
+import { useTranslatedData } from 'shared/hooks';
 
 export type IProps = {
   onClose: () => void;
@@ -53,6 +53,8 @@ export const UserModalCreate: React.FC<IProps> = ({ onClose, afterCreate }) => {
     onBlur: _onBlur,
     ...sexRegisterOptions
   } = register('sex');
+
+  const { sexOptions, statusOptions } = useTranslatedData();
 
   return (
     <Dialog open onClose={onClose}>
@@ -107,16 +109,14 @@ export const UserModalCreate: React.FC<IProps> = ({ onClose, afterCreate }) => {
                   setValue('sex', Number(value));
                 }}
               >
-                <FormControlLabel
-                  value={SEX_ENUM.MALE}
-                  control={<Radio />}
-                  label={tUser('sexOptions.male')}
-                />
-                <FormControlLabel
-                  value={SEX_ENUM.FEMALE}
-                  control={<Radio />}
-                  label={tUser('sexOptions.female')}
-                />
+                {Object.entries(sexOptions).map(([value, label]) => (
+                  <FormControlLabel
+                    key={value}
+                    value={value}
+                    control={<Radio />}
+                    label={label}
+                  />
+                ))}
               </RadioGroup>
               {!!errors['sex'] && (
                 <FormHelperText>{errors['sex'].message}</FormHelperText>
@@ -130,12 +130,11 @@ export const UserModalCreate: React.FC<IProps> = ({ onClose, afterCreate }) => {
                 {...register('status')}
                 value={watch('status') ?? ''}
               >
-                <MenuItem value={STATUS_ENUM.ENABLED}>
-                  {tUser('statusOptions.enabled')}
-                </MenuItem>
-                <MenuItem value={STATUS_ENUM.DISABLED}>
-                  {tUser('statusOptions.disabled')}
-                </MenuItem>
+                {Object.entries(statusOptions).map(([value, label]) => (
+                  <MenuItem key={value} value={value}>
+                    {label}
+                  </MenuItem>
+                ))}
               </Select>
               {!!errors['status'] && (
                 <FormHelperText>{errors['status'].message}</FormHelperText>
