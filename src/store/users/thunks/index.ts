@@ -5,3 +5,4 @@ export { updateUserThunk } from './updateUser';
 export { deleteUserThunk } from './deleteUser';
 export { updateProfileThunk } from './updateProfile';
 export { userChangePasswordThunk } from './userChangePassword';
+export { profileChangePasswordThunk } from './profileChangePassword';

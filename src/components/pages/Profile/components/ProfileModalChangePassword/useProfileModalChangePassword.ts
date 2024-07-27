@@ -4,13 +4,13 @@ import { useTranslations } from 'next-intl';
 import { IUserPost } from 'api/usersApi';
 import { IProps } from './ProfileModalChangePassword';
 import { notify } from 'store/common/thunks';
-import { userChangePasswordThunk } from 'store/users/thunks';
+import { profileChangePasswordThunk } from 'store/users/thunks';
 import { useForm } from 'react-hook-form';
 import { joiResolver } from '@hookform/resolvers/joi';
 import { useI18nJoi } from 'shared/utils';
 import Joi from 'joi';
 
-export function useProfileModalChangePassword({ onClose, id }: IProps) {
+export function useProfileModalChangePassword({ onClose }: IProps) {
   const dispatch = useAppDispatch();
   const tCommon = useTranslations('Common');
   const tUserPage = useTranslations('UserPage');
@@ -34,8 +34,8 @@ export function useProfileModalChangePassword({ onClose, id }: IProps) {
     resolver: joiResolver(schema),
   });
 
-  const updateUserPassword = async (id: string, formData: IUserPost) => {
-    const { data } = await dispatch(userChangePasswordThunk(id, formData));
+  const updateProfilePassword = async (formData: IUserPost) => {
+    const { data } = await dispatch(profileChangePasswordThunk(formData));
 
     if (data) {
       onClose();
@@ -44,7 +44,7 @@ export function useProfileModalChangePassword({ onClose, id }: IProps) {
   };
 
   const submitForm = (formData: IUserPost) => {
-    updateUserPassword(id!, formData);
+    updateProfilePassword(formData);
   };
 
   return {

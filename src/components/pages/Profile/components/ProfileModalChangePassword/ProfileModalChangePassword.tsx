@@ -9,14 +9,10 @@ import DialogTitle from '@mui/material/DialogTitle';
 import { useRef } from 'react';
 
 export type IProps = {
-  id: string;
   onClose: () => void;
 };
 
-export const ProfileModalChangePassword: React.FC<IProps> = ({
-  onClose,
-  id,
-}) => {
+export const ProfileModalChangePassword: React.FC<IProps> = ({ onClose }) => {
   //const id = type === 'update' ? props.id : null;
   const formRef = useRef<HTMLFormElement>();
   //const formRef = useRef<HTMLFormElement>(null); //for direct assign
@@ -32,7 +28,6 @@ export const ProfileModalChangePassword: React.FC<IProps> = ({
     handleSubmit,
     submitForm,
   } = useProfileModalChangePassword({
-    id: id!,
     onClose,
   });
 
