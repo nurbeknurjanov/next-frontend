@@ -2,7 +2,12 @@
 import React, { FC } from 'react';
 import dayjs from 'dayjs';
 import styles from './users.module.scss';
-import { DataGrid, GridColDef, GridActionsCellItem } from '@mui/x-data-grid';
+import {
+  DataGrid,
+  GridColDef,
+  GridActionsCellItem,
+  GridValueGetterParams,
+} from '@mui/x-data-grid';
 import { useUsers } from './useUsers';
 import { Button, Link } from 'shared/ui';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -18,8 +23,8 @@ import {
 } from './components';
 import { withPageWrapper } from 'shared/hocs';
 import { DATE_FORMAT } from 'shared/utils';
-import { IUser, sexOptions } from 'api/usersApi';
-import { useSetPageData } from 'shared/hooks';
+import { IUser } from 'api/usersApi';
+import { useSetPageData, useTranslatedData } from 'shared/hooks';
 
 let Users: FC = () => {
   const {
@@ -53,6 +58,8 @@ let Users: FC = () => {
 
   const { data, isFetching } = getUsersState;
 
+  const { sexOptions } = useTranslatedData();
+
   const columns: GridColDef<IUser>[] = [
     {
       field: 'name',
@@ -71,7 +78,8 @@ let Users: FC = () => {
       field: 'sex',
       headerName: tUser('sex'),
       flex: 1,
-      valueGetter: params => sexOptions[params.value],
+      valueGetter: (params: GridValueGetterParams<IUser, IUser['sex']>) =>
+        sexOptions[params.value!],
     },
     {
       field: 'status',
