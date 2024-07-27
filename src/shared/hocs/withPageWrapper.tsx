@@ -9,7 +9,7 @@ import { localeType } from 'i18n';
 import { useParams } from 'next/navigation';
 require('dayjs/locale/ru');
 
-export const withCleanHooks = <T extends object>(
+export const withPageWrapper = <T extends object>(
   Component: ComponentType<T>
 ) => {
   const NewComponent: FC<T> = props => {

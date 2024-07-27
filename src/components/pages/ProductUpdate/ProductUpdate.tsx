@@ -1,7 +1,7 @@
 'use client';
 import React, { FC, useRef } from 'react';
 import { useProductUpdate } from './useProductUpdate';
-import { withCleanHooks } from 'shared/hocs';
+import { withPageWrapper } from 'shared/hocs';
 import Loading from 'app/[locale]/loading';
 import { ProductModalDelete } from 'components/pages/Products';
 import { TextField } from '@mui/material';
@@ -160,6 +160,6 @@ let ProductUpdate: FC = () => {
   );
 };
 
-ProductUpdate = withCleanHooks(ProductUpdate);
+ProductUpdate = withPageWrapper(ProductUpdate);
 
 export { ProductUpdate };

@@ -4,7 +4,7 @@ import { useProfile } from './useProfile';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import dayjs from 'dayjs';
 import { DATE_FORMAT } from 'shared/utils';
-import { withCleanHooks } from 'shared/hocs';
+import { withPageWrapper } from 'shared/hocs';
 import { useSetPageData } from 'shared/hooks';
 import { Button } from 'shared/ui';
 import { ProfileModalUpdate } from './components';
@@ -104,6 +104,6 @@ let Profile: FC = () => {
   );
 };
 
-Profile = withCleanHooks(Profile);
+Profile = withPageWrapper(Profile);
 
 export { Profile };

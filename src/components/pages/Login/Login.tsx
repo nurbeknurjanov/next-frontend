@@ -6,7 +6,7 @@ import CardContent from '@mui/material/CardContent';
 import { TextField } from '@mui/material';
 import { Button } from 'shared/ui';
 import styles from './login.module.scss';
-import { withCleanHooks } from 'shared/hocs';
+import { withPageWrapper } from 'shared/hocs';
 import { useSetPageData } from 'shared/hooks';
 import { useLogin } from './useLogin';
 
@@ -56,6 +56,6 @@ let Login: FC = () => {
   );
 };
 
-Login = withCleanHooks(Login);
+Login = withPageWrapper(Login);
 
 export { Login };

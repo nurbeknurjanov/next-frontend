@@ -2,7 +2,7 @@
 import React, { FC, useEffect } from 'react';
 import { common } from 'store';
 import { useAppDispatch } from 'store/hooks';
-import { withCleanHooks } from 'shared/hocs';
+import { withPageWrapper } from 'shared/hocs';
 import { useTranslations } from 'next-intl';
 
 let Home: FC = () => {
@@ -30,6 +30,6 @@ let Home: FC = () => {
   );
 };
 
-Home = withCleanHooks(Home);
+Home = withPageWrapper(Home);
 
 export { Home };

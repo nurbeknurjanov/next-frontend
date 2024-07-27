@@ -7,7 +7,7 @@ import { useFiles } from './useFiles';
 import { Link } from 'shared/ui';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { FileModalDelete, FilesFilters } from './components';
-import { withCleanHooks } from 'shared/hocs';
+import { withPageWrapper } from 'shared/hocs';
 import { DATE_FORMAT } from 'shared/utils';
 import { IFile } from 'api/filesApi';
 import { useSetPageData } from 'shared/hooks';
@@ -128,6 +128,6 @@ let Files: FC = () => {
   );
 };
 
-Files = withCleanHooks(Files);
+Files = withPageWrapper(Files);
 
 export { Files };

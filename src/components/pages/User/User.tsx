@@ -5,7 +5,7 @@ import { useUser } from './useUser';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import dayjs from 'dayjs';
 import { DATE_FORMAT } from 'shared/utils';
-import { withCleanHooks } from 'shared/hocs';
+import { withPageWrapper } from 'shared/hocs';
 import Loading from 'app/[locale]/loading';
 import { useSetPageData } from 'shared/hooks';
 
@@ -88,6 +88,6 @@ let User: FC = () => {
   );
 };
 
-User = withCleanHooks(User);
+User = withPageWrapper(User);
 
 export { User };

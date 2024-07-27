@@ -5,7 +5,7 @@ import { useProduct } from './useProduct';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import dayjs from 'dayjs';
 import { DATE_FORMAT } from 'shared/utils';
-import { withCleanHooks } from 'shared/hocs';
+import { withPageWrapper } from 'shared/hocs';
 import Loading from 'app/[locale]/loading';
 import { ProductModalDelete } from 'components/pages/Products';
 import { useSetPageData } from 'shared/hooks';
@@ -140,6 +140,6 @@ let Product: FC = () => {
   );
 };
 
-Product = withCleanHooks(Product);
+Product = withPageWrapper(Product);
 
 export { Product };

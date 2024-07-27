@@ -15,7 +15,7 @@ import {
   ProductModalDelete,
   ProductsFilters,
 } from './components';
-import { withCleanHooks } from 'shared/hocs';
+import { withPageWrapper } from 'shared/hocs';
 import { DATE_FORMAT } from 'shared/utils';
 import { IProduct } from 'api/productsApi';
 import { useSetPageData } from 'shared/hooks';
@@ -214,6 +214,6 @@ let Products: FC = () => {
   );
 };
 
-Products = withCleanHooks(Products);
+Products = withPageWrapper(Products);
 
 export { Products };

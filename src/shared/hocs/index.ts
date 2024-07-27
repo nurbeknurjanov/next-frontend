@@ -1,1 +1,1 @@
-export { withCleanHooks } from './withCleanHooks';
+export { withPageWrapper } from './withPageWrapper';

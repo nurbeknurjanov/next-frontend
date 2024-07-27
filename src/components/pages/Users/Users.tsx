@@ -16,7 +16,7 @@ import {
   UsersFilters,
   UserModalChangePassword,
 } from './components';
-import { withCleanHooks } from 'shared/hocs';
+import { withPageWrapper } from 'shared/hocs';
 import { DATE_FORMAT } from 'shared/utils';
 import { IUser } from 'api/usersApi';
 import { useSetPageData } from 'shared/hooks';
@@ -183,6 +183,6 @@ let Users: FC = () => {
   );
 };
 
-Users = withCleanHooks(Users);
+Users = withPageWrapper(Users);
 
 export { Users };
