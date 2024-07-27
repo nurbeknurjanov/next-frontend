@@ -1,3 +1,4 @@
+'use client';
 import { useI18nJoi } from 'shared/utils';
 import Joi from 'joi';
 import { useForm } from 'react-hook-form';
