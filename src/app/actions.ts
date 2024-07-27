@@ -17,7 +17,8 @@ export async function authorizeUser() {
 
   try {
     const parsed = await JWT.parseToken(accessTokenCookie.value);
-    return serverStore.dispatch(authorize({ user: parsed.user }));
+    if (parsed.user)
+      return serverStore.dispatch(authorize({ user: parsed.user }));
   } catch (error) {
     try {
       //commonApi.getAxiosInstance().defaults.headers.cookie = `refreshToken=${refreshTokenCookie.value};path=/;`;
