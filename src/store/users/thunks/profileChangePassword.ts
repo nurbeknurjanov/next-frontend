@@ -1,12 +1,12 @@
 import { AppThunk } from 'store/store';
 import { users } from 'store';
 import { notify } from 'store/common/thunks';
-import { IUserPost, IUser } from 'api/usersApi';
+import { IUserPost, IUser, IUserApiError } from 'api/usersApi';
 
 export const profileChangePasswordThunk =
   (
     body: Pick<IUserPost, 'password'>
-  ): AppThunk<Promise<{ data: IUser | null }>> =>
+  ): AppThunk<Promise<{ data: IUser | null; error: IUserApiError | null }>> =>
   async (dispatch, getState) => {
     await dispatch(
       users.profileChangePassword.thunk.request({

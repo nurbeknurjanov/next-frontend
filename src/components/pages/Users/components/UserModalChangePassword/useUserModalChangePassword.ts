@@ -29,7 +29,7 @@ export function useUserModalChangePassword({ onClose, id }: IProps) {
     register,
     handleSubmit,
     formState: { errors, isValid, isDirty },
-  } = useForm<IUserPost>({
+  } = useForm<Pick<IUserPost, 'password'>>({
     mode: 'onTouched',
     resolver: joiResolver(schema),
   });

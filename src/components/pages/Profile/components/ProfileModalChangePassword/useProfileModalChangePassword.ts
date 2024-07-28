@@ -29,8 +29,9 @@ export function useProfileModalChangePassword({ onClose }: IProps) {
   const {
     register,
     handleSubmit,
+    setError,
     formState: { errors, isValid, isDirty },
-  } = useForm<IUserPost>({
+  } = useForm<Pick<IUserPost, 'password'> & { currentPassword: string }>({
     mode: 'onTouched',
     resolver: joiResolver(schema),
   });
@@ -38,12 +39,20 @@ export function useProfileModalChangePassword({ onClose }: IProps) {
   const updateProfilePassword = async (
     formData: Pick<IUserPost, 'password'>
   ) => {
-    const { data } = await dispatch(profileChangePasswordThunk(formData));
+    const { error } = await dispatch(profileChangePasswordThunk(formData));
 
-    if (data) {
-      onClose();
-      dispatch(notify(tCommon('successUpdated'), 'success'));
+    if (error) {
+      if (error.data.fieldsErrors?.currentPassword) {
+        setError('currentPassword', {
+          type: '400',
+          message: error.data.fieldsErrors.currentPassword,
+        });
+      }
+      return;
     }
+
+    onClose();
+    dispatch(notify(tCommon('successUpdated'), 'success'));
   };
 
   const submitForm = (formData: Pick<IUserPost, 'password'>) => {
