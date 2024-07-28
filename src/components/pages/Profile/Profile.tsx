@@ -43,14 +43,14 @@ let Profile: FC = () => {
         size={'small'}
         onClick={() => setShowModal({ type: 'updateProfile' })}
       >
-        Update profile
+        {tProfilePage('updateProfile')}
       </Button>
       <Button
         variant={'outlined'}
         size={'small'}
         onClick={() => setShowModal({ type: 'changePassword' })}
       >
-        Change password
+        {tProfilePage('changePassword')}
       </Button>
     </>
   );

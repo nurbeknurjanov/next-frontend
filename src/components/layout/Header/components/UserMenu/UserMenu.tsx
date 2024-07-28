@@ -12,6 +12,7 @@ import { useUserMenu } from './useUserMenu';
 export const UserMenu: FC = () => {
   const {
     tCommon,
+    tProfilePage,
     tLoginPage,
     isAuth,
     authUser,
@@ -64,7 +65,7 @@ export const UserMenu: FC = () => {
           onClick={() => handleClose()}
         >
           <Person2Icon sx={{ mr: 1 }} />
-          {tCommon('profile')}
+          {tProfilePage('title')}
         </MenuItem>
         <MenuItem
           component={Link}

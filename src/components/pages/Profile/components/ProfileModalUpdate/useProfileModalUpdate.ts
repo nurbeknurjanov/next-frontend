@@ -12,7 +12,7 @@ import { getAuthUser } from 'store/common/selectors';
 export function useProfileModalUpdate({ onClose }: IProps) {
   const dispatch = useAppDispatch();
   const tCommon = useTranslations('Common');
-  const tUserPage = useTranslations('UserPage');
+  const tProfilePage = useTranslations('ProfilePage');
   const tUser = useTranslations('User');
 
   const model = useAppSelector(getAuthUser);
@@ -40,7 +40,7 @@ export function useProfileModalUpdate({ onClose }: IProps) {
 
   return {
     tCommon,
-    tUserPage,
+    tProfilePage,
     tUser,
     aggStates,
     register,

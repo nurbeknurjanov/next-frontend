@@ -24,7 +24,6 @@
     "type": "Type",
     "actions": "Actions",
     "rowsPerPage:": "Rows per page:",
-    "profile": "Profile",
     "logout": "Logout",
     "unknownError": "Unknown error"
   },
@@ -33,7 +32,9 @@
     "description": "This is welcome page"
   },
   "ProfilePage": {
-    "title": "Profile"
+    "title": "Profile",
+    "changePassword": "Change password",
+    "updateProfile": "Update profile"
   },
   "ContactPage": {
     "title": "Contact",
@@ -95,9 +96,7 @@
     "title": "User",
     "update": "Update user",
     "delete": "Delete user",
-    "view": "View user",
-    "changePassword": "Change password",
-    "updateProfile": "Update profile"
+    "view": "View user"
   },
   "User": {
     "name": "Name",

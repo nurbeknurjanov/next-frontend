@@ -8,6 +8,7 @@ import { useTranslations } from 'next-intl';
 
 export const useUserMenu = () => {
   const tCommon = useTranslations('Common');
+  const tProfilePage = useTranslations('ProfilePage');
   const tLoginPage = useTranslations('LoginPage');
   const { isAuth, user: _authUser } = useAppSelector(getAuthStateSelector);
   const authUser = useAppSelector(getAuthUser);
@@ -35,6 +36,7 @@ export const useUserMenu = () => {
 
   return {
     tCommon,
+    tProfilePage,
     tLoginPage,
     isAuth,
     authUser,

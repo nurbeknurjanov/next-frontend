@@ -30,7 +30,7 @@ export const ProfileModalUpdate: React.FC<IProps> = ({ onClose }) => {
   //const formRef = useRef<HTMLFormElement>(null); //for direct assign
   const {
     tCommon,
-    tUserPage,
+    tProfilePage,
     tUser,
     aggStates,
     register,
@@ -63,7 +63,7 @@ export const ProfileModalUpdate: React.FC<IProps> = ({ onClose }) => {
 
   return (
     <Dialog open onClose={onClose}>
-      <DialogTitle>{tUserPage('updateProfile')}</DialogTitle>
+      <DialogTitle>{tProfilePage('updateProfile')}</DialogTitle>
       <DialogContent>
         <form
           ref={el => (formRef.current = el!)}
@@ -146,7 +146,7 @@ export const ProfileModalUpdate: React.FC<IProps> = ({ onClose }) => {
           loading={aggStates.isFetching}
           sx={{ minWidth: 120 }}
         >
-          {tCommon('update')}
+          {tCommon('save')}
         </Button>
       </DialogActions>
     </Dialog>
