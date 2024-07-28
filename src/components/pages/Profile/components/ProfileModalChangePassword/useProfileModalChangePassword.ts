@@ -34,7 +34,9 @@ export function useProfileModalChangePassword({ onClose }: IProps) {
     resolver: joiResolver(schema),
   });
 
-  const updateProfilePassword = async (formData: IUserPost) => {
+  const updateProfilePassword = async (
+    formData: Pick<IUserPost, 'password'>
+  ) => {
     const { data } = await dispatch(profileChangePasswordThunk(formData));
 
     if (data) {
@@ -43,7 +45,7 @@ export function useProfileModalChangePassword({ onClose }: IProps) {
     }
   };
 
-  const submitForm = (formData: IUserPost) => {
+  const submitForm = (formData: Pick<IUserPost, 'password'>) => {
     updateProfilePassword(formData);
   };
 
