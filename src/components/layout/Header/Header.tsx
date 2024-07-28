@@ -24,8 +24,8 @@ const AppBarStyled = styled<typeof AppBar>(AppBar)<AppBarProps>(
 export const Header = () => (
   <AppBarStyled position="static" component={'header'}>
     <Toolbar>
-      <Link href="/">
-        <NextSVG width={180} height={37} alt="Next" className={styles.logo} />
+      <Link href="/" className={styles.logoLink}>
+        <NextSVG alt="Next" className={styles.logo} />
       </Link>
 
       <Typography

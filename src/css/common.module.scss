@@ -1,7 +1,13 @@
+@import 'css/breakpoints';
+@import 'css/functions';
+
 .main {
     display: flex;
     padding: 24px;
     gap: 24px;
+    @include resolutionDown($tablet) {
+        padding: 16px;
+    }
 }
 
 .loadingPage {
