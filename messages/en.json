@@ -103,6 +103,8 @@
     "name": "Name",
     "email": "Email",
     "password": "Password",
+    "newPassword": "New password",
+    "currentPassword": "Current password",
     "status": "Status",
     "age": "Age",
     "sex": "Sex",
