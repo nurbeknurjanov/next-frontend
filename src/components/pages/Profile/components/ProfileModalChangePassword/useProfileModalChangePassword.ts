@@ -22,7 +22,8 @@ export function useProfileModalChangePassword({ onClose }: IProps) {
 
   const i18nJoi = useI18nJoi();
   const schema = i18nJoi.object({
-    password: Joi.string().min(6).label(tUser('password')),
+    currentPassword: Joi.string().min(6).label(tUser('currentPassword')),
+    password: Joi.string().min(6).label(tUser('newPassword')),
   });
 
   const {

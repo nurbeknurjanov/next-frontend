@@ -103,6 +103,8 @@
     "name": "Имя",
     "email": "Почта",
     "password": "Пароль",
+    "newPassword": "Новый пароль",
+    "currentPassword": "Нынешний пароль",
     "status": "Статус",
     "age": "Возраст",
     "sex": "Пол",

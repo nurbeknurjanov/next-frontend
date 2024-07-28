@@ -44,6 +44,13 @@ export const ProfileModalChangePassword: React.FC<IProps> = ({ onClose }) => {
           }}
         >
           <TextField
+            label={tUser('currentPassword')}
+            error={!!errors['currentPassword']}
+            helperText={errors['currentPassword']?.message}
+            {...register('currentPassword')}
+          />
+
+          <TextField
             label={tUser('password')}
             error={!!errors['password']}
             helperText={errors['password']?.message}
