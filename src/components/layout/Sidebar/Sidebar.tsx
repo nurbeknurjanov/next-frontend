@@ -32,37 +32,65 @@ export function Sidebar() {
       <Paper sx={{ height: '100%' }}>
         <List>
           <ListItem disablePadding>
-            <ListItemButton component={ActiveLink} href={to({ pathname: '/' })}>
-              <ListItemIcon>
+            <ListItemButton
+              component={ActiveLink}
+              href={to({ pathname: '/' })}
+              className={styles.MuiLinkRoot}
+            >
+              <ListItemIcon className={styles.MuiListItemIconRoot}>
                 <HomeIcon />
               </ListItemIcon>
-              <ListItemText primary={tCommon('home')} />
+              <ListItemText
+                primary={tCommon('home')}
+                className={styles.MuiListItemTextRoot}
+              />
             </ListItemButton>
           </ListItem>
           <ListItem disablePadding>
-            <ListItemButton component={ActiveLink} href="/products">
-              <ListItemIcon>
+            <ListItemButton
+              component={ActiveLink}
+              href="/products"
+              className={styles.MuiLinkRoot}
+            >
+              <ListItemIcon className={styles.MuiListItemIconRoot}>
                 <CategoryIcon />
               </ListItemIcon>
-              <ListItemText primary={tProductsPage('title')} />
+              <ListItemText
+                primary={tProductsPage('title')}
+                className={styles.MuiListItemTextRoot}
+              />
             </ListItemButton>
           </ListItem>
           {isAuth && (
             <>
               <ListItem disablePadding>
-                <ListItemButton component={ActiveLink} href="/users">
-                  <ListItemIcon>
+                <ListItemButton
+                  component={ActiveLink}
+                  href="/users"
+                  className={styles.MuiLinkRoot}
+                >
+                  <ListItemIcon className={styles.MuiListItemIconRoot}>
                     <GroupIcon />
                   </ListItemIcon>
-                  <ListItemText primary={tUsersPage('title')} />
+                  <ListItemText
+                    primary={tUsersPage('title')}
+                    className={styles.MuiListItemTextRoot}
+                  />
                 </ListItemButton>
               </ListItem>
               <ListItem disablePadding>
-                <ListItemButton component={ActiveLink} href="/files">
-                  <ListItemIcon>
+                <ListItemButton
+                  component={ActiveLink}
+                  href="/files"
+                  className={styles.MuiLinkRoot}
+                >
+                  <ListItemIcon className={styles.MuiListItemIconRoot}>
                     <AttachFileIcon />
                   </ListItemIcon>
-                  <ListItemText primary={tFilesPage('title')} />
+                  <ListItemText
+                    primary={tFilesPage('title')}
+                    className={styles.MuiListItemTextRoot}
+                  />
                 </ListItemButton>
               </ListItem>
             </>
@@ -76,11 +104,15 @@ export function Sidebar() {
                   to({ pathname: '/contact', search: { fromSidebar: '2' } })
                 )
               }
+              className={styles.MuiLinkRoot}
             >
-              <ListItemIcon>
+              <ListItemIcon className={styles.MuiListItemIconRoot}>
                 <PhoneIcon />
               </ListItemIcon>
-              <ListItemText primary={tContactPage('title')} />
+              <ListItemText
+                primary={tContactPage('title')}
+                className={styles.MuiListItemTextRoot}
+              />
             </ListItemButton>
           </ListItem>
         </List>

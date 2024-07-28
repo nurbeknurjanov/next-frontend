@@ -1,5 +1,8 @@
 .buttons {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
     button {
-        margin-left: 16px;
+        flex-grow: 1;
     }
 }
