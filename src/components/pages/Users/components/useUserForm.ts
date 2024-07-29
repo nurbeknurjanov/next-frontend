@@ -35,10 +35,10 @@ export function useUserForm({ model }: IProps) {
     age: Joi.number().label(tUser('age')),
     sex: Joi.number()
       .label(tUser('sex'))
-      .valid(...Object.keys(sexOptions)),
+      .valid(...Object.keys(sexOptions).map(el => Number(el))),
     status: Joi.number()
       .label(tUser('status'))
-      .valid(...Object.keys(statusOptions)),
+      .valid(...Object.keys(statusOptions).map(el => Number(el))),
   });
 
   const initialValues = useMemo<IUserPost>(() => {
