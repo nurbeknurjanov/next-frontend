@@ -45,6 +45,9 @@ const Theme = createTheme({
   shape: {
     borderRadius: 0,
   },
+  breakpoints: {
+    values: { ...defaultTheme.breakpoints.values, sm: 768 },
+  },
   spacing: 8,
   palette: {
     mode: 'light',
