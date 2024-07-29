@@ -147,7 +147,12 @@ let Products: FC = () => {
         <ProductsFilters filters={filters} setFilters={setFilters} />
 
         <DataGrid
-          sx={{ mt: 3 }}
+          sx={theme => ({
+            mt: 3,
+            [theme.breakpoints.down('sm')]: {
+              mt: 2,
+            },
+          })}
           getRowHeight={params => {
             if (params.model.image) return 'auto';
           }}

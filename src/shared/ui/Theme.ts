@@ -279,7 +279,7 @@ const Theme = createTheme({
       },
       styleOverrides: {
         root: ({ theme }) => ({
-          margin: theme.spacing(1, 0),
+          //marginTop: theme.spacing(1),
         }),
       },
     },
