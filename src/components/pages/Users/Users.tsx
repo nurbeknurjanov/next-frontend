@@ -32,6 +32,7 @@ let Users: FC = () => {
     tUser,
     tUsersPage,
     tUserPage,
+    tProfilePage,
     getUsersState,
     setPagination,
     sorting,
@@ -131,7 +132,7 @@ let Users: FC = () => {
           onClick={() =>
             setShowModal({ type: 'changePassword', id: params.row._id })
           }
-          label={tUserPage('changePassword')}
+          label={tProfilePage('changePassword')}
           showInMenu
         />,
       ],

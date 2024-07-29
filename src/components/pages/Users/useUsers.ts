@@ -22,6 +22,7 @@ export function useUsers() {
   const tUser = useTranslations('User');
   const tUsersPage = useTranslations('UsersPage');
   const tUserPage = useTranslations('UserPage');
+  const tProfilePage = useTranslations('ProfilePage');
 
   const [showModal, setShowModal] = useState<ModalType | null>();
   const closeShowModal = useCallback(() => setShowModal(null), []);
@@ -99,6 +100,7 @@ export function useUsers() {
     tUser,
     tUsersPage,
     tUserPage,
+    tProfilePage,
     getUsersState,
     setPagination,
     sorting,

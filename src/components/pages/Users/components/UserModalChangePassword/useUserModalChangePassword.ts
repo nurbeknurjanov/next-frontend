@@ -13,7 +13,7 @@ import Joi from 'joi';
 export function useUserModalChangePassword({ onClose, id }: IProps) {
   const dispatch = useAppDispatch();
   const tCommon = useTranslations('Common');
-  const tUserPage = useTranslations('UserPage');
+  const tProfilePage = useTranslations('ProfilePage');
   const tUser = useTranslations('User');
 
   const userChangePasswordState = useAppSelector(
@@ -52,7 +52,7 @@ export function useUserModalChangePassword({ onClose, id }: IProps) {
 
   return {
     tCommon,
-    tUserPage,
+    tProfilePage,
     tUser,
     userChangePasswordState,
     register,

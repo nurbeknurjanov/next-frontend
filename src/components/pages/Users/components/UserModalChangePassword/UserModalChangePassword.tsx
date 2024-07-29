@@ -19,7 +19,7 @@ export const UserModalChangePassword: React.FC<IProps> = ({ onClose, id }) => {
   //const formRef = useRef<HTMLFormElement>(null); //for direct assign
   const {
     tCommon,
-    tUserPage,
+    tProfilePage,
     tUser,
     userChangePasswordState,
     register,
@@ -35,7 +35,7 @@ export const UserModalChangePassword: React.FC<IProps> = ({ onClose, id }) => {
 
   return (
     <Dialog open onClose={onClose}>
-      <DialogTitle>{tUserPage('changePassword')}</DialogTitle>
+      <DialogTitle>{tProfilePage('changePassword')}</DialogTitle>
       <DialogContent>
         <form
           ref={el => (formRef.current = el!)}
