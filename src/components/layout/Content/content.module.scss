@@ -9,6 +9,10 @@
     display: flex;
     flex-direction: column;
     gap: 8px;
+    @include resolutionDown($tablet) {
+        flex-grow: 0;
+        flex-basis: 100%;
+    }
 }
 .top {
     display: flex;
