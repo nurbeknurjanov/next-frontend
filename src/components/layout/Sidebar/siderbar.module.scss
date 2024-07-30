@@ -8,22 +8,3 @@
         flex-basis: auto;
     }
 }
-
-.MuiListItemTextRoot {
-    @include resolutionDown($tablet) {
-        display: none;
-    }
-}
-
-.MuiListItemIconRoot {
-    @include resolutionDown($tablet) {
-        min-width: auto;
-    }
-}
-
-.MuiLinkRoot {
-    @include resolutionDown($tablet) {
-        padding-left: 8px;
-        padding-right: 8px;
-    }
-}
