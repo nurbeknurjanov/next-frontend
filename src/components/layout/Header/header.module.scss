@@ -12,3 +12,11 @@
 .logoLink {
   font-size: 0;
 }
+
+.listMenuLink {
+  display: none;
+
+  @include resolutionDown($tablet) {
+    display: block;
+  }
+}

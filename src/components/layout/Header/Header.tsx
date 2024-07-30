@@ -40,6 +40,7 @@ export const Header = () => {
             edge={'start'}
             color="inherit"
             onClick={() => setShowSidebar(true)}
+            className={styles.listMenuLink}
           >
             <MenuIcon />
           </IconButton>
