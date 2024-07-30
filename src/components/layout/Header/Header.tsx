@@ -57,7 +57,7 @@ export const Header = () => {
         </Toolbar>
       </AppBarStyled>
       <Drawer open={showSidebar} onClose={() => setShowSidebar(false)}>
-        <ListMenu />
+        <ListMenu onClose={() => setShowSidebar(false)} />
       </Drawer>
     </>
   );

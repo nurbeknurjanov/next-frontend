@@ -17,7 +17,10 @@ import AttachFileIcon from '@mui/icons-material/AttachFile';
 import PhoneIcon from '@mui/icons-material/Phone';
 import HomeIcon from '@mui/icons-material/Home';
 
-export function ListMenu() {
+interface IProps {
+  onClose?: () => void;
+}
+export function ListMenu({ onClose }: IProps) {
   const tCommon = useTranslations('Common');
   const tProductsPage = useTranslations('ProductsPage');
   const tUsersPage = useTranslations('UsersPage');
@@ -27,10 +30,18 @@ export function ListMenu() {
 
   const isAuth = useAppSelector(getIsAuth);
 
+  const closeHandler = () => {
+    onClose && onClose();
+  };
+
   return (
     <List>
       <ListItem disablePadding>
-        <ListItemButton component={ActiveLink} href={to({ pathname: '/' })}>
+        <ListItemButton
+          component={ActiveLink}
+          href={to({ pathname: '/' })}
+          onClick={closeHandler}
+        >
           <ListItemIcon>
             <HomeIcon />
           </ListItemIcon>
@@ -38,7 +49,11 @@ export function ListMenu() {
         </ListItemButton>
       </ListItem>
       <ListItem disablePadding>
-        <ListItemButton component={ActiveLink} href="/products">
+        <ListItemButton
+          component={ActiveLink}
+          href="/products"
+          onClick={closeHandler}
+        >
           <ListItemIcon>
             <CategoryIcon />
           </ListItemIcon>
@@ -48,7 +63,11 @@ export function ListMenu() {
       {isAuth && (
         <>
           <ListItem disablePadding>
-            <ListItemButton component={ActiveLink} href="/users">
+            <ListItemButton
+              component={ActiveLink}
+              href="/users"
+              onClick={closeHandler}
+            >
               <ListItemIcon>
                 <GroupIcon />
               </ListItemIcon>
@@ -56,7 +75,11 @@ export function ListMenu() {
             </ListItemButton>
           </ListItem>
           <ListItem disablePadding>
-            <ListItemButton component={ActiveLink} href="/files">
+            <ListItemButton
+              component={ActiveLink}
+              href="/files"
+              onClick={closeHandler}
+            >
               <ListItemIcon>
                 <AttachFileIcon />
               </ListItemIcon>
@@ -69,11 +92,12 @@ export function ListMenu() {
         <ListItemButton
           component={ActiveLink}
           href={to({ pathname: '/contact', search: { fromSidebar: '1' } })}
-          onClick={() =>
+          onClick={() => {
             router.push(
               to({ pathname: '/contact', search: { fromSidebar: '2' } })
-            )
-          }
+            );
+            closeHandler();
+          }}
         >
           <ListItemIcon>
             <PhoneIcon />
