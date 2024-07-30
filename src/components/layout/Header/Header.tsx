@@ -13,7 +13,7 @@ import { LanguageSwitcher, UserMenu } from './components';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import Drawer from '@mui/material/Drawer';
-import { Sidebar } from '../Sidebar';
+import { ListMenu } from '../Sidebar';
 import { useHeader } from './useHeader';
 
 const AppBarStyled = styled<typeof AppBar>(AppBar)<AppBarProps>(
@@ -56,7 +56,7 @@ export const Header = () => {
         </Toolbar>
       </AppBarStyled>
       <Drawer open={showSidebar} onClose={() => setShowSidebar(false)}>
-        <Sidebar />
+        <ListMenu />
       </Drawer>
     </>
   );
