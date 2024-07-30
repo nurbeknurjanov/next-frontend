@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
+import SettingsIcon from '@mui/icons-material/Settings';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { Link } from 'shared/ui';
@@ -8,9 +8,11 @@ import Box from '@mui/material/Box';
 import LogoutIcon from '@mui/icons-material/Logout';
 import Person2Icon from '@mui/icons-material/Person2';
 import { useUserMenu } from './useUserMenu';
+import './UserMenu.scss';
 
 export const UserMenu: FC = () => {
   const {
+    bem,
     tCommon,
     tProfilePage,
     tLoginPage,
@@ -32,7 +34,13 @@ export const UserMenu: FC = () => {
 
   return (
     <>
-      <Box sx={{ mx: 1 }} component={Link} href={'/profile'} color="inherit">
+      <Box
+        sx={{ mx: 1 }}
+        component={Link}
+        href={'/profile'}
+        color="inherit"
+        className={bem('authName')}
+      >
         {authUser!.name}
       </Box>
       <IconButton
@@ -42,7 +50,7 @@ export const UserMenu: FC = () => {
         aria-label="menu"
         onClick={handleMenu}
       >
-        <MenuIcon />
+        <SettingsIcon />
       </IconButton>
       <Menu
         id="menu-appbar"

@@ -1,0 +1,10 @@
+@import 'css/breakpoints';
+@import 'css/functions';
+
+.UserMenu {
+  &__authName {
+    @include resolutionDown($tablet) {
+      display: none;
+    }
+  }
+}

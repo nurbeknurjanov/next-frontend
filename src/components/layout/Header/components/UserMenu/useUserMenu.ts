@@ -5,8 +5,10 @@ import { getAuthStateSelector, getAuthUser } from 'store/common/selectors';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
 import { useCookies } from 'react-cookie';
 import { useTranslations } from 'next-intl';
+import { useBem } from 'shared/hooks';
 
 export const useUserMenu = () => {
+  const bem = useBem('UserMenu');
   const tCommon = useTranslations('Common');
   const tProfilePage = useTranslations('ProfilePage');
   const tLoginPage = useTranslations('LoginPage');
@@ -35,6 +37,7 @@ export const useUserMenu = () => {
   };
 
   return {
+    bem,
     tCommon,
     tProfilePage,
     tLoginPage,
