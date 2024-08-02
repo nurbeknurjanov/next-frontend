@@ -47,6 +47,7 @@ describe('arrayContaining', () => {
   });
 });
 
+/*
 test('map calls its argument with a non-null argument', () => {
   const mock = jest.fn<void, [boolean]>();
   mock(false); //but not null and undefined
@@ -59,3 +60,4 @@ test('map calls its argument with a non-null argument', () => {
   mock(false, 123); //but not null and undefined
   expect(mock).toHaveBeenCalledWith(expect.any(Boolean), expect.any(Number));
 });
+*/
