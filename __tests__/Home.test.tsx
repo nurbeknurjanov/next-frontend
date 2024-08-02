@@ -1,9 +1,9 @@
-//import '@testing-library/jest-dom';
-/*import React from 'react';
+import '@testing-library/jest-dom';
+import React from 'react';
 import { render, screen } from '@testing-library/react';
-//import { HomeDummy } from 'components/pages/HomeDummy';
+import { HomeDummy } from 'components/pages/HomeDummy';
 import { StoreProvider } from 'shared/wrappers/StoreProvider';
-import { TranslationsProvider } from 'shared/wrappers/TranslationsProvider';*/
+import { TranslationsProvider } from 'shared/wrappers/TranslationsProvider';
 
 jest.mock('next-intl', () => {
   const originalModule = jest.requireActual('next-intl');
@@ -19,18 +19,18 @@ jest.mock('next-intl', () => {
 });
 
 describe('Home', () => {
-  xit('renders a heading', () => {
-    /*render(
-      <TranslationsProvider>
+  it('renders a heading', () => {
+    render(
+      /*<TranslationsProvider>
         <HomeDummy />
-      </TranslationsProvider>,
-      { wrapper: StoreProvider }
+      </TranslationsProvider>*/
+      <HomeDummy />
+      //{ wrapper: StoreProvider }
     );
 
     const heading = screen.getByRole('heading', { level: 1 });
 
     expect(heading).toBeInTheDocument();
-    expect(heading).toHaveTextContent('Welcome');*/
-    expect(1).toEqual(1);
+    expect(heading).toHaveTextContent('Welcome');
   });
 });
