@@ -48,14 +48,14 @@ describe('arrayContaining', () => {
 });
 
 test('map calls its argument with a non-null argument', () => {
-  const mock = jest.fn();
+  const mock = jest.fn<void, [boolean]>();
   mock(false); //but not null and undefined
   expect(mock).toHaveBeenCalledWith(expect.anything());
   expect(mock).toHaveBeenCalledWith(expect.any(Boolean));
   expect(mock).not.toHaveBeenCalledWith(expect.any(Number));
 });
 test('map calls its argument with a non-null argument', () => {
-  const mock = jest.fn();
+  const mock = jest.fn<void, [boolean, number]>();
   mock(false, 123); //but not null and undefined
   expect(mock).toHaveBeenCalledWith(expect.any(Boolean), expect.any(Number));
 });
