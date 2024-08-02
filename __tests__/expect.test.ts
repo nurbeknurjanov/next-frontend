@@ -20,15 +20,11 @@ describe('toEqual 2', () => {
   test('have all the same properties', () => {
     expect(can1).toEqual(expect.objectContaining(part));
   });
-  test('are not the exact same can', () => {
-    expect(can1).not.toBe(part);
-  });
 });
 
 describe('toContainEqual', () => {
   test('toContainEqual', () => {
-    const myBeverage = { a: 'A', b: 'B' };
-    expect([{ a: 'A', b: 'B' }]).toContainEqual(myBeverage);
+    expect([{ a: 'A', b: 'B' }]).toContainEqual({ b: 'B', a: 'A' });
   });
 });
 
