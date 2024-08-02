@@ -8,33 +8,42 @@ const can2 = {
 };
 
 describe('toEqual', () => {
-  test('have all the same properties', () => {
+  test('have all the same properties with different sort', () => {
     expect(can1).toEqual(can2);
+  });
+  test('are not equal with different property', () => {
+    expect(can1).not.toEqual({ ...can2, differentProperty: 1 });
   });
   test('are not the exact same can', () => {
     expect(can1).not.toBe(can2);
   });
-});
-describe('toEqual 2', () => {
+
   const part = { ounces: 12 };
-  test('have all the same properties', () => {
+  test('have part of the same properties', () => {
     expect(can1).toEqual(expect.objectContaining(part));
   });
 });
 
 describe('toContainEqual', () => {
-  test('toContainEqual', () => {
+  test('compares with different sort', () => {
     expect([{ a: 'A', b: 'B' }]).toContainEqual({ b: 'B', a: 'A' });
+  });
+
+  test('are not the exact when some property missing', () => {
+    expect([{ a: 'A', b: 'B' }]).not.toContainEqual({ b: 'B' });
   });
 });
 
 describe('arrayContaining', () => {
-  const expected = ['Alice', 'Bob'];
-  it('matches even if received contains additional elements', () => {
-    expect(['Alice', 'Bob', 'Eve']).toEqual(expect.arrayContaining(expected));
+  it('matches even if expected has only part of elements', () => {
+    expect(['Alice', 'Bob', 'Eve']).toEqual(
+      expect.arrayContaining(['Alice', 'Bob'])
+    );
   });
   it('does not match if received does not contain expected elements', () => {
-    expect(['Bob', 'Eve']).not.toEqual(expect.arrayContaining(expected));
+    expect(['Bob', 'Eve']).not.toEqual(
+      expect.arrayContaining(['Alice', 'Bob'])
+    );
   });
 });
 
