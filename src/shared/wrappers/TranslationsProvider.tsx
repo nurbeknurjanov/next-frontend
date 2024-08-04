@@ -1,13 +1,10 @@
 import React, { FC, PropsWithChildren } from 'react';
-import { NextIntlClientProvider } from 'next-intl';
-import { getMessages } from 'next-intl/server';
+import { NextIntlClientProvider, useMessages } from 'next-intl';
 
-export const TranslationsProvider: FC<PropsWithChildren> = async ({
-  children,
-}) => {
-  const messages = await getMessages();
+export const TranslationsProvider: FC<PropsWithChildren> = ({ children }) => {
+  const messages = useMessages();
   return (
-    <NextIntlClientProvider messages={messages}>
+    <NextIntlClientProvider locale={'en'} messages={messages}>
       {children}
     </NextIntlClientProvider>
   );
