@@ -6,6 +6,7 @@ import { StoreProvider } from 'shared/wrappers/StoreProvider';
 import { TranslationsProvider } from 'shared/wrappers/TranslationsProvider';
 
 jest.mock('next-intl', () => {
+  const messages = require('../messages/en.json');
   const originalModule = jest.requireActual('next-intl');
   originalModule.NextIntlClientProvider.defaultProps = { locale: 'en' };
   return {
@@ -13,9 +14,7 @@ jest.mock('next-intl', () => {
     ...originalModule,
     //default: () => 'mocked baz',
     NextIntlClientProvider: originalModule.NextIntlClientProvider,
-    useMessages: () => ({
-      HomePage: { title: 'Welcome', description: 'This is welcome page' },
-    }),
+    useMessages: () => messages,
   };
 });
 
