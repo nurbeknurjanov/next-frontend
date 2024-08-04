@@ -1,8 +1,8 @@
 import '@testing-library/jest-dom';
+import { renderWithProviders } from 'tests';
 import React from 'react';
 import { screen } from '@testing-library/react';
 import { HomeDummy } from 'components/pages/HomeDummy';
-import { renderWithProviders } from 'tests';
 
 describe('Home', () => {
   it('renders a heading', () => {

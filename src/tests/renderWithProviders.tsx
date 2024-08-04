@@ -4,6 +4,13 @@ import { TranslationsProvider } from 'shared/wrappers/TranslationsProvider';
 import { serverStore } from 'store/store';
 import { StoreProvider } from 'shared/wrappers/StoreProvider';
 
+jest.mock('next/navigation', () => {
+  return {
+    __esModule: true,
+    useMessages: () => ({ locale: 'en' }),
+  };
+});
+
 jest.mock('next-intl', () => {
   const messages = require('../../messages/en.json');
   const originalModule = jest.requireActual('next-intl');
