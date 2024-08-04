@@ -1,13 +1,24 @@
 'use client';
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
+import { useAppDispatch, useAppSelector } from 'store/hooks';
+import { common } from 'store';
 
 let HomeDummy: FC = () => {
   const tHomePage = useTranslations('HomePage');
+  const dispatch = useAppDispatch();
+  const title = useAppSelector(common.title.selector.title);
+
+  useEffect(() => {
+    dispatch(common.title.actions.set({ title: tHomePage('title') }));
+    return () => {
+      dispatch(common.title.actions.reset());
+    };
+  }, [dispatch, tHomePage]);
 
   return (
     <>
-      <h1>{tHomePage('title')}</h1>
+      <h1>{title}</h1>
       <span>
         Lorem Ipsum is simply dummy text of the printing and typesetting
         industry. Lorem Ipsum has been the industry's standard dummy text ever
