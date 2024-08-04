@@ -7,7 +7,7 @@ let HomeDummy: FC = () => {
 
   return (
     <>
-      <h1>Welcome</h1>
+      <h1>{tHomePage('title')}</h1>
       <span>
         Lorem Ipsum is simply dummy text of the printing and typesetting
         industry. Lorem Ipsum has been the industry's standard dummy text ever
