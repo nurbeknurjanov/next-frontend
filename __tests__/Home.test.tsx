@@ -7,6 +7,7 @@ import { TranslationsProvider } from 'shared/wrappers/TranslationsProvider';
 
 jest.mock('next-intl', () => {
   const originalModule = jest.requireActual('next-intl');
+  originalModule.NextIntlClientProvider.defaultProps = { locale: 'en' };
   return {
     __esModule: true,
     ...originalModule,
