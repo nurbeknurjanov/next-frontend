@@ -11,6 +11,8 @@ const createJestConfig = nextJest({
   dir: './',
 });
 
+const esModules = ['jose'].join('|');
+
 const config: Config = {
   // All imported modules in your tests should be mocked automatically
   // automock: false,
@@ -191,6 +193,8 @@ const config: Config = {
   //   "\\.pnp\\.[^\\/]+$"
   // ],
 
+  //transformIgnorePatterns: [`.*/node_modules/(?!(${esModules})/)`],
+
   // An array of regexp pattern strings that are matched against all modules before the module loader will automatically return a mock for them
   // unmockedModulePathPatterns: undefined,
 
@@ -205,4 +209,15 @@ const config: Config = {
 };
 
 // createJestConfig is exported this way to ensure that next/jest can load the Next.js config which is async
-export default createJestConfig(config);
+//export default createJestConfig(config);
+
+const jestConfig = async () => {
+  const nextJestConfig = await createJestConfig(config)();
+
+  return {
+    ...nextJestConfig,
+    transformIgnorePatterns: [`.*/node_modules/(?!(${esModules})/)`],
+  };
+};
+
+export default jestConfig;
