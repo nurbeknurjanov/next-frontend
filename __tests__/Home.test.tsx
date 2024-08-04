@@ -1,8 +1,7 @@
 import '@testing-library/jest-dom';
-import React, { PropsWithChildren } from 'react';
-import { render, screen } from '@testing-library/react';
+import React from 'react';
+import { screen } from '@testing-library/react';
 import { HomeDummy } from 'components/pages/HomeDummy';
-import { StoreProvider } from 'shared/wrappers/StoreProvider';
 import { renderWithProviders } from 'tests';
 
 describe('Home', () => {
