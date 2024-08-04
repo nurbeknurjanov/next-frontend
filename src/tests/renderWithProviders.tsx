@@ -1,6 +1,7 @@
 import React, { PropsWithChildren } from 'react';
 import { render as rtlRender } from '@testing-library/react';
 import { TranslationsProvider } from 'shared/wrappers/TranslationsProvider';
+import { serverStore } from 'store/store';
 import { StoreProvider } from 'shared/wrappers/StoreProvider';
 
 jest.mock('next-intl', () => {
@@ -19,7 +20,13 @@ jest.mock('next-intl', () => {
 });
 
 const Wrapper: React.FC<PropsWithChildren> = ({ children }) => {
-  return <TranslationsProvider>{children}</TranslationsProvider>;
+  return (
+    <TranslationsProvider>
+      <StoreProvider initialState={serverStore.getState()}>
+        {children}
+      </StoreProvider>
+    </TranslationsProvider>
+  );
 };
 
 export const renderWithProviders = (ui: React.ReactElement) => {
