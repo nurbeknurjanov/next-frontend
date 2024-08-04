@@ -25,8 +25,8 @@ describe('Home', () => {
     const { container: _container, getByRole: _getByRole } = render(
       <TranslationsProvider>
         <HomeDummy />
-      </TranslationsProvider>
-      //{ wrapper: StoreProvider }
+      </TranslationsProvider>,
+      { wrapper: StoreProvider }
     );
 
     //_container.querySelector()

@@ -1,7 +1,7 @@
 'use server';
 
 import { cookies } from 'next/headers';
-import { JWT } from 'shared/utils';
+import { JWT } from 'shared/utils/jwt';
 import { serverStore } from 'store/store';
 import { authorize, logout } from 'store/common/thunks';
 import { commonApi } from 'api';

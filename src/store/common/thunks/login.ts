@@ -2,7 +2,7 @@ import { AppThunk } from 'store/store';
 import { common } from 'store';
 import { notify, authorize } from 'store/common/thunks';
 import { LoginRequestBodyParams, LoginResponse } from 'api/commonApi';
-import { JWT } from 'shared/utils';
+import { JWT } from 'shared/utils/jwt';
 
 export const loginThunk =
   (
