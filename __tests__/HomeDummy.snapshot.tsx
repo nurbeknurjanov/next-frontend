@@ -2,10 +2,10 @@
  * @jest-environment jsdom
  */
 import React from 'react';
-import { render } from '@testing-library/react';
+import { renderWithProviders } from 'tests';
 import { HomeDummy } from 'components/pages/HomeDummy';
 
-xit('renders homepage unchanged', () => {
-  const { container } = render(<HomeDummy />);
+it('renders homepage unchanged', () => {
+  const { container } = renderWithProviders(<HomeDummy />);
   expect(container).toMatchSnapshot();
 });
