@@ -1,9 +1,10 @@
-//'use client';
+'use client';
 import React, { FC } from 'react';
 import { useTranslations } from 'next-intl';
 
 let HomeDummy: FC = () => {
   const tHomePage = useTranslations('HomePage');
+  console.log(234);
   return (
     <>
       <h1>Welcome</h1>

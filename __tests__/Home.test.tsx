@@ -20,7 +20,7 @@ jest.mock('next-intl', () => {
 
 describe('Home', () => {
   it('renders a heading', () => {
-    render(
+    const { container: _container, getByRole: _getByRole } = render(
       <TranslationsProvider>
         <HomeDummy />
       </TranslationsProvider>
