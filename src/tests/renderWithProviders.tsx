@@ -22,7 +22,7 @@ jest.mock('next-intl', () => {
 const Wrapper: React.FC<PropsWithChildren> = ({ children }) => {
   return (
     <TranslationsProvider>
-      <StoreProvider initialState={serverStore.getState()}>
+      <StoreProvider initialState={{ ...serverStore.getState() }}>
         {children}
       </StoreProvider>
     </TranslationsProvider>
