@@ -7,7 +7,18 @@ import { StoreProvider } from 'shared/wrappers/StoreProvider';
 jest.mock('next/navigation', () => {
   return {
     __esModule: true,
-    useMessages: () => ({ locale: 'en' }),
+    useParams: () => ({ locale: 'en' }),
+    usePathname: () => '/products',
+    useRouter: () => {
+      return {
+        push: jest.fn(() => Promise.resolve(true)),
+        replace: jest.fn(),
+      };
+    },
+    useSearchParams: () => ({
+      get: () => null,
+      entries: () => Object.entries({ pageIndex: 0, pageSize: 12 }),
+    }),
   };
 });
 
