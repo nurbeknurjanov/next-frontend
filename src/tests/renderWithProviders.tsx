@@ -1,25 +1,24 @@
 import React, { PropsWithChildren } from 'react';
-import { Provider } from 'react-redux';
-import { IntlProvider } from 'react-intl';
-import { PreloadedState as ReduxPreloadedState } from '@reduxjs/toolkit';
-import { render as rtlRender, RenderOptions } from '@testing-library/react';
-import { PartialDeep } from 'type-fest';
-import { AppStore, makeStore, ReduxState } from 'store';
-import { RouterContext } from 'next/dist/shared/lib/router-context.shared-runtime';
-import { NextRouter } from 'next/router';
+import { render as rtlRender } from '@testing-library/react';
+import { TranslationsProvider } from 'shared/wrappers/TranslationsProvider';
 
-type ExtendedRenderOptions = RenderOptions & {
-  locale?: string;
-  preloadedState?: ReduxPreloadedState<PartialDeep<ReduxState>>;
-};
-
-export const renderWithProviders = (
-  ui: React.ReactElement,
-  { locale = 'en', preloadedState = {} }: ExtendedRenderOptions = {}
-) => {
+jest.mock('next-intl', () => {
+  const messages = require('../../messages/en.json');
+  const originalModule = jest.requireActual('next-intl');
+  const NextIntlClientProvider = originalModule.NextIntlClientProvider;
   return {
-    store,
-    wrapper: Wrapper,
-    ...rtlRender(ui, { wrapper: Wrapper, ...renderOptions }),
+    __esModule: true,
+    ...originalModule,
+    //default: () => 'mocked baz',
+    NextIntlClientProvider: (props: PropsWithChildren) => (
+      <NextIntlClientProvider locale={'en'} {...props} />
+    ),
+    useMessages: () => messages,
+  };
+});
+
+export const renderWithProviders = (ui: React.ReactElement) => {
+  return {
+    ...rtlRender(ui, { wrapper: TranslationsProvider }),
   };
 };
