@@ -57,8 +57,16 @@ export const withPageWrapper = <T extends object>(
     useEffect(() => {
       if (Theme.components!.MuiTablePagination) {
         Theme.components!.MuiTablePagination!.defaultProps = {
+          ...Theme.components!.MuiTablePagination!.defaultProps,
           labelRowsPerPage: tCommon('rowsPerPage:'),
         };
+      }
+
+      if (Theme.components!.MuiDataGrid!.defaultProps) {
+        /*Theme.components!.MuiDataGrid!.defaultProps = {
+          ...Theme.components!.MuiGrid!.defaultProps,
+          localeText: {},
+        };*/
       }
     }, [Theme, tCommon]);
     return <Component {...props} />;
