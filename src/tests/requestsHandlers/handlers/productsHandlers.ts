@@ -1,5 +1,4 @@
 //import { BASE_URL } from 'shared/utils';
-import 'cross-fetch/polyfill';
 import { delay, http, HttpResponse } from 'msw';
 import { productMocksData } from 'tests/dataMocks';
 import {
