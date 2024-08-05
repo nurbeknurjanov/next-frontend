@@ -204,7 +204,6 @@ const config: Config = {
 
   // Whether to use watchman for file crawling
   // watchman: true,
-
   testEnvironment: './FixJSDOMEnvironment.ts',
   testEnvironmentOptions: {
     customExportConditions: [''],
@@ -220,10 +219,6 @@ const jestConfig = async () => {
   return {
     ...nextJestConfig,
     transformIgnorePatterns: [`.*/node_modules/(?!(${esModules})/)`],
-    testEnvironment: './FixJSDOMEnvironment.ts',
-    testEnvironmentOptions: {
-      customExportConditions: [''],
-    },
   };
 };
 
