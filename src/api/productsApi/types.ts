@@ -17,7 +17,7 @@ export interface IProduct {
   imageId?: string;
   image?: IFile;
 }
-type IProductWithoutSystemFields = Omit<
+export type IProductWithoutSystemFields = Omit<
   IProduct,
   '_id' | 'createdAt' | 'updatedAt' | 'image' | 'imageId'
 >;
