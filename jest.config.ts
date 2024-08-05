@@ -208,6 +208,7 @@ const config: Config = {
   testEnvironmentOptions: {
     customExportConditions: [''],
   },
+  transformIgnorePatterns: [`.*/node_modules/(?!(${esModules})/)`],
 };
 
 // createJestConfig is exported this way to ensure that next/jest can load the Next.js config which is async
@@ -218,7 +219,6 @@ const jestConfig = async () => {
 
   return {
     ...nextJestConfig,
-    transformIgnorePatterns: [`.*/node_modules/(?!(${esModules})/)`],
   };
 };
 
