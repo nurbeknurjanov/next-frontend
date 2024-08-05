@@ -6,6 +6,7 @@ import {
   IProductsList,
   IProductFilters,
   IProductSort,
+  IProductPost,
 } from 'api/productsApi';
 import { IPaginationRequest } from 'api/baseApi';
 
@@ -31,7 +32,22 @@ export const productsHandlers = [
 
     return HttpResponse.json({
       list: mockData,
-      pagination: { pageNumber: 0, pageSize: 12, total: 12, pageCount: 1 },
+      pagination: { pageNumber: 0, pageSize: 12, total: 6, pageCount: 1 },
     });
   }),
+
+  http.post<never, IProductPost, IProductPost, Path>(
+    `${BASE_URL}/products`,
+    async ({ request }) => {
+      const mockData: IProductPost = {
+        name: 'New product',
+        description: null,
+        imageFile: null,
+      };
+
+      await delay();
+
+      return HttpResponse.json(mockData);
+    }
+  ),
 ];

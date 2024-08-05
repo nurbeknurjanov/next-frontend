@@ -10,7 +10,7 @@ describe('Home', () => {
   it('renders a heading', async () => {
     const user = userEvent.setup();
 
-    renderWithProviders(
+    const { container } = renderWithProviders(
       <Content>
         <Products />
       </Content>
@@ -23,5 +23,14 @@ describe('Home', () => {
       level: 2,
       name: /Create product/i,
     });
+
+    const nameInput = container.querySelector(
+      '.MuiDialogContent-root input[name="Name"]'
+    );
+    await user.type(nameInput!, 'New product');
+    const createProductButton = screen.getByRole('button', { name: 'Create' });
+    await user.click(createProductButton);
+
+    await screen.findByText('Successfully created');
   });
 });
