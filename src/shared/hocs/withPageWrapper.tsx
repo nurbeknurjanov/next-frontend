@@ -7,12 +7,17 @@ import { getAuthStateSelector } from 'store/common/selectors';
 import dayjs from 'dayjs';
 import { localeType } from 'i18n';
 import { useParams } from 'next/navigation';
+import { useTheme } from '@mui/material/styles';
+import { useTranslations } from 'next-intl';
 require('dayjs/locale/ru');
 
 export const withPageWrapper = <T extends object>(
   Component: ComponentType<T>
 ) => {
   const NewComponent: FC<T> = props => {
+    const Theme = useTheme();
+    const tCommon = useTranslations('Common');
+
     const { locale } = useParams();
     dayjs.locale(locale as localeType);
 
@@ -49,6 +54,11 @@ export const withPageWrapper = <T extends object>(
       }
     }, [removeCookie, setCookie, isAuth, newAccessToken, dispatch]);
 
+    useEffect(() => {
+      Theme.components!.MuiTablePagination!.defaultProps = {
+        labelRowsPerPage: tCommon('rowsPerPage:'),
+      };
+    }, [Theme, tCommon]);
     return <Component {...props} />;
   };
   return NewComponent;
