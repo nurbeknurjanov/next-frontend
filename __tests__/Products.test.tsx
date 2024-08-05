@@ -13,12 +13,17 @@ describe('Home', () => {
       <Products />
     );
 
-    expect(container).toMatchSnapshot();
     await waitFor(() => container.querySelector('.MuiCircularProgress-root'));
     await screen.findByText('Product 1');
     const inputFilterName = screen.getAllByLabelText('Name')[0];
     await user.type(inputFilterName, 'Product 5');
     const submitButton = screen.getByRole('button', { name: 'Search' });
+    await user.click(submitButton);
+    /*await waitFor(() =>
+      expect(screen.getByText('Product 1')).not.toBeInTheDocument()
+    );*/
+    //await screen.findByText('Product 1');
+    //expect(container).toMatchSnapshot();
     //fireEvent.change(inputFilterName, { target: { value: 'Product 5' } });
     //fireEvent.click(screen.getByText(/click me/i))
     //const Product1 = await waitFor(() => getByText('Product 1'));

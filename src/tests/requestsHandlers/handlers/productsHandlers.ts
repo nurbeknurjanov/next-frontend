@@ -17,10 +17,16 @@ export const productsHandlers = [
     IProductFilters & IProductSort & IPaginationRequest,
     IProductsList,
     Path
-  >(`${BASE_URL}/products*`, async () => {
-    const mockData: IProduct[] = structuredClone(productMocksData);
+  >(`${BASE_URL}/products*`, async ({ request }) => {
+    let mockData: IProduct[] = structuredClone(productMocksData);
 
-    //const getParams = await request.json();
+    const url = new URL(request.url);
+    if (url.searchParams.get('name')) {
+      mockData = mockData.filter(el =>
+        el.name.includes(url.searchParams.get('name') as string)
+      );
+    }
+
     await delay();
 
     return HttpResponse.json({
