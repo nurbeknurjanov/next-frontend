@@ -1,7 +1,6 @@
 import '@testing-library/jest-dom';
-import { TextEncoder, TextDecoder } from 'util';
-
-Object.assign(global, { TextDecoder, TextEncoder });
+/*import { TextEncoder, TextDecoder } from 'util';
+Object.assign(global, { TextDecoder, TextEncoder });*/
 
 /*
   Setup MSW Server for mocking requests during tests
