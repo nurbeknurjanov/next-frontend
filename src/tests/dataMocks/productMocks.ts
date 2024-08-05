@@ -1,9 +1,9 @@
 import { IProductWithoutSystemFields } from 'api/productsApi';
 
-const productsData: IProductWithoutSystemFields[] = [];
+const productMocksData: IProductWithoutSystemFields[] = [];
 for (let i = 0; i <= 48; i++) {
   const model = { name: 'Product ' + i, description: '' };
-  productsData.push(model);
+  productMocksData.push(model);
 }
 
-export { productsData };
+export { productMocksData };
