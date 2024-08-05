@@ -12,6 +12,6 @@ describe('Home', () => {
 
     expect(container).toMatchSnapshot();
     //_container.querySelector()
-    //const noData = await screen.findByText('No data');
+    const noData = await screen.findByText('No rows');
   });
 });
