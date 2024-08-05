@@ -55,9 +55,11 @@ export const withPageWrapper = <T extends object>(
     }, [removeCookie, setCookie, isAuth, newAccessToken, dispatch]);
 
     useEffect(() => {
-      Theme.components!.MuiTablePagination!.defaultProps = {
-        labelRowsPerPage: tCommon('rowsPerPage:'),
-      };
+      if (Theme.components!.MuiTablePagination) {
+        Theme.components!.MuiTablePagination!.defaultProps = {
+          labelRowsPerPage: tCommon('rowsPerPage:'),
+        };
+      }
     }, [Theme, tCommon]);
     return <Component {...props} />;
   };
