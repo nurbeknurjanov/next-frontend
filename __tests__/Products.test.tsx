@@ -19,9 +19,6 @@ describe('Home', () => {
     await user.type(inputFilterName, 'Product 5');
     const submitButton = screen.getByRole('button', { name: 'Search' });
     await user.click(submitButton);
-    /*await waitFor(() =>
-      expect(screen.getByText('Product 1')).not.toBeInTheDocument()
-    );*/
     //await screen.findByText('Product 1');
     //expect(container).toMatchSnapshot();
     //fireEvent.change(inputFilterName, { target: { value: 'Product 5' } });

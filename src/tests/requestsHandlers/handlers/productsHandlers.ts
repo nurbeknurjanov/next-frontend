@@ -36,18 +36,13 @@ export const productsHandlers = [
     });
   }),
 
-  http.post<never, IProductPost, IProductPost, Path>(
+  http.post<never, IProductPost, IProduct, Path>(
     `${BASE_URL}/products`,
     async ({ request }) => {
-      const mockData: IProductPost = {
-        name: 'New product',
-        description: null,
-        imageFile: null,
-      };
-
+      const body = await request.json();
       await delay();
-
-      return HttpResponse.json(mockData);
+      const mockData: IProduct[] = structuredClone(productMocksData);
+      return HttpResponse.json({ ...mockData[0], ...body } as IProduct);
     }
   ),
 ];

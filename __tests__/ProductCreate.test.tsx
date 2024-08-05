@@ -1,7 +1,11 @@
 import '@testing-library/jest-dom';
 import { renderWithProviders } from 'tests';
 import React from 'react';
-import { screen, within /* fireEvent , act */ } from '@testing-library/react';
+import {
+  screen,
+  within,
+  waitFor /* fireEvent , act */,
+} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Products } from 'components/pages/Products';
 import { Content } from 'components/layout/Content';
@@ -32,6 +36,9 @@ describe('Home', () => {
     await user.type(nameInput, 'New product');
     const createProductButton = screen.getByRole('button', { name: 'Create' });
     await user.click(createProductButton);
+
+    await waitFor(() => expect(modal).not.toBeInTheDocument());
+    await waitFor(() => expect(nameInput).not.toBeInTheDocument());
 
     await screen.findByText('Successfully created');
   });
