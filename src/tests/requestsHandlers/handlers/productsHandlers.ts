@@ -20,8 +20,8 @@ export const productsHandlers = [
   >(`${BASE_URL}/products/*`, async ({ request }) => {
     const mockData: IProduct[] = structuredClone(productMocksData);
 
-    const getParams = await request.json();
-    await delay();
+    //const getParams = await request.json();
+    //await delay();
 
     return HttpResponse.json({
       list: mockData,

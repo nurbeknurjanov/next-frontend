@@ -451,7 +451,7 @@ exports[`Home renders a heading 1`] = `
           style="overflow-x: hidden;"
         >
           <div
-            class="MuiDataGrid-overlayWrapper css-ql19fo-MuiDataGrid-overlayWrapper"
+            class="MuiDataGrid-overlayWrapper css-19qgr0z-MuiDataGrid-overlayWrapper"
           >
             <div
               class="MuiDataGrid-overlayWrapperInner css-1akuw9y-MuiDataGrid-overlayWrapperInner"
@@ -460,7 +460,25 @@ exports[`Home renders a heading 1`] = `
               <div
                 class="MuiDataGrid-overlay css-1w53k9d-MuiDataGrid-overlay"
               >
-                No rows
+                <span
+                  class="MuiCircularProgress-root MuiCircularProgress-indeterminate MuiCircularProgress-colorPrimary css-18lrjg1-MuiCircularProgress-root"
+                  role="progressbar"
+                  style="width: 40px; height: 40px;"
+                >
+                  <svg
+                    class="MuiCircularProgress-svg css-1idz92c-MuiCircularProgress-svg"
+                    viewBox="22 22 44 44"
+                  >
+                    <circle
+                      class="MuiCircularProgress-circle MuiCircularProgress-circleIndeterminate css-176wh8e-MuiCircularProgress-circle"
+                      cx="44"
+                      cy="44"
+                      fill="none"
+                      r="20.2"
+                      stroke-width="3.6"
+                    />
+                  </svg>
+                </span>
               </div>
             </div>
           </div>

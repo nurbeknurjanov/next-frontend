@@ -60,7 +60,7 @@ export function useProducts() {
 
   useEffect(() => {
     //console.log('document.referrer', document.referrer);
-    if (!isHydratedToClientRef.current) return;
+    //if (!isHydratedToClientRef.current) return;
 
     if (
       isEqual(previousPagination.current, pagination) &&
