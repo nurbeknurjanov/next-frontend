@@ -23,7 +23,8 @@
     "image": "Изображение",
     "type": "Тип",
     "actions": "Действия",
-    "rowsPerPage:": "Кол-во строк по странице:",
+    "labelRowsPerPage": "Кол-во строк по странице:",
+    "noRowsLabel": "Нет данных",
     "logout": "Выход",
     "unknownError": "Неизвестная ошибка"
   },

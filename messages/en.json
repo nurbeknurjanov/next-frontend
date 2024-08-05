@@ -23,7 +23,8 @@
     "image": "Image",
     "type": "Type",
     "actions": "Actions",
-    "rowsPerPage:": "Rows per page:",
+    "labelRowsPerPage": "Rows per page:",
+    "noRowsLabel": "No data",
     "logout": "Logout",
     "unknownError": "Unknown error"
   },

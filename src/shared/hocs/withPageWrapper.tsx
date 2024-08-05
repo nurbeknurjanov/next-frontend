@@ -58,15 +58,14 @@ export const withPageWrapper = <T extends object>(
       if (Theme.components!.MuiTablePagination) {
         Theme.components!.MuiTablePagination!.defaultProps = {
           ...Theme.components!.MuiTablePagination!.defaultProps,
-          labelRowsPerPage: tCommon('rowsPerPage:'),
+          labelRowsPerPage: tCommon('labelRowsPerPage'),
         };
       }
 
       if (Theme.components!.MuiDataGrid!.defaultProps) {
-        /*Theme.components!.MuiDataGrid!.defaultProps = {
-          ...Theme.components!.MuiGrid!.defaultProps,
-          localeText: {},
-        };*/
+        Theme.components!.MuiDataGrid!.defaultProps.localeText = {
+          noRowsLabel: tCommon('noRowsLabel'),
+        };
       }
     }, [Theme, tCommon]);
     return <Component {...props} />;

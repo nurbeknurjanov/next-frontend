@@ -279,9 +279,6 @@ const Theme = createTheme({
         disableColumnFilter: true,
         paginationMode: 'server',
         sortingMode: 'server',
-        localeText: {
-          noRowsLabel: 'hahah',
-        },
       },
       styleOverrides: {
         root: ({ theme }) => ({
