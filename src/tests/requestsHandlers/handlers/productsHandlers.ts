@@ -17,15 +17,15 @@ export const productsHandlers = [
     IProductFilters & IProductSort & IPaginationRequest,
     IProductsList,
     Path
-  >(`${BASE_URL}/products/*`, async ({ request }) => {
+  >(`${BASE_URL}/products?pageNumber=0&pageSize=12`, async () => {
     const mockData: IProduct[] = structuredClone(productMocksData);
 
     //const getParams = await request.json();
-    //await delay();
+    await delay();
 
     return HttpResponse.json({
       list: mockData,
-      pagination: { pageNumber: 0, pageSize: 12, total: 48, pageCount: 4 },
+      pagination: { pageNumber: 0, pageSize: 12, total: 6, pageCount: 1 },
     });
   }),
 ];
