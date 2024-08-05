@@ -1,1 +1,1 @@
-export { productMocksData } from './productMocks';
+export { productMocksData } from './productMocksData';
