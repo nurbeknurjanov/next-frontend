@@ -1,9 +1,9 @@
 import '@testing-library/jest-dom';
 import { TextEncoder, TextDecoder } from 'util';
-const { setupServer } = require('msw/node');
-const { requestsHandlers } = require('./src/tests');
-
 Object.assign(global, { TextDecoder, TextEncoder });
+
+import { setupServer } from 'msw/node';
+import { requestsHandlers } from './src/tests';
 
 /*
   Setup MSW Server for mocking requests during tests

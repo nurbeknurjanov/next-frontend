@@ -204,6 +204,10 @@ const config: Config = {
 
   // Whether to use watchman for file crawling
   // watchman: true,
+
+  testEnvironmentOptions: {
+    customExportConditions: [''],
+  },
 };
 
 // createJestConfig is exported this way to ensure that next/jest can load the Next.js config which is async
@@ -215,6 +219,9 @@ const jestConfig = async () => {
   return {
     ...nextJestConfig,
     transformIgnorePatterns: [`.*/node_modules/(?!(${esModules})/)`],
+    testEnvironmentOptions: {
+      customExportConditions: [''],
+    },
   };
 };
 
