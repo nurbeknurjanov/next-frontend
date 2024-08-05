@@ -1,4 +1,4 @@
-//import { BASE_URL } from 'shared/utils';
+import { BASE_URL } from 'shared/utils';
 import { delay, http, HttpResponse } from 'msw';
 import { productMocksData } from 'tests/dataMocks';
 import {
@@ -8,13 +8,16 @@ import {
   IProductSort,
 } from 'api/productsApi';
 import { IPaginationRequest } from 'api/baseApi';
+
+type Path = `${typeof BASE_URL}/${string}`;
+
 export const productsHandlers = [
   http.get<
     never,
     IProductFilters & IProductSort & IPaginationRequest,
     IProductsList,
-    `http://localhost:3001/products/*`
-  >(`http://localhost:3001/products/*`, async ({ request }) => {
+    Path
+  >(`${BASE_URL}/products/*`, async ({ request }) => {
     const mockData: IProduct[] = structuredClone(productMocksData);
 
     const getParams = await request.json();
