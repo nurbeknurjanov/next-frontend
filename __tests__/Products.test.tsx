@@ -1,7 +1,7 @@
 import '@testing-library/jest-dom';
 import { renderWithProviders } from 'tests';
 import React from 'react';
-import { screen, waitFor, fireEvent /*, act */ } from '@testing-library/react';
+import { screen, waitFor /* fireEvent , act */ } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Products } from 'components/pages/Products';
 
