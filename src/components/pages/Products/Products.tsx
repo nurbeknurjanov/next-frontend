@@ -43,7 +43,7 @@ let Products: FC = () => {
   useSetPageData(
     tProductsPage('title'),
     [tProductsPage('title')],
-    productsPermissions.canCreateProduct && (
+    'productsPermissions.canCreateProduct' && (
       <Button
         variant={'contained'}
         size={'small'}
