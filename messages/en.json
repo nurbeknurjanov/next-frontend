@@ -19,12 +19,11 @@
     "successDeleted": "Successfully deleted",
     "successUploaded": "Successfully uploaded",
     "deleteAlert": "Are you sure to delete ?",
-    "noData": "No rows",
     "image": "Image",
     "type": "Type",
     "actions": "Actions",
     "labelRowsPerPage": "Rows per page:",
-    "noRowsLabel": "No data",
+    "noRowsLabel": "No rows",
     "logout": "Logout",
     "unknownError": "Unknown error"
   },
