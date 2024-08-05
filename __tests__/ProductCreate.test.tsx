@@ -1,7 +1,7 @@
 import '@testing-library/jest-dom';
 import { renderWithProviders } from 'tests';
 import React from 'react';
-import { screen, waitFor /* fireEvent , act */ } from '@testing-library/react';
+import { screen, within /* fireEvent , act */ } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Products } from 'components/pages/Products';
 import { Content } from 'components/layout/Content';
@@ -24,10 +24,12 @@ describe('Home', () => {
       name: /Create product/i,
     });
 
-    const nameInput = container.querySelector(
-      '.MuiDialogContent-root input[name="Name"]'
-    );
-    await user.type(nameInput!, 'New product');
+    expect(container).toMatchSnapshot();
+    const modal = await screen.findByRole('dialog');
+    const { getByLabelText } = within(modal);
+    const nameInput = getByLabelText('Name');
+    //console.log('name', modal.querySelector('input[name="name"]'));
+    await user.type(nameInput, 'New product');
     const createProductButton = screen.getByRole('button', { name: 'Create' });
     await user.click(createProductButton);
 
