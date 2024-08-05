@@ -1,4 +1,5 @@
-import { BASE_URL } from 'shared/utils';
+//import { BASE_URL } from 'shared/utils';
+import 'cross-fetch/polyfill';
 import { delay, http, HttpResponse } from 'msw';
 import { productMocksData } from 'tests/dataMocks';
 import {
@@ -8,16 +9,13 @@ import {
   IProductSort,
 } from 'api/productsApi';
 import { IPaginationRequest } from 'api/baseApi';
-
-export type Path = `${typeof BASE_URL}/${string}`;
-
 export const productsHandlers = [
   http.get<
     never,
     IProductFilters & IProductSort & IPaginationRequest,
     IProductsList,
-    Path
-  >(`${BASE_URL}/products/*`, async ({ request }) => {
+    `http://localhost:3001/products/*`
+  >(`http://localhost:3001/products/*`, async ({ request }) => {
     const mockData: IProduct[] = structuredClone(productMocksData);
 
     const getParams = await request.json();
