@@ -17,7 +17,7 @@ export const productsHandlers = [
     IProductFilters & IProductSort & IPaginationRequest,
     IProductsList,
     Path
-  >(`${BASE_URL}/products?pageNumber=0&pageSize=12`, async () => {
+  >(`${BASE_URL}/products*`, async () => {
     const mockData: IProduct[] = structuredClone(productMocksData);
 
     //const getParams = await request.json();
