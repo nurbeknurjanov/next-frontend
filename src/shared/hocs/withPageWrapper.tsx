@@ -62,8 +62,8 @@ export const withPageWrapper = <T extends object>(
         };
       }
 
-      if (Theme.components!.MuiDataGrid!.defaultProps) {
-        Theme.components!.MuiDataGrid!.defaultProps.localeText = {
+      if (Theme.components?.MuiDataGrid?.defaultProps) {
+        Theme.components.MuiDataGrid.defaultProps.localeText = {
           noRowsLabel: tCommon('noRowsLabel'),
         };
       }

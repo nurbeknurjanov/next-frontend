@@ -5,10 +5,13 @@ import { screen } from '@testing-library/react';
 import { Products } from 'components/pages/Products';
 
 describe('Home', () => {
-  it('renders a heading', () => {
-    const { container: _container, getByRole: _getByRole } =
-      renderWithProviders(<Products />);
+  it('renders a heading', async () => {
+    const { container, getByRole: _getByRole } = renderWithProviders(
+      <Products />
+    );
 
+    expect(container).toMatchSnapshot();
     //_container.querySelector()
+    //const noData = await screen.findByText('No data');
   });
 });
