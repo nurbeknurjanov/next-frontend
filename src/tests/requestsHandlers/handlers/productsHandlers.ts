@@ -25,7 +25,7 @@ export const productsHandlers = [
 
     return HttpResponse.json({
       list: mockData,
-      pagination: { pageNumber: 0, pageSize: 12, total: 6, pageCount: 1 },
+      pagination: { pageNumber: 0, pageSize: 12, total: 12, pageCount: 1 },
     });
   }),
 ];
