@@ -62,6 +62,7 @@ describe('ProductCreate', () => {
 
     await waitFor(() => expect(modal).not.toBeInTheDocument());
     await waitFor(() => expect(nameInput).not.toBeInTheDocument());
+    await waitFor(() => expect(descriptionInput).not.toBeInTheDocument());
 
     await screen.findByText('Successfully created');
     await screen.findByText('New product');

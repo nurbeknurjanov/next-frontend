@@ -4,20 +4,13 @@ import React from 'react';
 import {
   screen,
   within,
-  prettyDOM,
+  //prettyDOM,
   waitFor /* fireEvent , act */,
 } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Products } from 'components/pages/Products';
 import { Content } from 'components/layout/Content';
-const domTestingLib = require('@testing-library/dom');
-const { queryHelpers } = domTestingLib;
 
-interface ByRoleOptions {
-  value: {
-    rowindex: number;
-  };
-}
 describe('ProductUpdate', () => {
   it('updates a product', async () => {
     const user = userEvent.setup();
@@ -62,7 +55,24 @@ describe('ProductUpdate', () => {
     });
     expect(heading).toBeInTheDocument();
     expect(heading).toHaveTextContent('Update product');
-    const { getByLabelText: getByLabelTextInModal } = within(modal);
+    const {
+      getByLabelText: getByLabelTextInModal,
+      getByRole: getByRoleInModal,
+    } = within(modal);
     const nameInput = getByLabelTextInModal('Name');
+    await user.type(nameInput, 'Another name');
+
+    const descriptionInput = getByLabelTextInModal('Description');
+    await user.type(descriptionInput, 'Another description');
+
+    const updateProductButton = getByRoleInModal('button', { name: 'Update' });
+    await user.click(updateProductButton);
+
+    await waitFor(() => expect(modal).not.toBeInTheDocument());
+    await waitFor(() => expect(nameInput).not.toBeInTheDocument());
+    await waitFor(() => expect(descriptionInput).not.toBeInTheDocument());
+
+    await screen.findByText('Successfully updated');
+    await screen.findByText('Another name');
   });
 });

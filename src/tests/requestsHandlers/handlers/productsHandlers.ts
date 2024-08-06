@@ -47,4 +47,20 @@ export const productsHandlers = [
       return HttpResponse.json(newMock);
     }
   ),
+
+  http.put<{ id: string }, IProductPost, IProduct, Path>(
+    `${BASE_URL}/products/:id`,
+    async ({ request, params }) => {
+      const element = productMocksData.find(el => el._id === params.id);
+      const body = await request.json();
+
+      console.log('body', body);
+      Object.entries(body).map(([key, value]) => {
+        //@ts-ignore
+        element[key] = value;
+      });
+      await delay();
+      return HttpResponse.json(element);
+    }
+  ),
 ];
