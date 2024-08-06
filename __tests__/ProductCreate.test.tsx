@@ -46,10 +46,15 @@ describe('ProductCreate', () => {
 
     expect(container).toMatchSnapshot();
     const modal = await screen.findByRole('dialog');
-    const { getByLabelText } = within(modal);
-    const nameInput = getByLabelText('Name');
+    const { getByLabelText, getByRole } = within(modal);
+    const nameInput = getByRole('textbox', { name: 'Name' });
+    //const nameInput = getByLabelText('Name');
     //console.log('name', modal.querySelector('input[name="name"]'));
     await user.type(nameInput, 'New product');
+
+    const descriptionInput = getByLabelText('Description');
+    await user.type(descriptionInput, 'Some description');
+
     const createProductButton = screen.getByRole('button', { name: 'Create' });
     await user.click(createProductButton);
 
