@@ -6,7 +6,6 @@ import {
   within,
   //prettyDOM,
   waitFor,
-  getByText /* fireEvent , act */,
 } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Products } from 'components/pages/Products';
