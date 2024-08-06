@@ -10,8 +10,8 @@ import userEvent from '@testing-library/user-event';
 import { Products } from 'components/pages/Products';
 import { Content } from 'components/layout/Content';
 
-describe('Home', () => {
-  it('renders a heading', async () => {
+describe('Product', () => {
+  it('creates a product', async () => {
     const user = userEvent.setup();
 
     const { container } = renderWithProviders(
@@ -41,5 +41,6 @@ describe('Home', () => {
     await waitFor(() => expect(nameInput).not.toBeInTheDocument());
 
     await screen.findByText('Successfully created');
+    await screen.findByText('New product');
   });
 });

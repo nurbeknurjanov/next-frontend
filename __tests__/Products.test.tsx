@@ -5,8 +5,8 @@ import { screen, waitFor /* fireEvent , act */ } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Products } from 'components/pages/Products';
 
-describe('Home', () => {
-  it('renders a heading', async () => {
+describe('Products', () => {
+  it('renders a list of products', async () => {
     const user = userEvent.setup();
 
     const { container, getByText: _getByText } = renderWithProviders(
@@ -17,16 +17,12 @@ describe('Home', () => {
     await screen.findByText('Product 1');
     const inputFilterName = screen.getAllByLabelText('Name')[0];
     await user.type(inputFilterName, 'Product 5');
-    const submitButton = screen.getByRole('button', { name: 'Search' });
-    await user.click(submitButton);
-    //await screen.findByText('Product 1');
-    //expect(container).toMatchSnapshot();
+    const searchButton = screen.getByRole('button', { name: 'Search' });
+    await user.click(searchButton);
     //fireEvent.change(inputFilterName, { target: { value: 'Product 5' } });
     //fireEvent.click(screen.getByText(/click me/i))
-    //const Product1 = await waitFor(() => getByText('Product 1'));
     /*await act(async () => {
       await new Promise(resolve => setTimeout(resolve, 1000));
     });*/
-    //const noData = await screen.findByText('No rows');
   });
 });
