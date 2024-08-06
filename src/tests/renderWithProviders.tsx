@@ -1,7 +1,7 @@
 import React, { PropsWithChildren } from 'react';
-import { render as rtlRender } from '@testing-library/react';
+import { render as rtlRender, RenderOptions } from '@testing-library/react';
 import { TranslationsProvider } from 'shared/wrappers/TranslationsProvider';
-import { serverStore } from 'store/store';
+import { createStore } from 'store/store';
 import { StoreProvider } from 'shared/wrappers/StoreProvider';
 import {
   PathnameContext,
@@ -13,6 +13,8 @@ import {
   AppRouterInstance,
 } from 'next/dist/shared/lib/app-router-context.shared-runtime';
 import { createMockRouter } from 'tests/mocks/createMockRouter';
+import { RootStateType } from 'store/store';
+import { PartialDeep } from 'type-fest';
 
 const mockRouter: AppRouterInstance = createMockRouter();
 /*jest.mock('next/navigation', () => {
@@ -59,17 +61,23 @@ const RouterWrapper: React.FC<PropsWithChildren> = ({ children }) => {
   );
 };
 
-const CommonWrapper: React.FC<PropsWithChildren> = ({ children }) => {
-  return (
-    <TranslationsProvider>
-      <StoreProvider initialState={{ ...serverStore.getState() }}>
-        <RouterWrapper>{children}</RouterWrapper>
-      </StoreProvider>
-    </TranslationsProvider>
-  );
+type ExtendedRenderOptions = RenderOptions & {
+  preloadedState?: PartialDeep<RootStateType>;
 };
+export const renderWithProviders = (
+  ui: React.ReactElement,
+  { preloadedState = {} }: ExtendedRenderOptions = { preloadedState: {} }
+) => {
+  const CommonWrapper: React.FC<PropsWithChildren> = ({ children }) => {
+    return (
+      <TranslationsProvider>
+        <StoreProvider initialState={createStore(preloadedState).getState()}>
+          <RouterWrapper>{children}</RouterWrapper>
+        </StoreProvider>
+      </TranslationsProvider>
+    );
+  };
 
-export const renderWithProviders = (ui: React.ReactElement) => {
   return {
     ...rtlRender(ui, { wrapper: CommonWrapper }),
   };
