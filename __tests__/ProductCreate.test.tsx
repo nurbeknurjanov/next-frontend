@@ -38,19 +38,20 @@ describe('ProductCreate', () => {
     await user.click(createButton);
 
     expect(container).toMatchSnapshot();
+
     const modal = await screen.findByRole('dialog');
     expect(modal).toBeInTheDocument();
     await screen.findByRole('heading', {
       level: 2,
       name: /Create product/i,
     });
-
     const {
       getByLabelText: getByLabelTextInModal,
       getByRole: getByRoleInModal,
     } = within(modal);
+
     const nameInput = getByRoleInModal('textbox', { name: 'Name' });
-    //const nameInput = getByLabelText('Name');
+    //const nameInput = getByLabelTextInModal('Name');
     //console.log('name', modal.querySelector('input[name="name"]'));
     await user.type(nameInput, 'New product');
 
