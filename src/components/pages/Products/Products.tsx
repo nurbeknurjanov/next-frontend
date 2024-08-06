@@ -147,6 +147,7 @@ let Products: FC = () => {
         <ProductsFilters filters={filters} setFilters={setFilters} />
 
         <DataGrid
+          disableVirtualization
           sx={theme => ({
             mt: 3,
             [theme.breakpoints.down('sm')]: {
