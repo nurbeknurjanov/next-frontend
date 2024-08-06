@@ -9,6 +9,7 @@ import {
   IProductPost,
 } from 'api/productsApi';
 import { IPaginationRequest } from 'api/baseApi';
+import { assign } from 'shared/utils';
 
 type Path = `${typeof BASE_URL}/${string}`;
 
@@ -57,11 +58,8 @@ export const productsHandlers = [
     async ({ request, params }) => {
       const element = productMocksData.find(el => el._id === params.id);
       const body = await request.json();
-
-      console.log('body', body);
-      Object.entries(body).map(([key, value]) => {
-        //@ts-ignore
-        element[key] = value;
+      Object.entries(body).map<void>(([key, value]) => {
+        assign(element!, key as keyof IProduct, value);
       });
       await delay();
       return HttpResponse.json(element);
