@@ -101,8 +101,6 @@ export const UserModalView: FC<IProps> = ({ onClose, id }) => {
           location data to Google, even when no apps are running.
         </DialogContentText>*/}
 
-        {/*<input ref={el => (this.inputElement = el)} />*/}
-
         {getUserState.isFetching ? (
           <CircularProgress sx={{ mx: 'auto', mb: 2, display: 'block' }} />
         ) : (

@@ -56,7 +56,9 @@ export const ProductModalCreate: React.FC<IProps> = ({
             <CircularProgress sx={{ mx: 'auto', mb: 2, display: 'block' }} />
           ) : (
             <form
-              ref={el => (formRef.current = el!)}
+              ref={(el: HTMLFormElement) => {
+                formRef.current = el;
+              }}
               /*ref={formRef}*/
               onSubmit={e => {
                 e.preventDefault();

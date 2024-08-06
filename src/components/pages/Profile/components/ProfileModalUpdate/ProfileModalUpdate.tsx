@@ -66,7 +66,9 @@ export const ProfileModalUpdate: React.FC<IProps> = ({ onClose }) => {
       <DialogTitle>{tProfilePage('updateProfile')}</DialogTitle>
       <DialogContent>
         <form
-          ref={el => (formRef.current = el!)}
+          ref={el => {
+            formRef.current = el!;
+          }}
           /*ref={formRef}*/
           onSubmit={e => {
             e.preventDefault();

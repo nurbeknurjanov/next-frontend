@@ -64,7 +64,9 @@ export const UserModalCreate: React.FC<IProps> = ({ onClose, afterCreate }) => {
           <CircularProgress sx={{ mx: 'auto', mb: 2, display: 'block' }} />
         ) : (
           <form
-            ref={el => (formRef.current = el!)}
+            ref={el => {
+              formRef.current = el!;
+            }}
             /*ref={formRef}*/
             onSubmit={e => {
               e.preventDefault();

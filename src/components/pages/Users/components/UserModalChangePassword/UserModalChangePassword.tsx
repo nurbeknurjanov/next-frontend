@@ -38,7 +38,9 @@ export const UserModalChangePassword: React.FC<IProps> = ({ onClose, id }) => {
       <DialogTitle>{tProfilePage('changePassword')}</DialogTitle>
       <DialogContent>
         <form
-          ref={el => (formRef.current = el!)}
+          ref={el => {
+            formRef.current = el!;
+          }}
           /*ref={formRef}*/
           onSubmit={e => {
             e.preventDefault();
