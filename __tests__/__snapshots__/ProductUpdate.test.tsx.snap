@@ -981,7 +981,7 @@ exports[`ProductUpdate updates a product 1`] = `
                           class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways css-1xylxj1-MuiTypography-root-MuiLink-root"
                           href="/products/168e9e0421affca8c52beb4"
                         >
-                          Product 1Another name
+                          Another name
                         </a>
                       </div>
                       <div

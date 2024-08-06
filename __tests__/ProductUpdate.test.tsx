@@ -64,6 +64,7 @@ describe('ProductUpdate', () => {
     } = within(modal);
 
     const nameInput = getByLabelTextInModal('Name');
+    await user.clear(nameInput);
     await user.type(nameInput, 'Another name');
 
     const descriptionInput = getByLabelTextInModal('Description');
@@ -78,7 +79,7 @@ describe('ProductUpdate', () => {
 
     await screen.findByText('Successfully updated');
     expect(container).toMatchSnapshot();
-    //const _updatedProduct = await screen.findByText('Another name');
+    const _updatedProduct = await screen.findByText('Another name');
     /*const updatedRow = updatedProduct.closest(
       '.MuiDataGrid-row'
     )! as HTMLDivElement;

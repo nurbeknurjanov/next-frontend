@@ -37,8 +37,8 @@ describe('ProductDelete', () => {
 
     expect(container).toMatchSnapshot();
 
-    const Product2 = await screen.findByText('Product 2');
-    const row = Product2.closest('.MuiDataGrid-row')! as HTMLDivElement;
+    const Product1 = await screen.findByText('Product 1');
+    const row = Product1.closest('.MuiDataGrid-row')! as HTMLDivElement;
     const { getByLabelText: getByLabelTextInRow } = within(row);
 
     const moreButton = getByLabelTextInRow('more');
@@ -67,6 +67,6 @@ describe('ProductDelete', () => {
 
     await waitFor(() => expect(modal).not.toBeInTheDocument());
     await screen.findByText('Successfully deleted');
-    await waitFor(() => expect(Product2).not.toBeInTheDocument());
+    await waitFor(() => expect(Product1).not.toBeInTheDocument());
   });
 });
