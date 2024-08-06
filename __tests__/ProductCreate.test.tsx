@@ -40,11 +40,10 @@ describe('ProductCreate', () => {
     expect(container).toMatchSnapshot();
     const modal = await screen.findByRole('dialog');
     expect(modal).toBeInTheDocument();
-    const heading = await screen.findByRole('heading', {
+    await screen.findByRole('heading', {
       level: 2,
       name: /Create product/i,
     });
-    expect(heading).toHaveTextContent('Create product');
 
     const {
       getByLabelText: getByLabelTextInModal,
@@ -68,6 +67,9 @@ describe('ProductCreate', () => {
     await waitFor(() => expect(descriptionInput).not.toBeInTheDocument());
 
     await screen.findByText('Successfully created');
-    await screen.findByText('New product');
+    const newProduct = await screen.findByText('New product');
+    const row = newProduct.closest('.MuiDataGrid-row')! as HTMLDivElement;
+    expect(row).toBeInTheDocument();
+    expect(row).toHaveTextContent('Some description');
   });
 });

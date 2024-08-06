@@ -42,7 +42,11 @@ export const productsHandlers = [
     async ({ request }) => {
       const body = await request.json();
       await delay();
-      const newMock: IProduct = { ...productMocksData[0], ...body } as IProduct;
+      const newMock: IProduct = {
+        ...productMocksData[0],
+        ...body,
+        _id: productMocksData.length + '68e9e0421affca8c52beb4',
+      } as IProduct;
       productMocksData.push(newMock);
       return HttpResponse.json(newMock);
     }

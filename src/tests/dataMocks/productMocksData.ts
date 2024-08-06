@@ -1,7 +1,7 @@
 import { IProduct } from 'api/productsApi';
 
 const productMocksData: IProduct[] = [];
-for (let i = 0; i <= 5; i++) {
+for (let i = 0; i < 6; i++) {
   const model: IProduct = {
     name: 'Product ' + i,
     description: '',

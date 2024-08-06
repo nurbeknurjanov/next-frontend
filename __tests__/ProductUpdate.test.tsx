@@ -37,23 +37,28 @@ describe('ProductUpdate', () => {
 
     const Product1 = await screen.findByText('Product 1');
     expect(container).toMatchSnapshot();
+
     const row = Product1.closest('.MuiDataGrid-row')! as HTMLDivElement;
-    const { getByLabelText } = within(row);
-    const moreButton = getByLabelText('more');
+    const { getByLabelText: getByLabelTextInRow } = within(row);
+
+    const moreButton = getByLabelTextInRow('more');
     await user.click(moreButton);
+
     const tooltip = screen.getByRole('tooltip');
-    const { getByRole } = within(tooltip);
+    expect(tooltip).toBeInTheDocument();
+    const { getByRole: getByRoleInTooltip } = within(tooltip);
     //console.log('tooltip', prettyDOM(tooltip));
-    const updateButton = getByRole('menuitem', {
+
+    const updateButton = getByRoleInTooltip('menuitem', {
       name: /Update/i,
     });
     await user.click(updateButton);
+
     const modal = await screen.findByRole('dialog');
     const heading = await screen.findByRole('heading', {
       level: 2,
       name: /Update product/i,
     });
-    expect(heading).toBeInTheDocument();
     expect(heading).toHaveTextContent('Update product');
     const {
       getByLabelText: getByLabelTextInModal,
