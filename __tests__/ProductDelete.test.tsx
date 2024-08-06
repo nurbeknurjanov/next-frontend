@@ -28,7 +28,7 @@ describe('ProductDelete', () => {
           },
           products: {
             productsPermissions: {
-              canUpdateProduct: true,
+              canDeleteProduct: true,
             },
           },
         },
@@ -49,42 +49,20 @@ describe('ProductDelete', () => {
     const { getByRole: getByRoleInTooltip } = within(tooltip);
     //console.log('tooltip', prettyDOM(tooltip));
 
-    const updateButton = getByRoleInTooltip('menuitem', {
-      name: /Update/i,
+    const deleteButton = getByRoleInTooltip('menuitem', {
+      name: /Delete/i,
     });
-    await user.click(updateButton);
+    await user.click(deleteButton);
 
     const modal = await screen.findByRole('dialog');
     expect(modal).toBeInTheDocument();
     await screen.findByRole('heading', {
       level: 2,
-      name: /Update product/i,
+      name: /Delete product/i,
     });
     const {
       getByLabelText: getByLabelTextInModal,
       getByRole: getByRoleInModal,
     } = within(modal);
-
-    const nameInput = getByLabelTextInModal('Name');
-    await user.type(nameInput, 'Another name');
-
-    const descriptionInput = getByLabelTextInModal('Description');
-    await user.type(descriptionInput, 'Another description');
-
-    const updateSubmitButton = getByRoleInModal('button', { name: 'Update' });
-    await user.click(updateSubmitButton);
-
-    await waitFor(() => expect(modal).not.toBeInTheDocument());
-    await waitFor(() => expect(nameInput).not.toBeInTheDocument());
-    await waitFor(() => expect(descriptionInput).not.toBeInTheDocument());
-
-    await screen.findByText('Successfully updated');
-    const _updatedProduct = await screen.findByText('Another name');
-    /*const updatedRow = updatedProduct.closest(
-      '.MuiDataGrid-row'
-    )! as HTMLDivElement;
-    expect(updatedRow).toBeInTheDocument();
-    expect(updatedRow).toHaveTextContent('Another description');*/
-    expect(row).toHaveTextContent('Another description');
   });
 });
