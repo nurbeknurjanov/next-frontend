@@ -17,7 +17,21 @@ describe('Product', () => {
     const { container } = renderWithProviders(
       <Content>
         <Products />
-      </Content>
+      </Content>,
+      {
+        preloadedState: {
+          common: {
+            hydrate: {
+              isHydratedToClient: true,
+            },
+          },
+          products: {
+            productsPermissions: {
+              canCreateProduct: true,
+            },
+          },
+        },
+      }
     );
 
     const createButton = screen.getByRole('button', { name: 'Create product' });
