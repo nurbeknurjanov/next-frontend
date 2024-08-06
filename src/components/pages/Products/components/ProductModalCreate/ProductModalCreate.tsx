@@ -73,6 +73,9 @@ export const ProductModalCreate: React.FC<IProps> = ({
                 label={tProduct('description')}
                 error={!!errors['description']}
                 helperText={errors['description']?.message}
+                multiline
+                rows={2}
+                maxRows={4}
                 {...register('description')}
               />
 

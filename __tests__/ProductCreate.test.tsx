@@ -52,7 +52,9 @@ describe('ProductCreate', () => {
     //console.log('name', modal.querySelector('input[name="name"]'));
     await user.type(nameInput, 'New product');
 
-    const descriptionInput = getByLabelText('Description');
+    const descriptionInput = getByLabelText('Description', {
+      selector: 'textarea',
+    });
     await user.type(descriptionInput, 'Some description');
 
     const createProductButton = screen.getByRole('button', { name: 'Create' });

@@ -4,12 +4,18 @@ import React from 'react';
 import {
   screen,
   within,
+  ByRoleOptions,
   waitFor /* fireEvent , act */,
 } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Products } from 'components/pages/Products';
 import { Content } from 'components/layout/Content';
 
+interface ByRoleOptions {
+  value: {
+    rowindex: number;
+  };
+}
 describe('ProductUpdate', () => {
   it('updates a product', async () => {
     const user = userEvent.setup();
