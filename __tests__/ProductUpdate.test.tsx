@@ -56,5 +56,13 @@ describe('ProductUpdate', () => {
     });
     await user.click(updateButton);
     const modal = await screen.findByRole('dialog');
+    const heading = await screen.findByRole('heading', {
+      level: 2,
+      name: /Update product/i,
+    });
+    expect(heading).toBeInTheDocument();
+    expect(heading).toHaveTextContent('Update product');
+    const { getByLabelText: getByLabelTextInModal } = within(modal);
+    const nameInput = getByLabelTextInModal('Name');
   });
 });

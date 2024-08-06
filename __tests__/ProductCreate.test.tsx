@@ -37,6 +37,8 @@ describe('ProductCreate', () => {
     const createButton = screen.getByRole('button', { name: 'Create product' });
     await user.click(createButton);
 
+    expect(container).toMatchSnapshot();
+    const modal = await screen.findByRole('dialog');
     const heading = await screen.findByRole('heading', {
       level: 2,
       name: /Create product/i,
@@ -44,8 +46,6 @@ describe('ProductCreate', () => {
     expect(heading).toBeInTheDocument();
     expect(heading).toHaveTextContent('Create product');
 
-    expect(container).toMatchSnapshot();
-    const modal = await screen.findByRole('dialog');
     const { getByLabelText, getByRole } = within(modal);
     const nameInput = getByRole('textbox', { name: 'Name' });
     //const nameInput = getByLabelText('Name');
