@@ -5,7 +5,8 @@ import {
   screen,
   within,
   //prettyDOM,
-  waitFor /* fireEvent , act */,
+  waitFor,
+  getByText /* fireEvent , act */,
 } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Products } from 'components/pages/Products';
@@ -60,9 +61,13 @@ describe('ProductDelete', () => {
       level: 2,
       name: /Delete product/i,
     });
-    const {
-      getByLabelText: getByLabelTextInModal,
-      getByRole: getByRoleInModal,
-    } = within(modal);
+    const { getByRole: getByRoleInModal } = within(modal);
+    screen.getByText('Are you sure to delete ?');
+    const deleteConfirmButton = getByRoleInModal('button', { name: 'Delete' });
+    await user.click(deleteConfirmButton);
+
+    await waitFor(() => expect(modal).not.toBeInTheDocument());
+    await screen.findByText('Successfully deleted');
+    await waitFor(() => expect(Product1).not.toBeInTheDocument());
   });
 });

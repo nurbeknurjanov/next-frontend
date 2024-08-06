@@ -65,4 +65,18 @@ export const productsHandlers = [
       return HttpResponse.json(element);
     }
   ),
+
+  http.delete<{ id: string }, never, IProduct, Path>(
+    `${BASE_URL}/products/:id`,
+    async ({ params }) => {
+      const element = productMocksData.find(el => el._id === params.id);
+      const elementIndex = productMocksData.findIndex(
+        el => el._id === params.id
+      );
+      productMocksData.splice(elementIndex, 1);
+
+      await delay();
+      return HttpResponse.json(element);
+    }
+  ),
 ];
