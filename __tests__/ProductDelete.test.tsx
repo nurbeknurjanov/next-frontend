@@ -28,51 +28,63 @@ describe('ProductDelete', () => {
           },
           products: {
             productsPermissions: {
-              canDeleteProduct: true,
+              canUpdateProduct: true,
             },
           },
         },
       }
     );
 
-    const Product1 = await screen.findByText('Product 1');
     expect(container).toMatchSnapshot();
+
+    const Product1 = await screen.findByText('Product 1');
     const row = Product1.closest('.MuiDataGrid-row')! as HTMLDivElement;
-    const { getByLabelText } = within(row);
-    const moreButton = getByLabelText('more');
+    const { getByLabelText: getByLabelTextInRow } = within(row);
+
+    const moreButton = getByLabelTextInRow('more');
     await user.click(moreButton);
+
     const tooltip = screen.getByRole('tooltip');
-    const { getByRole } = within(tooltip);
+    expect(tooltip).toBeInTheDocument();
+    const { getByRole: getByRoleInTooltip } = within(tooltip);
     //console.log('tooltip', prettyDOM(tooltip));
-    const updateButton = getByRole('menuitem', {
+
+    const updateButton = getByRoleInTooltip('menuitem', {
       name: /Update/i,
     });
     await user.click(updateButton);
+
     const modal = await screen.findByRole('dialog');
-    const heading = await screen.findByRole('heading', {
+    expect(modal).toBeInTheDocument();
+    await screen.findByRole('heading', {
       level: 2,
       name: /Update product/i,
     });
-    expect(heading).toBeInTheDocument();
-    expect(heading).toHaveTextContent('Update product');
     const {
       getByLabelText: getByLabelTextInModal,
       getByRole: getByRoleInModal,
     } = within(modal);
+
     const nameInput = getByLabelTextInModal('Name');
     await user.type(nameInput, 'Another name');
 
     const descriptionInput = getByLabelTextInModal('Description');
     await user.type(descriptionInput, 'Another description');
 
-    const updateProductButton = getByRoleInModal('button', { name: 'Update' });
-    await user.click(updateProductButton);
+    const updateSubmitButton = getByRoleInModal('button', { name: 'Update' });
+    await user.click(updateSubmitButton);
 
     await waitFor(() => expect(modal).not.toBeInTheDocument());
     await waitFor(() => expect(nameInput).not.toBeInTheDocument());
     await waitFor(() => expect(descriptionInput).not.toBeInTheDocument());
 
     await screen.findByText('Successfully updated');
-    await screen.findByText('Another name');
+    const _updatedProduct = await screen.findByText('Another name');
+    /*const updatedRow = updatedProduct.closest(
+      '.MuiDataGrid-row'
+    )! as HTMLDivElement;
+    expect(updatedRow).toBeInTheDocument();
+    expect(updatedRow).toHaveTextContent('Another description');*/
+    expect(row).toHaveTextContent('Another description');
   });
 });
