@@ -14,6 +14,16 @@ import { assign } from 'shared/utils';
 type Path = `${typeof BASE_URL}/${string}`;
 
 export const productsHandlers = [
+  http.get<{ id: string }, never, IProduct, Path>(
+    `${BASE_URL}/products/:id`,
+    async ({ params }) => {
+      const element = productMocksData.find(el => el._id === params.id);
+
+      await delay();
+      return HttpResponse.json(element);
+    }
+  ),
+
   http.get<
     never,
     IProductFilters & IProductSort & IPaginationRequest,
