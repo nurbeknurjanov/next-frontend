@@ -10,7 +10,16 @@ describe('Products', () => {
     const user = userEvent.setup();
 
     const { container, getByText: _getByText } = renderWithProviders(
-      <Products />
+      <Products />,
+      {
+        preloadedState: {
+          common: {
+            hydrate: {
+              isHydratedToClient: true,
+            },
+          },
+        },
+      }
     );
 
     await waitFor(() => container.querySelector('.MuiCircularProgress-root'));
