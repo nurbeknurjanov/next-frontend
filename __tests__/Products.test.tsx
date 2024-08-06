@@ -26,8 +26,8 @@ describe('Products', () => {
     await screen.findByText('Product 1');
     const inputFilterName = screen.getAllByLabelText('Name')[0];
     await user.type(inputFilterName, 'Product 5');
-    const searchButton = screen.getByRole('button', { name: 'Search' });
-    await user.click(searchButton);
+    const searchSubmitButton = screen.getByRole('button', { name: 'Search' });
+    await user.click(searchSubmitButton);
     //fireEvent.change(inputFilterName, { target: { value: 'Product 5' } });
     //fireEvent.click(screen.getByText(/click me/i))
     /*await act(async () => {

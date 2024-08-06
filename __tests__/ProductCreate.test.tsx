@@ -39,26 +39,29 @@ describe('ProductCreate', () => {
 
     expect(container).toMatchSnapshot();
     const modal = await screen.findByRole('dialog');
+    expect(modal).toBeInTheDocument();
     const heading = await screen.findByRole('heading', {
       level: 2,
       name: /Create product/i,
     });
-    expect(heading).toBeInTheDocument();
     expect(heading).toHaveTextContent('Create product');
 
-    const { getByLabelText, getByRole } = within(modal);
-    const nameInput = getByRole('textbox', { name: 'Name' });
+    const {
+      getByLabelText: getByLabelTextInModal,
+      getByRole: getByRoleInModal,
+    } = within(modal);
+    const nameInput = getByRoleInModal('textbox', { name: 'Name' });
     //const nameInput = getByLabelText('Name');
     //console.log('name', modal.querySelector('input[name="name"]'));
     await user.type(nameInput, 'New product');
 
-    const descriptionInput = getByLabelText('Description', {
+    const descriptionInput = getByLabelTextInModal('Description', {
       selector: 'textarea',
     });
     await user.type(descriptionInput, 'Some description');
 
-    const createProductButton = screen.getByRole('button', { name: 'Create' });
-    await user.click(createProductButton);
+    const createSubmitButton = screen.getByRole('button', { name: 'Create' });
+    await user.click(createSubmitButton);
 
     await waitFor(() => expect(modal).not.toBeInTheDocument());
     await waitFor(() => expect(nameInput).not.toBeInTheDocument());
