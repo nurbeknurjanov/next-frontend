@@ -21,6 +21,7 @@ export default async function middleware(req: NextRequest) {
     /products\/\w*\d\w*\/update/
   );
   const protectedUrls =
+    pathname.includes('/profile') ||
     pathname.includes('/users') ||
     pathname.includes('/files') ||
     protectedUpdateProductUrl;
