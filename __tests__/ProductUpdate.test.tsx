@@ -85,6 +85,7 @@ describe('ProductUpdate', () => {
     )! as HTMLDivElement;
     expect(updatedRow).toBeInTheDocument();
     expect(updatedRow).toHaveTextContent('Another description');*/
+    expect(Product1).toHaveTextContent('Another name');
     expect(row).toHaveTextContent('Another description');
   });
 });
