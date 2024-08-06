@@ -17,6 +17,9 @@ export async function authorizeUser() {
 
   try {
     const parsed = await JWT.parseToken(accessTokenCookie.value);
+    if (!parsed?.user?._id) {
+      throw new Error('Bad access token');
+    }
     return serverStore.dispatch(authorize({ user: parsed.user }));
   } catch (error) {
     try {

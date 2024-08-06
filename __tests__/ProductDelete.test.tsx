@@ -28,7 +28,7 @@ describe('ProductDelete', () => {
           },
           products: {
             productsPermissions: {
-              canUpdateProduct: true,
+              canDeleteProduct: true,
             },
           },
         },
