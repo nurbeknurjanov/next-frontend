@@ -71,6 +71,7 @@ export const productsHandlers = [
       Object.entries(body).map<void>(([key, value]) => {
         assign(element!, key as keyof IProduct, value);
       });
+
       await delay();
       return HttpResponse.json(element);
     }

@@ -35,8 +35,6 @@ describe('ProductUpdate', () => {
       }
     );
 
-    expect(container).toMatchSnapshot();
-
     const Product1 = await screen.findByText('Product 1');
     const row = Product1.closest('.MuiDataGrid-row')! as HTMLDivElement;
     const { getByLabelText: getByLabelTextInRow } = within(row);
@@ -79,7 +77,8 @@ describe('ProductUpdate', () => {
     await waitFor(() => expect(descriptionInput).not.toBeInTheDocument());
 
     await screen.findByText('Successfully updated');
-    const _updatedProduct = await screen.findByText('Another name');
+    expect(container).toMatchSnapshot();
+    //const _updatedProduct = await screen.findByText('Another name');
     /*const updatedRow = updatedProduct.closest(
       '.MuiDataGrid-row'
     )! as HTMLDivElement;

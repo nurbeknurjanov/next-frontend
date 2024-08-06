@@ -11,8 +11,8 @@ import userEvent from '@testing-library/user-event';
 import { Products } from 'components/pages/Products';
 import { Content } from 'components/layout/Content';
 
-describe('ProductUpdate', () => {
-  it('updates a product', async () => {
+describe('ProductView', () => {
+  it('views a product', async () => {
     const user = userEvent.setup();
 
     const { container } = renderWithProviders(

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ProductUpdate updates a product 1`] = `
+exports[`ProductView views a product 1`] = `
 <div>
   <section
     class="container"

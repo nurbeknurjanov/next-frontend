@@ -5,7 +5,7 @@ import { screen, waitFor /* fireEvent , act */ } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Products } from 'components/pages/Products';
 
-describe('Products', () => {
+describe('ProductsList', () => {
   it('renders a list of products', async () => {
     const user = userEvent.setup();
 
