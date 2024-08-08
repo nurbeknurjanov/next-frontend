@@ -1,9 +1,9 @@
 import { useUsersFilters } from './useUsersFilters';
 import {
   FormControl,
-  InputLabel,
+  /*InputLabel,
   MenuItem,
-  Select,
+  Select,*/
   TextField,
   FormLabel,
   FormGroup,
