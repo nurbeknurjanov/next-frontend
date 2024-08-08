@@ -71,7 +71,7 @@ export const UserModalUpdate: React.FC<IProps> = ({
     ([value, label]) => ({ label, value })
   );
 
-  //register('status');
+  register('status');
 
   return (
     <Dialog open onClose={onClose}>
@@ -138,7 +138,7 @@ export const UserModalUpdate: React.FC<IProps> = ({
               )}
             </FormControl>
 
-            <FormControl sx={{ mb: 2 }} error={!!errors['status']}>
+            {/*<FormControl sx={{ mb: 2 }} error={!!errors['status']}>
               <InputLabel>{tUser('status')}</InputLabel>
               <Select
                 label={tUser('status')}
@@ -154,7 +154,7 @@ export const UserModalUpdate: React.FC<IProps> = ({
               {!!errors['status'] && (
                 <FormHelperText>{errors['status'].message}</FormHelperText>
               )}
-            </FormControl>
+            </FormControl>*/}
 
             <Autocomplete
               sx={{ mb: 2 }}
