@@ -40,8 +40,9 @@ export type IUser = {
 type IUserWithoutSystemFields = Omit<IUser, '_id' | 'createdAt' | 'updatedAt'>;
 export interface IUserPost extends Nullable<IUserWithoutSystemFields> {}
 export interface IUserFilters
-  extends Partial<Nullable<IUserWithoutSystemFields>> {
+  extends Omit<Partial<Nullable<IUserWithoutSystemFields>>, 'status'> {
   id?: string | null;
+  status: STATUS_ENUM[];
 }
 export type IUserSortFields = keyof IUserWithoutSystemFields;
 export interface IUserSort extends ISort<IUserSortFields> {}

@@ -4,12 +4,14 @@ import { IUserFilters } from 'api/usersApi';
 import { useAppSelector } from 'store/hooks';
 import { FormEvent, useEffect, useRef } from 'react';
 import { getUsersStateSelector } from 'store/users/selectors';
+import { useTranslatedData } from 'shared/hooks';
 
 export function useUsersFilters({ filters, setFilters }: IProps) {
   const previousFilters = useRef<IUserFilters | null>(null);
   const getUsersState = useAppSelector(getUsersStateSelector);
 
-  const defaultValues = { name: null, email: null };
+  const { sexOptions, statusOptions } = useTranslatedData();
+  const defaultValues = { name: null, email: null, status: [] };
   const {
     register,
     handleSubmit,
@@ -55,5 +57,6 @@ export function useUsersFilters({ filters, setFilters }: IProps) {
     isValid,
     getUsersState,
     previousFilters,
+    statusOptions,
   };
 }

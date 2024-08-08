@@ -1,5 +1,11 @@
 import { useUsersFilters } from './useUsersFilters';
-import { TextField } from '@mui/material';
+import {
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+} from '@mui/material';
 import { Button } from 'shared/ui';
 import React from 'react';
 import { IUserFilters } from 'api/usersApi';
@@ -7,6 +13,7 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import { useTranslations } from 'next-intl';
 import { isEqual } from 'lodash';
+import { SelectChangeEvent } from '@mui/material/Select';
 
 export interface IProps {
   filters: IUserFilters;
@@ -25,8 +32,15 @@ export const UsersFilters = ({ filters, setFilters }: IProps) => {
     isValid,
     getUsersState,
     previousFilters,
+    statusOptions,
   } = useUsersFilters({ filters, setFilters });
 
+  console.log("watch('status')", watch('status'));
+  /*const handleChangeMultiSelect = (event: SelectChangeEvent<string[]>) => {
+    const {
+      target: { value },
+    } = event;
+  };*/
   return (
     <Card>
       <CardContent>
@@ -41,6 +55,21 @@ export const UsersFilters = ({ filters, setFilters }: IProps) => {
             {...register('email')}
             InputLabelProps={{ shrink: !!watch('email') }}
           />
+          <FormControl sx={{ mb: 2 }}>
+            <InputLabel>{tUser('status')}</InputLabel>
+            <Select
+              label={tUser('status')}
+              value={watch('status')}
+              {...register('status')}
+              multiple
+            >
+              {Object.entries(statusOptions).map(([value, label]) => (
+                <MenuItem key={value} value={value}>
+                  {label}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
 
           <Button
             type={'submit'}
