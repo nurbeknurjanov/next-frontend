@@ -70,7 +70,7 @@ export const UsersFilters = ({ filters, setFilters }: IProps) => {
                   );
                   values.splice(index, 1);
                 }
-                setValue('sex', values);
+                setValue('sex', values, { shouldDirty: true });
               }}
             >
               {Object.entries(sexOptions).map(([value, label]) => (
