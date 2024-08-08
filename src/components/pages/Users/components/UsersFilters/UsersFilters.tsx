@@ -32,6 +32,7 @@ export const UsersFilters = ({ filters, setFilters }: IProps) => {
     getUsersState,
     previousFilters,
     statusOptions,
+    sexOptions,
   } = useUsersFilters({ filters, setFilters });
 
   return (

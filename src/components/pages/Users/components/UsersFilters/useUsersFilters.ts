@@ -11,7 +11,7 @@ export function useUsersFilters({ filters, setFilters }: IProps) {
   const getUsersState = useAppSelector(getUsersStateSelector);
 
   const { sexOptions, statusOptions } = useTranslatedData();
-  const defaultValues = { name: null, email: null, status: [] };
+  const defaultValues = { name: null, email: null, status: [], sex: [] };
   const {
     register,
     handleSubmit,
@@ -58,5 +58,6 @@ export function useUsersFilters({ filters, setFilters }: IProps) {
     getUsersState,
     previousFilters,
     statusOptions,
+    sexOptions,
   };
 }
