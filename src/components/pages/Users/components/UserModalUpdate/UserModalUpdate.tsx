@@ -158,8 +158,9 @@ export const UserModalUpdate: React.FC<IProps> = ({
             <Autocomplete
               sx={{ mb: 2 }}
               value={
-                autoCompleteOptions.find(el => el.value === watch('status')) ??
-                null
+                autoCompleteOptions.find(
+                  el => el.value === String(watch('status'))
+                ) ?? null
               }
               onChange={(event, value) =>
                 setValue('status', value!?.value ?? null, {
