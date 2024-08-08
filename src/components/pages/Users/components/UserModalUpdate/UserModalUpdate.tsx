@@ -21,6 +21,7 @@ import { useRef } from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
 import { useTranslatedData } from 'shared/hooks';
 import { omit } from 'lodash';
+import Autocomplete from '@mui/material/Autocomplete';
 
 export type IProps = {
   id: string;
@@ -65,6 +66,10 @@ export const UserModalUpdate: React.FC<IProps> = ({
   };*/
 
   const { sexOptions, statusOptions } = useTranslatedData();
+
+  const autoCompleteOptions = Object.entries(statusOptions).map(
+    ([value, label]) => ({ label, value })
+  );
 
   return (
     <Dialog open onClose={onClose}>
@@ -128,7 +133,7 @@ export const UserModalUpdate: React.FC<IProps> = ({
               )}
             </FormControl>
 
-            <FormControl sx={{ mb: 2 }}>
+            {/*<FormControl sx={{ mb: 2 }}>
               <InputLabel>{tUser('status')}</InputLabel>
               <Select
                 label={tUser('status')}
@@ -141,7 +146,45 @@ export const UserModalUpdate: React.FC<IProps> = ({
                   </MenuItem>
                 ))}
               </Select>
-            </FormControl>
+            </FormControl>*/}
+
+            <Autocomplete
+              value={
+                autoCompleteOptions.find(el => {
+                  if (
+                    watch('status') === null ||
+                    watch('status') === undefined
+                  ) {
+                    return false;
+                  }
+
+                  return Number(el.value) === Number(watch('status'));
+                }) ?? null
+              }
+              onChange={(event, value) => {
+                if (value === null) {
+                  return setValue('status', null);
+                }
+
+                setValue('status', Number(value.value), {
+                  shouldDirty: true,
+                });
+              }}
+              options={autoCompleteOptions}
+              /*renderOption={(props, option, { selected }) => (
+                <li {...props}>
+                  <Checkbox icon={icon} checkedIcon={checkedIcon} checked={selected} />
+                  {option.title}
+                </li>
+              )}*/
+              getOptionLabel={option => option.label}
+              isOptionEqualToValue={(option, value) =>
+                option.value === value.value
+              }
+              renderInput={params => {
+                return <TextField {...params} label={tUser('status')} />;
+              }}
+            />
           </form>
         )}
       </DialogContent>
