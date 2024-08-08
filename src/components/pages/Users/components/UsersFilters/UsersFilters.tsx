@@ -13,7 +13,6 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import { useTranslations } from 'next-intl';
 import { isEqual } from 'lodash';
-import { SelectChangeEvent } from '@mui/material/Select';
 
 export interface IProps {
   filters: IUserFilters;
@@ -35,12 +34,6 @@ export const UsersFilters = ({ filters, setFilters }: IProps) => {
     statusOptions,
   } = useUsersFilters({ filters, setFilters });
 
-  console.log("watch('status')", watch('status'));
-  /*const handleChangeMultiSelect = (event: SelectChangeEvent<string[]>) => {
-    const {
-      target: { value },
-    } = event;
-  };*/
   return (
     <Card>
       <CardContent>

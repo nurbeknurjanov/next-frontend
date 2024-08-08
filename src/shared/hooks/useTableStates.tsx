@@ -75,13 +75,17 @@ export function useTableStates<TableFilters extends Record<string, any>>(
   const filters = useMemo<TableFilters>(() => {
     const values = {} as TableFilters;
     fieldNamesForFilters.forEach(fieldName => {
-      const value = query[fieldName as string];
+      const value =
+        fieldName === 'status'
+          ? searchParams.getAll(fieldName as string)
+          : searchParams.get(fieldName as string);
+
       if (value) {
         values[fieldName] = value as any;
       }
     });
     return values;
-  }, [fieldNamesForFilters, query]);
+  }, [fieldNamesForFilters, searchParams]);
   const setFilters = useCallback(
     (filters: TableFilters) => {
       fieldNamesForFilters.forEach(fieldName => {
