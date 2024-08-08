@@ -6,7 +6,8 @@ import { useSearchParams } from 'next/navigation';
 import { usePathname, useRouter } from 'navigation';
 
 export function useTableStates<TableFilters extends Record<string, any>>(
-  fieldNamesForFilters: (keyof TableFilters)[]
+  fieldNamesForFilters: (keyof TableFilters)[],
+  multipleFieldNames?: (keyof TableFilters)[]
 ) {
   const router = useRouter();
   const pathname = usePathname();
@@ -75,10 +76,9 @@ export function useTableStates<TableFilters extends Record<string, any>>(
   const filters = useMemo<TableFilters>(() => {
     const values = {} as TableFilters;
     fieldNamesForFilters.forEach(fieldName => {
-      const value =
-        fieldName === 'status'
-          ? searchParams.getAll(fieldName as string)
-          : searchParams.get(fieldName as string);
+      const value = multipleFieldNames?.includes(fieldName)
+        ? searchParams.getAll(fieldName as string)
+        : searchParams.get(fieldName as string);
 
       if (value) {
         values[fieldName] = value as any;
