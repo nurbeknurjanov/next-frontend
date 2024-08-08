@@ -139,9 +139,9 @@ export const UsersFilters = ({ filters, setFilters }: IProps) => {
             isOptionEqualToValue={(option, value) =>
               option.value === value.value
             }
-            renderInput={params => {
-              return <TextField {...params} label={tUser('status')} />;
-            }}
+            renderInput={params => (
+              <TextField {...params} label={tUser('status')} />
+            )}
           />
 
           <Button

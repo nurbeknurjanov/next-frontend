@@ -158,30 +158,15 @@ export const UserModalUpdate: React.FC<IProps> = ({
             <Autocomplete
               sx={{ mb: 2 }}
               value={
-                autoCompleteOptions.find(el => {
-                  if (
-                    watch('status') === null ||
-                    watch('status') === undefined
-                  ) {
-                    return false;
-                  }
-
-                  return Number(el.value) === Number(watch('status'));
-                }) ?? null
+                autoCompleteOptions.find(el => el.value === watch('status')) ??
+                null
               }
-              onChange={(event, value) => {
-                if (value === null) {
-                  return setValue('status', null, {
-                    shouldDirty: true,
-                    shouldValidate: true,
-                  });
-                }
-
-                setValue('status', Number(value.value), {
+              onChange={(event, value) =>
+                setValue('status', value!?.value ?? null, {
                   shouldDirty: true,
                   shouldValidate: true,
-                });
-              }}
+                })
+              }
               options={autoCompleteOptions}
               /*renderOption={(props, option, { selected }) => (
                 <li {...props}>
@@ -197,16 +182,14 @@ export const UserModalUpdate: React.FC<IProps> = ({
               isOptionEqualToValue={(option, value) =>
                 option.value === value.value
               }
-              renderInput={params => {
-                return (
-                  <TextField
-                    {...params}
-                    label={tUser('status')}
-                    error={!!errors['status']}
-                    helperText={errors['status']?.message}
-                  />
-                );
-              }}
+              renderInput={params => (
+                <TextField
+                  {...params}
+                  label={tUser('status')}
+                  error={!!errors['status']}
+                  helperText={errors['status']?.message}
+                />
+              )}
             />
           </form>
         )}
