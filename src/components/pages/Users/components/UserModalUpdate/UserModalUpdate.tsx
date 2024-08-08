@@ -71,6 +71,8 @@ export const UserModalUpdate: React.FC<IProps> = ({
     ([value, label]) => ({ label, value })
   );
 
+  //register('status');
+
   return (
     <Dialog open onClose={onClose}>
       <DialogTitle>{tUserPage('update')}</DialogTitle>
@@ -116,7 +118,10 @@ export const UserModalUpdate: React.FC<IProps> = ({
                 value={watch('sex')}
                 {...omit(register('sex'), 'onBlur')}
                 onChange={(e, value) => {
-                  setValue('sex', Number(value), { shouldDirty: true });
+                  setValue('sex', Number(value), {
+                    shouldDirty: true,
+                    shouldValidate: true,
+                  });
                 }}
               >
                 {Object.entries(sexOptions).map(([value, label]) => (
@@ -133,7 +138,7 @@ export const UserModalUpdate: React.FC<IProps> = ({
               )}
             </FormControl>
 
-            {/*<FormControl sx={{ mb: 2 }}>
+            <FormControl sx={{ mb: 2 }} error={!!errors['status']}>
               <InputLabel>{tUser('status')}</InputLabel>
               <Select
                 label={tUser('status')}
@@ -146,45 +151,64 @@ export const UserModalUpdate: React.FC<IProps> = ({
                   </MenuItem>
                 ))}
               </Select>
-            </FormControl>*/}
+              {!!errors['status'] && (
+                <FormHelperText>{errors['status'].message}</FormHelperText>
+              )}
+            </FormControl>
 
-            <Autocomplete
-              value={
-                autoCompleteOptions.find(el => {
-                  if (
-                    watch('status') === null ||
-                    watch('status') === undefined
-                  ) {
-                    return false;
+            <FormControl sx={{ mb: 2 }} error={!!errors['status']}>
+              <Autocomplete
+                value={
+                  autoCompleteOptions.find(el => {
+                    if (
+                      watch('status') === null ||
+                      watch('status') === undefined
+                    ) {
+                      return false;
+                    }
+
+                    return Number(el.value) === Number(watch('status'));
+                  }) ?? null
+                }
+                onChange={(event, value) => {
+                  if (value === null) {
+                    return setValue('status', null, {
+                      shouldDirty: true,
+                      shouldValidate: true,
+                    });
                   }
 
-                  return Number(el.value) === Number(watch('status'));
-                }) ?? null
-              }
-              onChange={(event, value) => {
-                if (value === null) {
-                  return setValue('status', null);
+                  setValue('status', Number(value.value), {
+                    shouldDirty: true,
+                    shouldValidate: true,
+                  });
+                }}
+                options={autoCompleteOptions}
+                /*renderOption={(props, option, { selected }) => (
+                  <li {...props}>
+                    <Checkbox
+                      icon={icon}
+                      checkedIcon={checkedIcon}
+                      checked={selected}
+                    />
+                    {option.label}
+                  </li>
+                )}*/
+                getOptionLabel={option => option.label}
+                isOptionEqualToValue={(option, value) =>
+                  option.value === value.value
                 }
-
-                setValue('status', Number(value.value), {
-                  shouldDirty: true,
-                });
-              }}
-              options={autoCompleteOptions}
-              /*renderOption={(props, option, { selected }) => (
-                <li {...props}>
-                  <Checkbox icon={icon} checkedIcon={checkedIcon} checked={selected} />
-                  {option.title}
-                </li>
-              )}*/
-              getOptionLabel={option => option.label}
-              isOptionEqualToValue={(option, value) =>
-                option.value === value.value
-              }
-              renderInput={params => {
-                return <TextField {...params} label={tUser('status')} />;
-              }}
-            />
+                renderInput={params => {
+                  return (
+                    <TextField
+                      {...params}
+                      label={tUser('status')}
+                      helperText={errors['status']?.message}
+                    />
+                  );
+                }}
+              />
+            </FormControl>
           </form>
         )}
       </DialogContent>
