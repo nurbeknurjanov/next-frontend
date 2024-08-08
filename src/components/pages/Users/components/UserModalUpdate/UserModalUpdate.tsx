@@ -70,7 +70,6 @@ export const UserModalUpdate: React.FC<IProps> = ({
   const autoCompleteOptions = Object.entries(statusOptions).map(
     ([value, label]) => ({ label, value })
   );
-
   register('status');
 
   return (

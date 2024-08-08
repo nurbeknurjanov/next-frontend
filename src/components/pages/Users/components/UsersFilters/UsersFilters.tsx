@@ -12,11 +12,12 @@ import {
 } from '@mui/material';
 import { Button } from 'shared/ui';
 import React from 'react';
-import { IUserFilters, SEX_ENUM } from 'api/usersApi';
+import { IUserFilters, SEX_ENUM, STATUS_ENUM } from 'api/usersApi';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import { useTranslations } from 'next-intl';
 import { isEqual } from 'lodash';
+import Autocomplete from '@mui/material/Autocomplete';
 //import { SelectChangeEvent } from '@mui/material/Select';
 
 export interface IProps {
@@ -40,6 +41,11 @@ export const UsersFilters = ({ filters, setFilters }: IProps) => {
     statusOptions,
     sexOptions,
   } = useUsersFilters({ filters, setFilters });
+
+  const autoCompleteOptions = Object.entries(statusOptions).map(
+    ([value, label]) => ({ label, value: value as unknown as STATUS_ENUM })
+  );
+  register('status');
 
   return (
     <Card>
@@ -90,7 +96,7 @@ export const UsersFilters = ({ filters, setFilters }: IProps) => {
             </FormGroup>
           </FormControl>
 
-          <FormControl sx={{ mb: 2 }}>
+          {/*<FormControl sx={{ mb: 2 }}>
             <InputLabel>{tUser('status')}</InputLabel>
             <Select
               label={tUser('status')}
@@ -104,7 +110,39 @@ export const UsersFilters = ({ filters, setFilters }: IProps) => {
                 </MenuItem>
               ))}
             </Select>
-          </FormControl>
+          </FormControl>*/}
+          <Autocomplete
+            sx={{ mb: 2 }}
+            multiple
+            value={
+              autoCompleteOptions.filter(el =>
+                watch('status')?.includes(el.value)
+              ) ?? []
+            }
+            onChange={(event, values) =>
+              setValue('status', values?.map(el => el.value) ?? [], {
+                shouldDirty: true,
+              })
+            }
+            options={autoCompleteOptions}
+            /*renderOption={(props, option, { selected }) => (
+              <li {...props}>
+                <Checkbox
+                  icon={icon}
+                  checkedIcon={checkedIcon}
+                  checked={selected}
+                />
+                {option.label}
+              </li>
+            )}*/
+            getOptionLabel={option => option.label}
+            isOptionEqualToValue={(option, value) =>
+              option.value === value.value
+            }
+            renderInput={params => {
+              return <TextField {...params} label={tUser('status')} />;
+            }}
+          />
 
           <Button
             type={'submit'}
