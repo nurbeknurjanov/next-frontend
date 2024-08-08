@@ -43,8 +43,9 @@ export function useUsers() {
     refreshList,
     previousRefreshListKey,
   } = useTableStates<IUserFilters>(
-    ['name', 'email', 'status', 'sex'],
-    ['status', 'sex']
+    ['name', 'email', 'status', 'sex', 'createdAt'],
+    ['status', 'sex'],
+    ['createdAt']
   );
 
   const getUsers = useCallback(

@@ -44,6 +44,9 @@ export interface IUserFilters
   id?: string | null;
   status: STATUS_ENUM[];
   sex: SEX_ENUM[];
+  createdAtFrom: string;
+  createdAtTo: string;
+  createdAt: string;
 }
 export type IUserSortFields = keyof IUserWithoutSystemFields;
 export interface IUserSort extends ISort<IUserSortFields> {}

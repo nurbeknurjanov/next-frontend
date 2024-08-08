@@ -7,7 +7,8 @@ import { usePathname, useRouter } from 'navigation';
 
 export function useTableStates<TableFilters extends Record<string, any>>(
   fieldNamesForFilters: (keyof TableFilters)[],
-  multipleFieldNames?: (keyof TableFilters)[]
+  multipleFieldNames?: (keyof TableFilters)[],
+  rangeFieldNames?: (keyof TableFilters)[]
 ) {
   const router = useRouter();
   const pathname = usePathname();
