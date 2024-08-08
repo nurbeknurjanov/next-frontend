@@ -53,6 +53,7 @@ export function useUsersFilters({ filters, setFilters }: IProps) {
     onResetForm,
     register,
     watch,
+    setValue,
     isDirty,
     isValid,
     getUsersState,

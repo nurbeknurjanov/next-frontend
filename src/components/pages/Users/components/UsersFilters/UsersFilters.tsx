@@ -5,14 +5,19 @@ import {
   MenuItem,
   Select,
   TextField,
+  FormLabel,
+  FormGroup,
+  FormControlLabel,
+  Checkbox,
 } from '@mui/material';
 import { Button } from 'shared/ui';
 import React from 'react';
-import { IUserFilters } from 'api/usersApi';
+import { IUserFilters, SEX_ENUM } from 'api/usersApi';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import { useTranslations } from 'next-intl';
 import { isEqual } from 'lodash';
+//import { SelectChangeEvent } from '@mui/material/Select';
 
 export interface IProps {
   filters: IUserFilters;
@@ -27,6 +32,7 @@ export const UsersFilters = ({ filters, setFilters }: IProps) => {
     onResetForm,
     register,
     watch,
+    setValue,
     isDirty,
     isValid,
     getUsersState,
@@ -49,6 +55,41 @@ export const UsersFilters = ({ filters, setFilters }: IProps) => {
             {...register('email')}
             InputLabelProps={{ shrink: !!watch('email') }}
           />
+
+          <FormControl sx={{ mb: 2 }}>
+            <FormLabel>{tUser('sex')}</FormLabel>
+            <FormGroup
+              {...register('sex')}
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                const values = watch('sex') ?? [];
+                if (event.target.checked) {
+                  values.push(event.target.value as unknown as SEX_ENUM);
+                } else {
+                  const index = values.indexOf(
+                    event.target.value as unknown as SEX_ENUM
+                  );
+                  values.splice(index, 1);
+                }
+                setValue('sex', values);
+              }}
+            >
+              {Object.entries(sexOptions).map(([value, label]) => (
+                <FormControlLabel
+                  key={value}
+                  control={
+                    <Checkbox
+                      checked={watch('sex')?.includes(
+                        value as unknown as SEX_ENUM
+                      )}
+                      value={value}
+                    />
+                  }
+                  label={label}
+                />
+              ))}
+            </FormGroup>
+          </FormControl>
+
           <FormControl sx={{ mb: 2 }}>
             <InputLabel>{tUser('status')}</InputLabel>
             <Select

@@ -21,6 +21,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import { useRef } from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
 import { useTranslatedData } from 'shared/hooks';
+import { omit } from 'lodash';
 
 export type IProps = {
   onClose: () => void;
@@ -47,12 +48,6 @@ export const UserModalCreate: React.FC<IProps> = ({ onClose, afterCreate }) => {
     onClose,
     afterCreate,
   });
-
-  const {
-    onChange: _onChange,
-    onBlur: _onBlur,
-    ...sexRegisterOptions
-  } = register('sex');
 
   const { sexOptions, statusOptions } = useTranslatedData();
 
@@ -106,7 +101,7 @@ export const UserModalCreate: React.FC<IProps> = ({ onClose, afterCreate }) => {
               <FormLabel>{tUser('sex')}</FormLabel>
               <RadioGroup
                 value={watch('sex')}
-                {...sexRegisterOptions}
+                {...omit(register('sex'), 'onBlur')}
                 onChange={(e, value) => {
                   setValue('sex', Number(value));
                 }}
