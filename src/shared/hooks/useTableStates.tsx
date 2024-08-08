@@ -85,7 +85,7 @@ export function useTableStates<TableFilters extends Record<string, any>>(
       }
     });
     return values;
-  }, [fieldNamesForFilters, searchParams]);
+  }, [fieldNamesForFilters, multipleFieldNames, searchParams]);
   const setFilters = useCallback(
     (filters: TableFilters) => {
       fieldNamesForFilters.forEach(fieldName => {

@@ -20,6 +20,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import { useRef } from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
 import { useTranslatedData } from 'shared/hooks';
+import { omit } from 'lodash';
 
 export type IProps = {
   id: string;
@@ -54,12 +55,6 @@ export const UserModalUpdate: React.FC<IProps> = ({
     onClose,
     afterUpdate,
   });
-
-  const {
-    onChange: _onChange,
-    onBlur: _onBlur,
-    ...sexRegisterOptions
-  } = register('sex');
 
   /*const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked) {
@@ -114,7 +109,7 @@ export const UserModalUpdate: React.FC<IProps> = ({
               <FormLabel>{tUser('sex')}</FormLabel>
               <RadioGroup
                 value={watch('sex')}
-                {...sexRegisterOptions}
+                {...omit(register('sex'), 'onBlur')}
                 onChange={(e, value) => {
                   setValue('sex', Number(value), { shouldDirty: true });
                 }}
@@ -132,35 +127,6 @@ export const UserModalUpdate: React.FC<IProps> = ({
                 <FormHelperText>{errors['sex'].message}</FormHelperText>
               )}
             </FormControl>
-
-            {/*<FormControl sx={{ mb: 2 }} error={!!errors['sex']}>
-              <FormLabel>{tUser('sex')}</FormLabel>
-              <FormGroup>
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      checked={watch('sex') === SEX_ENUM.MALE}
-                      value={SEX_ENUM.MALE}
-                      onChange={handleChange}
-                    />
-                  }
-                  label={tUser('sexOptions.male')}
-                />
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      checked={watch('sex') === SEX_ENUM.FEMALE}
-                      value={SEX_ENUM.FEMALE}
-                      onChange={handleChange}
-                    />
-                  }
-                  label={tUser('sexOptions.female')}
-                />
-                {!!errors['sex'] && (
-                  <FormHelperText>{errors['sex'].message}</FormHelperText>
-                )}
-              </FormGroup>
-            </FormControl>*/}
 
             <FormControl sx={{ mb: 2 }}>
               <InputLabel>{tUser('status')}</InputLabel>

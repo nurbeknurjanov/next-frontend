@@ -43,7 +43,7 @@ export function useUsers() {
     refreshList,
     previousRefreshListKey,
   } = useTableStates<IUserFilters>(
-    ['name', 'email', 'status'],
+    ['name', 'email', 'status', 'sex'],
     ['status', 'sex']
   );
 
