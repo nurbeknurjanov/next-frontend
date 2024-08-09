@@ -61,7 +61,9 @@ export const UsersFilters = ({ filters, setFilters }: IProps) => {
               label={`${tCommon('from')} - ${tCommon('to')}`}
               slots={{ field: SingleInputDateRangeField }}
               value={watch('createdAt')}
-              onChange={newValue => setValue('createdAt', newValue)}
+              onChange={newValue =>
+                setValue('createdAt', newValue, { shouldDirty: true })
+              }
             />
           </LocalizationProvider>
 
