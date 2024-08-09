@@ -4,6 +4,7 @@ import { IPaginationRequest } from 'api/baseApi';
 import { GridSortModel } from '@mui/x-data-grid';
 import { useSearchParams } from 'next/navigation';
 import { usePathname, useRouter } from 'navigation';
+import { ucFirst } from 'shared/utils';
 
 export function useTableStates<TableFilters extends Record<string, any>>(
   fieldNamesForFilters: (keyof TableFilters)[],
@@ -77,16 +78,26 @@ export function useTableStates<TableFilters extends Record<string, any>>(
   const filters = useMemo<TableFilters>(() => {
     const values = {} as TableFilters;
     fieldNamesForFilters.forEach(fieldName => {
-      const value = multipleFieldNames?.includes(fieldName)
-        ? searchParams.getAll(fieldName as string)
-        : searchParams.get(fieldName as string);
+      const queryKey = fieldName as string;
+      let value: string | string[] | null = searchParams.get(queryKey);
+
+      if (multipleFieldNames?.includes(fieldName)) {
+        value = searchParams.getAll(queryKey);
+      }
+
+      if (rangeFieldNames?.includes(fieldName)) {
+        value = [
+          searchParams.get('from' + ucFirst(queryKey))!,
+          searchParams.get('to' + ucFirst(queryKey))!,
+        ];
+      }
 
       if (value) {
         values[fieldName] = value as any;
       }
     });
     return values;
-  }, [fieldNamesForFilters, multipleFieldNames, searchParams]);
+  }, [fieldNamesForFilters, multipleFieldNames, rangeFieldNames, searchParams]);
   const setFilters = useCallback(
     (filters: TableFilters) => {
       fieldNamesForFilters.forEach(fieldName => {

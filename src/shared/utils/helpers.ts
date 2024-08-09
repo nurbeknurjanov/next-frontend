@@ -11,3 +11,7 @@ export function assign<T extends object = object, K extends keyof T = keyof T>(
 ) {
   obj[key] = value;
 }
+
+export function ucFirst(str: string) {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}
