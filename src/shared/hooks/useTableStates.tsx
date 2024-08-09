@@ -114,13 +114,19 @@ export function useTableStates<TableFilters extends Record<string, any>>(
           if (rangeFieldNames?.includes(fieldName)) {
             if (value[0])
               query['from' + ucFirst(queryKey)] = dayjs(value[0]).toISOString();
+            else {
+              delete query['from' + ucFirst(queryKey)]; //reset
+            }
             if (value[1])
               query['to' + ucFirst(queryKey)] = dayjs(value[1]).toISOString();
+            else {
+              delete query['to' + ucFirst(queryKey)]; //reset
+            }
           } else {
             query[queryKey] = value; //here sets string and array values
           }
         } else {
-          delete query[queryKey];
+          delete query[queryKey]; //reset
         }
       });
 
