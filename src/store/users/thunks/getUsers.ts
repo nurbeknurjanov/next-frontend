@@ -27,10 +27,14 @@ export const getUsersThunk =
     const { createdAt, ...rest } = formFilters;
     const filters: IUserFilters = rest;
     if (createdAt[0]) {
-      filters.createdAtFrom = dayjs(createdAt[0]).toISOString();
+      filters.createdAtFrom = dayjs(createdAt[0]).hour(0).toISOString();
     }
     if (createdAt[1]) {
-      filters.createdAtTo = dayjs(createdAt[1]).toISOString();
+      filters.createdAtTo = dayjs(createdAt[1])
+        .hour(23)
+        .minute(59)
+        .second(59)
+        .toISOString();
     }
 
     await dispatch(
