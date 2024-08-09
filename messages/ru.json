@@ -14,6 +14,8 @@
     "id": "ID",
     "createdAt": "Дата создания",
     "updatedAt": "Дата обновления",
+    "from": "Начало даты",
+    "to": "Конец даты",
     "successCreated": "Успешно создано",
     "successUpdated": "Успешно обновлено",
     "successDeleted": "Успешно удалено",

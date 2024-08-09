@@ -64,6 +64,7 @@ export const UsersFilters = ({ filters, setFilters }: IProps) => {
         <form onSubmit={onSubmitForm} onReset={onResetForm}>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DateRangePicker
+              label={`${tCommon('from')} - ${tCommon('to')}`}
               slots={{ field: SingleInputDateRangeField }}
               value={watch('createdAt')}
               onChange={newValue => setValue('createdAt', newValue)}
