@@ -13,7 +13,7 @@ export function useProductsFilters({ filters, setFilters }: IProps) {
   const previousFilters = useRef<IProductFilters | null>(null);
   const getProductsState = useAppSelector(getProductStateSelector);
 
-  const defaultValues = { name: null, description: null };
+  const defaultValues: IProductFilters = { name: null, description: null };
   const {
     register,
     handleSubmit,

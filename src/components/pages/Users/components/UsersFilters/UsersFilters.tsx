@@ -19,10 +19,21 @@ import { useTranslations } from 'next-intl';
 import { isEqual } from 'lodash';
 import Autocomplete from '@mui/material/Autocomplete';
 //import { SelectChangeEvent } from '@mui/material/Select';
+import { Dayjs } from 'dayjs';
+import { DateRange } from '@mui/x-date-pickers-pro/models';
 
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DateRangePicker } from '@mui/x-date-pickers-pro/DateRangePicker';
+import { SingleInputDateRangeField } from '@mui/x-date-pickers-pro/SingleInputDateRangeField';
+
+export interface IUserFiltersForm
+  extends Omit<IUserFilters, 'createdAtFrom' | 'createdAtTo'> {
+  createdAt: DateRange<Dayjs>;
+}
 export interface IProps {
-  filters: IUserFilters;
-  setFilters: (_filters: IUserFilters) => void;
+  filters: IUserFiltersForm;
+  setFilters: (_filters: IUserFiltersForm) => void;
 }
 export const UsersFilters = ({ filters, setFilters }: IProps) => {
   const tCommon = useTranslations('Common');
@@ -51,6 +62,14 @@ export const UsersFilters = ({ filters, setFilters }: IProps) => {
     <Card>
       <CardContent>
         <form onSubmit={onSubmitForm} onReset={onResetForm}>
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DateRangePicker
+              slots={{ field: SingleInputDateRangeField }}
+              value={watch('createdAt')}
+              onChange={newValue => setValue('createdAt', newValue)}
+            />
+          </LocalizationProvider>
+
           <TextField
             label={tUser('name')}
             {...register('name')}

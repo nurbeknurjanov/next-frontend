@@ -1,5 +1,5 @@
 import { useForm } from 'react-hook-form';
-import { IProps } from './UsersFilters';
+import { IProps, IUserFiltersForm } from './UsersFilters';
 import { IUserFilters } from 'api/usersApi';
 import { useAppSelector } from 'store/hooks';
 import { FormEvent, useEffect, useRef } from 'react';
@@ -11,7 +11,13 @@ export function useUsersFilters({ filters, setFilters }: IProps) {
   const getUsersState = useAppSelector(getUsersStateSelector);
 
   const { sexOptions, statusOptions } = useTranslatedData();
-  const defaultValues = { name: null, email: null, status: [], sex: [] };
+  const defaultValues: IUserFiltersForm = {
+    name: null,
+    email: null,
+    status: [],
+    sex: [],
+    createdAt: [null, null],
+  };
   const {
     register,
     handleSubmit,
@@ -19,7 +25,7 @@ export function useUsersFilters({ filters, setFilters }: IProps) {
     setValue,
     watch,
     formState: { isDirty, isValid },
-  } = useForm<IUserFilters>({
+  } = useForm<IUserFiltersForm>({
     mode: 'onTouched',
     defaultValues,
   });
@@ -30,7 +36,7 @@ export function useUsersFilters({ filters, setFilters }: IProps) {
     });
   }, [filters, setValue]);
 
-  const submitForm = (formData: IUserFilters) => setFilters(formData);
+  const submitForm = (formData: IUserFiltersForm) => setFilters(formData);
 
   const onSubmitForm = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();

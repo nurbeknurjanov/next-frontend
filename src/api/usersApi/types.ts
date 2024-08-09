@@ -42,11 +42,10 @@ export interface IUserPost extends Nullable<IUserWithoutSystemFields> {}
 export interface IUserFilters
   extends Omit<Partial<Nullable<IUserWithoutSystemFields>>, 'status' | 'sex'> {
   id?: string | null;
-  status: STATUS_ENUM[];
-  sex: SEX_ENUM[];
-  createdAtFrom: string;
-  createdAtTo: string;
-  createdAt: string;
+  status?: STATUS_ENUM[];
+  sex?: SEX_ENUM[];
+  createdAtFrom?: string;
+  createdAtTo?: string;
 }
 export type IUserSortFields = keyof IUserWithoutSystemFields;
 export interface IUserSort extends ISort<IUserSortFields> {}

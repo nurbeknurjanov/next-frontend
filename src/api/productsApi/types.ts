@@ -23,7 +23,7 @@ export type IProductWithoutSystemFields = Omit<
 >;
 export interface IProductPost extends Nullable<IProductWithoutSystemFields> {
   imageId?: string | null; // on product create, to keep ID of first created File
-  imageFile: FileList | null;
+  imageFile?: FileList | null; //because imageFile is not required field
 }
 export interface IProductFilters
   extends Partial<Nullable<IProductWithoutSystemFields>> {
