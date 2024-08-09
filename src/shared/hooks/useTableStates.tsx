@@ -130,7 +130,7 @@ export function useTableStates<TableFilters extends Record<string, any>>(
       delete query.sortDirection;
       router.push({ pathname, query }, { scroll: false });
     },
-    [fieldNamesForFilters, query, router, pathname]
+    [fieldNamesForFilters, rangeFieldNames, query, router, pathname]
   );
   const previousFilters = useRef<TableFilters | null>(null);
 
