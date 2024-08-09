@@ -1,13 +1,13 @@
 import { useForm } from 'react-hook-form';
-import { IProps, IUserFiltersForm } from './UsersFilters';
-import { IUserFilters } from 'api/usersApi';
+import { IProps } from './UsersFilters';
+import { IUserFiltersForm } from 'api/usersApi';
 import { useAppSelector } from 'store/hooks';
 import { FormEvent, useEffect, useRef } from 'react';
 import { getUsersStateSelector } from 'store/users/selectors';
 import { useTranslatedData } from 'shared/hooks';
 
 export function useUsersFilters({ filters, setFilters }: IProps) {
-  const previousFilters = useRef<IUserFilters | null>(null);
+  const previousFilters = useRef<IUserFiltersForm | null>(null);
   const getUsersState = useAppSelector(getUsersStateSelector);
 
   const { sexOptions, statusOptions } = useTranslatedData();

@@ -5,6 +5,8 @@ import {
   ResponseDataListPagination,
 } from 'api/baseApi';
 import { AxiosRequestConfig } from 'axios';
+import { DateRange } from '@mui/x-date-pickers-pro/models';
+import { Dayjs } from 'dayjs';
 
 export enum SEX_ENUM {
   MALE = 1,
@@ -47,6 +49,11 @@ export interface IUserFilters
   createdAtFrom?: string;
   createdAtTo?: string;
 }
+export interface IUserFiltersForm
+  extends Omit<IUserFilters, 'createdAtFrom' | 'createdAtTo'> {
+  createdAt: DateRange<Dayjs>;
+}
+
 export type IUserSortFields = keyof IUserWithoutSystemFields;
 export interface IUserSort extends ISort<IUserSortFields> {}
 

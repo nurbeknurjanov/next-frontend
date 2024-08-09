@@ -1,14 +1,20 @@
 import { IPaginationRequest } from 'api/baseApi';
 import { GridSortModel } from '@mui/x-data-grid';
-import { IUserFilters, IUserSort, IUserSortFields } from 'api/usersApi';
+import {
+  IUserFiltersForm,
+  IUserSort,
+  IUserSortFields,
+  IUserFilters,
+} from 'api/usersApi';
 import { AppThunk } from 'store/store';
 import { users } from 'store';
 import { notify } from 'store/common/thunks';
+import dayjs from 'dayjs';
 
 export const getUsersThunk =
   (
     pagination: IPaginationRequest,
-    filters: IUserFilters,
+    formFilters: IUserFiltersForm,
     sorting: GridSortModel
   ): AppThunk =>
   async (dispatch, getState) => {
@@ -16,6 +22,15 @@ export const getUsersThunk =
     if (sorting[0]) {
       sort.sortField = sorting[0].field as IUserSortFields;
       sort.sortDirection = sorting[0].sort as 'asc' | 'desc';
+    }
+
+    const { createdAt, ...rest } = formFilters;
+    const filters: IUserFilters = rest;
+    if (createdAt[0]) {
+      filters.createdAtFrom = dayjs(createdAt[0]).toISOString();
+    }
+    if (createdAt[1]) {
+      filters.createdAtTo = dayjs(createdAt[1]).toISOString();
     }
 
     await dispatch(

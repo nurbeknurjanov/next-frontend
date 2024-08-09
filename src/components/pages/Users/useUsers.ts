@@ -9,7 +9,7 @@ import { IPaginationRequest } from 'api/baseApi';
 import { isEqual } from 'lodash';
 import { useTableStates } from 'shared/hooks';
 import { GridSortModel } from '@mui/x-data-grid';
-import { IUserFilters } from 'api/usersApi';
+import { IUserFiltersForm } from 'api/usersApi';
 
 type ModalType =
   | { type: 'create' }
@@ -42,7 +42,7 @@ export function useUsers() {
     refreshListKey,
     refreshList,
     previousRefreshListKey,
-  } = useTableStates<IUserFilters>(
+  } = useTableStates<IUserFiltersForm>(
     ['name', 'email', 'status', 'sex', 'createdAt'],
     ['status', 'sex'],
     ['createdAt']
@@ -51,7 +51,7 @@ export function useUsers() {
   const getUsers = useCallback(
     (
       pagination: IPaginationRequest,
-      filters: IUserFilters,
+      filters: IUserFiltersForm,
       sorting: GridSortModel
     ) => dispatch(getUsersThunk(pagination, filters, sorting)),
     [dispatch]
