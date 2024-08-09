@@ -5,6 +5,7 @@ import { GridSortModel } from '@mui/x-data-grid';
 import { useSearchParams } from 'next/navigation';
 import { usePathname, useRouter } from 'navigation';
 import { ucFirst } from 'shared/utils';
+import dayjs, { Dayjs } from 'dayjs';
 
 export function useTableStates<TableFilters extends Record<string, any>>(
   fieldNamesForFilters: (keyof TableFilters)[],
@@ -79,7 +80,8 @@ export function useTableStates<TableFilters extends Record<string, any>>(
     const values = {} as TableFilters;
     fieldNamesForFilters.forEach(fieldName => {
       const queryKey = fieldName as string;
-      let value: string | string[] | null = searchParams.get(queryKey);
+      let value: string | string[] | null | [Dayjs | null, Dayjs | null] =
+        searchParams.get(queryKey);
 
       if (multipleFieldNames?.includes(fieldName)) {
         value = searchParams.getAll(queryKey);
@@ -87,8 +89,12 @@ export function useTableStates<TableFilters extends Record<string, any>>(
 
       if (rangeFieldNames?.includes(fieldName)) {
         value = [
-          searchParams.get('from' + ucFirst(queryKey))!,
-          searchParams.get('to' + ucFirst(queryKey))!,
+          searchParams.get('from' + ucFirst(queryKey))
+            ? dayjs(searchParams.get('from' + ucFirst(queryKey)) as string)
+            : null,
+          searchParams.get('to' + ucFirst(queryKey))
+            ? dayjs(searchParams.get('to' + ucFirst(queryKey)) as string)
+            : null,
         ];
       }
 
@@ -101,11 +107,20 @@ export function useTableStates<TableFilters extends Record<string, any>>(
   const setFilters = useCallback(
     (filters: TableFilters) => {
       fieldNamesForFilters.forEach(fieldName => {
+        const queryKey = fieldName as string;
+
         const value = filters[fieldName];
         if (value) {
-          query[fieldName as string] = value;
+          if (rangeFieldNames?.includes(fieldName)) {
+            if (value[0])
+              query['from' + ucFirst(queryKey)] = dayjs(value[0]).toISOString();
+            if (value[1])
+              query['to' + ucFirst(queryKey)] = dayjs(value[1]).toISOString();
+          } else {
+            query[queryKey] = value; //here sets string and array values
+          }
         } else {
-          delete query[fieldName as string];
+          delete query[queryKey];
         }
       });
 
