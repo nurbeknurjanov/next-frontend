@@ -68,4 +68,7 @@ export const config = {
     // (e.g. `/pathnames` -> `/en/pathnames`)
     '/((?!_next|_vercel|.*\\..*).*)',
   ],
+
+  //runtime: 'experimental-edge',
+  unstable_allowDynamic: ['**/node_modules/lodash*/**/*.js'],
 };

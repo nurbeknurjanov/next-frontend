@@ -201,9 +201,6 @@ const Theme = createTheme({
           '& .MuiList-root': {
             //padding: 0,
           },
-          '& .MuiButtonBase-root': {
-            paddingLeft: theme.spacing(1.2),
-          },
           '& .MuiListItemIcon-root': {
             minWidth: 30,
           },
