@@ -91,10 +91,10 @@ export function ListMenu({ onClose }: IProps) {
       <ListItem disablePadding>
         <ListItemButton
           component={ActiveLink}
-          href={to({ pathname: '/contact', search: { fromSidebar: '1' } })}
+          href={to({ pathname: '/contact', query: { fromSidebar: '1' } })}
           onClick={() => {
             router.push(
-              to({ pathname: '/contact', search: { fromSidebar: '2' } })
+              to({ pathname: '/contact', query: { fromSidebar: '2' } })
             );
             closeHandler();
           }}
