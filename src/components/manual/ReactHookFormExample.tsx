@@ -69,7 +69,7 @@ const Total = ({ control }: { control: Control<IPost> }) => {
 
 export function ReactHookFormExample() {
   const i18nJoi = useI18nJoi();
-  let schema = i18nJoi.object({
+  const schema = i18nJoi.object({
     title: Joi.string(),
     //title2: Joi.alternatives([1, 2]), // same as title2: Joi.alternatives().try(1, 2),
     //title2: Joi.alternatives().conditional('title', { is: '1', then: Joi.string(), otherwise: Joi.number() }),

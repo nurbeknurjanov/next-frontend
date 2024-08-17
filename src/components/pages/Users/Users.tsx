@@ -31,7 +31,6 @@ let Users: FC = () => {
     tCommon,
     tUser,
     tUsersPage,
-    tUserPage,
     tProfilePage,
     getUsersState,
     setPagination,

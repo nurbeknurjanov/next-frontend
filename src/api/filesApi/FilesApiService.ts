@@ -54,7 +54,7 @@ export class FilesApiService extends BaseApiService {
     config?: IFileApiConfig
   ): Promise<AxiosResponseData<IFile>> {
     const formData = new FormData();
-    for (let key in omit(body, 'fileField')) {
+    for (const key in omit(body, 'fileField')) {
       if (key === 'data') {
         formData.append(key, JSON.stringify(body[key]));
       } else {

@@ -21,7 +21,7 @@ export async function authorizeUser() {
       throw new Error('Bad access token');
     }
     return serverStore.dispatch(authorize({ user: parsed.user }));
-  } catch (error) {
+  } catch (_error) {
     try {
       //commonApi.getAxiosInstance().defaults.headers.cookie = `refreshToken=${refreshTokenCookie.value};path=/;`;
       //originalRequest.headers.Authorization = `Bearer ${newAccessToken.token}`;

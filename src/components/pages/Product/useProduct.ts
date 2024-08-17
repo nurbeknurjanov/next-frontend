@@ -5,7 +5,6 @@ import { useProductModel } from './useProductModel';
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { useAppSelector } from 'store/hooks';
-import { common } from 'store';
 import { getProductsPermissionsStateSelector } from 'store/products/selectors';
 
 type ModalType = { type: 'delete'; id: string };

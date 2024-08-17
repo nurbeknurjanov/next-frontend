@@ -8,6 +8,8 @@ import styles from './activeLink.module.scss';
 import { Link } from 'shared/ui';
 
 export type Props = Omit<MuiLinkProps, 'href'> & NextLinkProps;
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 export const ActiveLink: FC<Props> = forwardRef<HTMLAnchorElement, Props>(
   ({ href, className, ...props }, ref) => {
     const pathName = usePathname();

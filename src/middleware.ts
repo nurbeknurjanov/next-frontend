@@ -29,7 +29,7 @@ export default async function middleware(req: NextRequest) {
   if (protectedUrls) {
     try {
       await authorizeUser();
-    } catch (error) {
+    } catch (_error) {
       return NextResponse.redirect(new URL('/login', req.url));
     }
 
@@ -45,9 +45,7 @@ export default async function middleware(req: NextRequest) {
     try {
       await authorizeUser();
       return NextResponse.redirect(new URL('/', req.url));
-    } catch (error) {
-      error;
-    }
+    } catch (_error) {}
   }
 
   return NextResponseLocale;
