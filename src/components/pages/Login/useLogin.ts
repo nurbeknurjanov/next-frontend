@@ -38,10 +38,11 @@ export const useLogin = () => {
     })
     .label(tLoginPage('fields.email'));
 
-  const schema = i18nJoi.object({
+  const rules = {
     email: emailSchema,
     password: Joi.string().label(tLoginPageFields('password')).min(6),
-  });
+  };
+  const schema = i18nJoi.object(rules);
 
   const {
     register,
@@ -51,6 +52,7 @@ export const useLogin = () => {
     mode: 'onTouched',
     //criteriaMode: "all",
     resolver: joiResolver(schema),
+    //resolver: joiResolver(Joi.object().keys(rules)),
     defaultValues: initialValues,
   });
 
