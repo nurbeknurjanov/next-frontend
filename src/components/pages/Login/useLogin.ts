@@ -30,13 +30,16 @@ export const useLogin = () => {
   };
 
   const i18nJoi = useI18nJoi();
+  let emailSchema = Joi.string();
+  emailSchema = emailSchema
+    .email({
+      minDomainSegments: 2,
+      tlds: { allow: tlds },
+    })
+    .label(tLoginPage('fields.email'));
+
   const schema = i18nJoi.object({
-    email: Joi.string()
-      .email({
-        minDomainSegments: 2,
-        tlds: { allow: tlds },
-      })
-      .label(tLoginPage('fields.email')),
+    email: emailSchema,
     password: Joi.string().label(tLoginPageFields('password')).min(6),
   });
 
