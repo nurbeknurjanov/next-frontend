@@ -111,7 +111,7 @@ let Files: FC = () => {
           sortModel={sorting}
           slotProps={{
             pagination: {
-              labelRowsPerPage: tCommon('rowsPerPage:'),
+              labelRowsPerPage: tCommon('labelRowsPerPage'),
             },
           }}
         />

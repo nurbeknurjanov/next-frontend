@@ -51,7 +51,7 @@ export function ListMenu({ onClose }: IProps) {
       <ListItem disablePadding>
         <ListItemButton
           component={ActiveLink}
-          href="/products"
+          href={{ pathname: '/products' }}
           onClick={closeHandler}
         >
           <ListItemIcon>

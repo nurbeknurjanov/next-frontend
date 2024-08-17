@@ -3,6 +3,16 @@
 import { createTheme } from '@mui/material/styles';
 import { lime, red, grey } from '@mui/material/colors';
 import type {} from '@mui/x-data-grid/themeAugmentation';
+import NextLink, { LinkProps as NextLinkProps } from 'next/link';
+import { forwardRef, createElement } from 'react';
+
+//type AnchorProps = React.HTMLProps<HTMLAnchorElement>;
+
+const NextLinkRefWrapper = forwardRef<HTMLAnchorElement, NextLinkProps>(
+  function LinkBehaviour(props, ref) {
+    return createElement(NextLink, { ...props, ref });
+  }
+);
 
 /*eslint-disable*/
 declare module '@mui/material/styles' {
@@ -103,6 +113,9 @@ const Theme = createTheme({
       },
     },
     MuiLink: {
+      defaultProps: {
+        component: NextLinkRefWrapper,
+      },
       styleOverrides: {
         root: {
           textDecoration: 'none',

@@ -1,18 +1,15 @@
-type pathUrlType = {
-  pathname: string;
-  search?: {
-    [key: string]: string;
-    //[key: string]: string | string[];
-  };
-};
-export const to = (url: string | pathUrlType): string => {
+import { LinkProps as NextLinkProps } from 'next/link';
+
+export const to = (url: string | NextLinkProps['href']): string => {
   if (typeof url === 'string') {
     return url;
   }
 
-  let stringUrl = url.pathname;
-  if (url.search) {
-    const search = new URLSearchParams(url.search).toString();
+  let stringUrl = url.pathname!;
+  if (url.query) {
+    const search = new URLSearchParams(
+      url.query as Record<string, string>
+    ).toString();
     stringUrl = stringUrl + `?` + search;
   }
 

@@ -1,24 +1,26 @@
-import React, { FC, forwardRef } from 'react';
+import React, { forwardRef } from 'react';
 import { LinkProps as NextLinkProps } from 'next/link';
 //import { usePathname } from "next/navigation";
 import { usePathname } from 'navigation';
-import { LinkProps as MuiLinkProps } from '@mui/material';
+import { LinkProps as MuiLinkProps, Link as MuiLink } from '@mui/material';
 import cn from 'classnames';
 import styles from './activeLink.module.scss';
-import { Link } from 'shared/ui';
+import { to } from 'shared/utils';
 
-export type Props = Omit<MuiLinkProps, 'href'> & NextLinkProps;
-export const ActiveLink: FC<Props> = forwardRef<HTMLAnchorElement, Props>(
-  ({ href, className, ...props }, ref) => {
+type Props = Omit<MuiLinkProps, 'href'> & NextLinkProps;
+
+export const ActiveLink = forwardRef<HTMLAnchorElement, Props>(
+  function LinkBehaviour({ href, className, ...props }, ref) {
     const pathName = usePathname();
     const hrefPathName = typeof href === 'string' ? href : href.pathname;
     const isActive = pathName === hrefPathName;
+
     return (
-      <Link
-        href={href}
+      <MuiLink
+        href={typeof href === 'string' ? href : to(href)}
         className={cn(className, { [styles.isActive]: isActive })}
-        ref={ref}
         {...props}
+        ref={ref}
       />
     );
   }
