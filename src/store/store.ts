@@ -5,6 +5,7 @@ import {
   //ThunkDispatch,
 } from '@reduxjs/toolkit';
 import { rootReducer } from './rootReducer';
+import { userRTKApi } from 'api/rtkQuery/rtkQuery';
 
 export const createStore = (initialState?: any) =>
   configureStore({
@@ -18,7 +19,8 @@ export const createStore = (initialState?: any) =>
         serializableCheck: false,
         //immutableCheck: false,
       });
-      return defaultMiddleware;
+      return defaultMiddleware.concat(userRTKApi.middleware);
+      //return defaultMiddleware;
     },
   });
 
