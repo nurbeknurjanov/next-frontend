@@ -1,9 +1,10 @@
 'use client';
 import { FC } from 'react';
 import React from 'react';
+import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import { TextField } from '@mui/material';
+import { TextField, Typography } from '@mui/material';
 import { Button } from 'shared/ui';
 import styles from './login.module.scss';
 import { withPageWrapper } from 'shared/hocs';
@@ -51,6 +52,14 @@ let Login: FC = () => {
             {tCommon('submit')}
           </Button>
         </form>
+
+        <Box mt={2}>
+          <Typography variant="body2" color="text.secondary">
+            {tLoginPage('fields.email')}: nurbek.nurjanov@mail.ru
+            <br />
+            {tLoginPage('fields.password')}: 123123
+          </Typography>
+        </Box>
       </CardContent>
     </Card>
   );

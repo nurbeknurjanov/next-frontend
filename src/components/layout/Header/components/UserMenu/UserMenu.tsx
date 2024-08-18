@@ -41,7 +41,7 @@ export const UserMenu: FC = () => {
         color="inherit"
         className={bem('authName')}
       >
-        {authUser!.name}
+        {authUser!?.name}
       </Box>
       <IconButton
         size="large"
