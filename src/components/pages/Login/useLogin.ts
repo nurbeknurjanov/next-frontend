@@ -67,7 +67,10 @@ export const useLogin = () => {
         path: '/',
         domain: baseDomain,
       });
-      setCookie('accessToken', data.accessToken, { path: '/' });
+      setCookie('accessToken', data.accessToken, {
+        path: '/',
+        domain: baseDomain,
+      });
       router.push('/');
     }
   };
