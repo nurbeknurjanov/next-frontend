@@ -66,10 +66,12 @@ export const useLogin = () => {
       setCookie('refreshToken', data.refreshToken, {
         path: '/',
         //domain: baseDomain,
+        sameSite: 'lax',
       });
       setCookie('accessToken', data.accessToken, {
         path: '/',
         //domain: baseDomain,
+        sameSite: 'lax',
       });
       router.push('/');
     }

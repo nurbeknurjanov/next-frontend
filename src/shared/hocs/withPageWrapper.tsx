@@ -56,6 +56,7 @@ export const withPageWrapper = <T extends object>(
         setCookie('accessToken', newAccessToken, {
           path: '/',
           //domain: baseDomain,
+          sameSite: 'lax',
         });
         dispatch(common.auth.actions.resetNewAccessToken());
       }
