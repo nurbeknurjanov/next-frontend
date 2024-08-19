@@ -10,6 +10,8 @@ import { getCookie } from 'shared/utils';
   api.getAxiosInstance().interceptors.request.use(
     config => {
       config.withCredentials = true;
+      config.headers['cookie'] =
+        `accessToken=${getCookie('accessToken')}; refreshToken=${getCookie('refreshToken')};path=/;`;
       return config;
     },
     error => {

@@ -62,14 +62,14 @@ export const useLogin = () => {
       const domainSlices = window.location.hostname
         .split('.')
         .map(el => `.${el}`);
-      const baseDomain = `${domainSlices[domainSlices.length - 2] ?? ''}${domainSlices[domainSlices.length - 1]}`;
+      const _baseDomain = `${domainSlices[domainSlices.length - 2] ?? ''}${domainSlices[domainSlices.length - 1]}`;
       setCookie('refreshToken', data.refreshToken, {
         path: '/',
-        domain: baseDomain,
+        //domain: baseDomain,
       });
       setCookie('accessToken', data.accessToken, {
         path: '/',
-        domain: baseDomain,
+        //domain: baseDomain,
       });
       router.push('/');
     }

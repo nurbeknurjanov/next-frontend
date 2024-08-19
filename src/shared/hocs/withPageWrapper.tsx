@@ -52,10 +52,10 @@ export const withPageWrapper = <T extends object>(
         const domainSlices = window.location.hostname
           .split('.')
           .map(el => `.${el}`);
-        const baseDomain = `${domainSlices[domainSlices.length - 2] ?? ''}${domainSlices[domainSlices.length - 1]}`;
+        const _baseDomain = `${domainSlices[domainSlices.length - 2] ?? ''}${domainSlices[domainSlices.length - 1]}`;
         setCookie('accessToken', newAccessToken, {
           path: '/',
-          domain: baseDomain,
+          //domain: baseDomain,
         });
         dispatch(common.auth.actions.resetNewAccessToken());
       }
