@@ -59,7 +59,14 @@ export const useLogin = () => {
   const login = async (formData: LoginRequestBodyParams) => {
     const { data } = await dispatch(loginThunk(formData));
     if (data) {
-      setCookie('refreshToken', data.refreshToken, { path: '/' });
+      const domainSlices = window.location.hostname
+        .split('.')
+        .map(el => `.${el}`);
+      const baseDomain = `${domainSlices[domainSlices.length - 2] ?? ''}${domainSlices[domainSlices.length - 1]}`;
+      setCookie('refreshToken', data.refreshToken, {
+        path: '/',
+        domain: baseDomain,
+      });
       setCookie('accessToken', data.accessToken, { path: '/' });
       router.push('/');
     }

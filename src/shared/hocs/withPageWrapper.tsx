@@ -49,7 +49,14 @@ export const withPageWrapper = <T extends object>(
       }
 
       if (newAccessToken) {
-        setCookie('accessToken', newAccessToken, { path: '/' });
+        const domainSlices = window.location.hostname
+          .split('.')
+          .map(el => `.${el}`);
+        const baseDomain = `${domainSlices[domainSlices.length - 2] ?? ''}${domainSlices[domainSlices.length - 1]}`;
+        setCookie('accessToken', newAccessToken, {
+          path: '/',
+          domain: baseDomain,
+        });
         dispatch(common.auth.actions.resetNewAccessToken());
       }
     }, [removeCookie, setCookie, isAuth, newAccessToken, dispatch]);
