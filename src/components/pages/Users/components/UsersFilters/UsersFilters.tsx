@@ -160,6 +160,11 @@ export const UsersFilters = ({ filters, setFilters }: IProps) => {
             )}
           />
 
+          {/*<FormControl error>
+            <FormLabel htmlFor="my-input" >Email address</FormLabel>
+            <OutlinedInput id="my-input" placeholder={'some placeholder'}/>
+            <FormHelperText>Some hint text</FormHelperText>
+          </FormControl>*/}
           <Button
             type={'submit'}
             variant={'contained'}
