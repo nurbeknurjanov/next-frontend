@@ -10,7 +10,7 @@ let Contact: FC = () => {
   useSetPageData(tContactPage('title'), [tContactPage('title')]);
 
   const { data, error, isLoading } = useGetUserByIdQuery(
-    '66a4add57e9a28ee15ede391'
+    '66c20d6a473ee51e08f7f804'
   );
   console.log('data', data);
 
