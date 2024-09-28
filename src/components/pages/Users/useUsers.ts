@@ -9,10 +9,11 @@ import {
   IUserSort,
   IUserSortFields,
 } from 'api/usersApi';
-import { useLazyGetUsersQuery } from 'store/users/query';
+import { useLazyGetUsersQuery, useGetUsersQuery } from 'store/users/query';
 import { IPaginationRequest } from 'api/baseApi';
 import { GridSortModel } from '@mui/x-data-grid';
 import dayjs from 'dayjs';
+import { skipToken } from '@reduxjs/toolkit/query';
 
 type ModalType =
   | { type: 'create' }
@@ -31,83 +32,38 @@ export function useUsers() {
   const {
     pagination,
     setPagination,
-    previousPagination,
     sorting,
     setSorting,
-    previousSorting,
-    filters,
+    filters: formFilters,
     setFilters,
-    previousFilters,
   } = useTableStates<IUserFiltersForm>(
     ['name', 'email', 'status', 'sex', 'createdAt'],
     ['status', 'sex'],
     ['createdAt']
   );
 
-  const [getModels, { data, isLoading }] = useLazyGetUsersQuery();
+  const sort: IUserSort = {};
+  if (sorting[0]) {
+    sort.sortField = sorting[0].field as IUserSortFields;
+    sort.sortDirection = sorting[0].sort as 'asc' | 'desc';
+  }
 
-  const getUsers = useCallback(
-    (
-      pagination: IPaginationRequest,
-      formFilters: IUserFiltersForm,
-      sorting: GridSortModel
-    ) => {
-      const sort: IUserSort = {};
-      if (sorting[0]) {
-        sort.sortField = sorting[0].field as IUserSortFields;
-        sort.sortDirection = sorting[0].sort as 'asc' | 'desc';
-      }
+  const { createdAt, ...rest } = formFilters;
+  const filters: IUserFilters = rest;
+  if (createdAt[0]) {
+    filters.createdAtFrom = dayjs(createdAt[0]).hour(0).toISOString();
+  }
+  if (createdAt[1]) {
+    filters.createdAtTo = dayjs(createdAt[1])
+      .hour(23)
+      .minute(59)
+      .second(59)
+      .toISOString();
+  }
 
-      const { createdAt, ...rest } = formFilters;
-      const filters: IUserFilters = rest;
-      if (createdAt[0]) {
-        filters.createdAtFrom = dayjs(createdAt[0]).hour(0).toISOString();
-      }
-      if (createdAt[1]) {
-        filters.createdAtTo = dayjs(createdAt[1])
-          .hour(23)
-          .minute(59)
-          .second(59)
-          .toISOString();
-      }
+  const { data, isLoading } = useGetUsersQuery({ pagination, filters, sort });
 
-      getModels({
-        pagination,
-        filters,
-        sort,
-      });
-    },
-    [getModels]
-  );
-
-  useEffect(() => {
-    if (
-      isEqual(previousPagination.current, pagination) &&
-      isEqual(previousFilters.current, filters) &&
-      isEqual(previousSorting.current, sorting)
-    )
-      return;
-
-    getUsers(pagination, filters, sorting);
-  }, [
-    pagination,
-    sorting,
-    filters,
-    getUsers,
-    previousPagination,
-    previousSorting,
-    previousFilters,
-  ]);
-
-  useEffect(() => {
-    previousPagination.current = pagination;
-  }, [pagination, previousPagination]);
-  useEffect(() => {
-    previousFilters.current = filters;
-  }, [filters, previousFilters]);
-  useEffect(() => {
-    previousSorting.current = sorting;
-  }, [sorting, previousSorting]);
+  //const [getModels, { data, isLoading }] = useLazyGetUsersQuery();
 
   return {
     tCommon,
