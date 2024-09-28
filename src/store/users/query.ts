@@ -33,6 +33,15 @@ const usersQuery = appApi.injectEndpoints({
       },
       invalidatesTags: ['Users'],
     }),
+    deleteUser: builder.mutation<IUser, string>({
+      query: id => {
+        return {
+          url: `users/${id}`,
+          method: 'DELETE',
+        };
+      },
+      invalidatesTags: ['Users'],
+    }),
   }),
 });
 
@@ -40,6 +49,7 @@ export const {
   useGetUserByIdQuery,
   useCreateUserMutation,
   useUpdateUserMutation,
+  useDeleteUserMutation,
   useLazyGetUsersQuery,
   endpoints,
 } = usersQuery;
