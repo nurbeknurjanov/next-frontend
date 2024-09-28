@@ -7,7 +7,7 @@ import axios, {
 } from 'axios';
 import { AxiosResponseData, ResponseApiError } from './types';
 
-export abstract class BaseApiService {
+export class BaseApiService {
   private readonly axiosInstance: AxiosInstance;
 
   constructor(config: AxiosRequestConfig = {}) {
@@ -36,7 +36,7 @@ export abstract class BaseApiService {
     return this.axiosInstance.request(options);
   }
 
-  protected request<T>(
+  public request<T>(
     options: AxiosRequestConfig
   ): Promise<AxiosResponseData<T>> {
     const xForwardedFor = process.env.NEXT_X_FORWARDED_FOR;

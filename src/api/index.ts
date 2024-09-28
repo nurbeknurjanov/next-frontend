@@ -1,3 +1,4 @@
+import { baseApi } from './base';
 import { commonApi } from './common';
 import { usersApi } from './users';
 import { productsApi } from './products';
@@ -6,7 +7,7 @@ import { getCookie } from 'shared/utils';
 
 //if (process.browser) document.cookie = 'accessToken=123;path=/;';
 
-[usersApi, productsApi, filesApi, commonApi].forEach(api => {
+[baseApi, usersApi, productsApi, filesApi, commonApi].forEach(api => {
   api.getAxiosInstance().interceptors.request.use(
     config => {
       config.withCredentials = true;
@@ -22,7 +23,7 @@ import { getCookie } from 'shared/utils';
   );
 });
 
-[usersApi, productsApi, filesApi].forEach(api => {
+[baseApi, usersApi, productsApi, filesApi].forEach(api => {
   api.getAxiosInstance().interceptors.response.use(
     response => {
       return response;
@@ -45,6 +46,7 @@ import { getCookie } from 'shared/utils';
   );
 });
 
+export { baseApi };
 export { commonApi };
 export { usersApi };
 export { productsApi };
