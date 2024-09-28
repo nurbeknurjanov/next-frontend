@@ -1,15 +1,18 @@
 'use client';
 import { useEffect, useState, useCallback } from 'react';
-import { useAppDispatch, useAppSelector } from 'store/hooks';
-import { users } from 'store';
-import { getUsersThunk } from 'store/users/thunks';
-import { getUsersStateSelector } from 'store/users/selectors';
 import { useTranslations } from 'next-intl';
-import { IPaginationRequest } from 'api/baseApi';
 import { isEqual } from 'lodash';
 import { useTableStates } from 'shared/hooks';
+import {
+  IUserFilters,
+  IUserFiltersForm,
+  IUserSort,
+  IUserSortFields,
+} from 'api/usersApi';
+import { useLazyGetUsersQuery } from 'store/users/query';
+import { IPaginationRequest } from 'api/baseApi';
 import { GridSortModel } from '@mui/x-data-grid';
-import { IUserFiltersForm } from 'api/usersApi';
+import dayjs from 'dayjs';
 
 type ModalType =
   | { type: 'create' }
@@ -17,7 +20,6 @@ type ModalType =
 
 //const env = process.env.NODE_ENV;
 export function useUsers() {
-  const dispatch = useAppDispatch();
   const tCommon = useTranslations('Common');
   const tUser = useTranslations('User');
   const tUsersPage = useTranslations('UsersPage');
@@ -25,8 +27,6 @@ export function useUsers() {
 
   const [showModal, setShowModal] = useState<ModalType | null>();
   const closeShowModal = useCallback(() => setShowModal(null), []);
-
-  const getUsersState = useAppSelector(getUsersStateSelector);
 
   const {
     pagination,
@@ -38,30 +38,53 @@ export function useUsers() {
     filters,
     setFilters,
     previousFilters,
-    refreshListKey,
-    refreshList,
-    previousRefreshListKey,
   } = useTableStates<IUserFiltersForm>(
     ['name', 'email', 'status', 'sex', 'createdAt'],
     ['status', 'sex'],
     ['createdAt']
   );
 
+  const [getModels, { data, isLoading }] = useLazyGetUsersQuery();
+
   const getUsers = useCallback(
     (
       pagination: IPaginationRequest,
-      filters: IUserFiltersForm,
+      formFilters: IUserFiltersForm,
       sorting: GridSortModel
-    ) => dispatch(getUsersThunk(pagination, filters, sorting)),
-    [dispatch]
+    ) => {
+      const sort: IUserSort = {};
+      if (sorting[0]) {
+        sort.sortField = sorting[0].field as IUserSortFields;
+        sort.sortDirection = sorting[0].sort as 'asc' | 'desc';
+      }
+
+      const { createdAt, ...rest } = formFilters;
+      const filters: IUserFilters = rest;
+      if (createdAt[0]) {
+        filters.createdAtFrom = dayjs(createdAt[0]).hour(0).toISOString();
+      }
+      if (createdAt[1]) {
+        filters.createdAtTo = dayjs(createdAt[1])
+          .hour(23)
+          .minute(59)
+          .second(59)
+          .toISOString();
+      }
+
+      getModels({
+        pagination,
+        filters,
+        sort,
+      });
+    },
+    [getModels]
   );
 
   useEffect(() => {
     if (
       isEqual(previousPagination.current, pagination) &&
       isEqual(previousFilters.current, filters) &&
-      isEqual(previousSorting.current, sorting) &&
-      isEqual(previousRefreshListKey.current, refreshListKey)
+      isEqual(previousSorting.current, sorting)
     )
       return;
 
@@ -71,11 +94,9 @@ export function useUsers() {
     sorting,
     filters,
     getUsers,
-    refreshListKey,
     previousPagination,
     previousSorting,
     previousFilters,
-    previousRefreshListKey,
   ]);
 
   useEffect(() => {
@@ -87,31 +108,21 @@ export function useUsers() {
   useEffect(() => {
     previousSorting.current = sorting;
   }, [sorting, previousSorting]);
-  useEffect(() => {
-    previousRefreshListKey.current = refreshListKey;
-  }, [refreshListKey, previousRefreshListKey]);
-
-  useEffect(
-    () => () => {
-      dispatch(users.getUsers.actions.reset());
-    },
-    [dispatch]
-  );
 
   return {
     tCommon,
     tUser,
     tUsersPage,
     tProfilePage,
-    getUsersState,
     setPagination,
     sorting,
     setSorting,
     filters,
     setFilters,
-    refreshList,
     showModal,
     setShowModal,
     closeShowModal,
+    data,
+    isLoading,
   };
 }

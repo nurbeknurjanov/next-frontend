@@ -32,16 +32,16 @@ let Users: FC = () => {
     tUser,
     tUsersPage,
     tProfilePage,
-    getUsersState,
     setPagination,
     sorting,
     setSorting,
     filters,
     setFilters,
-    refreshList,
     showModal,
     setShowModal,
     closeShowModal,
+    data,
+    isLoading,
   } = useUsers();
 
   useSetPageData(
@@ -55,8 +55,6 @@ let Users: FC = () => {
       {tUsersPage('create')}
     </Button>
   );
-
-  const { data, isFetching } = getUsersState;
 
   const { sexOptions, statusOptions } = useTranslatedData();
 
@@ -148,7 +146,7 @@ let Users: FC = () => {
           rows={data?.list ?? []}
           getRowId={el => el._id}
           columns={columns}
-          loading={isFetching}
+          loading={isLoading}
           paginationModel={{
             page: data?.pagination?.pageNumber ?? 0,
             pageSize: data?.pagination?.pageSize ?? 12,
@@ -164,23 +162,15 @@ let Users: FC = () => {
       </div>
 
       {showModal?.type === 'create' && (
-        <UserModalCreate onClose={closeShowModal} afterCreate={refreshList} />
+        <UserModalCreate onClose={closeShowModal} />
       )}
 
       {showModal?.type === 'update' && (
-        <UserModalUpdate
-          id={showModal.id}
-          onClose={closeShowModal}
-          afterUpdate={refreshList}
-        />
+        <UserModalUpdate id={showModal.id} onClose={closeShowModal} />
       )}
 
       {showModal?.type === 'delete' && (
-        <UserModalDelete
-          id={showModal.id}
-          onClose={closeShowModal}
-          afterDelete={refreshList}
-        />
+        <UserModalDelete id={showModal.id} onClose={closeShowModal} />
       )}
 
       {showModal?.type === 'view' && (

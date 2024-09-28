@@ -1,14 +1,29 @@
 import { appApi } from 'api/apiQuery';
-import { IUser, IUserPost, IUserPostUpdate } from 'api/usersApi';
+import {
+  IUser,
+  IUserFilters,
+  IUserPost,
+  IUserPostUpdate,
+  IUsersList,
+  IUserSort,
+} from 'api/usersApi';
+import { RequestParams } from 'api/baseApi';
 
 const usersQuery = appApi.injectEndpoints({
   endpoints: builder => ({
-    getUsers: builder.query<IUser, string>({
-      query: () => ({
-        url: `users`,
-      }),
-      providesTags: ['Users'],
-    }),
+    getUsers: builder.query<IUsersList, RequestParams<IUserFilters, IUserSort>>(
+      {
+        query: ({ pagination, filters, sort }) => ({
+          url: `users`,
+          params: {
+            ...pagination,
+            ...(sort ? sort : {}),
+            ...(filters ? filters : {}),
+          },
+        }),
+        providesTags: ['Users'],
+      }
+    ),
     getUserById: builder.query<IUser, string>({
       query: id => ({
         url: `users/${id}`,
@@ -50,6 +65,7 @@ export const {
   useCreateUserMutation,
   useUpdateUserMutation,
   useDeleteUserMutation,
+  useGetUsersQuery,
   useLazyGetUsersQuery,
   endpoints,
 } = usersQuery;
