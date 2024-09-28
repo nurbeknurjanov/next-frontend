@@ -26,14 +26,9 @@ import Autocomplete from '@mui/material/Autocomplete';
 export type IProps = {
   id: string;
   onClose: () => void;
-  afterUpdate: () => void;
 };
 
-export const UserModalUpdate: React.FC<IProps> = ({
-  onClose,
-  afterUpdate,
-  id,
-}) => {
+export const UserModalUpdate: React.FC<IProps> = ({ onClose, id }) => {
   //const id = type === 'update' ? props.id : null;
   const formRef = useRef<HTMLFormElement>();
   //const formRef = useRef<HTMLFormElement>(null); //for direct assign
@@ -41,7 +36,7 @@ export const UserModalUpdate: React.FC<IProps> = ({
     tCommon,
     tUserPage,
     tUser,
-    aggStates,
+    isLoadingUpdate,
     isLoading,
     register,
     errors,
@@ -54,7 +49,6 @@ export const UserModalUpdate: React.FC<IProps> = ({
   } = useUserModalUpdate({
     id: id!,
     onClose,
-    afterUpdate,
   });
 
   /*const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -204,7 +198,7 @@ export const UserModalUpdate: React.FC<IProps> = ({
           }}
           disabled={!isDirty || !isValid}
           autoFocus
-          loading={aggStates.isFetching}
+          loading={isLoadingUpdate}
           sx={{ minWidth: 120 }}
         >
           {tCommon('update')}

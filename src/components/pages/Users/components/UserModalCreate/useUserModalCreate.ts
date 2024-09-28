@@ -1,30 +1,28 @@
-import { useAppDispatch, useAppSelector } from 'store/hooks';
-import { users } from 'store';
+import { useAppDispatch } from 'store/hooks';
 import { useTranslations } from 'next-intl';
 import { IUserPost } from 'api/usersApi';
 import { IProps } from './UserModalCreate';
 import { useUserForm } from '../useUserForm';
 import { notify } from 'store/common/thunks';
-import { createUserThunk } from 'store/users/thunks';
+import { useCreateUserMutation } from 'store/users/query';
 
-export function useUserModalCreate({ onClose, afterCreate }: IProps) {
+export function useUserModalCreate({ onClose }: IProps) {
   const dispatch = useAppDispatch();
   const tCommon = useTranslations('Common');
   const tUsersPage = useTranslations('UsersPage');
   const tUser = useTranslations('User');
 
-  const createUserState = useAppSelector(users.createUser.selector.state);
+  const [createModel, { isLoading }] = useCreateUserMutation();
 
   const { register, errors, isValid, isDirty, handleSubmit, watch, setValue } =
     useUserForm({});
 
   const createUser = async (formData: IUserPost) => {
-    const { data } = await dispatch(createUserThunk(formData));
+    const { data } = await createModel(formData);
 
     if (data) {
       onClose();
       dispatch(notify(tCommon('successCreated'), 'success'));
-      afterCreate();
     }
   };
 
@@ -34,7 +32,7 @@ export function useUserModalCreate({ onClose, afterCreate }: IProps) {
     tCommon,
     tUsersPage,
     tUser,
-    createUserState,
+    isLoading,
     register,
     errors,
     isValid,

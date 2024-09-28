@@ -1,5 +1,5 @@
 import { appApi } from 'api/apiQuery';
-import { IUser, IUserPost } from 'api/usersApi';
+import { IUser, IUserPost, IUserPostUpdate } from 'api/usersApi';
 
 const usersQuery = appApi.injectEndpoints({
   endpoints: builder => ({
@@ -15,20 +15,22 @@ const usersQuery = appApi.injectEndpoints({
       }),
       providesTags: ['Users'],
     }),
-    addUser: builder.mutation<IUser, IUserPost>({
-      query: body => ({
+    createUser: builder.mutation<IUser, IUserPost>({
+      query: data => ({
         url: 'users',
         method: 'POST',
-        body,
+        data,
       }),
       invalidatesTags: ['Users'],
     }),
-    updateUser: builder.mutation<IUser, IUserPost>({
-      query: ({ ...body }) => ({
-        url: `users/${1}`,
-        method: 'PUT',
-        body,
-      }),
+    updateUser: builder.mutation<IUser, IUserPostUpdate>({
+      query: ({ id, ...data }) => {
+        return {
+          url: `users/${id}`,
+          method: 'PUT',
+          data,
+        };
+      },
       invalidatesTags: ['Users'],
     }),
   }),
@@ -36,7 +38,8 @@ const usersQuery = appApi.injectEndpoints({
 
 export const {
   useGetUserByIdQuery,
-  useAddUserMutation,
+  useCreateUserMutation,
+  useUpdateUserMutation,
   useLazyGetUsersQuery,
   endpoints,
 } = usersQuery;

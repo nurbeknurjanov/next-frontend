@@ -41,6 +41,9 @@ export type IUser = {
 
 type IUserWithoutSystemFields = Omit<IUser, '_id' | 'createdAt' | 'updatedAt'>;
 export interface IUserPost extends Nullable<IUserWithoutSystemFields> {}
+export interface IUserPostUpdate extends IUserPost {
+  id: string;
+}
 export interface IUserFilters
   extends Omit<Partial<Nullable<IUserWithoutSystemFields>>, 'status' | 'sex'> {
   id?: string | null;
