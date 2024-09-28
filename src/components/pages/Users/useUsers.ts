@@ -76,7 +76,7 @@ export function useUsers() {
     setPagination,
     sorting,
     setSorting,
-    filters,
+    filters: formFilters,
     setFilters,
     showModal,
     setShowModal,
