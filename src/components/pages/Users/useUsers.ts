@@ -1,7 +1,6 @@
 'use client';
-import { useEffect, useState, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 import { useTranslations } from 'next-intl';
-import { isEqual } from 'lodash';
 import { useTableStates } from 'shared/hooks';
 import {
   IUserFilters,
@@ -9,11 +8,8 @@ import {
   IUserSort,
   IUserSortFields,
 } from 'api/usersApi';
-import { useLazyGetUsersQuery, useGetUsersQuery } from 'store/users/query';
-import { IPaginationRequest } from 'api/baseApi';
-import { GridSortModel } from '@mui/x-data-grid';
+import { useGetUsersQuery } from 'store/users/query';
 import dayjs from 'dayjs';
-import { skipToken } from '@reduxjs/toolkit/query';
 
 type ModalType =
   | { type: 'create' }
