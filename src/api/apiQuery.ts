@@ -14,9 +14,17 @@ const axiosBaseQuery =
   }): BaseQueryFn<
     AxiosRequestConfig & { isMock?: boolean },
     unknown,
-    unknown
+    ResponseApiError<{ message: string }>
   > =>
-  async ({ url, method, data, params, headers, ...axiosConfig }) => {
+  async ({
+    url,
+    method,
+    data,
+    params,
+    headers,
+    isMock: _isMock,
+    ...axiosConfig
+  }) => {
     try {
       const result = await baseApi.request({
         url: baseUrl + url,
