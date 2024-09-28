@@ -25,7 +25,13 @@ const { actions, reducer } = createSlice({
   },
   extraReducers: builder => {
     builder.addMatcher(
-      isAnyOf(endpoints.getUserById.matchRejected),
+      isAnyOf(
+        endpoints.getUsers.matchRejected,
+        endpoints.getUserById.matchRejected,
+        endpoints.createUser.matchRejected,
+        endpoints.updateUser.matchRejected,
+        endpoints.deleteUser.matchRejected
+      ),
       (state, action) => {
         state.error = action.payload as ResponseApiError<{ message: string }>;
         /*Object.assign(state, {
