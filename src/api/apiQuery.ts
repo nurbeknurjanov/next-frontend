@@ -2,9 +2,8 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import type { IUser, IUserPost } from 'api/usersApi';
 import { BASE_URL } from 'shared/utils';
 
-// Define a service using a base URL and expected endpoints
-export const userRTKApi = createApi({
-  reducerPath: 'userApiReducerPath',
+export const appApi = createApi({
+  reducerPath: 'appApiQueryReducerPath',
   baseQuery: fetchBaseQuery({ baseUrl: BASE_URL + '/' }),
   tagTypes: ['User'],
   endpoints: builder => ({
@@ -29,4 +28,4 @@ export const {
   useGetUserByIdQuery,
   useAddUserMutation,
   useLazyGetUserByIdQuery,
-} = userRTKApi;
+} = appApi;

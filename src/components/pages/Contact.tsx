@@ -4,7 +4,7 @@ import { useTranslations } from 'next-intl';
 import { useSetPageData } from 'shared/hooks';
 import { withPageWrapper } from 'shared/hocs';
 import { SEX_ENUM, STATUS_ENUM } from 'api/usersApi';
-import { useGetUserByIdQuery, useAddUserMutation } from 'api/rtkQuery/rtkQuery';
+import { useGetUserByIdQuery, useAddUserMutation } from 'api/apiQuery';
 
 let Contact: FC = () => {
   const tContactPage = useTranslations('ContactPage');

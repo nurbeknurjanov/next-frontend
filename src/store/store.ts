@@ -5,7 +5,7 @@ import {
   //ThunkDispatch,
 } from '@reduxjs/toolkit';
 import { rootReducer } from './rootReducer';
-import { userRTKApi } from 'api/rtkQuery/rtkQuery';
+import { appApi } from 'api/apiQuery';
 
 export const createStore = (initialState?: any) =>
   configureStore({
@@ -19,7 +19,7 @@ export const createStore = (initialState?: any) =>
         serializableCheck: false,
         //immutableCheck: false,
       });
-      return defaultMiddleware.concat(userRTKApi.middleware);
+      return defaultMiddleware.concat(appApi.middleware);
       //return defaultMiddleware;
     },
   });

@@ -4,7 +4,7 @@ import { commonReducer } from './common/commonReducer';
 import { usersReducer } from './users/usersReducer';
 import { productsReducer } from './products/productsReducer';
 import { filesReducer } from './files/filesReducer';
-import { userRTKApi } from 'api/rtkQuery/rtkQuery';
+import { appApi } from 'api/apiQuery';
 
 export const rootReducer = combineReducers({
   counter: counter.reducer,
@@ -12,5 +12,5 @@ export const rootReducer = combineReducers({
   users: usersReducer,
   products: productsReducer,
   files: filesReducer,
-  [userRTKApi.reducerPath]: userRTKApi.reducer,
+  [appApi.reducerPath]: appApi.reducer,
 });
