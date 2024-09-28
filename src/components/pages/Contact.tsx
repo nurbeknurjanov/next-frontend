@@ -1,12 +1,10 @@
 'use client';
-import React, { FC, useEffect } from 'react';
+import React, { FC } from 'react';
 import { useTranslations } from 'next-intl';
 import { useSetPageData } from 'shared/hooks';
 import { withPageWrapper } from 'shared/hocs';
 import { SEX_ENUM, STATUS_ENUM } from 'api/usersApi';
 import { useGetUserByIdQuery, useAddUserMutation } from 'store/users/query';
-import { notify } from 'store/common/thunks';
-import { useAppDispatch } from 'store/hooks';
 
 let Contact: FC = () => {
   const tContactPage = useTranslations('ContactPage');

@@ -1,5 +1,4 @@
 import React, { FC } from 'react';
-import { useUserModel } from 'components/pages/User';
 import { Button } from 'shared/ui';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -12,6 +11,8 @@ import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import dayjs from 'dayjs';
 import { DATE_FORMAT } from 'shared/utils';
 import { useTranslatedData } from 'shared/hooks';
+import { useGetUserByIdQuery } from 'store/users/query';
+import { skipToken } from '@reduxjs/toolkit/query';
 
 export type IProps = {
   id: string;
@@ -50,9 +51,7 @@ export const UserModalView: FC<IProps> = ({ onClose, id }) => {
   const tCommon = useTranslations('Common');
   const tUserPage = useTranslations('UserPage');
   const tUser = useTranslations('User');
-  const { model, getUserState } = useUserModel({
-    id,
-  });
+  const { data: model, isLoading } = useGetUserByIdQuery(id ?? skipToken);
 
   const { sexOptions, statusOptions } = useTranslatedData();
 
@@ -101,7 +100,7 @@ export const UserModalView: FC<IProps> = ({ onClose, id }) => {
           location data to Google, even when no apps are running.
         </DialogContentText>*/}
 
-        {getUserState.isFetching ? (
+        {isLoading ? (
           <CircularProgress sx={{ mx: 'auto', mb: 2, display: 'block' }} />
         ) : (
           <DataGrid

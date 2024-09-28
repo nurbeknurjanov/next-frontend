@@ -42,7 +42,7 @@ export const UserModalUpdate: React.FC<IProps> = ({
     tUserPage,
     tUser,
     aggStates,
-    getUserState,
+    isLoading,
     register,
     errors,
     isValid,
@@ -76,7 +76,7 @@ export const UserModalUpdate: React.FC<IProps> = ({
     <Dialog open onClose={onClose}>
       <DialogTitle>{tUserPage('update')}</DialogTitle>
       <DialogContent>
-        {getUserState.isFetching ? (
+        {isLoading ? (
           <CircularProgress sx={{ mx: 'auto', mb: 2, display: 'block' }} />
         ) : (
           <form
