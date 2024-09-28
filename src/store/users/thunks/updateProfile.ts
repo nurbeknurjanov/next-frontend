@@ -15,6 +15,7 @@ export const updateProfileThunk =
     const { error, data } = users.updateProfile.selector.state(getState());
     if (error) {
       dispatch(notify(error.data.message, 'error'));
+      return { data, error };
     }
 
     dispatch(authorize({ user: data }));

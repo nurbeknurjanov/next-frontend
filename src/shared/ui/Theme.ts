@@ -98,6 +98,11 @@ const Theme = createTheme({
         },
       },
     },
+    MuiSelect: {
+      defaultProps: {
+        size: 'small',
+      },
+    },
     MuiTextField: {
       defaultProps: {
         size: 'small',

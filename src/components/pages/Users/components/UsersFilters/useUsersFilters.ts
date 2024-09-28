@@ -31,8 +31,12 @@ export function useUsersFilters({ filters, setFilters }: IProps) {
   });
 
   useEffect(() => {
-    Object.entries(filters).forEach(([key, value]) => {
-      setValue(key as keyof typeof filters, value);
+    Object.entries<IUserFiltersForm[keyof IUserFiltersForm]>(
+      filters as unknown as {
+        [s: string]: IUserFiltersForm[keyof IUserFiltersForm];
+      }
+    ).forEach(([key, value]) => {
+      setValue(key as keyof IUserFiltersForm, value);
     });
   }, [filters, setValue]);
 

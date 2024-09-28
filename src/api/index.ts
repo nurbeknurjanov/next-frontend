@@ -10,6 +10,10 @@ import { getCookie } from 'shared/utils';
   api.getAxiosInstance().interceptors.request.use(
     config => {
       config.withCredentials = true;
+      config.headers['accessToken'] = getCookie('accessToken');
+      config.headers['refreshToken'] = getCookie('refreshToken');
+      /*config.headers['cookie'] =
+        `accessToken=${getCookie('accessToken')}; refreshToken=${getCookie('refreshToken')};path=/;`;*/
       return config;
     },
     error => {
@@ -29,7 +33,7 @@ import { getCookie } from 'shared/utils';
           const newAccessToken = await commonApi.getAccessToken();
           document.cookie = `accessToken=${newAccessToken};path=/;`;
           const originalRequest = error.config;
-          // originalRequest.headers.Authorization = `Bearer ${newAccessToken.token}`;
+          originalRequest.headers.accessToken = newAccessToken;
           return await api.getAxiosInstance().request(originalRequest);
         } catch (refreshTokenError) {
           return Promise.reject({ response: refreshTokenError });

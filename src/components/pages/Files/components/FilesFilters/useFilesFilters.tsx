@@ -23,9 +23,11 @@ export function useFilesFilters({ filters, setFilters }: IProps) {
     defaultValues,
   });
   useEffect(() => {
-    Object.entries(filters).forEach(([key, value]) => {
-      setValue(key as keyof typeof filters, value);
-    });
+    Object.entries<IFileFilters[keyof IFileFilters]>(filters).forEach(
+      ([key, value]) => {
+        setValue(key as keyof IFileFilters, value);
+      }
+    );
   }, [filters, setValue]);
 
   const submitForm = (formData: IFileFilters) => setFilters(formData);

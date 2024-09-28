@@ -160,6 +160,31 @@ export const UsersFilters = ({ filters, setFilters }: IProps) => {
             )}
           />
 
+          {/*<FormControl error>
+            <FormLabel htmlFor="my-input" >Email address</FormLabel>
+            <OutlinedInput id="my-input" placeholder={'some placeholder'}/>
+            <FormHelperText>Some hint text</FormHelperText>
+          </FormControl>*/}
+
+          {/*<FormControl>
+            <FormLabel>Ищу психолога</FormLabel>
+            <Select
+              value={watch('sex')}
+              //input={<OutlinedInput placeholder={'OutlinedInput not working too'} />}
+              //placeholder={'not working'}
+              displayEmpty
+              //renderValue={(selected) => { return 'place' }}
+              {...register('sex')}
+            >
+              <MenuItem value={''}>Любого пола</MenuItem>
+              {Object.entries(sexOptions).map(([value, label]) => (
+                <MenuItem key={value} value={value}>
+                  {label}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>*/}
+
           <Button
             type={'submit'}
             variant={'contained'}
