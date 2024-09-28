@@ -12,17 +12,7 @@ let Contact: FC = () => {
   const tContactPage = useTranslations('ContactPage');
   useSetPageData(tContactPage('title'), [tContactPage('title')]);
 
-  const dispatch = useAppDispatch();
-
-  const { data, error, isLoading } = useGetUserByIdQuery(
-    '66c20d6a473ee51e08f7f8041'
-  );
-
-  useEffect(() => {
-    if (error && 'data' in error) {
-      dispatch(notify(error.data.message, 'error'));
-    }
-  }, [error, dispatch]);
+  const { data, isLoading } = useGetUserByIdQuery('66c20d6a473ee51e08f7f8041');
 
   const [addUser, { isLoading: isAdding }] = useAddUserMutation();
 

@@ -1,6 +1,6 @@
 import React, { FC, ComponentType, useEffect } from 'react';
 import { common } from 'store';
-import { hydratedToClient } from 'store/common/thunks';
+import { hydratedToClient, notify } from 'store/common/thunks';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
 import { useCookies } from 'react-cookie';
 import { getAuthStateSelector } from 'store/common/selectors';
@@ -27,6 +27,13 @@ export const withPageWrapper = <T extends object>(
       'refreshToken',
       'accessToken',
     ]);
+
+    const { error } = useAppSelector(common.queryError.selector.state);
+    useEffect(() => {
+      if (error) {
+        dispatch(notify(error.data.message, 'error'));
+      }
+    }, [error, dispatch]);
 
     useEffect(
       () => () => {
