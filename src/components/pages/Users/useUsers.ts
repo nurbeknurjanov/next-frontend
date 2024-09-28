@@ -1,5 +1,5 @@
 'use client';
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useMemo } from 'react';
 import { useTranslations } from 'next-intl';
 import { useTableStates } from 'shared/hooks';
 import {
@@ -38,24 +38,31 @@ export function useUsers() {
     ['createdAt']
   );
 
-  const sort: IUserSort = {};
-  if (sorting[0]) {
-    sort.sortField = sorting[0].field as IUserSortFields;
-    sort.sortDirection = sorting[0].sort as 'asc' | 'desc';
-  }
+  const { sort, filters } = useMemo(() => {
+    const sort: IUserSort = {};
+    if (sorting[0]) {
+      sort.sortField = sorting[0].field as IUserSortFields;
+      sort.sortDirection = sorting[0].sort as 'asc' | 'desc';
+    }
 
-  const { createdAt, ...rest } = formFilters;
-  const filters: IUserFilters = rest;
-  if (createdAt[0]) {
-    filters.createdAtFrom = dayjs(createdAt[0]).hour(0).toISOString();
-  }
-  if (createdAt[1]) {
-    filters.createdAtTo = dayjs(createdAt[1])
-      .hour(23)
-      .minute(59)
-      .second(59)
-      .toISOString();
-  }
+    const { createdAt, ...rest } = formFilters;
+    const filters: IUserFilters = rest;
+    if (createdAt[0]) {
+      filters.createdAtFrom = dayjs(createdAt[0]).hour(0).toISOString();
+    }
+    if (createdAt[1]) {
+      filters.createdAtTo = dayjs(createdAt[1])
+        .hour(23)
+        .minute(59)
+        .second(59)
+        .toISOString();
+    }
+
+    return {
+      sort,
+      filters,
+    };
+  }, [sorting, formFilters]);
 
   const { data, isLoading } = useGetUsersQuery({ pagination, filters, sort });
 
