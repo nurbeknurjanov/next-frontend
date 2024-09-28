@@ -69,6 +69,16 @@ const usersQuery = appApi.injectEndpoints({
       invalidatesTags: result =>
         result ? [{ type: 'Users', id: result._id }] : [],
     }),
+    getTopics: builder.query({
+      async queryFn(_arg, _queryApi, _extraOptions, fetchWithBaseQuery) {
+        const sessionResult = await fetchWithBaseQuery({
+          url: `users/66c20d6a473ee51e08f7f804`,
+        });
+        return sessionResult.data
+          ? { data: sessionResult.data }
+          : { error: sessionResult.error };
+      },
+    }),
   }),
 });
 
