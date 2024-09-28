@@ -21,8 +21,8 @@ const usersQuery = appApi.injectEndpoints({
             ...(filters ? filters : {}),
           },
         }),
-        providesTags: result => {
-          return result
+        providesTags: result =>
+          result
             ? [
                 ...result.list.map(({ _id }) => ({
                   type: 'Users' as const,
@@ -30,17 +30,15 @@ const usersQuery = appApi.injectEndpoints({
                 })),
                 { type: 'Users', id: 'LIST' },
               ]
-            : [{ type: 'Users', id: 'LIST' }];
-        },
+            : [{ type: 'Users', id: 'LIST' }],
       }
     ),
     getUserById: builder.query<IUser, string>({
       query: id => ({
         url: `users/${id}`,
       }),
-      providesTags: result => {
-        return result ? [{ type: 'Users', id: result._id }] : [];
-      },
+      providesTags: result =>
+        result ? [{ type: 'Users', id: result._id }] : [],
     }),
     createUser: builder.mutation<IUser, IUserPost>({
       query: data => ({
@@ -58,9 +56,8 @@ const usersQuery = appApi.injectEndpoints({
           data,
         };
       },
-      invalidatesTags: result => {
-        return result ? [{ type: 'Users', id: result._id }] : [];
-      },
+      invalidatesTags: result =>
+        result ? [{ type: 'Users', id: result._id }] : [],
     }),
     deleteUser: builder.mutation<IUser, string>({
       query: id => {
@@ -69,9 +66,8 @@ const usersQuery = appApi.injectEndpoints({
           method: 'DELETE',
         };
       },
-      invalidatesTags: result => {
-        return result ? [{ type: 'Users', id: result._id }] : [];
-      },
+      invalidatesTags: result =>
+        result ? [{ type: 'Users', id: result._id }] : [],
     }),
   }),
 });
