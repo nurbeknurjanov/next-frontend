@@ -17,3 +17,5 @@ export type { AuthStateType } from './auth';
 export { auth } from './auth';
 
 export { getAccessToken } from './getAccessToken';
+
+export { queryError } from './queryError';

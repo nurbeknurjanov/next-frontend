@@ -24,4 +24,5 @@ export const {
   useGetUserByIdQuery,
   useAddUserMutation,
   useLazyGetUserByIdQuery,
+  endpoints,
 } = usersQuery;

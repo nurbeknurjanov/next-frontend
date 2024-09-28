@@ -7,6 +7,7 @@ import {
   notify,
   auth,
   getAccessToken,
+  queryError,
 } from './slices';
 
 export const common = {
@@ -18,4 +19,5 @@ export const common = {
   notify,
   auth,
   getAccessToken,
+  queryError,
 };

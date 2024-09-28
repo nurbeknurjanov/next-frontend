@@ -8,6 +8,7 @@ import {
   notify,
   auth,
   getAccessToken,
+  queryError,
 } from './slices';
 
 export const commonReducer = combineReducers({
@@ -19,4 +20,5 @@ export const commonReducer = combineReducers({
   notify: notify.reducer,
   auth: auth.reducer,
   getAccessToken: getAccessToken.reducer,
+  queryError: queryError.reducer,
 });
