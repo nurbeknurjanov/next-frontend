@@ -4,7 +4,7 @@ import { IUserPost } from 'api/usersApi';
 import { IProps } from './UserModalCreate';
 import { useUserForm } from '../useUserForm';
 import { notify } from 'store/common/thunks';
-import { useCreateUserMutation } from 'store/users/query';
+import { useCreateUserMutation } from 'api/usersQuery';
 
 export function useUserModalCreate({ onClose }: IProps) {
   const dispatch = useAppDispatch();

@@ -2,7 +2,7 @@
 import { useTranslations } from 'next-intl';
 import { useParams } from 'next/navigation';
 import { UserPageProps } from 'app/[locale]/users/[id]/page';
-import { useGetUserByIdQuery } from 'store/users/query';
+import { useGetUserByIdQuery } from 'api/usersQuery';
 import { skipToken } from '@reduxjs/toolkit/query';
 
 export function useUser() {

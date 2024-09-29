@@ -2,7 +2,7 @@ import { createSlice, isAnyOf } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import type { RootStateType } from 'store/store';
 import type { ResponseApiError } from 'api/baseApi';
-import { endpoints } from 'store/users/query';
+import { endpoints } from 'api/usersQuery';
 
 type StateType = {
   error: ResponseApiError<{ message: string }> | null;

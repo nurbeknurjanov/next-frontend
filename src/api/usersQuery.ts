@@ -1,4 +1,4 @@
-import { appApi } from 'api/apiQuery';
+import { appApi } from './apiQuery';
 import {
   IUser,
   IUserFilters,
@@ -6,8 +6,8 @@ import {
   IUserPostUpdate,
   IUsersList,
   IUserSort,
-} from 'api/usersApi';
-import { RequestParams } from 'api/baseApi';
+} from './usersApi';
+import { RequestParams } from './baseApi';
 
 const usersQuery = appApi.injectEndpoints({
   endpoints: builder => ({
