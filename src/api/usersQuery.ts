@@ -81,6 +81,10 @@ const usersQuery = appApi.injectEndpoints({
           data: putData,
         });
         console.log('fetchWithBaseQueryResult', fetchWithBaseQueryResult);
+        return {
+          data: fetchWithBaseQueryResult.data,
+          error: null,
+        };
         if (putData) {
           return putData;
           /*dispatch(authorize({ user: data }));
