@@ -1,14 +1,13 @@
-import { useAppDispatch, useAppSelector } from 'store/hooks';
-import { users } from 'store';
+import { useAppDispatch } from 'store/hooks';
 import { useTranslations } from 'next-intl';
 import { IUserPost } from 'api/usersApi';
 import { IProps } from './UserModalChangePassword';
 import { notify } from 'store/common/thunks';
-import { userChangePasswordThunk } from 'store/users/thunks';
 import { useForm } from 'react-hook-form';
 import { joiResolver } from '@hookform/resolvers/joi';
 import { useI18nJoi } from 'shared/utils';
 import Joi from 'joi';
+import { useUpdateUserPasswordMutation } from 'api/usersQuery';
 
 export function useUserModalChangePassword({ onClose, id }: IProps) {
   const dispatch = useAppDispatch();
@@ -16,9 +15,8 @@ export function useUserModalChangePassword({ onClose, id }: IProps) {
   const tProfilePage = useTranslations('ProfilePage');
   const tUser = useTranslations('User');
 
-  const userChangePasswordState = useAppSelector(
-    users.userChangePassword.selector.state
-  );
+  const [updateUserPasswordAction, { isLoading }] =
+    useUpdateUserPasswordMutation();
 
   const i18nJoi = useI18nJoi();
   const schema = i18nJoi.object({
@@ -38,7 +36,7 @@ export function useUserModalChangePassword({ onClose, id }: IProps) {
     id: string,
     formData: Pick<IUserPost, 'password'>
   ) => {
-    const { data } = await dispatch(userChangePasswordThunk(id, formData));
+    const { data } = await updateUserPasswordAction({ id, ...formData });
 
     if (data) {
       onClose();
@@ -54,7 +52,7 @@ export function useUserModalChangePassword({ onClose, id }: IProps) {
     tCommon,
     tProfilePage,
     tUser,
-    userChangePasswordState,
+    isLoading,
     register,
     errors,
     isValid,
