@@ -32,7 +32,7 @@ export const ProfileModalUpdate: React.FC<IProps> = ({ onClose }) => {
     tCommon,
     tProfilePage,
     tUser,
-    aggStates,
+    isLoading,
     register,
     errors,
     isValid,
@@ -145,7 +145,7 @@ export const ProfileModalUpdate: React.FC<IProps> = ({ onClose }) => {
           }}
           disabled={!isDirty || !isValid}
           autoFocus
-          loading={aggStates.isFetching}
+          loading={isLoading}
           sx={{ minWidth: 120 }}
         >
           {tCommon('save')}

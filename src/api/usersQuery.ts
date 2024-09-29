@@ -8,6 +8,7 @@ import {
   IUserSort,
 } from './usersApi';
 import { RequestParams } from './baseApi';
+import { authorize, getAccessTokenThunk } from '../store/common/thunks';
 
 const usersQuery = appApi.injectEndpoints({
   endpoints: builder => ({
@@ -69,14 +70,28 @@ const usersQuery = appApi.injectEndpoints({
       invalidatesTags: result =>
         result ? [{ type: 'Users', id: result._id }] : [],
     }),
-    getTopics: builder.query({
-      async queryFn(_arg, _queryApi, _extraOptions, fetchWithBaseQuery) {
-        const sessionResult = await fetchWithBaseQuery({
-          url: `users/66c20d6a473ee51e08f7f804`,
+    updateProfile: builder.mutation({
+      async queryFn(putData, _queryApi, _extraOptions, fetchWithBaseQuery) {
+        console.log('putData', putData);
+        console.log('_queryApi', _queryApi);
+        console.log('_extraOptions', _extraOptions);
+        const fetchWithBaseQueryResult = await fetchWithBaseQuery({
+          url: `users/profile`,
+          method: 'PUT',
+          data: putData,
         });
-        return sessionResult.data
-          ? { data: sessionResult.data }
-          : { error: sessionResult.error };
+        console.log('fetchWithBaseQueryResult', fetchWithBaseQueryResult);
+        if (putData) {
+          return putData;
+          /*dispatch(authorize({ user: data }));
+          await dispatch(
+            getAccessTokenThunk({ config: { withCredentials: true } })
+          );*/
+        }
+      },
+      invalidatesTags: result => {
+        console.log('invalidatesTagsresult', result);
+        return result ? [{ type: 'Users', id: result._id }] : [];
       },
     }),
   }),
@@ -88,6 +103,6 @@ export const {
   useUpdateUserMutation,
   useDeleteUserMutation,
   useGetUsersQuery,
-  useLazyGetUsersQuery,
+  useUpdateProfileMutation,
   endpoints,
 } = usersQuery;
