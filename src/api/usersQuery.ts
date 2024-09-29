@@ -84,7 +84,7 @@ const usersQuery = appApi.injectEndpoints({
           };
         }
 
-        queryApi.dispatch(authorize({ user: data }));
+        queryApi.dispatch(authorize({ user: data as IUser }));
         await queryApi.dispatch(
           getAccessTokenThunk({ config: { withCredentials: true } })
         );
