@@ -8,6 +8,7 @@ import {
   IUsersList,
   IUserSort,
 } from './usersApi';
+import { ResponseApiError } from './baseApi';
 import { RequestParams } from './baseApi';
 import { authorize, getAccessTokenThunk } from '../store/common/thunks';
 
@@ -71,29 +72,29 @@ const usersQuery = appApi.injectEndpoints({
       invalidatesTags: result =>
         result ? [{ type: 'Users', id: result._id }] : [],
     }),
+    getPost: builder.query<IUser, IUserPost>({
+      queryFn: (putData, queryApi, extraOptions, baseQuery) => {
+        return { data: {} as IUser };
+      },
+    }),
     updateProfile: builder.mutation<IUser, IUserPost>({
-      async queryFn(
-        putData,
-        _queryApi,
-        _extraOptions,
-        fetchWithBaseQuery
-      ): Promise<{ data: IUser | null; error: IUserApiError | null }> {
+      async queryFn(putData, _queryApi, _extraOptions, fetchWithBaseQuery) {
         const { data, error } = await fetchWithBaseQuery({
           url: `users/profile`,
           method: 'PUT',
           data: putData,
         });
 
-        if (error) {
+        /*if (error) {
           return {
-            error: error as IUserApiError,
+            error: error as ResponseApiError,
             data: null,
           };
-        }
+        }*/
 
         return {
           data: data as IUser,
-          error: null,
+          //error: error as ResponseApiError,
         };
         /*dispatch(authorize({ user: data }));
           await dispatch(
