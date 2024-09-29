@@ -1,6 +1,6 @@
 import { useAppDispatch } from 'store/hooks';
 import { useTranslations } from 'next-intl';
-import { IUserPost } from 'api/usersApi';
+import { IUserPost, IUserApiError } from 'api/usersApi';
 import { IProps } from './ProfileModalChangePassword';
 import { notify } from 'store/common/thunks';
 import { useForm } from 'react-hook-form';
@@ -39,11 +39,12 @@ export function useProfileModalChangePassword({ onClose }: IProps) {
   ) => {
     const { error } = await updateProfilePasswordAction(formData);
 
-    if (error) {
-      if (error.data.fieldsErrors?.currentPassword) {
+    const userError = error as IUserApiError;
+    if (userError) {
+      if (userError.data.fieldsErrors?.currentPassword) {
         setError('currentPassword', {
           type: '400',
-          message: error.data.fieldsErrors.currentPassword,
+          message: userError.data.fieldsErrors.currentPassword,
         });
       }
       return;
