@@ -8,15 +8,11 @@ import { withLanguageAdjust } from './withLanguageAdjust';
 export const withPageWrapper = <T extends object>(
   Component: ComponentType<T>
 ) => {
-  const CleanedComponent = withCleanPageData(Component);
-  const MuiAdjustedComponent = withMuiAdjust(CleanedComponent);
-  const WithQueryErrorComponent = withQueryErrorNotify(MuiAdjustedComponent);
-  const WithHandleAccessTokenComponent = withHandleAccessToken(
-    WithQueryErrorComponent
-  );
-  const LanguageAdjustedComponent = withLanguageAdjust(
-    WithHandleAccessTokenComponent
-  );
+  let NewComponent = withCleanPageData(Component);
+  NewComponent = withMuiAdjust(NewComponent);
+  NewComponent = withQueryErrorNotify(NewComponent);
+  NewComponent = withHandleAccessToken(NewComponent);
+  NewComponent = withLanguageAdjust(NewComponent);
 
-  return LanguageAdjustedComponent;
+  return NewComponent;
 };

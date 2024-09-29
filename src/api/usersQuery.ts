@@ -8,7 +8,7 @@ import {
   IUserSort,
 } from './usersApi';
 import { RequestParams } from './baseApi';
-import { authorize, getAccessTokenThunk } from 'store/common/thunks';
+import { getAccessTokenThunk, authorize } from 'store/common/thunks';
 
 const usersQuery = appApi.injectEndpoints({
   endpoints: builder => ({
@@ -71,7 +71,7 @@ const usersQuery = appApi.injectEndpoints({
         result ? [{ type: 'Users', id: result._id }] : [],
     }),
     updateProfile: builder.mutation<IUser, IUserPost>({
-      async queryFn(putData, _queryApi, _extraOptions, fetchWithBaseQuery) {
+      async queryFn(putData, queryApi, _extraOptions, fetchWithBaseQuery) {
         const { data, error } = await fetchWithBaseQuery({
           url: `users/profile`,
           method: 'PUT',
@@ -84,10 +84,11 @@ const usersQuery = appApi.injectEndpoints({
           };
         }
 
-        /*dispatch(authorize({ user: data }));
-        await dispatch(
+        queryApi.dispatch(authorize({ user: data }));
+        await queryApi.dispatch(
           getAccessTokenThunk({ config: { withCredentials: true } })
-        );*/
+        );
+
         return {
           data: data as IUser,
         };

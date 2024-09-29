@@ -1,8 +1,8 @@
-import { createSlice, isAnyOf } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import type { RootStateType } from 'store/store';
 import type { ResponseApiError } from 'api/baseApi';
-import { endpoints } from 'api/usersQuery';
+//import { endpoints } from 'api/usersQuery';
 
 type StateType = {
   error: ResponseApiError<{ message: string }> | null;
@@ -24,22 +24,29 @@ const { actions, reducer } = createSlice({
     },
   },
   extraReducers: builder => {
-    builder.addMatcher(
-      isAnyOf(
-        endpoints.getUsers.matchRejected,
-        endpoints.getUserById.matchRejected,
-        endpoints.createUser.matchRejected,
-        endpoints.updateUser.matchRejected,
-        endpoints.deleteUser.matchRejected,
-        endpoints.updateProfile.matchRejected
-      ),
+    builder.addCase('api/executeMutation/rejected', (state, action) => {
+      const rtkQueryAction = action as unknown as {
+        payload: PayloadAction<ResponseApiError<{ message: string }>>;
+      };
+      Object.assign(state, {
+        error: rtkQueryAction.payload,
+      });
+    });
+    builder.addCase('api/executeQuery/rejected', (state, action) => {
+      const rtkQueryAction = action as unknown as {
+        payload: PayloadAction<ResponseApiError<{ message: string }>>;
+      };
+      Object.assign(state, {
+        error: rtkQueryAction.payload,
+      });
+      //state.error = rtkQueryAction.payload;
+    });
+    /*builder.addMatcher(
+      isAnyOf(endpoints.updateProfile.matchRejected),
       (state, action) => {
         state.error = action.payload as ResponseApiError<{ message: string }>;
-        /*Object.assign(state, {
-          error: action.payload as ResponseApiError<{ message: string }>,
-        });*/
       }
-    );
+    );*/
   },
 });
 
