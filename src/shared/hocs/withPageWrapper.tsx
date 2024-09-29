@@ -7,17 +7,16 @@ import { getAuthStateSelector } from 'store/common/selectors';
 import dayjs from 'dayjs';
 import { localeType } from 'i18n';
 import { useParams } from 'next/navigation';
-import { useTheme } from '@mui/material/styles';
-import { useTranslations } from 'next-intl';
+import { withCleanPageData } from './withCleanPageData';
+import { withMuiAdjust } from './withMuiAdjust';
 require('dayjs/locale/ru');
 
 export const withPageWrapper = <T extends object>(
   Component: ComponentType<T>
 ) => {
+  const CleanedComponent = withCleanPageData(Component);
+  const MuiAdjustedComponent = withMuiAdjust(CleanedComponent);
   const NewComponent: FC<T> = props => {
-    const Theme = useTheme();
-    const tCommon = useTranslations('Common');
-
     const { locale } = useParams();
     dayjs.locale(locale as localeType);
 
@@ -69,21 +68,7 @@ export const withPageWrapper = <T extends object>(
       }
     }, [removeCookie, setCookie, isAuth, newAccessToken, dispatch]);
 
-    useEffect(() => {
-      if (Theme.components!.MuiTablePagination) {
-        Theme.components!.MuiTablePagination!.defaultProps = {
-          ...Theme.components!.MuiTablePagination!.defaultProps,
-          labelRowsPerPage: tCommon('labelRowsPerPage'),
-        };
-      }
-
-      if (Theme.components?.MuiDataGrid?.defaultProps) {
-        Theme.components.MuiDataGrid.defaultProps.localeText = {
-          noRowsLabel: tCommon('noRowsLabel'),
-        };
-      }
-    }, [Theme, tCommon]);
-    return <Component {...props} />;
+    return <MuiAdjustedComponent {...props} />;
   };
   return NewComponent;
 };
