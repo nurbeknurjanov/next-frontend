@@ -4,7 +4,6 @@ import { withMuiAdjust } from './withMuiAdjust';
 import { withQueryErrorNotify } from './withQueryErrorNotify';
 import { withHandleAccessToken } from './withHandleAccessToken';
 import { withLanguageAdjust } from './withLanguageAdjust';
-require('dayjs/locale/ru');
 
 export const withPageWrapper = <T extends object>(
   Component: ComponentType<T>
