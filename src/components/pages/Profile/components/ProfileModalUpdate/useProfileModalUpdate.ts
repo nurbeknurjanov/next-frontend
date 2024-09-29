@@ -8,6 +8,7 @@ import { getAuthUser } from 'store/common/selectors';
 import { useUpdateProfileMutation } from 'api/usersQuery';
 
 export function useProfileModalUpdate({ onClose }: IProps) {
+  const dispatch = useAppDispatch();
   const tCommon = useTranslations('Common');
   const tProfilePage = useTranslations('ProfilePage');
   const tUser = useTranslations('User');
@@ -21,14 +22,12 @@ export function useProfileModalUpdate({ onClose }: IProps) {
     });
 
   const updateUser = async (formData: IUserPost) => {
-    const updateUserresult = await updateProfile(formData);
-    console.log('updateUserresult', updateUserresult);
-    /*const { data } = await dispatch(updateProfileThunk(formData));
+    const { data } = await updateProfile(formData);
 
     if (data) {
       onClose();
       dispatch(notify(tCommon('successUpdated'), 'success'));
-    }*/
+    }
   };
 
   const submitForm = (formData: IUserPost) => {

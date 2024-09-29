@@ -72,11 +72,18 @@ const usersQuery = appApi.injectEndpoints({
     }),
     updateProfile: builder.mutation<IUser, IUserPost>({
       async queryFn(putData, _queryApi, _extraOptions, fetchWithBaseQuery) {
-        const { data } = await fetchWithBaseQuery({
+        const { data, error } = await fetchWithBaseQuery({
           url: `users/profile`,
           method: 'PUT',
           data: putData,
         });
+
+        if (error) {
+          return {
+            error,
+          };
+        }
+
         return {
           data,
         };
@@ -85,10 +92,8 @@ const usersQuery = appApi.injectEndpoints({
             getAccessTokenThunk({ config: { withCredentials: true } })
           );*/
       },
-      invalidatesTags: result => {
-        console.log('invalidatesTagsresult', result);
-        return result ? [{ type: 'Users', id: result._id }] : [];
-      },
+      invalidatesTags: result =>
+        result ? [{ type: 'Users', id: result._id }] : [],
     }),
   }),
 });

@@ -30,7 +30,8 @@ const { actions, reducer } = createSlice({
         endpoints.getUserById.matchRejected,
         endpoints.createUser.matchRejected,
         endpoints.updateUser.matchRejected,
-        endpoints.deleteUser.matchRejected
+        endpoints.deleteUser.matchRejected,
+        endpoints.updateProfile.matchRejected
       ),
       (state, action) => {
         state.error = action.payload as ResponseApiError<{ message: string }>;
