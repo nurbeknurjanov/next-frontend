@@ -70,28 +70,20 @@ const usersQuery = appApi.injectEndpoints({
       invalidatesTags: result =>
         result ? [{ type: 'Users', id: result._id }] : [],
     }),
-    updateProfile: builder.mutation({
+    updateProfile: builder.mutation<IUser, IUserPost>({
       async queryFn(putData, _queryApi, _extraOptions, fetchWithBaseQuery) {
-        console.log('putData', putData);
-        console.log('_queryApi', _queryApi);
-        console.log('_extraOptions', _extraOptions);
-        const fetchWithBaseQueryResult = await fetchWithBaseQuery({
+        const { data } = await fetchWithBaseQuery({
           url: `users/profile`,
           method: 'PUT',
           data: putData,
         });
-        console.log('fetchWithBaseQueryResult', fetchWithBaseQueryResult);
         return {
-          data: fetchWithBaseQueryResult.data,
-          error: null,
+          data,
         };
-        if (putData) {
-          return putData;
-          /*dispatch(authorize({ user: data }));
+        /*dispatch(authorize({ user: data }));
           await dispatch(
             getAccessTokenThunk({ config: { withCredentials: true } })
           );*/
-        }
       },
       invalidatesTags: result => {
         console.log('invalidatesTagsresult', result);
