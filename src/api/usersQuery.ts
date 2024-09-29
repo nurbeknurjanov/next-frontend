@@ -72,11 +72,6 @@ const usersQuery = appApi.injectEndpoints({
       invalidatesTags: result =>
         result ? [{ type: 'Users', id: result._id }] : [],
     }),
-    getPost: builder.query<IUser, IUserPost>({
-      queryFn: (putData, queryApi, extraOptions, baseQuery) => {
-        return { data: {} as IUser };
-      },
-    }),
     updateProfile: builder.mutation<IUser, IUserPost>({
       async queryFn(putData, _queryApi, _extraOptions, fetchWithBaseQuery) {
         const { data, error } = await fetchWithBaseQuery({
@@ -85,16 +80,14 @@ const usersQuery = appApi.injectEndpoints({
           data: putData,
         });
 
-        /*if (error) {
+        if (error) {
           return {
-            error: error as ResponseApiError,
-            data: null,
+            error,
           };
-        }*/
+        }
 
         return {
           data: data as IUser,
-          //error: error as ResponseApiError,
         };
         /*dispatch(authorize({ user: data }));
           await dispatch(

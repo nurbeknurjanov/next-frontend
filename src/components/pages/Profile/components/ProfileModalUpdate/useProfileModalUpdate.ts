@@ -23,7 +23,6 @@ export function useProfileModalUpdate({ onClose }: IProps) {
 
   const updateUser = async (formData: IUserPost) => {
     const { data } = await updateProfile(formData);
-    console.log('data', data);
 
     if (data) {
       onClose();
