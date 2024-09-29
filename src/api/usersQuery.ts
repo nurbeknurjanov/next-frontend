@@ -1,6 +1,7 @@
 import { appApi } from './apiQuery';
 import {
   IUser,
+  IUserApiError,
   IUserFilters,
   IUserPost,
   IUserPostUpdate,
@@ -71,7 +72,12 @@ const usersQuery = appApi.injectEndpoints({
         result ? [{ type: 'Users', id: result._id }] : [],
     }),
     updateProfile: builder.mutation<IUser, IUserPost>({
-      async queryFn(putData, _queryApi, _extraOptions, fetchWithBaseQuery) {
+      async queryFn(
+        putData,
+        _queryApi,
+        _extraOptions,
+        fetchWithBaseQuery
+      ): Promise<{ data: IUser | null; error: IUserApiError | null }> {
         const { data, error } = await fetchWithBaseQuery({
           url: `users/profile`,
           method: 'PUT',
@@ -80,12 +86,14 @@ const usersQuery = appApi.injectEndpoints({
 
         if (error) {
           return {
-            error,
+            error: error as IUserApiError,
+            data: null,
           };
         }
 
         return {
-          data,
+          data: data as IUser,
+          error: null,
         };
         /*dispatch(authorize({ user: data }));
           await dispatch(
