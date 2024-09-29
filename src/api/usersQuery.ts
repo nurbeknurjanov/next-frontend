@@ -1,16 +1,14 @@
 import { appApi } from './apiQuery';
 import {
   IUser,
-  IUserApiError,
   IUserFilters,
   IUserPost,
   IUserPostUpdate,
   IUsersList,
   IUserSort,
 } from './usersApi';
-import { ResponseApiError } from './baseApi';
 import { RequestParams } from './baseApi';
-import { authorize, getAccessTokenThunk } from '../store/common/thunks';
+import { authorize, getAccessTokenThunk } from 'store/common/thunks';
 
 const usersQuery = appApi.injectEndpoints({
   endpoints: builder => ({
@@ -86,13 +84,13 @@ const usersQuery = appApi.injectEndpoints({
           };
         }
 
+        /*dispatch(authorize({ user: data }));
+        await dispatch(
+          getAccessTokenThunk({ config: { withCredentials: true } })
+        );*/
         return {
           data: data as IUser,
         };
-        /*dispatch(authorize({ user: data }));
-          await dispatch(
-            getAccessTokenThunk({ config: { withCredentials: true } })
-          );*/
       },
       invalidatesTags: result =>
         result ? [{ type: 'Users', id: result._id }] : [],
