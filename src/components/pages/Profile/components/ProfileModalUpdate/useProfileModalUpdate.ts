@@ -14,15 +14,15 @@ export function useProfileModalUpdate({ onClose }: IProps) {
   const tUser = useTranslations('User');
 
   const model = useAppSelector(getAuthUser);
-  const [updateProfile, { isLoading }] = useUpdateProfileMutation();
+  const [updateProfileAction, { isLoading }] = useUpdateProfileMutation();
 
   const { register, errors, isValid, isDirty, handleSubmit, watch, setValue } =
     useUserForm({
       model: model!,
     });
 
-  const updateUser = async (formData: IUserPost) => {
-    const { data } = await updateProfile(formData);
+  const updateProfile = async (formData: IUserPost) => {
+    const { data } = await updateProfileAction(formData);
 
     if (data) {
       onClose();
@@ -31,7 +31,7 @@ export function useProfileModalUpdate({ onClose }: IProps) {
   };
 
   const submitForm = (formData: IUserPost) => {
-    updateUser(formData);
+    updateProfile(formData);
   };
 
   return {

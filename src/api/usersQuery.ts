@@ -96,6 +96,15 @@ const usersQuery = appApi.injectEndpoints({
       invalidatesTags: result =>
         result ? [{ type: 'Users', id: result._id }] : [],
     }),
+    updateProfilePassword: builder.mutation<IUser, Pick<IUserPost, 'password'>>(
+      {
+        query: data => ({
+          url: 'users/profile/change-password',
+          method: 'PUT',
+          data,
+        }),
+      }
+    ),
   }),
 });
 
@@ -106,5 +115,5 @@ export const {
   useDeleteUserMutation,
   useGetUsersQuery,
   useUpdateProfileMutation,
-  endpoints,
+  useUpdateProfilePasswordMutation,
 } = usersQuery;

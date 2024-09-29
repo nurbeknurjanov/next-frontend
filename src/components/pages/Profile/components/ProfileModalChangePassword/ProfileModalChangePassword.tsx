@@ -20,7 +20,7 @@ export const ProfileModalChangePassword: React.FC<IProps> = ({ onClose }) => {
     tCommon,
     tProfilePage,
     tUser,
-    userChangePasswordState,
+    isLoading,
     register,
     errors,
     isValid,
@@ -69,7 +69,7 @@ export const ProfileModalChangePassword: React.FC<IProps> = ({ onClose }) => {
           }}
           disabled={!isDirty || !isValid}
           autoFocus
-          loading={userChangePasswordState.isFetching}
+          loading={isLoading}
           sx={{ minWidth: 120 }}
         >
           {tCommon('save')}
