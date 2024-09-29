@@ -16,6 +16,13 @@ export const withQueryErrorNotify = <T extends object>(
       }
     }, [error, dispatch]);
 
+    useEffect(
+      () => () => {
+        dispatch(common.queryError.actions.reset());
+      },
+      [dispatch]
+    );
+
     return <Component {...props} />;
   };
 
