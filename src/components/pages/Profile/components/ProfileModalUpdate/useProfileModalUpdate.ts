@@ -5,7 +5,7 @@ import { IProps } from './ProfileModalUpdate';
 import { useUserForm } from 'components/pages/Users';
 import { notify } from 'store/common/thunks';
 import { getAuthUser } from 'store/common/selectors';
-import { useUpdateProfileMutation } from 'api/usersQuery';
+import { useUpdateProfileMutation } from '../../../../../api/usersApi/query';
 
 export function useProfileModalUpdate({ onClose }: IProps) {
   const dispatch = useAppDispatch();

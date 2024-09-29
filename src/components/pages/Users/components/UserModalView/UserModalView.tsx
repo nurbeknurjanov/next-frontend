@@ -11,7 +11,7 @@ import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import dayjs from 'dayjs';
 import { DATE_FORMAT } from 'shared/utils';
 import { useTranslatedData } from 'shared/hooks';
-import { useGetUserByIdQuery } from 'api/usersQuery';
+import { useGetUserByIdQuery } from '../../../../../api/usersApi/query';
 import { skipToken } from '@reduxjs/toolkit/query';
 
 export type IProps = {

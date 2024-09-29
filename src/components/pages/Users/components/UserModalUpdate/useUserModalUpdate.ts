@@ -4,7 +4,10 @@ import { IUserPost } from 'api/usersApi';
 import { IProps } from './UserModalUpdate';
 import { useUserForm } from '../useUserForm';
 import { notify } from 'store/common/thunks';
-import { useGetUserByIdQuery, useUpdateUserMutation } from 'api/usersQuery';
+import {
+  useGetUserByIdQuery,
+  useUpdateUserMutation,
+} from '../../../../../api/usersApi/query';
 import { skipToken } from '@reduxjs/toolkit/query';
 
 export function useUserModalUpdate({ onClose, id }: IProps) {

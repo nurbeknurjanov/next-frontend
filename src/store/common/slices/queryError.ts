@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import type { RootStateType } from 'store/store';
-import type { ResponseApiError } from 'api/baseApi';
+import type { ResponseApiError } from 'api/base';
 //import { endpoints } from 'api/usersQuery';
 
 type StateType = {

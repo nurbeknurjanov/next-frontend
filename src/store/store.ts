@@ -5,7 +5,7 @@ import {
   //ThunkDispatch,
 } from '@reduxjs/toolkit';
 import { rootReducer } from './rootReducer';
-import { appApi } from 'api/apiQuery';
+import { appApi } from '../api/baseApi/apiQuery';
 
 export const createStore = (initialState?: any) =>
   configureStore({

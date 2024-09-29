@@ -3,7 +3,7 @@ import { useTranslations } from 'next-intl';
 import { IProps } from './UserModalDelete';
 import { notify } from 'store/common/thunks';
 import { useCallback } from 'react';
-import { useDeleteUserMutation } from 'api/usersQuery';
+import { useDeleteUserMutation } from '../../../../../api/usersApi/query';
 
 export function useUserModalDelete({ onClose }: Omit<IProps, 'id'>) {
   const tCommon = useTranslations('Common');

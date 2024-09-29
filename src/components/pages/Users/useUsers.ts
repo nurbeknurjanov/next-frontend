@@ -8,7 +8,7 @@ import {
   IUserSort,
   IUserSortFields,
 } from 'api/usersApi';
-import { useGetUsersQuery } from 'api/usersQuery';
+import { useGetUsersQuery } from '../../../api/usersApi/query';
 import dayjs from 'dayjs';
 
 type ModalType =

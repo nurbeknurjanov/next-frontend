@@ -7,7 +7,7 @@ import { useForm } from 'react-hook-form';
 import { joiResolver } from '@hookform/resolvers/joi';
 import { useI18nJoi } from 'shared/utils';
 import Joi from 'joi';
-import { useUpdateProfilePasswordMutation } from 'api/usersQuery';
+import { useUpdateProfilePasswordMutation } from '../../../../../api/usersApi/query';
 
 export function useProfileModalChangePassword({ onClose }: IProps) {
   const dispatch = useAppDispatch();

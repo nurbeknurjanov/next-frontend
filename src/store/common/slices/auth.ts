@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import type { RootStateType } from 'store/store';
-import type { IUser } from 'api/usersApi';
+import type { IUser } from 'api/users';
 
 export type AuthStateType = {
   isAuth: boolean | null;
