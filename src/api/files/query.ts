@@ -38,7 +38,10 @@ const query = appApi.injectEndpoints({
         method: 'POST',
         data,
       }),
-      invalidatesTags: [{ type: 'Files', id: 'LIST' }],
+      invalidatesTags: [
+        { type: 'Files', id: 'LIST' },
+        { type: 'Products', id: 'LIST' },
+      ],
     }),
     deleteFile: builder.mutation<IFile, string>({
       query: id => ({
@@ -46,7 +49,12 @@ const query = appApi.injectEndpoints({
         method: 'DELETE',
       }),
       invalidatesTags: result =>
-        result ? [{ type: 'Files', id: result._id }] : [],
+        result
+          ? [
+              { type: 'Files', id: result._id },
+              { type: 'Products', id: result.modelId },
+            ]
+          : [],
     }),
   }),
 });

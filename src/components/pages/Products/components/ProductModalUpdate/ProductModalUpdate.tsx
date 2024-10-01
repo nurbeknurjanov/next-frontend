@@ -17,14 +17,9 @@ import { FileModalDelete } from 'components/pages/Files';
 export type IProps = {
   id: string;
   onClose: () => void;
-  afterUpdate: () => void;
 };
 
-export const ProductModalUpdate: React.FC<IProps> = ({
-  onClose,
-  afterUpdate,
-  id,
-}) => {
+export const ProductModalUpdate: React.FC<IProps> = ({ onClose, id }) => {
   //const id = type === 'update' ? props.id : null;
   const formRef = useRef<HTMLFormElement>();
   //const formRef = useRef<HTMLFormElement>(null); //for direct assign
@@ -32,8 +27,8 @@ export const ProductModalUpdate: React.FC<IProps> = ({
     tCommon,
     tProductPage,
     tProduct,
-    aggStates,
-    getProductState,
+    isLoading,
+    isLoadingUpdate,
     register,
     errors,
     isValid,
@@ -48,7 +43,6 @@ export const ProductModalUpdate: React.FC<IProps> = ({
   } = useProductModalUpdate({
     id: id!,
     onClose,
-    afterUpdate,
   });
 
   return (
@@ -56,7 +50,7 @@ export const ProductModalUpdate: React.FC<IProps> = ({
       <Dialog open onClose={onClose}>
         <DialogTitle>{tProductPage('update')}</DialogTitle>
         <DialogContent>
-          {getProductState.isFetching ? (
+          {isLoading ? (
             <CircularProgress sx={{ mx: 'auto', mb: 2, display: 'block' }} />
           ) : (
             <form
@@ -132,7 +126,7 @@ export const ProductModalUpdate: React.FC<IProps> = ({
             }}
             disabled={!isDirty || !isValid}
             autoFocus
-            loading={aggStates.isFetching}
+            loading={isLoadingUpdate}
             sx={{ minWidth: 120 }}
           >
             {tCommon('update')}

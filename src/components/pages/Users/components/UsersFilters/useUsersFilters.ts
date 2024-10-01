@@ -1,14 +1,12 @@
 import { useForm } from 'react-hook-form';
 import { IProps } from './UsersFilters';
-import { IUserFiltersForm } from 'api/usersApi';
+import { IUserFiltersForm } from 'api/users';
 import { useAppSelector } from 'store/hooks';
 import { FormEvent, useEffect, useRef } from 'react';
-import { getUsersStateSelector } from 'store/users/selectors';
 import { useTranslatedData } from 'shared/hooks';
 
 export function useUsersFilters({ filters, setFilters }: IProps) {
   const previousFilters = useRef<IUserFiltersForm | null>(null);
-  const getUsersState = useAppSelector(getUsersStateSelector);
 
   const { sexOptions, statusOptions } = useTranslatedData();
   const defaultValues: IUserFiltersForm = {
@@ -52,11 +50,11 @@ export function useUsersFilters({ filters, setFilters }: IProps) {
     handleSubmit(submitForm)(event);
   };
 
-  useEffect(() => {
+  /*useEffect(() => {
     if (getUsersState.isFetching) {
       previousFilters.current = filters;
     }
-  }, [filters, getUsersState.isFetching]);
+  }, [filters, getUsersState.isFetching]);*/
 
   return {
     onSubmitForm,
@@ -66,7 +64,6 @@ export function useUsersFilters({ filters, setFilters }: IProps) {
     setValue,
     isDirty,
     isValid,
-    getUsersState,
     previousFilters,
     statusOptions,
     sexOptions,

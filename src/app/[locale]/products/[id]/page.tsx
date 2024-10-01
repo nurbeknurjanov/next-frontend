@@ -4,7 +4,6 @@ import { serverStore } from 'store/store';
 import type { PageProps } from 'app/types';
 import { headers } from 'next/headers';
 import { setServerWait, setTitle } from 'store/common/thunks';
-import { getProductThunk } from 'store/products/thunks';
 import { notFound } from 'next/navigation';
 
 export interface ProductPageProps extends PageProps {
@@ -17,7 +16,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
   console.log("headersList.get('Referer')", headersList.get('Referer'));
   if (headersList.get('Referer') === null) {
-    serverStore.dispatch(setServerWait(true));
+    /*serverStore.dispatch(setServerWait(true));
 
     const { data: model } = await serverStore.dispatch(getProductThunk(id));
     if (!model) {
@@ -27,7 +26,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
     serverStore.dispatch(setTitle(model!.name));
 
-    serverStore.dispatch(setServerWait(false));
+    serverStore.dispatch(setServerWait(false));*/
   }
 
   return <Product />;

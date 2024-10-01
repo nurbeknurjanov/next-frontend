@@ -9,7 +9,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { FileModalDelete, FilesFilters } from './components';
 import { withPageWrapper } from 'shared/hocs';
 import { DATE_FORMAT } from 'shared/utils';
-import { IFile } from 'api/filesApi';
+import { IFile } from 'api/files';
 import { useSetPageData } from 'shared/hooks';
 
 let Files: FC = () => {
@@ -17,21 +17,19 @@ let Files: FC = () => {
     tCommon,
     tFiles,
     tProductPage,
-    getFilesState,
+    isLoading,
+    data,
     setPagination,
     sorting,
     setSorting,
     filters,
     setFilters,
-    refreshList,
     showModal,
     setShowModal,
     closeShowModal,
   } = useFiles();
 
   useSetPageData(tFiles('title'), [tFiles('title')]);
-
-  const { data, isFetching } = getFilesState;
 
   const columns: GridColDef<IFile>[] = [
     {
@@ -97,7 +95,7 @@ let Files: FC = () => {
           rows={data?.list ?? []}
           getRowId={el => el._id}
           columns={columns}
-          loading={isFetching}
+          loading={isLoading}
           paginationModel={{
             page: data?.pagination?.pageNumber ?? 0,
             pageSize: data?.pagination?.pageSize ?? 12,
@@ -118,11 +116,7 @@ let Files: FC = () => {
       </div>
 
       {showModal?.type === 'delete' && (
-        <FileModalDelete
-          id={showModal.id}
-          onClose={closeShowModal}
-          afterDelete={refreshList}
-        />
+        <FileModalDelete id={showModal.id} onClose={closeShowModal} />
       )}
     </>
   );

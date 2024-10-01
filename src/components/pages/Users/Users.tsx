@@ -23,7 +23,7 @@ import {
 } from './components';
 import { withPageWrapper } from 'shared/hocs';
 import { DATE_FORMAT } from 'shared/utils';
-import { IUser } from 'api/usersApi';
+import { IUser } from 'api/users';
 import { useSetPageData, useTranslatedData } from 'shared/hooks';
 
 let Users: FC = () => {

@@ -1,6 +1,5 @@
 import { BaseApiService } from './BaseApiService';
 import { getCookie } from 'shared/utils';
-import { commonApi } from '../common';
 
 export const baseApi = new BaseApiService({});
 
@@ -25,7 +24,16 @@ baseApi.getAxiosInstance().interceptors.response.use(
   async error => {
     if (error.response.status === 401 && getCookie('refreshToken')) {
       try {
-        const newAccessToken = await commonApi.getAccessToken();
+        const newAccessToken = await fetch(
+          `${baseApi.getAxiosInstance().defaults.baseURL}/auth/get-access-token`,
+          {
+            credentials: 'include',
+            headers: {
+              cookie: `refreshToken=${getCookie('refreshToken')};path=/;`,
+            },
+          }
+        );
+
         document.cookie = `accessToken=${newAccessToken};path=/;`;
         const originalRequest = error.config;
         originalRequest.headers.accessToken = newAccessToken;

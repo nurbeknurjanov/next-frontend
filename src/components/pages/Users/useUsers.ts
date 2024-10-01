@@ -7,8 +7,8 @@ import {
   IUserFiltersForm,
   IUserSort,
   IUserSortFields,
-} from 'api/usersApi';
-import { useGetUsersQuery } from '../../../api/usersApi/query';
+  useGetUsersQuery,
+} from 'api/users';
 import dayjs from 'dayjs';
 
 type ModalType =

@@ -1,27 +1,25 @@
-import { useAppDispatch, useAppSelector } from 'store/hooks';
-import { products } from 'store';
+import { useAppDispatch } from 'store/hooks';
 import { useTranslations } from 'next-intl';
-import { IProductPost } from 'api/productsApi';
+import {
+  IProductPost,
+  useGetProductByIdQuery,
+  useUpdateProductMutation,
+} from 'api/products';
 import { IProps } from './ProductModalUpdate';
 import { useProductForm, useProductUploadFile } from '../';
-import { useProductModel } from 'components/pages/Product';
 import { notify } from 'store/common/thunks';
-import { updateProductThunk } from 'store/products/thunks';
-import { getAggStates } from 'store/common/types';
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
+import { skipToken } from '@reduxjs/toolkit/query';
 
-export function useProductModalUpdate({ onClose, afterUpdate, id }: IProps) {
+export function useProductModalUpdate({ onClose, id }: IProps) {
   const dispatch = useAppDispatch();
   const tCommon = useTranslations('Common');
   const tProductPage = useTranslations('ProductPage');
   const tProduct = useTranslations('Product');
 
-  const { model, getProductState } = useProductModel({ id });
-
-  const updateProductState = useAppSelector(
-    products.updateProduct.selector.state
-  );
-  const aggStates = getAggStates(updateProductState);
+  const { data: model, isLoading } = useGetProductByIdQuery(id ?? skipToken);
+  const [updateModel, { isLoading: isLoadingUpdate }] =
+    useUpdateProductMutation();
 
   const {
     register,
@@ -39,25 +37,20 @@ export function useProductModalUpdate({ onClose, afterUpdate, id }: IProps) {
   const [selectedFileIdToDelete, setSelectedFileIdToDelete] = useState<
     string | null
   >();
-  const afterFileUploadAndRemove = useCallback(() => {
-    setSelectedFileIdToDelete(null);
-    afterUpdate();
-  }, [afterUpdate]);
+
   const { percentUploadImage, imageObject, deleteFile } = useProductUploadFile({
     id,
     setValue,
     watch,
     schema,
-    afterFileUploadAndRemove,
   });
 
   const updateProduct = async (id: string, formData: IProductPost) => {
-    const { data } = await dispatch(updateProductThunk(id, formData));
+    const { data } = await updateModel({ id, ...formData });
 
     if (data) {
       onClose();
       dispatch(notify(tCommon('successUpdated'), 'success'));
-      afterUpdate();
     }
   };
 
@@ -69,8 +62,8 @@ export function useProductModalUpdate({ onClose, afterUpdate, id }: IProps) {
     tCommon,
     tProductPage,
     tProduct,
-    aggStates,
-    getProductState,
+    isLoading,
+    isLoadingUpdate,
     register,
     errors,
     isValid,

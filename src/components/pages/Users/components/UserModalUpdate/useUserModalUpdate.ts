@@ -1,13 +1,13 @@
 import { useAppDispatch } from 'store/hooks';
 import { useTranslations } from 'next-intl';
-import { IUserPost } from 'api/usersApi';
+import {
+  IUserPost,
+  useGetUserByIdQuery,
+  useUpdateUserMutation,
+} from 'api/users';
 import { IProps } from './UserModalUpdate';
 import { useUserForm } from '../useUserForm';
 import { notify } from 'store/common/thunks';
-import {
-  useGetUserByIdQuery,
-  useUpdateUserMutation,
-} from '../../../../../api/usersApi/query';
 import { skipToken } from '@reduxjs/toolkit/query';
 
 export function useUserModalUpdate({ onClose, id }: IProps) {

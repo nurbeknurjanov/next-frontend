@@ -12,7 +12,7 @@ import {
 } from '@mui/material';
 import { Button } from 'shared/ui';
 import React from 'react';
-import { IUserFiltersForm, SEX_ENUM, STATUS_ENUM } from 'api/usersApi';
+import { IUserFiltersForm, SEX_ENUM, STATUS_ENUM } from 'api/users';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import { useTranslations } from 'next-intl';
@@ -41,7 +41,6 @@ export const UsersFilters = ({ filters, setFilters }: IProps) => {
     setValue,
     isDirty,
     isValid,
-    getUsersState,
     previousFilters,
     statusOptions,
     sexOptions,
@@ -189,10 +188,7 @@ export const UsersFilters = ({ filters, setFilters }: IProps) => {
             type={'submit'}
             variant={'contained'}
             disabled={!isDirty || !isValid}
-            loading={
-              getUsersState.isFetching &&
-              !isEqual(filters, previousFilters.current)
-            }
+            loading={!isEqual(filters, previousFilters.current)}
             sx={{ minWidth: 100 }}
           >
             {tCommon('search')}

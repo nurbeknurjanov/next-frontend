@@ -1,11 +1,10 @@
 import { useAppDispatch, useAppSelector } from 'store/hooks';
 import { useTranslations } from 'next-intl';
-import { IUserPost } from 'api/usersApi';
+import { IUserPost, useUpdateProfileMutation } from 'api/users';
 import { IProps } from './ProfileModalUpdate';
 import { useUserForm } from 'components/pages/Users';
 import { notify } from 'store/common/thunks';
 import { getAuthUser } from 'store/common/selectors';
-import { useUpdateProfileMutation } from '../../../../../api/usersApi/query';
 
 export function useProfileModalUpdate({ onClose }: IProps) {
   const dispatch = useAppDispatch();

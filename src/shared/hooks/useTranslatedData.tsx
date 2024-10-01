@@ -1,5 +1,5 @@
 'use client';
-import { sexOptions, SEX_ENUM, statusOptions, STATUS_ENUM } from 'api/usersApi';
+import { sexOptions, SEX_ENUM, statusOptions, STATUS_ENUM } from 'api/users';
 import { useTranslations } from 'next-intl';
 
 export function useTranslatedData() {

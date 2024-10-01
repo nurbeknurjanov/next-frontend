@@ -1,21 +1,53 @@
 import { appApi } from 'api/base';
 import { LoginRequestBodyParams, LoginResponse } from './types';
+import { authorize, logout } from 'store/common/thunks';
+import { JWT } from 'shared/utils/jwt';
 
 const query = appApi.injectEndpoints({
   endpoints: builder => ({
     login: builder.mutation<LoginResponse, LoginRequestBodyParams>({
-      query: data => ({
-        url: `auth/login`,
-        method: 'POST',
-        data,
-      }),
+      async queryFn(putData, queryApi, _extraOptions, fetchWithBaseQuery) {
+        const { data, error } = await fetchWithBaseQuery({
+          url: `auth/login`,
+          method: 'POST',
+          data: putData,
+        });
+
+        if (error) {
+          return {
+            error,
+          };
+        }
+
+        const accessTokenParsed = await JWT.parseToken(
+          (data as LoginResponse).accessToken
+        );
+        queryApi.dispatch(authorize({ user: accessTokenParsed.user }));
+
+        return {
+          data: data as LoginResponse,
+        };
+      },
     }),
     getAccessToken: builder.query<string, unknown>({
-      query: () => ({
-        url: `auth/get-access-token`,
-      }),
+      async queryFn(_, queryApi, _extraOptions, fetchWithBaseQuery) {
+        const { data, error } = await fetchWithBaseQuery({
+          url: `auth/get-access-token`,
+        });
+
+        if (error) {
+          queryApi.dispatch(logout());
+          return {
+            error,
+          };
+        }
+
+        return {
+          data: data as string,
+        };
+      },
     }),
   }),
 });
 
-export const { useLoginMutation, useGetAccessTokenQuery } = query;
+export const { useLoginMutation, useLazyGetAccessTokenQuery } = query;

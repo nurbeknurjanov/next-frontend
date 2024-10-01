@@ -7,28 +7,22 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
-interface IPropsBase {
+export interface IProps {
   id: string;
   onClose: () => void;
-}
-export interface IProps extends IPropsBase {
-  afterDelete: () => void;
-}
-interface IPropsCustom extends IPropsBase {
-  customDeleteFile: (_id: string) => void;
+  customDeleteFile?: (_id: string) => void;
 }
 
-export const FileModalDelete: React.FC<IProps | IPropsCustom> = ({
+export const FileModalDelete: React.FC<IProps> = ({
   id,
   onClose,
-  ...props
+  customDeleteFile,
 }) => {
-  const { tFilePage, tCommon, deleteFile, deleteFileState } =
-    useFileModalDelete({
-      onClose,
-      afterDelete: 'afterDelete' in props ? props.afterDelete : () => {},
-    });
+  const { tFilePage, tCommon, deleteFile, isLoading } = useFileModalDelete({
+    onClose,
+  });
 
+  console.log('standard file delete loading', isLoading);
   return (
     <Dialog open onClose={onClose}>
       <DialogTitle>{tFilePage('delete')}</DialogTitle>
@@ -40,14 +34,14 @@ export const FileModalDelete: React.FC<IProps | IPropsCustom> = ({
         <Button
           variant={'contained'}
           onClick={() => {
-            if ('customDeleteFile' in props && props.customDeleteFile) {
-              return props.customDeleteFile(id);
+            if (customDeleteFile) {
+              customDeleteFile(id);
             }
 
             deleteFile(id);
           }}
           autoFocus
-          loading={deleteFileState.isFetching}
+          loading={isLoading}
           sx={{ minWidth: 110 }}
         >
           {tCommon('delete')}

@@ -1,6 +1,6 @@
-import { useAppDispatch, useAppSelector } from 'store/hooks';
-import { LoginRequestBodyParams } from 'api/commonApi';
-import { loginThunk, logout } from 'store/common/thunks';
+import { useAppDispatch } from 'store/hooks';
+import { LoginRequestBodyParams, useLoginMutation } from 'api/common';
+import { logout } from 'store/common/thunks';
 import { joiResolver } from '@hookform/resolvers/joi';
 import Joi from 'joi';
 import { useForm } from 'react-hook-form';
@@ -9,7 +9,6 @@ import { useI18nJoi } from 'shared/utils';
 import { useCookies } from 'react-cookie';
 import { useRouter } from 'next/navigation';
 import tlds from 'tlds';
-import { common } from 'store';
 import { useEffect } from 'react';
 
 export const useLogin = () => {
@@ -17,7 +16,6 @@ export const useLogin = () => {
   const tLoginPage = useTranslations('LoginPage');
   const tLoginPageFields = useTranslations('LoginPage.fields');
   const dispatch = useAppDispatch();
-  const loginState = useAppSelector(common.login.selector.state);
   const router = useRouter();
   const [_cookies, setCookie, removeCookie] = useCookies([
     'refreshToken',
@@ -56,8 +54,9 @@ export const useLogin = () => {
     defaultValues: initialValues,
   });
 
+  const [loginAction, { isLoading }] = useLoginMutation();
   const login = async (formData: LoginRequestBodyParams) => {
-    const { data } = await dispatch(loginThunk(formData));
+    const { data } = await loginAction(formData);
     if (data) {
       const domainSlices = window.location.hostname
         .split('.')
@@ -92,6 +91,6 @@ export const useLogin = () => {
     tCommon,
     tLoginPage,
     login,
-    loginState,
+    isLoading,
   };
 };

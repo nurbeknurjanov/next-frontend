@@ -7,7 +7,7 @@ import {
   IUsersList,
   IUserSort,
 } from './index';
-import { getAccessTokenThunk, authorize } from 'store/common/thunks';
+import { authorize } from 'store/common/thunks';
 
 const query = appApi.injectEndpoints({
   endpoints: builder => ({
@@ -84,9 +84,14 @@ const query = appApi.injectEndpoints({
         }
 
         queryApi.dispatch(authorize({ user: data as IUser }));
-        await queryApi.dispatch(
+
+        await fetchWithBaseQuery({
+          url: `auth/get-access-token`,
+        });
+
+        /*await queryApi.dispatch(
           getAccessTokenThunk({ config: { withCredentials: true } })
-        );
+        );*/
 
         return {
           data: data as IUser,

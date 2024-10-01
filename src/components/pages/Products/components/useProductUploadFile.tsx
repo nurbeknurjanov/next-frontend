@@ -1,32 +1,30 @@
 import { useCallback, useEffect, useState } from 'react';
-import { useAppDispatch, useAppSelector } from 'store/hooks';
-import { files } from 'store';
-import { deleteFileThunk, createFileThunk } from 'store/files/thunks';
-import { getProductSelector } from 'store/products/selectors';
-import { IFile, IFilePost } from 'api/filesApi';
+import { useAppDispatch } from 'store/hooks';
+import {
+  IFile,
+  IFilePost,
+  useDeleteFileMutation,
+  useCreateFileMutation,
+} from 'api/files';
+import { useGetProductByIdQuery } from 'api/products';
 import { UseFormSetValue, UseFormWatch } from 'react-hook-form';
 import { ObjectSchema } from 'joi';
 import { notify } from 'store/common/thunks';
 import { useTranslations } from 'next-intl';
+import { skipToken } from '@reduxjs/toolkit/query';
 
 interface IProps {
   id?: string;
   setValue: UseFormSetValue<any>;
   watch: UseFormWatch<any>;
   schema: ObjectSchema;
-  afterFileUploadAndRemove: () => void;
 }
-export function useProductUploadFile({
-  id,
-  setValue,
-  watch,
-  schema,
-  afterFileUploadAndRemove,
-}: IProps) {
+export function useProductUploadFile({ id, setValue, watch, schema }: IProps) {
   const tCommon = useTranslations('Common');
   const dispatch = useAppDispatch();
 
-  const product = useAppSelector(getProductSelector);
+  const { data: product } = useGetProductByIdQuery(id ?? skipToken);
+
   const [imageObject, setImageObject] = useState<IFile | null>(null);
   const [percentUploadImage, setPercentUploadImage] = useState(0);
   useEffect(() => {
@@ -35,9 +33,10 @@ export function useProductUploadFile({
     }
   }, [product]);
 
+  const [deleteFileAction] = useDeleteFileMutation();
   const deleteFile = useCallback(
     async (id: string) => {
-      const { data } = await dispatch(deleteFileThunk(id));
+      const { data } = await deleteFileAction(id);
 
       if (data) {
         if (data.data?.type === 'image') {
@@ -49,26 +48,25 @@ export function useProductUploadFile({
         }
 
         dispatch(notify(tCommon('successDeleted'), 'success'));
-        afterFileUploadAndRemove();
-        dispatch(files.createFile.actions.reset());
       }
     },
-    [dispatch, afterFileUploadAndRemove, setValue, tCommon, product]
+    [dispatch, setValue, tCommon, product, deleteFileAction]
   );
 
+  const [createFileAction, { data: dataCreated }] = useCreateFileMutation();
   const uploadFile = useCallback(
     async (fileData: IFilePost) => {
-      const { data } = await dispatch(
-        createFileThunk(fileData, {
-          onUploadProgress(progressEvent) {
-            fileData?.data?.type === 'image' &&
-              setPercentUploadImage(
-                Math.round(
-                  (progressEvent.loaded * 100) / (progressEvent.total as number)
-                )
-              );
-          },
-        })
+      const { data } = await createFileAction(
+        fileData /*, {
+        onUploadProgress(progressEvent) {
+          fileData?.data?.type === 'image' &&
+            setPercentUploadImage(
+              Math.round(
+                (progressEvent.loaded * 100) / (progressEvent.total as number)
+              )
+            );
+        },
+      }*/
       );
       setPercentUploadImage(0);
 
@@ -83,10 +81,9 @@ export function useProductUploadFile({
         }
 
         dispatch(notify(tCommon('successUploaded'), 'success'));
-        afterFileUploadAndRemove();
       }
     },
-    [dispatch, setValue, product, afterFileUploadAndRemove, tCommon]
+    [dispatch, setValue, product, tCommon, createFileAction]
   );
 
   const imageFileValue = watch('imageFile');
@@ -116,17 +113,10 @@ export function useProductUploadFile({
     }
   }, [dispatch, id, uploadFile, imageFileValue, schema]);
 
-  useEffect(
-    () => () => {
-      dispatch(files.deleteFile.actions.reset());
-      dispatch(files.createFile.actions.reset());
-    },
-    [dispatch]
-  );
-
   return {
     percentUploadImage,
     imageObject,
     deleteFile,
+    dataCreated,
   };
 }

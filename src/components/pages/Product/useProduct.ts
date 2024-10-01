@@ -1,15 +1,20 @@
 'use client';
 import { useParams, useRouter } from 'next/navigation';
 import { ProductPageProps } from 'app/[locale]/products/[id]/page';
-import { useProductModel } from './useProductModel';
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { useAppSelector } from 'store/hooks';
 import { getProductsPermissionsStateSelector } from 'store/products/selectors';
+import { useGetProductByIdQuery } from 'api/products';
+import { skipToken } from '@reduxjs/toolkit/query';
 
 type ModalType = { type: 'delete'; id: string };
 export function useProduct() {
+  const tCommon = useTranslations('Common');
+  const tProductPage = useTranslations('ProductPage');
+  const tProduct = useTranslations('Product');
   const tProductsPage = useTranslations('ProductsPage');
+
   const router = useRouter();
 
   const productsPermissions = useAppSelector(
@@ -19,8 +24,7 @@ export function useProduct() {
   const [showModal, setShowModal] = useState<ModalType | null>();
 
   const { id } = useParams<ProductPageProps['params']>();
-  const { tCommon, tProduct, tProductPage, model, getProductState } =
-    useProductModel({ id });
+  const { data: model, isLoading } = useGetProductByIdQuery(id ?? skipToken);
 
   return {
     tCommon,
@@ -28,7 +32,7 @@ export function useProduct() {
     tProductPage,
     tProductsPage,
     model,
-    getProductState,
+    isLoading,
     showModal,
     setShowModal,
     router,

@@ -1,5 +1,4 @@
 import React, { FC } from 'react';
-import { useProductModel } from 'components/pages/Product';
 import { Button, Link } from 'shared/ui';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -10,6 +9,9 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import dayjs from 'dayjs';
 import { DATE_FORMAT } from 'shared/utils';
+import { useGetProductByIdQuery } from 'api/products';
+import { skipToken } from '@reduxjs/toolkit/query';
+import { useTranslations } from 'next-intl';
 
 export type IProps = {
   id: string;
@@ -17,10 +19,11 @@ export type IProps = {
 };
 
 export const ProductModalView: FC<IProps> = ({ onClose, id }) => {
-  const { tCommon, tProduct, tProductPage, model, getProductState } =
-    useProductModel({
-      id,
-    });
+  const tCommon = useTranslations('Common');
+  const tProductPage = useTranslations('ProductPage');
+  const tProduct = useTranslations('Product');
+
+  const { data: model, isLoading } = useGetProductByIdQuery(id ?? skipToken);
 
   const columns: GridColDef[] = [
     {
@@ -82,7 +85,7 @@ export const ProductModalView: FC<IProps> = ({ onClose, id }) => {
           location data to Google, even when no apps are running.
         </DialogContentText>*/}
 
-        {getProductState.isFetching ? (
+        {isLoading ? (
           <CircularProgress sx={{ mx: 'auto', mb: 2, display: 'block' }} />
         ) : (
           <DataGrid

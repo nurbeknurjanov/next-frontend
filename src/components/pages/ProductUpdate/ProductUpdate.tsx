@@ -22,8 +22,8 @@ let ProductUpdate: FC = () => {
     tProductsPage,
     router,
     model,
-    updateProductState,
-    getProductState,
+    isLoading,
+    isLoadingUpdate,
     register,
     errors,
     isValid,
@@ -52,7 +52,7 @@ let ProductUpdate: FC = () => {
     title,
   ]);
 
-  if (!getProductState.isFetched || getProductState.isFetching) {
+  if (isLoading) {
     return <Loading />;
   }
 
@@ -138,7 +138,7 @@ let ProductUpdate: FC = () => {
             }}
             disabled={!isDirty || !isValid}
             autoFocus
-            loading={updateProductState.isFetching}
+            loading={isLoadingUpdate}
             sx={{ minWidth: 120 }}
           >
             {tCommon('update')}

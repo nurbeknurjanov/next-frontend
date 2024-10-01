@@ -4,7 +4,7 @@ import { cookies } from 'next/headers';
 import { JWT } from 'shared/utils/jwt';
 import { serverStore } from 'store/store';
 import { authorize, logout } from 'store/common/thunks';
-import { commonApi } from 'api';
+import { baseApi } from 'api/base';
 
 export async function authorizeUser() {
   const cookieStore = cookies();
@@ -20,13 +20,14 @@ export async function authorizeUser() {
     if (!parsed?.user?._id) {
       throw new Error('Bad access token');
     }
-    return serverStore.dispatch(authorize({ user: parsed.user }));
+
+    return serverStore.dispatch(authorize({ user: parsed.user })); //authorize user
   } catch (_error) {
     try {
       //commonApi.getAxiosInstance().defaults.headers.cookie = `refreshToken=${refreshTokenCookie.value};path=/;`;
       //originalRequest.headers.Authorization = `Bearer ${newAccessToken.token}`;
       const newAccessToken = await fetch(
-        `${commonApi.getAxiosInstance().defaults.baseURL}/auth/get-access-token`,
+        `${baseApi.getAxiosInstance().defaults.baseURL}/auth/get-access-token`,
         {
           credentials: 'include',
           headers: {
@@ -45,6 +46,8 @@ export async function authorizeUser() {
         error.status = response.status;
         throw error;
       });
+
+      //authorize user
       const newParsed = await JWT.parseToken(newAccessToken);
       return serverStore.dispatch(
         authorize({ user: newParsed.user, newAccessToken })

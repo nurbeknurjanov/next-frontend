@@ -1,17 +1,12 @@
 import { useForm } from 'react-hook-form';
 import { IProps } from './ProductsFilters';
-import { IProductFilters } from 'api/productsApi';
-import { useAppSelector } from 'store/hooks';
-import { FormEvent, useEffect, useRef } from 'react';
+import { IProductFilters } from 'api/products';
+import { FormEvent, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
-import { getProductStateSelector } from 'store/products/selectors';
 
 export function useProductsFilters({ filters, setFilters }: IProps) {
   const tCommon = useTranslations('Common');
   const tProduct = useTranslations('Product');
-
-  const previousFilters = useRef<IProductFilters | null>(null);
-  const getProductsState = useAppSelector(getProductStateSelector);
 
   const defaultValues: IProductFilters = { name: null, description: null };
   const {
@@ -40,12 +35,6 @@ export function useProductsFilters({ filters, setFilters }: IProps) {
     handleSubmit(submitForm)(event);
   };
 
-  useEffect(() => {
-    if (getProductsState.isFetching) {
-      previousFilters.current = filters;
-    }
-  }, [filters, getProductsState.isFetching]);
-
   return {
     tCommon,
     tProduct,
@@ -54,8 +43,6 @@ export function useProductsFilters({ filters, setFilters }: IProps) {
     register,
     isDirty,
     isValid,
-    getProductsState,
-    previousFilters,
     watch,
   };
 }

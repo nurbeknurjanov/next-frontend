@@ -1,37 +1,33 @@
-import { useAppDispatch, useAppSelector } from 'store/hooks';
+import { useAppDispatch } from 'store/hooks';
 import { useTranslations } from 'next-intl';
 import { IProps } from './FileModalDelete';
-import { deleteFileThunk } from 'store/files/thunks';
 import { notify } from 'store/common/thunks';
 import { useCallback } from 'react';
-import { files } from 'store';
+import { useDeleteFileMutation } from 'api/files';
 
-export function useFileModalDelete({
-  afterDelete,
-  onClose,
-}: Omit<IProps, 'id'>) {
+export function useFileModalDelete({ onClose }: Omit<IProps, 'id'>) {
   const tFilePage = useTranslations('FilePage');
   const tCommon = useTranslations('Common');
   const dispatch = useAppDispatch();
-  const deleteFileState = useAppSelector(files.deleteFile.selector.state);
+
+  const [deleteModel, { isLoading }] = useDeleteFileMutation();
 
   const deleteFile = useCallback(
     async (id: string) => {
-      const { error } = await dispatch(deleteFileThunk(id));
+      const { error } = await deleteModel(id);
 
       if (!error) {
         onClose();
         dispatch(notify(tCommon('successDeleted'), 'success'));
-        afterDelete();
       }
     },
-    [onClose, afterDelete, dispatch, tCommon]
+    [onClose, dispatch, tCommon, deleteModel]
   );
 
   return {
     tFilePage,
     tCommon,
     deleteFile,
-    deleteFileState,
+    isLoading,
   };
 }

@@ -1,6 +1,6 @@
 'use client';
-import { useState, useRef, useCallback, useMemo } from 'react';
-import { IPaginationRequest } from 'api/baseApi';
+import { useCallback, useMemo } from 'react';
+import { IPaginationRequest } from 'api/base';
 import { GridSortModel } from '@mui/x-data-grid';
 import { useSearchParams } from 'next/navigation';
 import { usePathname, useRouter } from 'navigation';
@@ -42,7 +42,6 @@ export function useTableStates<TableFilters extends Record<string, any>>(
     },
     [pathname, query, router]
   );
-  const previousPagination = useRef<IPaginationRequest | null>(null);
 
   const sorting = useMemo<GridSortModel>(() => {
     if (!query.sortField) {
@@ -74,7 +73,6 @@ export function useTableStates<TableFilters extends Record<string, any>>(
     },
     [query, router, pathname]
   );
-  const previousSorting = useRef<GridSortModel | null>(null);
 
   const filters = useMemo<TableFilters>(() => {
     const values = {} as TableFilters;
@@ -138,24 +136,13 @@ export function useTableStates<TableFilters extends Record<string, any>>(
     },
     [fieldNamesForFilters, rangeFieldNames, query, router, pathname]
   );
-  const previousFilters = useRef<TableFilters | null>(null);
-
-  const [refreshListKey, setRefreshListKey] = useState<number>(Math.random());
-  const previousRefreshListKey = useRef<number | null>(null);
-  const refreshList = useCallback(() => setRefreshListKey(Math.random()), []);
 
   return {
     pagination,
     setPagination,
-    previousPagination,
     sorting,
     setSorting,
-    previousSorting,
     filters,
     setFilters,
-    previousFilters,
-    refreshListKey,
-    refreshList,
-    previousRefreshListKey,
   };
 }

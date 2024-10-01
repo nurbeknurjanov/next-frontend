@@ -1,26 +1,16 @@
-import { useAppDispatch, useAppSelector } from 'store/hooks';
-import { files, products } from 'store';
+import { useAppDispatch } from 'store/hooks';
 import { useTranslations } from 'next-intl';
-import { IProductPost } from 'api/productsApi';
+import { IProductPost, useCreateProductMutation } from 'api/products';
 import { IProps } from './ProductModalCreate';
 import { useProductForm, useProductUploadFile } from '../';
 import { notify } from 'store/common/thunks';
-import { createProductThunk } from 'store/products/thunks';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useState, useEffect } from 'react';
 
-export function useProductModalCreate({ onClose, afterCreate }: IProps) {
+export function useProductModalCreate({ onClose }: IProps) {
   const dispatch = useAppDispatch();
   const tCommon = useTranslations('Common');
   const tProductsPage = useTranslations('ProductsPage');
   const tProduct = useTranslations('Product');
-
-  const createFileState = useAppSelector(files.createFile.selector.state);
-
-  const createProductState = useAppSelector(
-    products.createProduct.selector.state
-  );
-  const createFileStateRef = useRef(createFileState);
-  const createProductStateRef = useRef(createProductState);
 
   const {
     register,
@@ -36,32 +26,29 @@ export function useProductModalCreate({ onClose, afterCreate }: IProps) {
   const [selectedFileIdToDelete, setSelectedFileIdToDelete] = useState<
     string | null
   >();
-  const afterFileUploadAndRemove = useCallback(() => {
-    setSelectedFileIdToDelete(null);
-    afterCreate();
-  }, [afterCreate]);
-  const { percentUploadImage, imageObject, deleteFile } = useProductUploadFile({
-    setValue,
-    watch,
-    schema,
-    afterFileUploadAndRemove,
-  });
+
+  const { percentUploadImage, imageObject, deleteFile, dataCreated } =
+    useProductUploadFile({
+      setValue,
+      watch,
+      schema,
+    });
+
+  const [createModel, { isLoading, isSuccess }] = useCreateProductMutation();
 
   const onCloseWrapper = () => {
-    if (!createProductState.data && createFileState.data) {
-      return setSelectedFileIdToDelete(createFileState.data._id);
+    if (!isSuccess && dataCreated) {
+      return setSelectedFileIdToDelete(dataCreated._id);
     }
 
     onClose();
   };
-
   const createProduct = async (formData: IProductPost) => {
-    const { data } = await dispatch(createProductThunk(formData));
+    const { data } = await createModel(formData);
 
     if (data) {
       onClose();
       dispatch(notify(tCommon('successCreated'), 'success'));
-      afterCreate();
     }
   };
 
@@ -69,28 +56,18 @@ export function useProductModalCreate({ onClose, afterCreate }: IProps) {
 
   useEffect(
     () => () => {
-      if (
-        !createProductStateRef.current.data &&
-        createFileStateRef.current.data
-      ) {
-        deleteFile(createFileStateRef.current.data._id);
+      if (!isSuccess && dataCreated) {
+        deleteFile(dataCreated._id);
       }
     },
-    [deleteFile]
-  );
-
-  useEffect(
-    () => () => {
-      dispatch(products.createProduct.actions.reset());
-    },
-    [dispatch]
+    [deleteFile, isSuccess, dataCreated]
   );
 
   return {
     tCommon,
     tProductsPage,
     tProduct,
-    createProductState,
+    isLoading,
     register,
     errors,
     isValid,

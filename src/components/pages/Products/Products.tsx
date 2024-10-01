@@ -17,7 +17,7 @@ import {
 } from './components';
 import { withPageWrapper } from 'shared/hocs';
 import { DATE_FORMAT } from 'shared/utils';
-import { IProduct } from 'api/productsApi';
+import { IProduct } from 'api/products';
 import { useSetPageData } from 'shared/hooks';
 import { useTranslations } from 'next-intl';
 
@@ -25,13 +25,13 @@ let Products: FC = () => {
   const {
     tCommon,
     tProduct,
-    getProductsState,
+    isLoading,
+    data,
     setPagination,
     sorting,
     setSorting,
     filters,
     setFilters,
-    refreshList,
     showModal,
     setShowModal,
     closeShowModal,
@@ -139,8 +139,6 @@ let Products: FC = () => {
     },
   ];
 
-  const { data, isFetching } = getProductsState;
-
   return (
     <>
       <div className={styles.productsContent}>
@@ -160,7 +158,7 @@ let Products: FC = () => {
           rows={data?.list ?? []}
           getRowId={el => el._id}
           columns={columns}
-          loading={isFetching}
+          loading={isLoading}
           paginationModel={{
             page: data?.pagination?.pageNumber ?? 0,
             pageSize: data?.pagination?.pageSize ?? 12,
@@ -191,26 +189,15 @@ let Products: FC = () => {
       </div>
 
       {showModal?.type === 'create' && (
-        <ProductModalCreate
-          onClose={closeShowModal}
-          afterCreate={refreshList}
-        />
+        <ProductModalCreate onClose={closeShowModal} />
       )}
 
       {showModal?.type === 'update' && (
-        <ProductModalUpdate
-          id={showModal.id}
-          onClose={closeShowModal}
-          afterUpdate={refreshList}
-        />
+        <ProductModalUpdate id={showModal.id} onClose={closeShowModal} />
       )}
 
       {showModal?.type === 'delete' && (
-        <ProductModalDelete
-          id={showModal.id}
-          onClose={closeShowModal}
-          afterDelete={refreshList}
-        />
+        <ProductModalDelete id={showModal.id} onClose={closeShowModal} />
       )}
 
       {showModal?.type === 'view' && (

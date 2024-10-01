@@ -1,5 +1,5 @@
 import * as jose from 'jose';
-import { IUser } from 'api/usersApi';
+import { IUser } from 'api/users';
 
 interface IJWTPayload {
   user: IUser;

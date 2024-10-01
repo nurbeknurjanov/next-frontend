@@ -1,13 +1,12 @@
 import { useAppDispatch } from 'store/hooks';
 import { useTranslations } from 'next-intl';
-import { IUserPost } from 'api/usersApi';
+import { IUserPost, useUpdateUserPasswordMutation } from 'api/users';
 import { IProps } from './UserModalChangePassword';
 import { notify } from 'store/common/thunks';
 import { useForm } from 'react-hook-form';
 import { joiResolver } from '@hookform/resolvers/joi';
 import { useI18nJoi } from 'shared/utils';
 import Joi from 'joi';
-import { useUpdateUserPasswordMutation } from '../../../../../api/usersApi/query';
 
 export function useUserModalChangePassword({ onClose, id }: IProps) {
   const dispatch = useAppDispatch();

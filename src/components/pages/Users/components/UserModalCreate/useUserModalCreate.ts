@@ -1,10 +1,9 @@
 import { useAppDispatch } from 'store/hooks';
 import { useTranslations } from 'next-intl';
-import { IUserPost } from 'api/usersApi';
+import { IUserPost, useCreateUserMutation } from 'api/users';
 import { IProps } from './UserModalCreate';
 import { useUserForm } from '../useUserForm';
 import { notify } from 'store/common/thunks';
-import { useCreateUserMutation } from '../../../../../api/usersApi/query';
 
 export function useUserModalCreate({ onClose }: IProps) {
   const dispatch = useAppDispatch();

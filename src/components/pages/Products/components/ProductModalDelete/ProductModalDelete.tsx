@@ -10,14 +10,14 @@ import DialogTitle from '@mui/material/DialogTitle';
 export interface IProps {
   id: string;
   onClose: () => void;
-  afterDelete: () => void;
+  afterDelete?: () => void;
 }
 export const ProductModalDelete: React.FC<IProps> = ({
   id,
   onClose,
   afterDelete,
 }) => {
-  const { tCommon, tProductPage, deleteProduct, deleteProductState } =
+  const { tCommon, tProductPage, deleteProduct, isLoading } =
     useProductModalDelete({
       onClose,
       afterDelete,
@@ -33,11 +33,9 @@ export const ProductModalDelete: React.FC<IProps> = ({
         <Button onClick={onClose}>{tCommon('close')}</Button>
         <Button
           variant={'contained'}
-          onClick={() => {
-            deleteProduct(id);
-          }}
+          onClick={() => deleteProduct(id)}
           autoFocus
-          loading={deleteProductState.isFetching}
+          loading={isLoading}
           sx={{ minWidth: 110 }}
         >
           {tCommon('delete')}

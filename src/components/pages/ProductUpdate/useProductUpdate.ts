@@ -2,17 +2,19 @@
 import { useTranslations } from 'next-intl';
 import { useParams, useRouter } from 'next/navigation';
 import { ProductPageProps } from 'app/[locale]/products/[id]/page';
-import { useProductModel } from 'components/pages/Product';
 import { useCallback, useState } from 'react';
 import {
   useProductForm,
   useProductUploadFile,
 } from 'components/pages/Products';
-import { useAppDispatch, useAppSelector } from 'store/hooks';
-import { products } from 'store';
-import { IProductPost } from 'api/productsApi';
-import { updateProductThunk } from 'store/products/thunks';
+import { useAppDispatch } from 'store/hooks';
+import {
+  IProductPost,
+  useUpdateProductMutation,
+  useGetProductByIdQuery,
+} from 'api/products';
 import { ignoreServerData, notify } from 'store/common/thunks';
+import { skipToken } from '@reduxjs/toolkit/query';
 
 type ModalType = { type: 'delete'; id: string };
 export function useProductUpdate() {
@@ -25,12 +27,11 @@ export function useProductUpdate() {
   const tProductsPage = useTranslations('ProductsPage');
 
   const [showModal, setShowModal] = useState<ModalType | null>();
-  const updateProductState = useAppSelector(
-    products.updateProduct.selector.state
-  );
 
   const { id } = useParams<ProductPageProps['params']>();
-  const { model, getProductState } = useProductModel({ id });
+  const { data: model, isLoading } = useGetProductByIdQuery(id ?? skipToken);
+  const [updateModel, { isLoading: isLoadingUpdate }] =
+    useUpdateProductMutation();
 
   const {
     register,
@@ -48,19 +49,15 @@ export function useProductUpdate() {
   const [selectedFileIdToDelete, setSelectedFileIdToDelete] = useState<
     string | null
   >();
-  const afterFileUploadAndRemove = useCallback(() => {
-    setSelectedFileIdToDelete(null);
-  }, []);
   const { percentUploadImage, imageObject, deleteFile } = useProductUploadFile({
     id,
     setValue,
     watch,
     schema,
-    afterFileUploadAndRemove,
   });
 
   const updateProduct = async (id: string, formData: IProductPost) => {
-    const { data } = await dispatch(updateProductThunk(id, formData));
+    const { data } = await updateModel({ id, ...formData });
 
     if (data) {
       dispatch(notify(tCommon('successUpdated'), 'success'));
@@ -84,8 +81,8 @@ export function useProductUpdate() {
     tProductsPage,
     router,
     model,
-    updateProductState,
-    getProductState,
+    isLoading,
+    isLoadingUpdate,
     register,
     errors,
     isValid,

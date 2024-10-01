@@ -8,7 +8,7 @@ import {
 } from '@mui/material';
 import { Button } from 'shared/ui';
 import React from 'react';
-import { IFileFilters } from 'api/filesApi';
+import { IFileFilters } from 'api/files';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import { useTranslations } from 'next-intl';
@@ -29,7 +29,6 @@ export const FilesFilters = ({ filters, setFilters }: IProps) => {
     watch,
     isDirty,
     isValid,
-    getFilesState,
     previousFilters,
   } = useFilesFilters({ filters, setFilters });
 
@@ -64,10 +63,7 @@ export const FilesFilters = ({ filters, setFilters }: IProps) => {
             type={'submit'}
             variant={'contained'}
             disabled={!isDirty || !isValid}
-            loading={
-              getFilesState.isFetching &&
-              !isEqual(filters, previousFilters.current)
-            }
+            loading={!isEqual(filters, previousFilters.current)}
             sx={{ minWidth: 100 }}
           >
             {tCommon('search')}

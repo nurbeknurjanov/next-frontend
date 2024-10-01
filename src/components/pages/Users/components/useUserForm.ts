@@ -3,22 +3,17 @@ import { useI18nJoi } from 'shared/utils';
 import Joi from 'joi';
 import { useForm } from 'react-hook-form';
 import { joiResolver } from '@hookform/resolvers/joi';
-import { IUserPost, IUser } from 'api/usersApi';
+import { IUserPost, IUser } from 'api/users';
 import { pick } from 'lodash';
 import { useEffect, useMemo } from 'react';
 import tlds from 'tlds';
 import { useTranslations } from 'next-intl';
-import { useAppSelector } from 'store/hooks';
-import { users } from 'store';
 import { useTranslatedData } from 'shared/hooks';
 
 interface IProps {
   model?: IUser;
 }
 export function useUserForm({ model }: IProps) {
-  const createUserState = useAppSelector(users.createUser.selector.state);
-  const updateUserState = useAppSelector(users.updateUser.selector.state);
-  const formUserState = model ? updateUserState : createUserState;
   const { sexOptions, statusOptions } = useTranslatedData();
 
   const tUser = useTranslations('User');
@@ -63,7 +58,7 @@ export function useUserForm({ model }: IProps) {
     reset,
     watch,
     setValue,
-    setError,
+    //setError,
   } = useForm<IUserPost>({
     mode: 'onTouched',
     resolver: joiResolver(schema),
@@ -74,7 +69,7 @@ export function useUserForm({ model }: IProps) {
     reset(initialValues);
   }, [reset, initialValues]);
 
-  useEffect(() => {
+  /*useEffect(() => {
     if (formUserState.error) {
       if (formUserState.error.data.fieldsErrors?.email) {
         setError('email', {
@@ -83,7 +78,7 @@ export function useUserForm({ model }: IProps) {
         });
       }
     }
-  }, [formUserState.error, setError]);
+  }, [formUserState.error, setError]);*/
 
   return {
     register,

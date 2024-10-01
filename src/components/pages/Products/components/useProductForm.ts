@@ -3,7 +3,7 @@ import { useI18nJoi } from 'shared/utils';
 import Joi from 'joi';
 import { useForm } from 'react-hook-form';
 import { joiResolver } from '@hookform/resolvers/joi';
-import { IProductPost, IProduct } from 'api/productsApi';
+import { IProductPost, IProduct } from 'api/products';
 import { pick } from 'lodash';
 import { useEffect, useMemo, useRef } from 'react';
 import { useTranslations } from 'next-intl';

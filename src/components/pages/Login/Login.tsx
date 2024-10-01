@@ -21,7 +21,7 @@ let Login: FC = () => {
     tCommon,
     tLoginPage,
     login,
-    loginState,
+    isLoading,
   } = useLogin();
 
   useSetPageData(tLoginPage('title'), [tLoginPage('title')]);
@@ -46,7 +46,7 @@ let Login: FC = () => {
             type={'submit'}
             variant={'contained'}
             disabled={!isDirty || !isValid}
-            loading={loginState.isFetching}
+            loading={isLoading}
             sx={{ minWidth: 120 }}
           >
             {tCommon('submit')}
