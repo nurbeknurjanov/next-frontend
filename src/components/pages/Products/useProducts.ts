@@ -55,7 +55,7 @@ export function useProducts() {
     };
   }, [sorting]);
 
-  const { data, isLoading } = useGetProductsQuery({
+  const { data, isFetching } = useGetProductsQuery({
     pagination,
     filters,
     sort,
@@ -64,7 +64,7 @@ export function useProducts() {
   return {
     tCommon,
     tProduct,
-    isLoading,
+    isFetching,
     data,
     setPagination,
     sorting,

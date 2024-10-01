@@ -10,8 +10,9 @@ import CardContent from '@mui/material/CardContent';
 export interface IProps {
   filters: IProductFilters;
   setFilters: (_filters: IProductFilters) => void;
+  isLoading: boolean;
 }
-export const ProductsFilters = ({ filters, setFilters }: IProps) => {
+export const ProductsFilters = ({ filters, setFilters, isLoading }: IProps) => {
   const {
     tCommon,
     tProduct,
@@ -42,7 +43,7 @@ export const ProductsFilters = ({ filters, setFilters }: IProps) => {
             type={'submit'}
             variant={'contained'}
             disabled={!isDirty || !isValid}
-            loading={false}
+            loading={isLoading}
             sx={{ minWidth: 100 }}
           >
             {tCommon('search')}

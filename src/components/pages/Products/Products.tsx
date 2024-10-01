@@ -25,7 +25,7 @@ let Products: FC = () => {
   const {
     tCommon,
     tProduct,
-    isLoading,
+    isFetching,
     data,
     setPagination,
     sorting,
@@ -142,7 +142,11 @@ let Products: FC = () => {
   return (
     <>
       <div className={styles.productsContent}>
-        <ProductsFilters filters={filters} setFilters={setFilters} />
+        <ProductsFilters
+          filters={filters}
+          setFilters={setFilters}
+          isLoading={isFetching}
+        />
 
         <DataGrid
           disableVirtualization
@@ -158,7 +162,7 @@ let Products: FC = () => {
           rows={data?.list ?? []}
           getRowId={el => el._id}
           columns={columns}
-          loading={isLoading}
+          loading={isFetching}
           paginationModel={{
             page: data?.pagination?.pageNumber ?? 0,
             pageSize: data?.pagination?.pageSize ?? 12,

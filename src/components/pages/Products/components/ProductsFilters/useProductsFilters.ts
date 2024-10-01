@@ -4,7 +4,10 @@ import { IProductFilters } from 'api/products';
 import { FormEvent, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 
-export function useProductsFilters({ filters, setFilters }: IProps) {
+export function useProductsFilters({
+  filters,
+  setFilters,
+}: Pick<IProps, 'filters' | 'setFilters'>) {
   const tCommon = useTranslations('Common');
   const tProduct = useTranslations('Product');
 
