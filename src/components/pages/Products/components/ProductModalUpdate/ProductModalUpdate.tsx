@@ -27,7 +27,7 @@ export const ProductModalUpdate: React.FC<IProps> = ({ onClose, id }) => {
     tCommon,
     tProductPage,
     tProduct,
-    isLoading,
+    isFetching,
     isLoadingUpdate,
     register,
     errors,
@@ -50,7 +50,7 @@ export const ProductModalUpdate: React.FC<IProps> = ({ onClose, id }) => {
       <Dialog open onClose={onClose}>
         <DialogTitle>{tProductPage('update')}</DialogTitle>
         <DialogContent>
-          {isLoading ? (
+          {isFetching ? (
             <CircularProgress sx={{ mx: 'auto', mb: 2, display: 'block' }} />
           ) : (
             <form

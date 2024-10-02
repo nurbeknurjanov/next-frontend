@@ -24,7 +24,7 @@ export function useProduct() {
   const [showModal, setShowModal] = useState<ModalType | null>();
 
   const { id } = useParams<ProductPageProps['params']>();
-  const { data: model, isLoading } = useGetProductByIdQuery(id ?? skipToken);
+  const { data: model, isFetching } = useGetProductByIdQuery(id ?? skipToken);
 
   return {
     tCommon,
@@ -32,7 +32,7 @@ export function useProduct() {
     tProductPage,
     tProductsPage,
     model,
-    isLoading,
+    isFetching,
     showModal,
     setShowModal,
     router,

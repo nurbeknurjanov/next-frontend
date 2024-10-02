@@ -17,7 +17,7 @@ let Files: FC = () => {
     tCommon,
     tFiles,
     tProductPage,
-    isLoading,
+    isFetching,
     data,
     setPagination,
     sorting,
@@ -95,7 +95,7 @@ let Files: FC = () => {
           rows={data?.list ?? []}
           getRowId={el => el._id}
           columns={columns}
-          loading={isLoading}
+          loading={isFetching}
           paginationModel={{
             page: data?.pagination?.pageNumber ?? 0,
             pageSize: data?.pagination?.pageSize ?? 12,

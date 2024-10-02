@@ -17,7 +17,7 @@ export function useProductModalUpdate({ onClose, id }: IProps) {
   const tProductPage = useTranslations('ProductPage');
   const tProduct = useTranslations('Product');
 
-  const { data: model, isLoading } = useGetProductByIdQuery(id ?? skipToken);
+  const { data: model, isFetching } = useGetProductByIdQuery(id ?? skipToken);
   const [updateModel, { isLoading: isLoadingUpdate }] =
     useUpdateProductMutation();
 
@@ -62,7 +62,7 @@ export function useProductModalUpdate({ onClose, id }: IProps) {
     tCommon,
     tProductPage,
     tProduct,
-    isLoading,
+    isFetching,
     isLoadingUpdate,
     register,
     errors,

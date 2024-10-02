@@ -38,7 +38,7 @@ let Product: FC = () => {
     tProductPage,
     tProductsPage,
     model,
-    isLoading,
+    isFetching,
     showModal,
     setShowModal,
     router,
@@ -110,7 +110,7 @@ let Product: FC = () => {
     }
   }
 
-  if (isLoading) {
+  if (isFetching) {
     return <Loading />;
   }
 

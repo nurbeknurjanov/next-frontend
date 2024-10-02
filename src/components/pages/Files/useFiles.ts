@@ -41,13 +41,13 @@ export function useFiles() {
     };
   }, [sorting]);
 
-  const { data, isLoading } = useGetFilesQuery({ pagination, filters, sort });
+  const { data, isFetching } = useGetFilesQuery({ pagination, filters, sort });
 
   return {
     tCommon,
     tFiles,
     tProductPage,
-    isLoading,
+    isFetching,
     data,
     setPagination,
     sorting,

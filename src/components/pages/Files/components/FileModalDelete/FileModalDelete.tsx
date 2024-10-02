@@ -11,18 +11,19 @@ export interface IProps {
   id: string;
   onClose: () => void;
   customDeleteFile?: (_id: string) => void;
+  customDeleteFileLoading?: boolean;
 }
 
 export const FileModalDelete: React.FC<IProps> = ({
   id,
   onClose,
   customDeleteFile,
+  customDeleteFileLoading,
 }) => {
   const { tFilePage, tCommon, deleteFile, isLoading } = useFileModalDelete({
     onClose,
   });
 
-  console.log('standard file delete loading', isLoading);
   return (
     <Dialog open onClose={onClose}>
       <DialogTitle>{tFilePage('delete')}</DialogTitle>
@@ -41,7 +42,7 @@ export const FileModalDelete: React.FC<IProps> = ({
             deleteFile(id);
           }}
           autoFocus
-          loading={isLoading}
+          loading={isLoading || customDeleteFileLoading}
           sx={{ minWidth: 110 }}
         >
           {tCommon('delete')}

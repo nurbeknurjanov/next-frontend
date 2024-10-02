@@ -12,25 +12,18 @@ import { IFileFilters } from 'api/files';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import { useTranslations } from 'next-intl';
-import { isEqual } from 'lodash';
 
 export interface IProps {
   filters: IFileFilters;
   setFilters: (_filters: IFileFilters) => void;
+  isLoading: boolean;
 }
-export const FilesFilters = ({ filters, setFilters }: IProps) => {
+export const FilesFilters = ({ filters, setFilters, isLoading }: IProps) => {
   const tCommon = useTranslations('Common');
   const tProductPage = useTranslations('ProductPage');
 
-  const {
-    onSubmitForm,
-    onResetForm,
-    register,
-    watch,
-    isDirty,
-    isValid,
-    previousFilters,
-  } = useFilesFilters({ filters, setFilters });
+  const { onSubmitForm, onResetForm, register, watch, isDirty, isValid } =
+    useFilesFilters({ filters, setFilters });
 
   return (
     <Card>
@@ -63,7 +56,7 @@ export const FilesFilters = ({ filters, setFilters }: IProps) => {
             type={'submit'}
             variant={'contained'}
             disabled={!isDirty || !isValid}
-            loading={!isEqual(filters, previousFilters.current)}
+            loading={isLoading}
             sx={{ minWidth: 100 }}
           >
             {tCommon('search')}

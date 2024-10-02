@@ -23,7 +23,7 @@ export const ProductModalView: FC<IProps> = ({ onClose, id }) => {
   const tProductPage = useTranslations('ProductPage');
   const tProduct = useTranslations('Product');
 
-  const { data: model, isLoading } = useGetProductByIdQuery(id ?? skipToken);
+  const { data: model, isFetching } = useGetProductByIdQuery(id ?? skipToken);
 
   const columns: GridColDef[] = [
     {
@@ -85,7 +85,7 @@ export const ProductModalView: FC<IProps> = ({ onClose, id }) => {
           location data to Google, even when no apps are running.
         </DialogContentText>*/}
 
-        {isLoading ? (
+        {isFetching ? (
           <CircularProgress sx={{ mx: 'auto', mb: 2, display: 'block' }} />
         ) : (
           <DataGrid

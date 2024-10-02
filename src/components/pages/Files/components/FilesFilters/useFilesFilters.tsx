@@ -2,11 +2,12 @@
 import { useForm } from 'react-hook-form';
 import { IProps } from './FilesFilters';
 import { IFileFilters } from 'api/files';
-import { useEffect, useRef, FormEvent } from 'react';
+import { useEffect, FormEvent } from 'react';
 
-export function useFilesFilters({ filters, setFilters }: IProps) {
-  const previousFilters = useRef<IFileFilters | null>(null);
-
+export function useFilesFilters({
+  filters,
+  setFilters,
+}: Pick<IProps, 'filters' | 'setFilters'>) {
   const defaultValues = { id: null, type: null, modelSearch: null };
   const {
     register,
@@ -38,12 +39,6 @@ export function useFilesFilters({ filters, setFilters }: IProps) {
     handleSubmit(submitForm)(event);
   };
 
-  /*useEffect(() => {
-    if (getFilesState.isFetching) {
-      previousFilters.current = filters;
-    }
-  }, [filters, getFilesState.isFetching]);*/
-
   return {
     onSubmitForm,
     onResetForm,
@@ -52,6 +47,5 @@ export function useFilesFilters({ filters, setFilters }: IProps) {
     watch,
     isDirty,
     isValid,
-    previousFilters,
   };
 }
