@@ -17,9 +17,6 @@ type ModalType =
 
 //const env = process.env.NODE_ENV;
 export function useProducts() {
-  const isHydratedToClientRef = useHydratedClient();
-
-  const dispatch = useAppDispatch();
   const tCommon = useTranslations('Common');
   const tProduct = useTranslations('Product');
 
