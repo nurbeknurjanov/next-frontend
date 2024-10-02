@@ -10,13 +10,13 @@ export function useUser() {
   const tUser = useTranslations('User');
   const tUsersPage = useTranslations('UsersPage');
   const { id } = useParams<UserPageProps['params']>();
-  const { data, isLoading } = useGetUserByIdQuery(id ?? skipToken);
+  const { data, isFetching } = useGetUserByIdQuery(id ?? skipToken);
 
   return {
     tCommon,
     tUser,
     tUsersPage,
     model: data,
-    isLoading,
+    isFetching,
   };
 }

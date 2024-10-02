@@ -41,7 +41,7 @@ let Users: FC = () => {
     setShowModal,
     closeShowModal,
     data,
-    isLoading,
+    isFetching,
   } = useUsers();
 
   useSetPageData(
@@ -139,14 +139,18 @@ let Users: FC = () => {
   return (
     <>
       <div className={styles.usersContent}>
-        <UsersFilters filters={filters} setFilters={setFilters} />
+        <UsersFilters
+          filters={filters}
+          setFilters={setFilters}
+          isLoading={isFetching}
+        />
 
         <DataGrid
           sx={{ mt: 3 }}
           rows={data?.list ?? []}
           getRowId={el => el._id}
           columns={columns}
-          loading={isLoading}
+          loading={isFetching}
           paginationModel={{
             page: data?.pagination?.pageNumber ?? 0,
             pageSize: data?.pagination?.pageSize ?? 12,

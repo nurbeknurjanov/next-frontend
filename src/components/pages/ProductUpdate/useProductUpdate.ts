@@ -2,7 +2,7 @@
 import { useTranslations } from 'next-intl';
 import { useParams, useRouter } from 'next/navigation';
 import { ProductPageProps } from 'app/[locale]/products/[id]/page';
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
 import {
   useProductForm,
   useProductUploadFile,
@@ -29,7 +29,7 @@ export function useProductUpdate() {
   const [showModal, setShowModal] = useState<ModalType | null>();
 
   const { id } = useParams<ProductPageProps['params']>();
-  const { data: model, isLoading } = useGetProductByIdQuery(id ?? skipToken);
+  const { data: model, isFetching } = useGetProductByIdQuery(id ?? skipToken);
   const [updateModel, { isLoading: isLoadingUpdate }] =
     useUpdateProductMutation();
 
@@ -81,7 +81,7 @@ export function useProductUpdate() {
     tProductsPage,
     router,
     model,
-    isLoading,
+    isFetching,
     isLoadingUpdate,
     register,
     errors,

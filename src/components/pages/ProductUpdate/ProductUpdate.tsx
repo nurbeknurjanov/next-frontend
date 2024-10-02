@@ -22,7 +22,7 @@ let ProductUpdate: FC = () => {
     tProductsPage,
     router,
     model,
-    isLoading,
+    isFetching,
     isLoadingUpdate,
     register,
     errors,
@@ -52,7 +52,7 @@ let ProductUpdate: FC = () => {
     title,
   ]);
 
-  if (isLoading) {
+  if (isFetching) {
     return <Loading />;
   }
 

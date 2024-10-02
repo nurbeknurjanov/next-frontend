@@ -64,7 +64,7 @@ export function useUsers() {
     };
   }, [sorting, formFilters]);
 
-  const { data, isLoading } = useGetUsersQuery({ pagination, filters, sort });
+  const { data, isFetching } = useGetUsersQuery({ pagination, filters, sort });
 
   //const [getModels, { data, isLoading }] = useLazyGetUsersQuery();
 
@@ -82,6 +82,6 @@ export function useUsers() {
     setShowModal,
     closeShowModal,
     data,
-    isLoading,
+    isFetching,
   };
 }

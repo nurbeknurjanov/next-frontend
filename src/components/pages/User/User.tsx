@@ -23,7 +23,7 @@ const columns: GridColDef[] = [
 ];
 
 let User: FC = () => {
-  const { tCommon, tUser, tUsersPage, model, isLoading } = useUser();
+  const { tCommon, tUser, tUsersPage, model, isFetching } = useUser();
   const title = model?.name!;
 
   useSetPageData(title, [
@@ -72,7 +72,7 @@ let User: FC = () => {
     });
   }
 
-  if (isLoading) {
+  if (isFetching) {
     return <Loading />;
   }
 

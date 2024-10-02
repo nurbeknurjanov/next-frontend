@@ -16,7 +16,6 @@ import { IUserFiltersForm, SEX_ENUM, STATUS_ENUM } from 'api/users';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import { useTranslations } from 'next-intl';
-import { isEqual } from 'lodash';
 import Autocomplete from '@mui/material/Autocomplete';
 //import { SelectChangeEvent } from '@mui/material/Select';
 
@@ -28,8 +27,9 @@ import { SingleInputDateRangeField } from '@mui/x-date-pickers-pro/SingleInputDa
 export interface IProps {
   filters: IUserFiltersForm;
   setFilters: (_filters: IUserFiltersForm) => void;
+  isLoading: boolean;
 }
-export const UsersFilters = ({ filters, setFilters }: IProps) => {
+export const UsersFilters = ({ filters, setFilters, isLoading }: IProps) => {
   const tCommon = useTranslations('Common');
   const tUser = useTranslations('User');
 
@@ -41,7 +41,6 @@ export const UsersFilters = ({ filters, setFilters }: IProps) => {
     setValue,
     isDirty,
     isValid,
-    previousFilters,
     statusOptions,
     sexOptions,
   } = useUsersFilters({ filters, setFilters });
@@ -188,7 +187,7 @@ export const UsersFilters = ({ filters, setFilters }: IProps) => {
             type={'submit'}
             variant={'contained'}
             disabled={!isDirty || !isValid}
-            loading={!isEqual(filters, previousFilters.current)}
+            loading={isLoading}
             sx={{ minWidth: 100 }}
           >
             {tCommon('search')}
