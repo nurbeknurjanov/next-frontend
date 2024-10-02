@@ -33,7 +33,8 @@ export function useProductUploadFile({ id, setValue, watch, schema }: IProps) {
     }
   }, [product]);
 
-  const [deleteFileAction] = useDeleteFileMutation();
+  const [deleteFileAction, { isLoading: isLoadingFileDelete }] =
+    useDeleteFileMutation();
   const deleteFile = useCallback(
     async (id: string) => {
       const { data } = await deleteFileAction(id);
@@ -117,6 +118,7 @@ export function useProductUploadFile({ id, setValue, watch, schema }: IProps) {
     percentUploadImage,
     imageObject,
     deleteFile,
+    isLoadingFileDelete,
     dataCreated,
   };
 }

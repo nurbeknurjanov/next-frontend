@@ -16,7 +16,7 @@ export function useUserModalUpdate({ onClose, id }: IProps) {
   const tUserPage = useTranslations('UserPage');
   const tUser = useTranslations('User');
 
-  const { data: model, isLoading } = useGetUserByIdQuery(id ?? skipToken);
+  const { data: model, isFetching } = useGetUserByIdQuery(id ?? skipToken);
   const [updateModel, { isLoading: isLoadingUpdate }] = useUpdateUserMutation();
 
   const { register, errors, isValid, isDirty, handleSubmit, watch, setValue } =
@@ -42,7 +42,7 @@ export function useUserModalUpdate({ onClose, id }: IProps) {
     tUserPage,
     tUser,
     isLoadingUpdate,
-    isLoading,
+    isFetching,
     register,
     errors,
     isValid,

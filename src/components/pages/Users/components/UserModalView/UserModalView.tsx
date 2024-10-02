@@ -51,7 +51,7 @@ export const UserModalView: FC<IProps> = ({ onClose, id }) => {
   const tCommon = useTranslations('Common');
   const tUserPage = useTranslations('UserPage');
   const tUser = useTranslations('User');
-  const { data: model, isLoading } = useGetUserByIdQuery(id ?? skipToken);
+  const { data: model, isFetching } = useGetUserByIdQuery(id ?? skipToken);
 
   const { sexOptions, statusOptions } = useTranslatedData();
 
@@ -100,7 +100,7 @@ export const UserModalView: FC<IProps> = ({ onClose, id }) => {
           location data to Google, even when no apps are running.
         </DialogContentText>*/}
 
-        {isLoading ? (
+        {isFetching ? (
           <CircularProgress sx={{ mx: 'auto', mb: 2, display: 'block' }} />
         ) : (
           <DataGrid

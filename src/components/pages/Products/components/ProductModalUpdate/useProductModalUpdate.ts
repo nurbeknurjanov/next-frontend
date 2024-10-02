@@ -38,12 +38,13 @@ export function useProductModalUpdate({ onClose, id }: IProps) {
     string | null
   >();
 
-  const { percentUploadImage, imageObject, deleteFile } = useProductUploadFile({
-    id,
-    setValue,
-    watch,
-    schema,
-  });
+  const { percentUploadImage, imageObject, deleteFile, isLoadingFileDelete } =
+    useProductUploadFile({
+      id,
+      setValue,
+      watch,
+      schema,
+    });
 
   const updateProduct = async (id: string, formData: IProductPost) => {
     const { data } = await updateModel({ id, ...formData });
@@ -73,6 +74,7 @@ export function useProductModalUpdate({ onClose, id }: IProps) {
     percentUploadImage,
     imageObject,
     deleteFile,
+    isLoadingFileDelete,
     selectedFileIdToDelete,
     setSelectedFileIdToDelete,
   };

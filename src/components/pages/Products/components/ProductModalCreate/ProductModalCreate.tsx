@@ -34,6 +34,7 @@ export const ProductModalCreate: React.FC<IProps> = ({ onClose }) => {
     percentUploadImage,
     imageObject,
     deleteFile,
+    isLoadingFileDelete,
     selectedFileIdToDelete,
     setSelectedFileIdToDelete,
     onCloseWrapper,
@@ -127,6 +128,7 @@ export const ProductModalCreate: React.FC<IProps> = ({ onClose }) => {
           id={selectedFileIdToDelete}
           onClose={() => setSelectedFileIdToDelete(null)}
           customDeleteFile={deleteFile}
+          customDeleteFileLoading={isLoadingFileDelete}
         />
       )}
     </>

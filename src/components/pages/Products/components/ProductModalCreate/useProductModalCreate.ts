@@ -27,12 +27,17 @@ export function useProductModalCreate({ onClose }: IProps) {
     string | null
   >();
 
-  const { percentUploadImage, imageObject, deleteFile, dataCreated } =
-    useProductUploadFile({
-      setValue,
-      watch,
-      schema,
-    });
+  const {
+    percentUploadImage,
+    imageObject,
+    deleteFile,
+    isLoadingFileDelete,
+    dataCreated,
+  } = useProductUploadFile({
+    setValue,
+    watch,
+    schema,
+  });
 
   const [createModel, { isLoading, isSuccess }] = useCreateProductMutation();
 
@@ -77,6 +82,7 @@ export function useProductModalCreate({ onClose }: IProps) {
     percentUploadImage,
     imageObject,
     deleteFile,
+    isLoadingFileDelete,
     selectedFileIdToDelete,
     setSelectedFileIdToDelete,
     onCloseWrapper,
