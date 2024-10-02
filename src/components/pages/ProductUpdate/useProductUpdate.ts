@@ -13,13 +13,12 @@ import {
   useUpdateProductMutation,
   useGetProductByIdQuery,
 } from 'api/products';
-import { ignoreServerData, notify } from 'store/common/thunks';
+import { notify } from 'store/common/thunks';
 import { skipToken } from '@reduxjs/toolkit/query';
 
 type ModalType = { type: 'delete'; id: string };
 export function useProductUpdate() {
   const dispatch = useAppDispatch();
-  dispatch(ignoreServerData());
   const router = useRouter();
   const tCommon = useTranslations('Common');
   const tProduct = useTranslations('Product');

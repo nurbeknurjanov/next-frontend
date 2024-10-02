@@ -1,9 +1,9 @@
 'use client';
 import { useState, useCallback, useMemo } from 'react';
-import { useAppDispatch, useAppSelector } from 'store/hooks';
+import { useAppSelector } from 'store/hooks';
 import { getProductsPermissionsStateSelector } from 'store/products/selectors';
 import { useTranslations } from 'next-intl';
-import { useTableStates, useHydratedClient } from 'shared/hooks';
+import { useTableStates } from 'shared/hooks';
 import {
   IProductFilters,
   IProductSort,
