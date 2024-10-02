@@ -78,4 +78,5 @@ export const {
   useUpdateProductMutation,
   useDeleteProductMutation,
   useGetProductsQuery,
+  endpoints,
 } = query;

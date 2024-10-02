@@ -5,8 +5,12 @@ import type { PageProps } from 'app/types';
 import { getTranslations } from 'next-intl/server';
 import { IPaginationRequest } from 'api/base';
 import { setServerWait, setTitle } from 'store/common/thunks';
-import { IProductFilters, IProductSort } from 'api/products';
-import { GridSortModel } from '@mui/x-data-grid';
+import {
+  IProductFilters,
+  IProductSort,
+  endpoints,
+  IProductSortFields,
+} from 'api/products';
 import { headers } from 'next/headers';
 
 interface ProductsPageProps extends Omit<PageProps, 'searchParams'> {
@@ -30,28 +34,28 @@ export default async function ProductsPage({
     }
   });
 
-  let sorting = [] as GridSortModel;
+  const sort: IProductSort = {};
   if (searchParams.sortField) {
-    sorting = [
-      {
-        field: searchParams.sortField,
-        sort: searchParams.sortDirection ?? 'asc',
-      },
-    ];
+    sort.sortField = searchParams.sortField as IProductSortFields;
+    sort.sortDirection = searchParams.sortDirection ?? 'asc';
   }
 
-  console.log("headersList.get('Referer')", headersList.get('Referer'));
+  //console.log("headersList.get('Referer')", headersList.get('Referer'));
   if (!headersList.get('Referer')) {
-    /*serverStore.dispatch(setServerWait(true));
+    serverStore.dispatch(setServerWait(true));
 
     const tProductsPage = await getTranslations('ProductsPage');
     serverStore.dispatch(setTitle(tProductsPage('title')));
 
-    await serverStore.dispatch(getProductsThunk(pagination, filters, sorting));
+    await serverStore.dispatch(
+      endpoints.getProducts.initiate({
+        pagination,
+        filters,
+        sort,
+      })
+    );
 
-    //console.log('data', serverStore.getState().products?.getProducts.data);
-
-    serverStore.dispatch(setServerWait(false));*/
+    serverStore.dispatch(setServerWait(false));
   }
 
   return <Products />;

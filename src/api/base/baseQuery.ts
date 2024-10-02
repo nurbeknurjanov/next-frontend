@@ -1,4 +1,4 @@
-import { createApi /*, fetchBaseQuery*/ } from '@reduxjs/toolkit/query/react';
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { BASE_URL } from 'shared/utils';
 import type { BaseQueryFn } from '@reduxjs/toolkit/query';
 import type { AxiosRequestConfig } from 'axios';
@@ -49,8 +49,8 @@ const axiosBaseQuery =
 
 export const appApi = createApi({
   reducerPath: 'api',
-  baseQuery: axiosBaseQuery({ baseUrl: BASE_URL + '/' }),
-  //baseQuery: fetchBaseQuery({ baseUrl: BASE_URL + '/' }),
+  //baseQuery: axiosBaseQuery({ baseUrl: BASE_URL + '/' }),
+  baseQuery: fetchBaseQuery({ baseUrl: BASE_URL + '/' }),
   tagTypes: ['Users', 'Files', 'Products'],
   endpoints: () => ({}),
 });

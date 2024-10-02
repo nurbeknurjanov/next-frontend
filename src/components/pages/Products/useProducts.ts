@@ -1,13 +1,9 @@
 'use client';
-import { useEffect, useState, useCallback, useMemo } from 'react';
+import { useState, useCallback, useMemo } from 'react';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
-import { products } from 'store';
 import { getProductsPermissionsStateSelector } from 'store/products/selectors';
 import { useTranslations } from 'next-intl';
-import { IPaginationRequest } from 'api/base';
-import { isEqual } from 'lodash';
 import { useTableStates, useHydratedClient } from 'shared/hooks';
-import { GridSortModel } from '@mui/x-data-grid';
 import {
   IProductFilters,
   IProductSort,
