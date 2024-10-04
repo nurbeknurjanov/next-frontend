@@ -32,6 +32,7 @@ export async function authorizeUser() {
           credentials: 'include',
           headers: {
             cookie: `refreshToken=${refreshTokenCookie.value};path=/;`,
+            'X-Refresh-Token': refreshTokenCookie.value,
           },
         }
       ).then(async response => {

@@ -4,8 +4,8 @@ import { baseApi } from './baseApi';
 
 export const attacheToken = (config: InternalAxiosRequestConfig) => {
   config.withCredentials = true;
-  config.headers['accessToken'] = getCookie('accessToken');
-  config.headers['refreshToken'] = getCookie('refreshToken');
+  config.headers['X-Access-Token'] = getCookie('accessToken');
+  config.headers['X-Refresh-Token'] = getCookie('refreshToken');
   /*config.headers['cookie'] =
     `accessToken=${getCookie('accessToken')}; refreshToken=${getCookie('refreshToken')};path=/;`;*/
   return config;
@@ -20,9 +20,10 @@ export const handleErrorToken = async (error: any) => {
           credentials: 'include',
           headers: {
             cookie: `refreshToken=${getCookie('refreshToken')};path=/;`,
+            'X-Refresh-Token': getCookie('refreshToken')!,
           },
         }
-      );
+      ).then(response => response.text());
 
       document.cookie = `accessToken=${newAccessToken};path=/;`;
       const originalRequest = error.config;
