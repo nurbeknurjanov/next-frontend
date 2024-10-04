@@ -23,7 +23,18 @@ export const handleErrorToken = async (error: any) => {
             'X-Refresh-Token': getCookie('refreshToken')!,
           },
         }
-      ).then(response => response.text());
+      ).then(async response => {
+        if (response.ok) {
+          return response.text();
+        }
+
+        const message = await response.text();
+        const error = new Error(message) as Error & {
+          status: number;
+        };
+        error.status = response.status;
+        throw error;
+      });
 
       document.cookie = `accessToken=${newAccessToken};path=/;`;
       const originalRequest = error.config;
