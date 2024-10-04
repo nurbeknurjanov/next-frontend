@@ -49,23 +49,19 @@ const query = appApi.injectEndpoints({
       invalidatesTags: [{ type: 'Products', id: 'LIST' }],
     }),
     updateProduct: builder.mutation<IProduct, IProductPostUpdate>({
-      query: ({ id, ...data }) => {
-        return {
-          url: `products/${id}`,
-          method: 'PUT',
-          data,
-        };
-      },
+      query: ({ id, ...data }) => ({
+        url: `products/${id}`,
+        method: 'PUT',
+        data,
+      }),
       invalidatesTags: result =>
         result ? [{ type: 'Products', id: result._id }] : [],
     }),
     deleteProduct: builder.mutation<IProduct, string>({
-      query: id => {
-        return {
-          url: `products/${id}`,
-          method: 'DELETE',
-        };
-      },
+      query: id => ({
+        url: `products/${id}`,
+        method: 'DELETE',
+      }),
       invalidatesTags: result =>
         result ? [{ type: 'Products', id: result._id }] : [],
     }),

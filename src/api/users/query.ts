@@ -49,23 +49,19 @@ const query = appApi.injectEndpoints({
       invalidatesTags: [{ type: 'Users', id: 'LIST' }],
     }),
     updateUser: builder.mutation<IUser, IUserPostUpdate>({
-      query: ({ id, ...data }) => {
-        return {
-          url: `users/${id}`,
-          method: 'PUT',
-          data,
-        };
-      },
+      query: ({ id, ...data }) => ({
+        url: `users/${id}`,
+        method: 'PUT',
+        data,
+      }),
       invalidatesTags: result =>
         result ? [{ type: 'Users', id: result._id }] : [],
     }),
     deleteUser: builder.mutation<IUser, string>({
-      query: id => {
-        return {
-          url: `users/${id}`,
-          method: 'DELETE',
-        };
-      },
+      query: id => ({
+        url: `users/${id}`,
+        method: 'DELETE',
+      }),
       invalidatesTags: result =>
         result ? [{ type: 'Users', id: result._id }] : [],
     }),
@@ -74,7 +70,7 @@ const query = appApi.injectEndpoints({
         const { data, error } = await fetchWithBaseQuery({
           url: `users/profile`,
           method: 'PUT',
-          data: putData,
+          body: putData,
         });
 
         if (error) {

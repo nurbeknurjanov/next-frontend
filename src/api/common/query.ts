@@ -6,11 +6,11 @@ import { JWT } from 'shared/utils/jwt';
 const query = appApi.injectEndpoints({
   endpoints: builder => ({
     login: builder.mutation<LoginResponse, LoginRequestBodyParams>({
-      async queryFn(putData, queryApi, _extraOptions, fetchWithBaseQuery) {
+      async queryFn(postData, queryApi, _extraOptions, fetchWithBaseQuery) {
         const { data, error } = await fetchWithBaseQuery({
           url: `auth/login`,
           method: 'POST',
-          data: putData,
+          body: postData,
         });
 
         if (error) {
