@@ -1,7 +1,8 @@
 import { BaseApiService } from './BaseApiService';
 import { attacheToken, handleErrorToken } from './interceptors';
+import { BASE_URL } from 'shared/utils';
 
-export const baseApi = new BaseApiService({});
+export const baseApi = new BaseApiService({ baseURL: BASE_URL });
 
 baseApi
   .getAxiosInstance()
