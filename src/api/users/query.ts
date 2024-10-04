@@ -70,7 +70,7 @@ const query = appApi.injectEndpoints({
         const { data, error } = await fetchWithBaseQuery({
           url: `users/profile`,
           method: 'PUT',
-          body: putData,
+          data: putData,
         });
 
         if (error) {

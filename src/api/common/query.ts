@@ -10,7 +10,7 @@ const query = appApi.injectEndpoints({
         const { data, error } = await fetchWithBaseQuery({
           url: `auth/login`,
           method: 'POST',
-          body: postData,
+          data: postData,
         });
 
         if (error) {
