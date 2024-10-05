@@ -59,7 +59,6 @@ export async function authorizeUser() {
       return serverStore.dispatch(
         authorize({
           user: newParsed.user,
-          newAccessToken,
           accessToken: newAccessToken,
           refreshToken: refreshTokenCookie.value,
         })

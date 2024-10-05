@@ -8,14 +8,12 @@ export type AuthStateType = {
   user: IUser | null;
   accessToken: string | null;
   refreshToken: string | null;
-  newAccessToken?: string | null;
 };
 const initialState: AuthStateType = {
   isAuth: null,
   user: null,
   accessToken: null,
   refreshToken: null,
-  newAccessToken: null,
 };
 
 const { actions, reducer } = createSlice({
@@ -24,9 +22,6 @@ const { actions, reducer } = createSlice({
   reducers: {
     reset() {
       return initialState;
-    },
-    resetNewAccessToken(state) {
-      return { ...state, newAccessToken: null };
     },
     set: (state, action: PayloadAction<AuthStateType>) => {
       state = action.payload;
