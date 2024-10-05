@@ -41,8 +41,7 @@ export default async function ProductsPage({
     sort.sortDirection = searchParams.sortDirection ?? 'asc';
   }
 
-  //console.log("headersList.get('Referer')", headersList.get('Referer'));
-  if (!headersList.get('Referer') || true) {
+  if (!headersList.get('Referer')) {
     serverStore.dispatch(setServerWait(true));
 
     try {
@@ -54,13 +53,16 @@ export default async function ProductsPage({
 
     baseApi.getAxiosInstance().defaults.headers['X-Access-Token'] =
       serverStore.getState().common?.auth?.accessToken;
-    /*await serverStore.dispatch(
-      endpoints.getProducts.initiate({
-        pagination,
-        filters,
-        sort,
-      })
-    );*/
+    await serverStore.dispatch(
+      endpoints.getProducts.initiate(
+        {
+          pagination,
+          filters,
+          sort,
+        },
+        { forceRefetch: true }
+      )
+    );
 
     serverStore.dispatch(setServerWait(false));
   }

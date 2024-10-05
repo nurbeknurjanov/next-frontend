@@ -15,12 +15,11 @@ export default async function ProductPage({ params }: ProductPageProps) {
   const { id } = params;
   const headersList = headers();
 
-  console.log("headersList.get('Referer')", headersList.get('Referer'));
   if (headersList.get('Referer') === null) {
     serverStore.dispatch(setServerWait(true));
 
     const { data: model } = await serverStore.dispatch(
-      endpoints.getProductById.initiate(id)
+      endpoints.getProductById.initiate(id, { forceRefetch: true })
     );
 
     if (!model) {

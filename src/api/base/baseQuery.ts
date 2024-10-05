@@ -52,5 +52,6 @@ export const appApi = createApi({
   baseQuery: axiosBaseQuery({ baseUrl: BASE_URL + '/' }),
   //baseQuery: fetchBaseQuery({ baseUrl: BASE_URL + '/' }),
   tagTypes: ['Users', 'Files', 'Products'],
+  keepUnusedDataFor: 60,
   endpoints: () => ({}),
 });
