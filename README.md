@@ -2,10 +2,7 @@ The DEMO of this Next app is [here](https://next-frontend-five.vercel.app).
 
 ## Getting Started
 
-First,
-set the NEXT_PUBLIC_BACKEND_URL in .env file
-
-Then run the development server:
+This is a Next app, with SSR and Redux store built first on server, sends ready html to client and then hydrated to client
 
 ```bash
 yarn install
