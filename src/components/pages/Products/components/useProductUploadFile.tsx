@@ -40,6 +40,8 @@ export function useProductUploadFile({ id, setValue, watch, schema }: IProps) {
       const { data, ...rest } = await deleteFileAction(id);
 
       if (data) {
+        setValue('imageFile', null);
+
         if (data.data?.type === 'image') {
           setImageObject(null);
           //on product create scenario
@@ -96,12 +98,12 @@ export function useProductUploadFile({ id, setValue, watch, schema }: IProps) {
       if (!validated.error) {
         if (id) {
           uploadFile({
-            modelName: 'Product',
-            modelId: id,
+            fileField: imageFileValue,
             data: {
               type: 'image',
             },
-            fileField: imageFileValue,
+            modelName: 'Product',
+            modelId: id,
           });
         } else {
           uploadFile({
