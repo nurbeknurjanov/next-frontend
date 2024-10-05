@@ -21,9 +21,7 @@ export default async function Template({ children }: PropsWithChildren) {
 
   try {
     await authorizeUser();
-  } catch (error) {
-    error;
-  }
+  } catch (_error) {}
 
   if (serverStore.getState().common.hydrate.serverWait) {
     await new Promise(resolve => {

@@ -12,6 +12,7 @@ import {
   IProductSortFields,
 } from 'api/products';
 import { headers } from 'next/headers';
+import { authorizeUser } from '../../actions';
 
 interface ProductsPageProps extends Omit<PageProps, 'searchParams'> {
   searchParams: IPaginationRequest & IProductFilters & IProductSort;
@@ -41,8 +42,12 @@ export default async function ProductsPage({
   }
 
   //console.log("headersList.get('Referer')", headersList.get('Referer'));
-  if (!headersList.get('Referer')) {
+  if (!headersList.get('Referer') || true) {
     serverStore.dispatch(setServerWait(true));
+
+    try {
+      await authorizeUser();
+    } catch (_error) {}
 
     const tProductsPage = await getTranslations('ProductsPage');
     serverStore.dispatch(setTitle(tProductsPage('title')));

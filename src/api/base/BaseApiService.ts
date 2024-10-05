@@ -61,7 +61,6 @@ export class BaseApiService {
   }
 
   protected formatError = (error: AxiosError): ResponseApiError => {
-    console.log('error', error);
     return {
       code: error.code || 'Unknown code',
       statusText: error.response?.statusText || 'Unknown error',
