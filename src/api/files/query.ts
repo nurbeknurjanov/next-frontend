@@ -1,5 +1,6 @@
 import { appApi, RequestParams } from 'api/base';
 import { IFile, IFilePost, IFileFilters, IFilesList, IFileSort } from './types';
+import { omit } from 'lodash';
 
 const query = appApi.injectEndpoints({
   endpoints: builder => ({
@@ -33,11 +34,24 @@ const query = appApi.injectEndpoints({
         result ? [{ type: 'Files', id: result._id }] : [],
     }),
     createFile: builder.mutation<IFile, IFilePost>({
-      query: data => ({
-        url: 'files',
-        method: 'POST',
-        data,
-      }),
+      query: body => {
+        const formData = new FormData();
+        for (const key in omit(body, 'fileField')) {
+          if (key === 'data') {
+            formData.append(key, JSON.stringify(body[key]));
+          } else {
+            const value = body[key as keyof IFilePost];
+            formData.append(key, value as string);
+          }
+        }
+        formData.append('fileField', body.fileField[0]);
+
+        return {
+          url: 'files/upload',
+          method: 'POST',
+          data: formData,
+        };
+      },
       invalidatesTags: [
         { type: 'Files', id: 'LIST' },
         { type: 'Products', id: 'LIST' },
