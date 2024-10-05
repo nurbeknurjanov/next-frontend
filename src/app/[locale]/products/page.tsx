@@ -3,7 +3,7 @@ import { Products } from 'components/pages';
 import { serverStore } from 'store/store';
 import type { PageProps } from 'app/types';
 import { getTranslations } from 'next-intl/server';
-import { IPaginationRequest } from 'api/base';
+import { baseApi, IPaginationRequest } from 'api/base';
 import { setServerWait, setTitle } from 'store/common/thunks';
 import {
   IProductFilters,
@@ -52,6 +52,8 @@ export default async function ProductsPage({
     const tProductsPage = await getTranslations('ProductsPage');
     serverStore.dispatch(setTitle(tProductsPage('title')));
 
+    baseApi.getAxiosInstance().defaults.headers['X-Access-Token'] =
+      serverStore.getState().common?.auth?.accessToken;
     await serverStore.dispatch(
       endpoints.getProducts.initiate({
         pagination,
