@@ -4,7 +4,7 @@ import { IProductPost, useCreateProductMutation } from 'api/products';
 import { IProps } from './ProductModalCreate';
 import { useProductForm, useProductUploadFile } from '../';
 import { notify } from 'store/common/thunks';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 export function useProductModalCreate({ onClose }: IProps) {
   const dispatch = useAppDispatch();
@@ -59,13 +59,17 @@ export function useProductModalCreate({ onClose }: IProps) {
 
   const submitForm = createProduct;
 
+  const isSuccessRef = useRef(isSuccess);
+  isSuccessRef.current = isSuccess;
+  const dataCreatedRef = useRef(dataCreated);
+  dataCreatedRef.current = dataCreated;
   useEffect(
     () => () => {
-      if (!isSuccess && dataCreated) {
-        deleteFile(dataCreated._id);
+      if (!isSuccessRef.current && dataCreatedRef.current) {
+        deleteFile(dataCreatedRef.current._id);
       }
     },
-    [deleteFile, isSuccess, dataCreated]
+    [deleteFile]
   );
 
   return {
