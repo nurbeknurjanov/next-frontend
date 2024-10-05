@@ -12,7 +12,7 @@ export const withQueryErrorNotify = <T extends object>(
     const { error } = useAppSelector(common.queryError.selector.state);
     useEffect(() => {
       if (error) {
-        dispatch(notify(error.data.message, 'error'));
+        dispatch(notify(error.data.message ?? error.statusText, 'error'));
       }
     }, [error, dispatch]);
 

@@ -12,6 +12,7 @@ export const attacheToken = (config: InternalAxiosRequestConfig) => {
 };
 
 export const handleErrorToken = async (error: any) => {
+  console.log('error', error);
   if (error.response.status === 401 && getCookie('refreshToken')) {
     try {
       const newAccessToken = await fetch(
