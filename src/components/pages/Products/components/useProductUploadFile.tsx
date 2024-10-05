@@ -37,7 +37,7 @@ export function useProductUploadFile({ id, setValue, watch, schema }: IProps) {
     useDeleteFileMutation();
   const deleteFile = useCallback(
     async (id: string) => {
-      const { data } = await deleteFileAction(id);
+      const { data, ...rest } = await deleteFileAction(id);
 
       if (data) {
         if (data.data?.type === 'image') {
@@ -50,6 +50,8 @@ export function useProductUploadFile({ id, setValue, watch, schema }: IProps) {
 
         dispatch(notify(tCommon('successDeleted'), 'success'));
       }
+
+      return { data, ...rest };
     },
     [dispatch, setValue, tCommon, product, deleteFileAction]
   );

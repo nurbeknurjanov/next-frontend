@@ -36,7 +36,7 @@ export const FileModalDelete: React.FC<IProps> = ({
           variant={'contained'}
           onClick={() => {
             if (customDeleteFile) {
-              customDeleteFile(id);
+              return customDeleteFile(id);
             }
 
             deleteFile(id);

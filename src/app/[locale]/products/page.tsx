@@ -54,13 +54,13 @@ export default async function ProductsPage({
 
     baseApi.getAxiosInstance().defaults.headers['X-Access-Token'] =
       serverStore.getState().common?.auth?.accessToken;
-    await serverStore.dispatch(
+    /*await serverStore.dispatch(
       endpoints.getProducts.initiate({
         pagination,
         filters,
         sort,
       })
-    );
+    );*/
 
     serverStore.dispatch(setServerWait(false));
   }
