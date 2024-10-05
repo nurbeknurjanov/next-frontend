@@ -1,7 +1,7 @@
 //'use client'; //если так сделать, тогда он будет работать постоянно на клиенте и постоянно обновляться будет
 'use server';
 import React, { PropsWithChildren } from 'react';
-import { StoreProvider } from 'shared/wrappers';
+import { StoreProvider, SettingsWrapper } from 'shared/wrappers';
 import { serverStore } from 'store/store';
 import { Content, Footer, Header, Sidebar } from 'components';
 import { headers } from 'next/headers';
@@ -38,12 +38,14 @@ export default async function Template({ children }: PropsWithChildren) {
 
   return (
     <StoreProvider initialState={serverStore.getState()}>
-      <Header />
-      <main className={styles.main}>
-        <Sidebar />
-        <Content>{children}</Content>
-      </main>
-      <Footer />
+      <SettingsWrapper>
+        <Header />
+        <main className={styles.main}>
+          <Sidebar />
+          <Content>{children}</Content>
+        </main>
+        <Footer />
+      </SettingsWrapper>
     </StoreProvider>
   );
 }
