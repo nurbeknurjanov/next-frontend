@@ -21,7 +21,13 @@ export async function authorizeUser() {
       throw new Error('Bad access token');
     }
 
-    return serverStore.dispatch(authorize({ user: parsed.user })); //authorize user
+    return serverStore.dispatch(
+      authorize({
+        user: parsed.user,
+        accessToken: accessTokenCookie.value,
+        refreshToken: refreshTokenCookie.value,
+      })
+    ); //authorize user
   } catch (_error) {
     try {
       //commonApi.getAxiosInstance().defaults.headers.cookie = `refreshToken=${refreshTokenCookie.value};path=/;`;
@@ -51,7 +57,12 @@ export async function authorizeUser() {
       //authorize user
       const newParsed = await JWT.parseToken(newAccessToken);
       return serverStore.dispatch(
-        authorize({ user: newParsed.user, newAccessToken })
+        authorize({
+          user: newParsed.user,
+          newAccessToken,
+          accessToken: newAccessToken,
+          refreshToken: refreshTokenCookie.value,
+        })
       );
     } catch (refreshTokenError) {
       serverStore.dispatch(logout());

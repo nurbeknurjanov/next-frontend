@@ -6,11 +6,15 @@ import type { IUser } from 'api/users';
 export type AuthStateType = {
   isAuth: boolean | null;
   user: IUser | null;
+  accessToken: string | null;
+  refreshToken: string | null;
   newAccessToken?: string | null;
 };
 const initialState: AuthStateType = {
   isAuth: null,
   user: null,
+  accessToken: null,
+  refreshToken: null,
   newAccessToken: null,
 };
 

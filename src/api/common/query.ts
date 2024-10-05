@@ -19,10 +19,11 @@ const query = appApi.injectEndpoints({
           };
         }
 
-        const accessTokenParsed = await JWT.parseToken(
-          (data as LoginResponse).accessToken
+        const { accessToken, refreshToken } = data as LoginResponse;
+        const accessTokenParsed = await JWT.parseToken(accessToken);
+        queryApi.dispatch(
+          authorize({ user: accessTokenParsed.user, accessToken, refreshToken })
         );
-        queryApi.dispatch(authorize({ user: accessTokenParsed.user }));
 
         return {
           data: data as LoginResponse,
@@ -50,4 +51,4 @@ const query = appApi.injectEndpoints({
   }),
 });
 
-export const { useLoginMutation, useLazyGetAccessTokenQuery } = query;
+export const { useLoginMutation } = query;

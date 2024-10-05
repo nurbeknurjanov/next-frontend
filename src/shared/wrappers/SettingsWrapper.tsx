@@ -2,32 +2,41 @@
 import { FC, PropsWithChildren, useEffect } from 'react';
 import { baseApi } from 'api/base';
 import { attacheTokens, handleErrorToken } from 'api/base/interceptors';
-import { getCookie } from 'shared/utils';
+import { useAppSelector } from 'store/hooks';
+import { getAuthStateSelector } from 'store/common/selectors';
 
 export const SettingsWrapper: FC<PropsWithChildren> = ({ children }) => {
+  const { accessToken, refreshToken } = useAppSelector(getAuthStateSelector);
+
   useEffect(() => {
     const accessTokenInterceptor = baseApi
       .getAxiosInstance()
       .interceptors.request.use(
-        attacheTokens(getCookie('accessToken')!, getCookie('refreshToken')!),
+        attacheTokens(accessToken!, refreshToken!),
         error => Promise.reject(error)
-      );
-
-    const refreshTokenInterceptor = baseApi
-      .getAxiosInstance()
-      .interceptors.response.use(
-        response => response,
-        handleErrorToken(getCookie('refreshToken')!)
       );
 
     return () => {
       baseApi
         .getAxiosInstance()
         .interceptors.request.eject(accessTokenInterceptor);
+    };
+  }, [accessToken, refreshToken]);
+
+  useEffect(() => {
+    const refreshTokenInterceptor = baseApi
+      .getAxiosInstance()
+      .interceptors.response.use(
+        response => response,
+        handleErrorToken(refreshToken!)
+      );
+
+    return () => {
       baseApi
         .getAxiosInstance()
         .interceptors.request.eject(refreshTokenInterceptor);
     };
-  }, []);
+  }, [refreshToken]);
+
   return children;
 };

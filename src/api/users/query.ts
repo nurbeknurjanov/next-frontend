@@ -8,6 +8,7 @@ import {
   IUserSort,
 } from './index';
 import { authorize } from 'store/common/thunks';
+import { RootStateType } from 'store/store';
 
 const query = appApi.injectEndpoints({
   endpoints: builder => ({
@@ -79,7 +80,12 @@ const query = appApi.injectEndpoints({
           };
         }
 
-        queryApi.dispatch(authorize({ user: data as IUser }));
+        queryApi.dispatch(
+          authorize({
+            ...(queryApi.getState() as RootStateType).common.auth,
+            user: data as IUser,
+          })
+        );
 
         await fetchWithBaseQuery({
           url: `auth/get-access-token`,
