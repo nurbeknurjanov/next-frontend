@@ -1,6 +1,6 @@
 import React from 'react';
 import type { PageProps } from 'app/types';
-import { IPaginationRequest } from 'api/baseApi';
+import { IPaginationRequest } from 'api/base';
 import { Users } from 'components/pages';
 
 interface UsersPageProps extends Omit<PageProps, 'searchParams'> {

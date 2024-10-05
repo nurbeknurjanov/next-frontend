@@ -5,7 +5,7 @@ import {
   ResponseDataListPagination,
 } from 'api/base';
 import { AxiosRequestConfig } from 'axios';
-import { IProduct } from 'api/productsApi';
+import { IProduct } from 'api/products';
 
 export interface IFile {
   _id: string;

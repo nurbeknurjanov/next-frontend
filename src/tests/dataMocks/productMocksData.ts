@@ -1,4 +1,4 @@
-import { IProduct } from 'api/productsApi';
+import { IProduct } from 'api/products';
 
 const productMocksData: IProduct[] = [];
 for (let i = 0; i < 6; i++) {

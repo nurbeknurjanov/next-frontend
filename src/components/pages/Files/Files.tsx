@@ -87,7 +87,11 @@ let Files: FC = () => {
   return (
     <>
       <div className={styles.filesContent}>
-        <FilesFilters filters={filters} setFilters={setFilters} />
+        <FilesFilters
+          filters={filters}
+          setFilters={setFilters}
+          isLoading={isFetching}
+        />
 
         <DataGrid
           sx={{ mt: 3 }}

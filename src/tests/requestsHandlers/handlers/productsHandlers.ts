@@ -7,8 +7,8 @@ import {
   IProductFilters,
   IProductSort,
   IProductPost,
-} from 'api/productsApi';
-import { IPaginationRequest } from 'api/baseApi';
+} from 'api/products';
+import { IPaginationRequest } from 'api/base';
 import { assign } from 'shared/utils';
 
 type Path = `${typeof BASE_URL}/${string}`;
